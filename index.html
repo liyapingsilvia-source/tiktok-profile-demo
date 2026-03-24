@@ -1002,6 +1002,7 @@
     --theme-primary: 254, 44, 85;
     --theme-secondary: 32, 213, 236;
     --theme-accent: 22, 24, 35;
+    --theme-pill: 254, 44, 85;
   }
 
   .avatar-gradient-bg {
@@ -1133,11 +1134,11 @@
   }
 
   .action-pill.themed {
-    border-color: rgba(var(--theme-primary), 0.3) !important;
+    border-color: rgba(var(--theme-pill), 0.3) !important;
     transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .action-pill.themed .action-pill-text {
-    color: rgb(var(--theme-primary));
+    color: rgb(var(--theme-pill));
     transition: color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .action-pill.themed .action-pill-icon {
@@ -1933,22 +1934,40 @@ function buildBlueMonoScale(primary) {
   };
 }
 
+function buildMutedPillColor(primary, isBlueDominant) {
+  if (!isBlueDominant) {
+    return {
+      r: clampColor(primary.r * 0.88),
+      g: clampColor(primary.g * 0.88),
+      b: clampColor(primary.b * 0.88)
+    };
+  }
+  return {
+    r: clampColor(primary.r * 0.66 + 8),
+    g: clampColor(primary.g * 0.72 + 10),
+    b: clampColor(primary.b * 0.78 + 6)
+  };
+}
+
 function applyTheme(colors) {
   var primary = colors[0];
   var secondary = colors[1];
   var accent = cleanAccentColor(primary, secondary);
+  var isBlueDominant = primary.b > primary.r + 8 && primary.b > primary.g + 8;
 
   // For blue-dominant themes, keep gradient in a pure blue family.
-  if (primary.b > primary.r + 8 && primary.b > primary.g + 8) {
+  if (isBlueDominant) {
     var monoBlue = buildBlueMonoScale(primary);
     secondary = monoBlue.secondary;
     accent = monoBlue.accent;
   }
+  var pill = buildMutedPillColor(primary, isBlueDominant);
 
   var root = document.documentElement;
   root.style.setProperty('--theme-primary', primary.r + ',' + primary.g + ',' + primary.b);
   root.style.setProperty('--theme-secondary', secondary.r + ',' + secondary.g + ',' + secondary.b);
   root.style.setProperty('--theme-accent', accent.r + ',' + accent.g + ',' + accent.b);
+  root.style.setProperty('--theme-pill', pill.r + ',' + pill.g + ',' + pill.b);
 
   var gradBg = document.getElementById('avatarGradientBg');
   gradBg.classList.add('visible');
@@ -1967,7 +1986,9 @@ function applyTheme(colors) {
   var icons = document.querySelectorAll('.action-pill.themed .action-pill-icon');
   var hue = rgbToHue(primary.r, primary.g, primary.b);
   icons.forEach(function(icon) {
-    icon.style.filter = 'sepia(1) saturate(3) hue-rotate(' + (hue - 50) + 'deg) brightness(0.85)';
+    var sat = isBlueDominant ? 1.9 : 2.4;
+    var bright = isBlueDominant ? 0.72 : 0.8;
+    icon.style.filter = 'sepia(1) saturate(' + sat + ') hue-rotate(' + (hue - 50) + 'deg) brightness(' + bright + ')';
   });
 
   updateSwatches([primary, secondary, accent]);
