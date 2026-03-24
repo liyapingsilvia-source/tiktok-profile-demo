@@ -170,6 +170,7 @@
     border-radius: 50%;
     object-fit: cover;
     display: block;
+    transition: opacity 0.4s ease;
   }
   .avatar-ring {
     position: absolute;
@@ -181,8 +182,8 @@
   }
   .avatar-badge {
     position: absolute;
-    bottom: 0;
-    right: 4px;
+    bottom: -2px;
+    right: 2px;
     width: 24px;
     height: 24px;
     background: #20d5ec;
@@ -191,6 +192,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 3px solid #fff;
+    box-sizing: content-box;
   }
   .avatar-badge img {
     width: 52.08%;
@@ -247,10 +250,11 @@
   }
   .username-text {
     font-family: 'TikTok Sans', sans-serif;
-    font-weight: 700;
-    font-size: 12px;
+    font-weight: 900;
+    font-size: 11px;
     line-height: 1.3;
-    color: rgba(0,0,0,0.48);
+    color: rgba(0,0,0,0.56);
+    -webkit-text-stroke: 0.35px rgba(0,0,0,0.56);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -314,10 +318,6 @@
     border-radius: 25px 25px 0 0;
     z-index: 3;
     opacity: 0;
-    transition: opacity 0.4s ease-out;
-  }
-  .bio-card-bg.visible {
-    opacity: 1;
   }
 
   /* ===== Bio & Links ===== */
@@ -330,7 +330,7 @@
     background: transparent;
     z-index: 5;
     margin-top: 0;
-    transition: transform 0.45s cubic-bezier(0.25, 0.1, 0.25, 1), margin-top 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+    transition: top 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .card-spacing {
     margin-top: 14px;
@@ -416,7 +416,7 @@
     align-items: center;
     gap: 8px;
     z-index: 5;
-    z-index: 5;
+    transition: top 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .contact-divider {
     width: 0.5px;
@@ -437,13 +437,13 @@
     position: absolute;
     top: 340px;
     left: 16px;
+    right: 16px;
     display: flex;
     align-items: center;
     gap: 8px;
     background: transparent;
-    border-radius: 9px;
     z-index: 5;
-    z-index: 5;
+    transition: top 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .action-pill {
     display: flex;
@@ -478,6 +478,7 @@
     display: flex;
     flex-direction: column;
     z-index: 5;
+    transition: top 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .tab-bar {
     width: 390px;
@@ -996,106 +997,322 @@
     to { opacity: 0; transform: translateY(-6px) scale(0.95); }
   }
 
-  /* ===== Onboarding: Slide-Reveal Animation ===== */
-  .profile-slidable {
-    transition: transform 0.45s cubic-bezier(0.25, 0.1, 0.25, 1);
-  }
-  .bio-links.profile-slidable,
-  .contact-row.profile-slidable,
-  .action-buttons.profile-slidable,
-  .content-area.profile-slidable {
-    transition: transform 0.45s cubic-bezier(0.25, 0.1, 0.25, 1), margin-top 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
-  }
-  .profile-slidable.shifted {
-    transform: translateY(85px);
+  /* ===== Avatar Color Extraction Theme ===== */
+  :root {
+    --theme-primary: 254, 44, 85;
+    --theme-secondary: 32, 213, 236;
+    --theme-accent: 22, 24, 35;
   }
 
-  .reveal-btn {
-    position: absolute;
-    top: 112px;
-    left: 50%;
-    transform: translateX(-50%) scale(0.92);
-    z-index: 8;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    background: #fff;
-    border: 1.5px dashed rgba(0,0,0,0.18);
-    border-radius: 999px;
-    cursor: pointer;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.35s ease, transform 0.35s ease;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  }
-  .reveal-btn.visible {
-    opacity: 1;
-    transform: translateX(-50%) scale(1);
-    pointer-events: auto;
-  }
-  .reveal-btn:active {
-    transform: translateX(-50%) scale(0.96);
-  }
-  .reveal-btn-icon {
-    width: 20px;
-    height: 20px;
-    opacity: 0.45;
-  }
-  .reveal-btn-text {
-    font-family: 'TikTok Sans', sans-serif;
-    font-weight: 500;
-    font-size: 14px;
-    color: rgba(0,0,0,0.45);
-    white-space: nowrap;
-  }
-
-  .bg-hint-gray,
-  .bg-hint-gradient {
+  .avatar-gradient-bg {
     position: absolute;
     top: 0;
     left: 0;
     width: 390px;
-    height: 270px;
-    z-index: 2;
+    height: 380px;
+    z-index: 1;
     pointer-events: none;
     opacity: 0;
+    transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(
+      170deg,
+      rgba(var(--theme-primary), 0.32) 0%,
+      rgba(var(--theme-secondary), 0.18) 30%,
+      rgba(var(--theme-accent), 0.06) 60%,
+      rgba(255,255,255,0) 100%
+    );
   }
-  .bg-hint-gray {
-    background: rgba(0,0,0,0.04);
-    transition: opacity 0.3s ease-out, height 0.45s cubic-bezier(0.25, 0.1, 0.25, 1);
-  }
-  .bg-hint-gray.show {
+  .avatar-gradient-bg.visible {
     opacity: 1;
-    height: 360px;
   }
-  .bg-hint-gray.shrink {
-    opacity: 1;
-    height: 270px;
+
+  /* Follow row (visitor only, between stats and bio) */
+  .follow-row {
+    position: absolute;
+    top: 238px;
+    left: 16px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 5;
   }
-  .bg-hint-gray.fade-out {
-    opacity: 0;
-    height: 270px;
-    transition: opacity 0.5s ease-out;
+  .follow-row.hidden {
+    display: none;
   }
-  .bg-hint-gradient {
-    background: linear-gradient(135deg,
-      rgba(180,200,220,0.18) 0%,
-      rgba(140,170,210,0.14) 25%,
-      rgba(100,150,220,0.12) 50%,
-      rgba(140,170,210,0.14) 75%,
-      rgba(180,200,220,0.18) 100%);
-    background-size: 300% 300%;
-    transition: opacity 0.6s ease-out;
+
+  /* Shift everything below follow-row when it's visible */
+  .bio-links.visitor-shift {
+    top: 288px !important;
   }
-  .bg-hint-gradient.show {
-    opacity: 1;
-    animation: gradientShift 3s ease infinite;
+  .contact-row.visitor-shift {
+    top: 361px !important;
   }
-  @keyframes gradientShift {
-    0%   { background-position: 0% 50%; }
-    50%  { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+  .action-buttons.visitor-shift {
+    top: 390px !important;
+  }
+  .content-area.visitor-shift {
+    top: 429px !important;
+  }
+
+  .follow-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 0;
+    background: rgb(var(--theme-primary));
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    flex: 2;
+    min-width: 0;
+  }
+  .follow-btn:active {
+    transform: scale(0.97);
+    opacity: 0.8;
+  }
+  .follow-btn-text {
+    font-family: 'TikTok Sans', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1.3;
+    color: #fff;
+    white-space: nowrap;
+  }
+  .follow-btn.followed {
+    background: rgba(var(--theme-primary), 0.1);
+    border: 1px solid rgba(var(--theme-primary), 0.3);
+  }
+  .follow-btn.followed .follow-btn-text {
+    color: rgb(var(--theme-primary));
+  }
+
+  .message-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 0;
+    background: #fff;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    flex: 1;
+    min-width: 0;
+  }
+  .message-btn:active {
+    transform: scale(0.97);
+    opacity: 0.7;
+  }
+  .message-btn-text {
+    font-family: 'TikTok Sans', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.3;
+    color: #000;
+    white-space: nowrap;
+  }
+
+  .more-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: #fff;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+  }
+  .more-btn:active {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+
+  .action-pill.themed {
+    border-color: rgba(var(--theme-primary), 0.3) !important;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .action-pill.themed .action-pill-text {
+    color: rgb(var(--theme-primary));
+    transition: color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .action-pill.themed .action-pill-icon {
+    transition: filter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .tab-item-active.themed::after {
+    background: rgb(var(--theme-primary)) !important;
+    transition: background 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .avatar-badge.themed {
+    background: rgb(var(--theme-primary)) !important;
+    transition: background 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .name-text.themed {
+    background: linear-gradient(135deg, rgb(var(--theme-primary)), rgb(var(--theme-secondary)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Demo Panel */
+  .demo-panel {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1000;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-radius: 20px;
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.35), 0 0 0 0.5px rgba(255,255,255,0.08);
+    font-family: 'TikTok Sans', -apple-system, sans-serif;
+    width: 300px;
+  }
+  .demo-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .demo-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #4ade80;
+    animation: demoPulse 2s ease infinite;
+    flex-shrink: 0;
+  }
+  @keyframes demoPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+  }
+  .demo-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.95);
+  }
+  .demo-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .demo-avatars {
+    display: flex;
+    gap: 10px;
+  }
+  .demo-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2.5px solid transparent;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    object-fit: cover;
+    flex-shrink: 0;
+    overflow: hidden;
+    position: relative;
+  }
+  .demo-avatar.active {
+    border-color: rgba(255,255,255,0.85);
+    transform: scale(1.08);
+    box-shadow: 0 0 16px rgba(255,255,255,0.15);
+  }
+  .demo-avatar:not(.active):hover {
+    transform: scale(1.04);
+    border-color: rgba(255,255,255,0.25);
+  }
+  .demo-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  .demo-avatar-name {
+    font-size: 9px;
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    margin-top: 4px;
+    font-weight: 500;
+  }
+  .demo-avatar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+  .demo-palette {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .demo-swatch {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1.5px solid rgba(255,255,255,0.12);
+    transition: background 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .demo-arrow {
+    color: rgba(255,255,255,0.2);
+    font-size: 14px;
+  }
+  .demo-hex {
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.45);
+    font-family: 'SF Mono', 'Menlo', monospace;
+  }
+
+  .demo-mode-toggle {
+    display: flex;
+    background: rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 3px;
+    position: relative;
+    overflow: hidden;
+  }
+  .demo-mode-btn {
+    flex: 1;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.45);
+    padding: 6px 0;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    transition: color 0.3s ease;
+    user-select: none;
+  }
+  .demo-mode-btn.active {
+    color: #fff;
+  }
+  .demo-mode-indicator {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: calc(50% - 3px);
+    height: calc(100% - 6px);
+    background: rgba(255,255,255,0.15);
+    border-radius: 8px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+  }
+  .demo-mode-indicator.visitor {
+    transform: translateX(100%);
   }
 </style>
 </head>
@@ -1103,17 +1320,9 @@
 
 <div class="phone-frame">
 
-  <!-- Reveal Button (appears in gap during animation) -->
-  <div class="reveal-btn" id="revealBtn" onclick="showToast('Choose a background photo...')">
-    <svg class="reveal-btn-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M13.417 2.08301C15.2833 2.08301 16.2167 2.08321 16.9297 2.44629C17.5569 2.76585 18.0671 3.27616 18.3867 3.90332C18.75 4.61636 18.75 5.55015 18.75 7.41699V12.583C18.75 14.4498 18.75 15.3836 18.3867 16.0967C18.0671 16.7239 17.5569 17.2341 16.9297 17.5537C16.2167 17.9168 15.2833 17.917 13.417 17.917H6.58301C4.71667 17.917 3.78327 17.9168 3.07031 17.5537C2.44311 17.2341 1.93286 16.7239 1.61328 16.0967C1.25 15.3836 1.25 14.4498 1.25 12.583V7.41699C1.25 5.55015 1.24997 4.61636 1.61328 3.90332C1.93286 3.27616 2.44314 2.76585 3.07031 2.44629C3.78326 2.08321 4.71674 2.08301 6.58301 2.08301H13.417ZM6.92578 10.8125C6.43769 10.3244 5.64637 10.3246 5.1582 10.8125L2.91699 13.0537C2.91826 13.755 2.92516 14.2464 2.95703 14.6367C2.99401 15.0894 3.05664 15.2574 3.09863 15.3398C3.25842 15.6534 3.51354 15.9086 3.82715 16.0684C3.90965 16.1103 4.07747 16.173 4.5293 16.21C5.00147 16.2485 5.62227 16.25 6.58301 16.25H12.3633L6.92578 10.8125ZM6.58301 3.75C5.62227 3.75 5.00147 3.75146 4.5293 3.79004C4.07761 3.82697 3.90968 3.88967 3.82715 3.93164C3.51358 4.09141 3.25842 4.3466 3.09863 4.66016C3.05664 4.74256 2.99402 4.91051 2.95703 5.36328C2.91845 5.8355 2.91699 6.45612 2.91699 7.41699V10.6963L3.97949 9.63379C5.11854 8.49497 6.96553 8.49483 8.10449 9.63379L14.7129 16.2432C15.0082 16.2377 15.2553 16.2276 15.4707 16.21C15.9225 16.173 16.0904 16.1103 16.1729 16.0684C16.4865 15.9086 16.7416 15.6534 16.9014 15.3398C16.9434 15.2574 17.006 15.0894 17.043 14.6367C17.0815 14.1645 17.083 13.5437 17.083 12.583V7.41699C17.083 6.45612 17.0815 5.8355 17.043 5.36328C17.006 4.91051 16.9434 4.74256 16.9014 4.66016C16.7416 4.3466 16.4864 4.09141 16.1729 3.93164C16.0903 3.88967 15.9224 3.82697 15.4707 3.79004C14.9985 3.75146 14.3777 3.75 13.417 3.75H6.58301ZM13.333 5.41699C14.4836 5.41699 15.4169 6.34945 15.417 7.5C15.417 8.65059 14.4836 9.58301 13.333 9.58301C12.1826 9.58283 11.25 8.65048 11.25 7.5C11.2501 6.34956 12.1826 5.41717 13.333 5.41699Z" fill="black" fill-opacity="0.48"/>
-    </svg>
-    <span class="reveal-btn-text">Tap to Upload Background</span>
-  </div>
 
-  <!-- Background Hint Overlay -->
-  <div class="bg-hint-gray" id="bgHintGray"></div>
-  <div class="bg-hint-gradient" id="bgHintGradient"></div>
+  <!-- Avatar Color Gradient Background -->
+  <div class="avatar-gradient-bg" id="avatarGradientBg"></div>
 
   <!-- Status Bar -->
   <div class="status-bar">
@@ -1152,9 +1361,9 @@
   <div class="profile-header profile-slidable">
     <!-- Avatar -->
     <div class="avatar-section clickable" onclick="showToast('View avatar')">
-      <img class="avatar-photo" src="https://www.figma.com/api/mcp/asset/6b256880-2d94-427d-8998-194b932fbd16" alt="Coldplay">
-      <img class="avatar-ring" src="https://www.figma.com/api/mcp/asset/74463402-ef7b-4498-9bbd-1cdf0902e569" alt="">
-      <div class="avatar-badge clickable" onclick="event.stopPropagation(); showToast('Add story')">
+      <img class="avatar-photo" crossorigin="anonymous" src="https://www.figma.com/api/mcp/asset/6b256880-2d94-427d-8998-194b932fbd16" alt="Coldplay">
+
+      <div class="avatar-badge themed clickable" id="avatarBadge" onclick="event.stopPropagation(); showToast('Add story')">
         <img src="https://www.figma.com/api/mcp/asset/8fe03093-cfdd-48f4-810b-ed984daa98ae" alt="+">
       </div>
     </div>
@@ -1188,6 +1397,21 @@
           <span class="stat-label">Likes</span>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Follow Row (visitor only, between stats and bio) -->
+  <div class="follow-row hidden" id="followRow">
+    <div class="follow-btn clickable" id="followBtn" onclick="toggleFollow(this)">
+      <span class="follow-btn-text">Follow</span>
+    </div>
+    <div class="message-btn clickable" onclick="showToast('Send message')">
+      <span class="message-btn-text">Message</span>
+    </div>
+    <div class="more-btn clickable" onclick="showToast('More options')">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 6.5L8 10.5L12 6.5" stroke="black" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
     </div>
   </div>
 
@@ -1235,17 +1459,17 @@
     </div>
   </div>
 
-  <!-- Action Buttons -->
-  <div class="action-buttons profile-slidable">
-    <div class="action-pill clickable" onclick="showToast('Watch history')">
+  <!-- Action Buttons (always visible) -->
+  <div class="action-buttons profile-slidable" id="actionArea">
+    <div class="action-pill themed clickable" onclick="showToast('Watch history')">
       <img class="action-pill-icon" src="https://www.figma.com/api/mcp/asset/aedab576-119c-45f4-9fc1-f3b043a1d101" alt="">
       <span class="action-pill-text">Watch history</span>
     </div>
-    <div class="action-pill clickable" onclick="showToast('Your orders')">
+    <div class="action-pill themed clickable" onclick="showToast('Your orders')">
       <img class="action-pill-icon" src="https://www.figma.com/api/mcp/asset/486892db-fcc3-470d-8af3-d262c75fe68c" alt="">
       <span class="action-pill-text">Your orders</span>
     </div>
-    <div class="action-pill clickable" onclick="showToast('Showcase')">
+    <div class="action-pill themed clickable" onclick="showToast('Showcase')">
       <img class="action-pill-icon" src="https://www.figma.com/api/mcp/asset/908d68b0-3c1c-4681-a40a-499ccee30afa" alt="">
       <span class="action-pill-text">Showcase</span>
     </div>
@@ -1256,12 +1480,12 @@
     <!-- Tab Bar -->
     <div class="tab-bar">
       <div class="tab-bar-inner">
-        <div class="tab-item tab-item-active clickable" data-tab="posts" onclick="switchTab(this)">
+        <div class="tab-item tab-item-active themed clickable" data-tab="posts" onclick="switchTab(this)">
           <svg class="tab-icon" width="22" height="22" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M7.1084 10.9795C8.16434 10.9797 9.02049 11.8356 9.02051 12.8916V16.5859C9.02025 17.6417 8.1642 18.4979 7.1084 18.498H4.47656C2.83384 18.498 1.50214 17.1661 1.50195 15.5234V12.8916C1.50197 11.8356 2.35803 10.9796 3.41406 10.9795H7.1084ZM16.583 10.9795C17.6389 10.9797 18.495 11.8357 18.4951 12.8916V15.5234C18.495 17.1661 17.1632 18.4979 15.5205 18.498H12.8887C11.8327 18.498 10.9768 17.6418 10.9766 16.5859V12.8916C10.9766 11.8356 11.8327 10.9796 12.8887 10.9795H16.583ZM7.10645 1.50195C8.16256 1.50195 9.01855 2.35892 9.01855 3.41504V7.10742C9.01832 8.16334 8.16242 9.01953 7.10645 9.01953H3.41406C2.35816 9.01945 1.50219 8.16329 1.50195 7.10742V4.47656C1.50217 2.83391 2.83387 1.50197 4.47656 1.50195H7.10645ZM15.5264 1.50195C17.1691 1.50195 18.5008 2.8339 18.501 4.47656V7.10742C18.5007 8.16334 17.6448 9.01953 16.5889 9.01953H12.8965C11.8406 9.01941 10.9846 8.16327 10.9844 7.10742V3.41504C10.9844 2.359 11.8405 1.50207 12.8965 1.50195H15.5264Z" fill="black"/>
           </svg>
         </div>
-        <div class="tab-item clickable" data-tab="reposts" onclick="switchTab(this)">
+        <div class="tab-item themed clickable" data-tab="reposts" onclick="switchTab(this)">
           <svg class="tab-icon" width="22" height="22" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_repost)">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M3.74416 2.0957C3.99402 1.78903 4.4626 1.78845 4.71291 2.09473L8.24514 6.41895C8.57814 6.82711 8.28766 7.43848 7.76076 7.43848H5.7344V12.6895C5.73453 14.2771 7.0218 15.5643 8.6094 15.5645H10.0156C10.8441 15.5645 11.5156 16.236 11.5156 17.0645C11.5155 17.8928 10.844 18.5645 10.0156 18.5645H8.6094C5.36494 18.5643 2.73453 15.9339 2.7344 12.6895V7.43848H0.706076C0.179574 7.43828 -0.110903 6.82718 0.221701 6.41895L3.74416 2.0957ZM11.3906 1.43359C14.6352 1.43359 17.2655 4.06501 17.2656 7.30957V12.5605H19.294C19.8206 12.5605 20.1119 13.1718 19.7793 13.5801L16.2559 17.9033C16.006 18.21 15.5374 18.2107 15.2871 17.9043L11.7559 13.5801C11.4227 13.172 11.7126 12.5609 12.2393 12.5605H14.2656V7.30957C14.2655 5.72186 12.9784 4.43457 11.3906 4.43457H9.9844C9.15627 4.43441 8.48466 3.76267 8.4844 2.93457C8.48453 2.10636 9.15619 1.43376 9.9844 1.43359H11.3906Z" fill="black" fill-opacity="0.48"/>
@@ -1392,7 +1616,7 @@
   <div class="toast-container" id="toastContainer"></div>
 
   <!-- Bottom Navigation -->
-  <div class="bottom-nav">
+  <div class="bottom-nav" id="bottomNav">
     <div class="bottom-nav-bar">
       <!-- Home -->
       <div class="bar-cell clickable" data-nav="home" onclick="switchBottomNav(this, 'Home')">
@@ -1450,6 +1674,42 @@
 
 </div>
 
+<!-- Demo Panel: Avatar Color Extraction -->
+<div class="demo-panel" id="demoPanel">
+  <div class="demo-header">
+    <div class="demo-dot"></div>
+    <span class="demo-title">Avatar Color Extraction</span>
+  </div>
+  <div>
+    <div class="demo-label">Switch Avatar</div>
+    <div style="height:8px"></div>
+    <div class="demo-avatars" id="demoAvatars"></div>
+  </div>
+  <div>
+    <div class="demo-label">Profile Mode</div>
+    <div style="height:8px"></div>
+    <div class="demo-mode-toggle" id="modeToggle">
+      <div class="demo-mode-btn active" data-mode="owner" onclick="switchProfileMode('owner')">主态 Owner</div>
+      <div class="demo-mode-btn" data-mode="visitor" onclick="switchProfileMode('visitor')">客态 Visitor</div>
+      <div class="demo-mode-indicator" id="modeIndicator"></div>
+    </div>
+  </div>
+  <div>
+    <div class="demo-label">Extracted Palette</div>
+    <div style="height:8px"></div>
+    <div class="demo-palette" id="demoPalette">
+      <div class="demo-swatch" id="swatch0"></div>
+      <div class="demo-arrow">&rarr;</div>
+      <div class="demo-swatch" id="swatch1"></div>
+      <div class="demo-arrow">&rarr;</div>
+      <div class="demo-swatch" id="swatch2"></div>
+      <div style="margin-left:auto">
+        <span class="demo-hex" id="hexLabel">#000000</span>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 function showToast(message) {
   var container = document.getElementById('toastContainer');
@@ -1466,8 +1726,17 @@ function switchTab(el) {
   var tabs = el.parentElement.querySelectorAll('.tab-item');
   tabs.forEach(function(tab) {
     tab.classList.remove('tab-item-active');
+    var svg = tab.querySelector('svg path');
+    if (svg) svg.setAttribute('fill', svg.getAttribute('fill').replace(/rgb\([^)]+\)/, 'black'));
   });
   el.classList.add('tab-item-active');
+
+  var cs = getComputedStyle(document.documentElement);
+  var primary = cs.getPropertyValue('--theme-primary').trim();
+  if (primary && el.classList.contains('themed')) {
+    var svg = el.querySelector('svg path');
+    if (svg) svg.setAttribute('fill', 'rgb(' + primary + ')');
+  }
 
   var tabNames = { posts: 'Posts', reposts: 'Reposts', favorites: 'Favorites', likes: 'Liked' };
   var tabName = tabNames[el.dataset.tab] || el.dataset.tab;
@@ -1483,52 +1752,329 @@ function switchBottomNav(el, label) {
   showToast(label);
 }
 
-// Onboarding: slide-reveal animation sequence
-(function() {
-  var slidables = document.querySelectorAll('.profile-slidable');
-  var revealBtn = document.getElementById('revealBtn');
-  var grayLayer = document.getElementById('bgHintGray');
-  var gradientLayer = document.getElementById('bgHintGradient');
-  var bioCardBg = document.querySelector('.bio-card-bg');
-  var spacingEls = document.querySelectorAll('.bio-links, .contact-row, .action-buttons, .content-area');
+function toggleFollow(el) {
+  if (el.classList.contains('followed')) {
+    el.classList.remove('followed');
+    el.querySelector('.follow-btn-text').textContent = 'Follow';
+    el.style.background = '';
+    el.style.borderColor = '';
+    el.querySelector('.follow-btn-text').style.color = '';
+    showToast('Unfollowed');
+  } else {
+    el.classList.add('followed');
+    el.querySelector('.follow-btn-text').textContent = 'Following';
+    showToast('Followed!');
+  }
+}
 
-  // Step 1: after 600ms, slide content down + show gray bg + show card + add bio spacing
-  setTimeout(function() {
-    slidables.forEach(function(el) { el.classList.add('shifted'); });
-    grayLayer.classList.add('show');
-    bioCardBg.classList.add('visible');
-    spacingEls.forEach(function(el) { el.classList.add('card-spacing'); });
+function switchProfileMode(mode) {
+  var followRow = document.getElementById('followRow');
+  var indicator = document.getElementById('modeIndicator');
+  var btns = document.querySelectorAll('.demo-mode-btn');
+  var shiftEls = document.querySelectorAll('.bio-links, .contact-row, .action-buttons, .content-area');
+  var avatarBadge = document.getElementById('avatarBadge');
+  var bottomNav = document.getElementById('bottomNav');
 
-    // Step 2: after slide completes (~450ms), show the reveal button
+  btns.forEach(function(btn) {
+    btn.classList.toggle('active', btn.dataset.mode === mode);
+  });
+
+  if (mode === 'visitor') {
+    indicator.classList.add('visitor');
+    followRow.classList.remove('hidden');
+    shiftEls.forEach(function(el) { el.classList.add('visitor-shift'); });
+    if (avatarBadge) avatarBadge.style.display = 'none';
+    if (bottomNav) bottomNav.style.display = 'none';
+  } else {
+    indicator.classList.remove('visitor');
+    followRow.classList.add('hidden');
+    shiftEls.forEach(function(el) { el.classList.remove('visitor-shift'); });
+    if (avatarBadge) avatarBadge.style.display = '';
+    if (bottomNav) bottomNav.style.display = '';
+  }
+
+  showToast(mode === 'owner' ? '已切换到主态' : '已切换到客态');
+}
+
+// ===== Avatar Color Extraction Engine =====
+var avatarOptions = [
+  {
+    name: 'Coldplay',
+    url: 'https://www.figma.com/api/mcp/asset/6b256880-2d94-427d-8998-194b932fbd16',
+    fallback: [{r:30,g:60,b:140},{r:200,g:170,b:50},{r:50,g:130,b:175}],
+    displayName: 'Coldplay'
+  },
+  {
+    name: 'Warm',
+    url: 'https://picsum.photos/id/1027/200/200',
+    fallback: [{r:180,g:90,b:60},{r:220,g:160,b:100},{r:140,g:60,b:50}],
+    displayName: 'Portrait'
+  },
+  {
+    name: 'Cool',
+    url: 'https://picsum.photos/id/1069/200/200',
+    fallback: [{r:80,g:50,b:140},{r:140,g:100,b:200},{r:60,g:100,b:160}],
+    displayName: 'Nature'
+  },
+  {
+    name: 'Vibrant',
+    url: 'https://picsum.photos/id/1032/200/200',
+    fallback: [{r:210,g:60,b:90},{r:240,g:130,b:80},{r:180,g:40,b:70}],
+    displayName: 'Sunset'
+  }
+];
+
+function extractColors(img) {
+  var canvas = document.createElement('canvas');
+  var ctx = canvas.getContext('2d', {willReadFrequently: true});
+  var w = 50, h = 50;
+  canvas.width = w;
+  canvas.height = h;
+  ctx.drawImage(img, 0, 0, w, h);
+
+  var data;
+  try {
+    data = ctx.getImageData(0, 0, w, h).data;
+  } catch (e) {
+    return null;
+  }
+
+  var buckets = {};
+  for (var i = 0; i < data.length; i += 4) {
+    var r = data[i], g = data[i+1], b = data[i+2], a = data[i+3];
+    if (a < 128) continue;
+    var brightness = (r * 299 + g * 587 + b * 114) / 1000;
+    if (brightness > 242 || brightness < 12) continue;
+
+    var qr = (r >> 4) << 4;
+    var qg = (g >> 4) << 4;
+    var qb = (b >> 4) << 4;
+    var key = qr + ',' + qg + ',' + qb;
+
+    if (!buckets[key]) buckets[key] = {r:0, g:0, b:0, count:0, satSum:0};
+    var bk = buckets[key];
+    bk.r += r; bk.g += g; bk.b += b; bk.count++;
+
+    var mx = Math.max(r, g, b), mn = Math.min(r, g, b);
+    bk.satSum += (mx === 0 ? 0 : (mx - mn) / mx);
+  }
+
+  var arr = [];
+  for (var k in buckets) {
+    var bk = buckets[k];
+    if (bk.count < 3) continue;
+    var avgSat = bk.satSum / bk.count;
+    // Skip muddy low-saturation buckets to keep gradients clean.
+    if (avgSat < 0.16) continue;
+    arr.push({
+      r: Math.round(bk.r / bk.count),
+      g: Math.round(bk.g / bk.count),
+      b: Math.round(bk.b / bk.count),
+      score: bk.count * (avgSat + 0.15)
+    });
+  }
+  arr.sort(function(a, b) { return b.score - a.score; });
+
+  if (arr.length === 0) return null;
+
+  var colors = [arr[0]];
+  for (var i = 1; i < arr.length && colors.length < 3; i++) {
+    var c = arr[i], distinct = true;
+    for (var j = 0; j < colors.length; j++) {
+      var dr = c.r - colors[j].r, dg = c.g - colors[j].g, db = c.b - colors[j].b;
+      if (Math.sqrt(dr*dr + dg*dg + db*db) < 70) { distinct = false; break; }
+    }
+    if (distinct) colors.push(c);
+  }
+
+  while (colors.length < 3) {
+    var last = colors[colors.length - 1];
+    colors.push({r: Math.min(255, last.r + 40), g: Math.min(255, last.g + 30), b: Math.min(255, last.b + 20)});
+  }
+
+  return colors;
+}
+
+function rgbToHex(r, g, b) {
+  return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+}
+
+function clampColor(v) {
+  return Math.max(0, Math.min(255, Math.round(v)));
+}
+
+function cleanAccentColor(primary, secondary) {
+  // Keep accent on blue side to avoid muddy gray.
+  var base = {
+    r: primary.r * 0.38 + secondary.r * 0.62,
+    g: primary.g * 0.42 + secondary.g * 0.58,
+    b: primary.b * 0.22 + secondary.b * 0.78
+  };
+  var avg = (base.r + base.g + base.b) / 3;
+  return {
+    r: clampColor(avg + (base.r - avg) * 1.28 - 6),
+    g: clampColor(avg + (base.g - avg) * 1.28 - 2),
+    b: clampColor(avg + (base.b - avg) * 1.28 + 12)
+  };
+}
+
+function buildBlueMonoScale(primary) {
+  return {
+    secondary: {
+      r: clampColor(primary.r * 0.72 - 4),
+      g: clampColor(primary.g * 0.82 - 2),
+      b: clampColor(primary.b + 24)
+    },
+    accent: {
+      r: clampColor(primary.r * 0.48 - 8),
+      g: clampColor(primary.g * 0.58 - 4),
+      b: clampColor(primary.b + 40)
+    }
+  };
+}
+
+function applyTheme(colors) {
+  var primary = colors[0];
+  var secondary = colors[1];
+  var accent = cleanAccentColor(primary, secondary);
+
+  // For blue-dominant themes, keep gradient in a pure blue family.
+  if (primary.b > primary.r + 8 && primary.b > primary.g + 8) {
+    var monoBlue = buildBlueMonoScale(primary);
+    secondary = monoBlue.secondary;
+    accent = monoBlue.accent;
+  }
+
+  var root = document.documentElement;
+  root.style.setProperty('--theme-primary', primary.r + ',' + primary.g + ',' + primary.b);
+  root.style.setProperty('--theme-secondary', secondary.r + ',' + secondary.g + ',' + secondary.b);
+  root.style.setProperty('--theme-accent', accent.r + ',' + accent.g + ',' + accent.b);
+
+  var gradBg = document.getElementById('avatarGradientBg');
+  gradBg.classList.add('visible');
+
+  var followBtn = document.getElementById('followBtn');
+  if (followBtn && !followBtn.classList.contains('followed')) {
+    followBtn.style.background = '';
+  }
+
+  var activeTab = document.querySelector('.tab-item-active.themed');
+  if (activeTab) {
+    var tabSvg = activeTab.querySelector('svg path');
+    if (tabSvg) tabSvg.setAttribute('fill', 'rgb(' + primary.r + ',' + primary.g + ',' + primary.b + ')');
+  }
+
+  var icons = document.querySelectorAll('.action-pill.themed .action-pill-icon');
+  var hue = rgbToHue(primary.r, primary.g, primary.b);
+  icons.forEach(function(icon) {
+    icon.style.filter = 'sepia(1) saturate(3) hue-rotate(' + (hue - 50) + 'deg) brightness(0.85)';
+  });
+
+  updateSwatches([primary, secondary, accent]);
+}
+
+function rgbToHue(r, g, b) {
+  r /= 255; g /= 255; b /= 255;
+  var mx = Math.max(r, g, b), mn = Math.min(r, g, b);
+  var h = 0, d = mx - mn;
+  if (d !== 0) {
+    if (mx === r) h = ((g - b) / d) % 6;
+    else if (mx === g) h = (b - r) / d + 2;
+    else h = (r - g) / d + 4;
+    h = Math.round(h * 60);
+    if (h < 0) h += 360;
+  }
+  return h;
+}
+
+function updateSwatches(colors) {
+  for (var i = 0; i < 3; i++) {
+    var swatch = document.getElementById('swatch' + i);
+    if (swatch) swatch.style.background = 'rgb(' + colors[i].r + ',' + colors[i].g + ',' + colors[i].b + ')';
+  }
+  var hexLabel = document.getElementById('hexLabel');
+  if (hexLabel) hexLabel.textContent = rgbToHex(colors[0].r, colors[0].g, colors[0].b);
+}
+
+function switchAvatar(index) {
+  var opt = avatarOptions[index];
+  var avatarPhoto = document.querySelector('.avatar-photo');
+  var nameText = document.querySelector('.name-text');
+
+  var demoAvatarEls = document.querySelectorAll('.demo-avatar');
+  demoAvatarEls.forEach(function(el, i) {
+    el.classList.toggle('active', i === index);
+  });
+
+  var gradBg = document.getElementById('avatarGradientBg');
+  gradBg.classList.remove('visible');
+  avatarPhoto.style.opacity = '0.3';
+
+  var img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.onload = function() {
+    avatarPhoto.src = img.src;
+    avatarPhoto.style.opacity = '1';
+    if (nameText) nameText.textContent = opt.displayName;
+
+    var colors = extractColors(img);
+    if (!colors) colors = opt.fallback;
+
     setTimeout(function() {
-      revealBtn.classList.add('visible');
+      applyTheme(colors);
+    }, 150);
+  };
+  img.onerror = function() {
+    avatarPhoto.style.opacity = '1';
+    applyTheme(opt.fallback);
+  };
+  img.src = opt.url;
+}
 
-      // Step 3: hold for 2s, then hide button, slide back up, gray shrinks
-      setTimeout(function() {
-        revealBtn.classList.remove('visible');
+function initDemoPanel() {
+  var container = document.getElementById('demoAvatars');
+  avatarOptions.forEach(function(opt, i) {
+    var wrapper = document.createElement('div');
+    wrapper.className = 'demo-avatar-wrapper';
 
-        setTimeout(function() {
-          slidables.forEach(function(el) { el.classList.remove('shifted'); });
-          grayLayer.classList.remove('show');
-          grayLayer.classList.add('shrink');
-        }, 150);
+    var avatarEl = document.createElement('div');
+    avatarEl.className = 'demo-avatar' + (i === 0 ? ' active' : '');
+    avatarEl.onclick = function() { switchAvatar(i); };
 
-        // Step 4: after height shrinks (~600ms), cross-fade gray out + gradient in
-        setTimeout(function() {
-          grayLayer.classList.remove('shrink');
-          grayLayer.classList.add('fade-out');
-          gradientLayer.classList.add('show');
+    var img = document.createElement('img');
+    img.src = opt.url;
+    img.alt = opt.name;
+    img.crossOrigin = 'anonymous';
+    avatarEl.appendChild(img);
 
-          // Hold gradient for 2s, then fade out + hide card + remove bio spacing
-          setTimeout(function() {
-            gradientLayer.classList.remove('show');
-            bioCardBg.classList.remove('visible');
-            spacingEls.forEach(function(el) { el.classList.remove('card-spacing'); });
-          }, 2000);
-        }, 620);
-      }, 2000);
-    }, 460);
-  }, 600);
+    var label = document.createElement('div');
+    label.className = 'demo-avatar-name';
+    label.textContent = opt.name;
+
+    wrapper.appendChild(avatarEl);
+    wrapper.appendChild(label);
+    container.appendChild(wrapper);
+  });
+}
+
+// Initialize on page load
+(function() {
+  initDemoPanel();
+
+  var avatarPhoto = document.querySelector('.avatar-photo');
+  if (!avatarPhoto) return;
+
+  var img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.onload = function() {
+    var colors = extractColors(img);
+    if (!colors) colors = avatarOptions[0].fallback;
+    setTimeout(function() { applyTheme(colors); }, 600);
+  };
+  img.onerror = function() {
+    setTimeout(function() { applyTheme(avatarOptions[0].fallback); }, 600);
+  };
+  img.src = avatarPhoto.src;
 })();
 </script>
 
