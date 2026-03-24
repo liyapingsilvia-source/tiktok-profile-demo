@@ -332,7 +332,7 @@
     margin-top: 0;
     transition: transform 0.45s cubic-bezier(0.25, 0.1, 0.25, 1), margin-top 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
   }
-  .bio-links.card-spacing {
+  .card-spacing {
     margin-top: 14px;
   }
   .bio-line1 {
@@ -1000,7 +1000,10 @@
   .profile-slidable {
     transition: transform 0.45s cubic-bezier(0.25, 0.1, 0.25, 1);
   }
-  .bio-links.profile-slidable {
+  .bio-links.profile-slidable,
+  .contact-row.profile-slidable,
+  .action-buttons.profile-slidable,
+  .content-area.profile-slidable {
     transition: transform 0.45s cubic-bezier(0.25, 0.1, 0.25, 1), margin-top 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
   }
   .profile-slidable.shifted {
@@ -1487,14 +1490,14 @@ function switchBottomNav(el, label) {
   var grayLayer = document.getElementById('bgHintGray');
   var gradientLayer = document.getElementById('bgHintGradient');
   var bioCardBg = document.querySelector('.bio-card-bg');
-  var bioLinks = document.querySelector('.bio-links');
+  var spacingEls = document.querySelectorAll('.bio-links, .contact-row, .action-buttons, .content-area');
 
   // Step 1: after 600ms, slide content down + show gray bg + show card + add bio spacing
   setTimeout(function() {
     slidables.forEach(function(el) { el.classList.add('shifted'); });
     grayLayer.classList.add('show');
     bioCardBg.classList.add('visible');
-    bioLinks.classList.add('card-spacing');
+    spacingEls.forEach(function(el) { el.classList.add('card-spacing'); });
 
     // Step 2: after slide completes (~450ms), show the reveal button
     setTimeout(function() {
@@ -1520,7 +1523,7 @@ function switchBottomNav(el, label) {
           setTimeout(function() {
             gradientLayer.classList.remove('show');
             bioCardBg.classList.remove('visible');
-            bioLinks.classList.remove('card-spacing');
+            spacingEls.forEach(function(el) { el.classList.remove('card-spacing'); });
           }, 2000);
         }, 620);
       }, 2000);
