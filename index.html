@@ -1696,6 +1696,15 @@
     </div>
   </div>
   <div>
+    <div class="demo-label">Gradient Background</div>
+    <div style="height:8px"></div>
+    <div class="demo-mode-toggle" id="gradientToggle">
+      <div class="demo-mode-btn active" data-grad="on" onclick="switchGradientMode(true)">渐变开</div>
+      <div class="demo-mode-btn" data-grad="off" onclick="switchGradientMode(false)">无渐变</div>
+      <div class="demo-mode-indicator" id="gradientIndicator"></div>
+    </div>
+  </div>
+  <div>
     <div class="demo-label">Extracted Palette</div>
     <div style="height:8px"></div>
     <div class="demo-palette" id="demoPalette">
@@ -1824,6 +1833,32 @@ var avatarOptions = [
     displayName: 'Sunset'
   }
 ];
+
+var gradientEnabled = true;
+
+function switchGradientMode(enabled) {
+  gradientEnabled = !!enabled;
+
+  var gradientToggle = document.getElementById('gradientToggle');
+  var indicator = document.getElementById('gradientIndicator');
+  var btns = gradientToggle ? gradientToggle.querySelectorAll('.demo-mode-btn') : [];
+
+  btns.forEach(function(btn) {
+    btn.classList.toggle('active', btn.dataset.grad === (enabled ? 'on' : 'off'));
+  });
+
+  if (indicator) {
+    // Reuse the same CSS transform (the class name is arbitrary).
+    if (enabled) indicator.classList.remove('visitor');
+    else indicator.classList.add('visitor');
+  }
+
+  var gradBg = document.getElementById('avatarGradientBg');
+  if (gradBg) {
+    if (enabled) gradBg.classList.add('visible');
+    else gradBg.classList.remove('visible');
+  }
+}
 
 function extractColors(img) {
   var canvas = document.createElement('canvas');
@@ -1970,7 +2005,10 @@ function applyTheme(colors) {
   root.style.setProperty('--theme-pill', pill.r + ',' + pill.g + ',' + pill.b);
 
   var gradBg = document.getElementById('avatarGradientBg');
-  gradBg.classList.add('visible');
+  if (gradBg) {
+    if (gradientEnabled) gradBg.classList.add('visible');
+    else gradBg.classList.remove('visible');
+  }
 
   var followBtn = document.getElementById('followBtn');
   if (followBtn && !followBtn.classList.contains('followed')) {
