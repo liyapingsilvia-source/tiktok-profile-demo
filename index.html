@@ -1129,6 +1129,7 @@
 
   .action-pill.themed {
     border-color: rgba(var(--theme-pill), 0.3) !important;
+    background: rgba(var(--theme-pill), 0.06);
     transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .action-pill.themed .action-pill-text {
@@ -1137,6 +1138,11 @@
   }
   .action-pill.themed .action-pill-icon {
     transition: filter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Keep a subtle "fill" on hover (instead of dark gray). */
+  .action-pill.themed.clickable:hover {
+    background: rgba(var(--theme-pill), 0.10) !important;
   }
 
   .tab-item-active.themed::after {
