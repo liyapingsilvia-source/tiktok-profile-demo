@@ -1,0 +1,2628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Log in to TikTok</title>
+<style>
+  @font-face {
+    font-family: 'TikTok Sans';
+    src: local('TikTok Sans Bold');
+    font-weight: 700;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'TikTok Sans';
+    src: local('TikTok Sans SemiBold');
+    font-weight: 600;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'TikTok Sans';
+    src: local('TikTok Sans Regular');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f0f0f0;
+    font-family: 'TikTok Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+  }
+
+  .phone-frame {
+    width: 390px;
+    height: 844px;
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+    border-radius: 44px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+  }
+
+  /* ========== SCREEN SYSTEM ========== */
+  .screen {
+    position: absolute;
+    inset: 0;
+    background: #fff;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+    z-index: 1;
+  }
+  .screen.hidden-right {
+    transform: translateX(100%);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .screen.hidden-left {
+    transform: translateX(-30%);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .screen.active {
+    transform: translateX(0);
+    opacity: 1;
+    z-index: 2;
+  }
+
+  /* ========== STATUS BAR (shared) ========== */
+  .status-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 390px;
+    height: 47px;
+    z-index: 10;
+  }
+
+  .status-bar__time {
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 1.3;
+    color: #000;
+    position: absolute;
+    left: 35px;
+    top: 50%;
+    transform: translateY(calc(-50% + 2px));
+    width: 58px;
+    text-align: center;
+  }
+
+  .status-bar__icons {
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translateY(calc(-50% + 2px));
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .status-bar__signal { width: 21.3px; height: 12.8px; }
+  .status-bar__wifi { width: 17.68px; height: 13px; }
+  .status-bar__battery { width: 29.43px; height: 14px; }
+
+  /* ========== NAV BAR (shared) ========== */
+  .nav-bar {
+    position: absolute;
+    top: 47px;
+    left: 0;
+    width: 390px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    padding: 0 6px;
+  }
+
+  .nav-bar__back-btn {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+
+  .nav-bar__back-icon {
+    width: 24px;
+    height: 24px;
+    position: relative;
+  }
+
+  .nav-bar__back-icon::before,
+  .nav-bar__back-icon::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    width: 12px;
+    height: 2px;
+    background: #000;
+    border-radius: 1px;
+  }
+  .nav-bar__back-icon::before {
+    top: 7px;
+    transform: rotate(-45deg);
+  }
+  .nav-bar__back-icon::after {
+    bottom: 7px;
+    transform: rotate(45deg);
+  }
+
+  .nav-bar__title {
+    flex: 1;
+    text-align: center;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 1.3;
+    color: #000;
+  }
+
+  .nav-bar__right {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-bar__help-btn {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+
+  .nav-bar__help-icon {
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+  }
+
+  .nav-bar__help-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  /* ========== HOME INDICATOR ========== */
+  .home-indicator {
+    position: absolute;
+    bottom: 9px;
+    left: 121px;
+    right: 120px;
+    height: 5px;
+    background: #000;
+    border-radius: 100px;
+    z-index: 20;
+  }
+
+  /* ================================================================
+     SCREEN 1: Login Options
+     ================================================================ */
+
+  .s1-content {
+    position: absolute;
+    top: 91px;
+    left: 0;
+    width: 390px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 36px;
+    padding: 0 24px;
+  }
+
+  .s1-title {
+    width: 342px;
+    padding-top: 36px;
+  }
+
+  .s1-title h1 {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1.2;
+    color: #000;
+    text-align: center;
+    padding: 0 16px;
+  }
+
+  .s1-buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .login-btn {
+    width: 100%;
+    height: 52px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 14px;
+    transition: background 0.15s ease;
+  }
+  .login-btn:hover { background: rgba(0, 0, 0, 0.08); }
+  .login-btn:active { background: rgba(0, 0, 0, 0.12); }
+
+  .login-btn__inner {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .login-btn__icon-wrap {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .login-btn__icon-wrap img {
+    display: block;
+  }
+
+  .login-btn__icon-wrap--person img { width: 20px; height: 20px; }
+  .login-btn__icon-wrap--fb img { width: 24px; height: 24px; }
+  .login-btn__icon-wrap--google img { width: 19px; height: 19px; }
+  .login-btn__icon-wrap--apple img { width: 17px; height: 21px; }
+
+  .login-btn__label {
+    flex: 1;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.3;
+    color: #000;
+    text-align: center;
+    padding-right: 24px;
+  }
+
+  .s1-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 390px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .s1-terms {
+    padding: 0 24px;
+    width: 390px;
+  }
+
+  .s1-terms p {
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 1.3;
+    color: rgba(0, 0, 0, 0.48);
+    text-align: center;
+    width: 342px;
+    margin: 0 auto;
+  }
+
+  .s1-terms a {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.3;
+    color: #2b5db9;
+    text-decoration: none;
+  }
+  .s1-terms a:hover { text-decoration: underline; }
+
+  .s1-signup-bar {
+    width: 390px;
+    height: 84px;
+    background: rgba(0, 0, 0, 0.05);
+    position: relative;
+  }
+
+  .s1-signup-bar p {
+    position: absolute;
+    top: 20px;
+    left: 34px;
+    right: 34px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.3;
+  }
+
+  .s1-signup-bar span { color: rgba(0, 0, 0, 0.48); }
+  .s1-signup-bar a {
+    color: #fe2c55;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .s1-signup-bar a:hover { text-decoration: underline; }
+
+  /* ================================================================
+     SCREEN 2: Phone Number Input
+     ================================================================ */
+
+  .s2-tabs {
+    position: absolute;
+    top: 91px;
+    left: 0;
+    width: 390px;
+    display: flex;
+    height: 44px;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .s2-tab {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.3;
+    color: rgba(0, 0, 0, 0.48);
+    cursor: pointer;
+    background: none;
+    border: none;
+    position: relative;
+  }
+
+  .s2-tab.active {
+    font-weight: 600;
+    color: #000;
+  }
+
+  .s2-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 44px;
+    height: 2px;
+    background: #000;
+    border-radius: 1px;
+  }
+
+  .s2-input-area {
+    position: absolute;
+    top: 151px;
+    left: 24px;
+    right: 24px;
+  }
+
+  .s2-phone-row {
+    display: flex;
+    align-items: center;
+    height: 48px;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.12);
+  }
+
+  .s2-country-code {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding-right: 12px;
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 16px;
+    color: #000;
+    flex-shrink: 0;
+    background: none;
+    border: none;
+  }
+
+  .s2-country-code__chevron {
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid rgba(0, 0, 0, 0.5);
+    margin-top: 2px;
+  }
+
+  .s2-divider {
+    width: 1px;
+    height: 20px;
+    background: #fe2c55;
+    flex-shrink: 0;
+    margin-right: 12px;
+  }
+
+  .s2-phone-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.3;
+    color: #000;
+    caret-color: #fe2c55;
+  }
+
+  .s2-phone-input::placeholder {
+    color: rgba(0, 0, 0, 0.3);
+  }
+
+  .s2-middle {
+    position: absolute;
+    top: 151px;
+    left: 0;
+    right: 0;
+    bottom: 290px;
+  }
+
+  .s2-save-row {
+    position: absolute;
+    bottom: 92px;
+    left: 24px;
+    right: 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .s2-checkbox {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    position: relative;
+    margin-top: 1px;
+  }
+
+  .s2-checkbox__circle {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #fe2c55;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .s2-checkbox__check {
+    width: 12px;
+    height: 12px;
+    position: relative;
+  }
+
+  .s2-checkbox__check::before {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 4px;
+    width: 5px;
+    height: 2px;
+    background: #fff;
+    border-radius: 1px;
+    transform: rotate(45deg);
+  }
+  .s2-checkbox__check::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 2px;
+    width: 8px;
+    height: 2px;
+    background: #fff;
+    border-radius: 1px;
+    transform: rotate(-45deg);
+  }
+
+  .s2-save-text {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.4;
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+  .s2-continue-btn {
+    position: absolute;
+    bottom: 20px;
+    left: 24px;
+    right: 24px;
+    height: 52px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    background: #fe2c55;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 16px;
+    color: #fff;
+    transition: opacity 0.15s ease;
+  }
+  .s2-continue-btn:hover { opacity: 0.9; }
+  .s2-continue-btn:active { opacity: 0.8; }
+
+  /* ========== NUMERIC KEYBOARD ========== */
+  .keyboard {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 390px;
+    height: 290px;
+    background: #d1d3d9;
+    z-index: 5;
+  }
+
+  .keyboard__row {
+    display: flex;
+    gap: 5px;
+    position: absolute;
+    left: 6px;
+    right: 6px;
+    height: 46px;
+  }
+  .keyboard__row:nth-child(1) { top: 6px; }
+  .keyboard__row:nth-child(2) { top: 59px; }
+  .keyboard__row:nth-child(3) { top: 112px; }
+  .keyboard__row:nth-child(4) { top: 165px; }
+
+  .key {
+    flex: 1;
+    height: 46px;
+    background: #fff;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    font-family: 'SF Pro Display', -apple-system, sans-serif;
+    transition: background 0.08s ease;
+  }
+  .key:active { background: #e0e0e0; }
+
+  .key__num {
+    font-size: 25px;
+    font-weight: 400;
+    color: #000;
+    line-height: 1;
+    letter-spacing: 0.29px;
+  }
+
+  .key__sub {
+    font-family: 'SF Pro Text', -apple-system, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    color: #000;
+    letter-spacing: 2px;
+    line-height: 1;
+    margin-top: 1px;
+  }
+
+  .key--empty {
+    background: transparent;
+    box-shadow: none;
+    pointer-events: none;
+  }
+
+  .key--delete {
+    background: transparent;
+    box-shadow: none;
+  }
+  .key--delete:active { background: rgba(0,0,0,0.08); border-radius: 5px; }
+
+  .key__delete-icon {
+    width: 23px;
+    height: 17px;
+    position: relative;
+  }
+
+  .key__delete-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ================================================================
+     SCREEN 3: Verification Code
+     ================================================================ */
+
+  .s3-content {
+    position: absolute;
+    top: 107px;
+    left: 24px;
+    right: 24px;
+  }
+
+  .s3-title {
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 1.2;
+    color: #000;
+    margin-bottom: 12px;
+  }
+
+  .s3-subtitle {
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.3;
+    color: rgba(0, 0, 0, 0.5);
+    margin-bottom: 28px;
+  }
+
+  .s3-code-boxes {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+
+  .s3-code-box {
+    width: 48px;
+    height: 56px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 600;
+    color: #000;
+    position: relative;
+  }
+
+  .s3-code-box.active::after {
+    content: '';
+    position: absolute;
+    width: 1.5px;
+    height: 24px;
+    background: #fe2c55;
+    animation: blink 1s infinite;
+  }
+
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+
+  .s3-resend {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.3;
+    color: rgba(0, 0, 0, 0.4);
+    margin-bottom: 16px;
+  }
+
+  .s3-resend span {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+  .s3-help-link {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.3;
+    color: #161823;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .s3-help-link:hover { text-decoration: underline; }
+
+  /* SMS Suggestion Bar */
+  .s3-sms-bar {
+    position: absolute;
+    bottom: 290px;
+    left: 0;
+    width: 390px;
+    height: 50px;
+    background: #c9cbd1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+  }
+
+  .s3-sms-inner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    padding: 0 16px;
+  }
+
+  .s3-sms-divider-left,
+  .s3-sms-divider-right {
+    width: 0.5px;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.15);
+  }
+
+  .s3-sms-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+  }
+
+  .s3-sms-label {
+    font-family: 'SF Pro Text', -apple-system, sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.5);
+    line-height: 1.3;
+  }
+
+  .s3-sms-code {
+    font-family: 'SF Pro Display', -apple-system, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #000;
+    line-height: 1.3;
+    letter-spacing: 0.5px;
+  }
+
+  /* ================================================================
+     SCREEN 4: Profile Page
+     ================================================================ */
+
+  .s4-scroll {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 83px;
+  }
+
+  .s4-scroll::-webkit-scrollbar { display: none; }
+
+  .s4-status-bar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: #fff;
+    height: 60px;
+    width: 390px;
+  }
+
+  .s4-nav {
+    position: sticky;
+    top: 60px;
+    z-index: 19;
+    background: #fff;
+    height: 44px;
+    width: 390px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6px;
+  }
+
+  .s4-nav__left, .s4-nav__right {
+    display: flex;
+    align-items: center;
+    height: 44px;
+  }
+
+  .s4-nav-icon {
+    width: 42px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+
+  .s4-nav-icon img {
+    width: 22px;
+    height: 22px;
+  }
+
+  .s4-profile-header {
+    background: #fff;
+    padding: 8px 16px 0;
+    width: 390px;
+    position: relative;
+  }
+
+  .s4-name-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 2px;
+  }
+
+  .s4-name {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1.2;
+    color: #000;
+  }
+
+  .s4-name-arrow {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  .s4-name-arrow img { width: 100%; height: 100%; }
+
+  .s4-username-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 18px;
+  }
+
+  .s4-username {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 1.3;
+    color: rgba(0, 0, 0, 0.48);
+  }
+
+  .s4-badge { width: 10px; height: 10px; }
+  .s4-badge img { width: 100%; height: 100%; }
+
+  .s4-dot {
+    font-weight: 600;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.48);
+  }
+
+  .s4-category {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 1.3;
+    color: rgba(0, 0, 0, 0.48);
+  }
+
+  .s4-stats {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    width: 250px;
+  }
+
+  .s4-stat {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .s4-stat__num {
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.3;
+    color: #000;
+  }
+
+  .s4-stat__label {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.3;
+    color: rgba(0, 0, 0, 0.48);
+  }
+
+  .s4-avatar-area {
+    position: absolute;
+    right: 16px;
+    top: 8px;
+    width: 96px;
+    height: 96px;
+  }
+
+  .s4-avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    position: relative;
+  }
+
+  .s4-avatar__photo {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .s4-avatar__ring {
+    position: absolute;
+    inset: -6px;
+    pointer-events: none;
+  }
+
+  .s4-avatar__ring img { width: 100%; height: 100%; }
+
+  .s4-avatar__plus {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 24px;
+    height: 24px;
+    background: #20d5ec;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .s4-avatar__plus img { width: 12.5px; height: 12.5px; }
+
+  .s4-thoughts {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 68px;
+    height: 42px;
+  }
+
+  .s4-thoughts__bg { width: 100%; height: 100%; }
+
+  .s4-thoughts__text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    font-size: 11px;
+    color: rgba(0, 0, 0, 0.48);
+  }
+
+  /* Bio Section */
+  .s4-bio {
+    background: #fff;
+    padding: 0 16px;
+    width: 390px;
+  }
+
+  .s4-bio__pronouns {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.3;
+    color: rgba(0, 0, 0, 0.48);
+    margin-bottom: 2px;
+  }
+
+  .s4-bio__text {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.3;
+    color: #000;
+    margin-bottom: 2px;
+    width: 358px;
+  }
+
+  .s4-bio__link {
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 1.3;
+    color: #000;
+  }
+
+  /* Info rows */
+  .s4-info-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 16px;
+    width: 390px;
+    background: #fff;
+    height: 22px;
+  }
+
+  .s4-info-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .s4-info-item__icon { width: 14px; height: 14px; }
+  .s4-info-item__icon img { width: 100%; height: 100%; }
+
+  .s4-info-item__text {
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 1.3;
+    color: #000;
+    white-space: nowrap;
+  }
+
+  .s4-info-divider {
+    width: 0.5px;
+    height: 12px;
+    background: rgba(0, 0, 0, 0.12);
+  }
+
+  /* Tags row */
+  .s4-tags-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 16px;
+    width: 390px;
+    background: #fff;
+    overflow-x: auto;
+  }
+
+  .s4-tag {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  .s4-tag__icon { width: 15px; height: 15px; }
+  .s4-tag__icon img { width: 100%; height: 100%; }
+
+  .s4-tag__text {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.3;
+    color: #000;
+    white-space: nowrap;
+  }
+
+  .s4-tag-divider {
+    width: 0.5px;
+    height: 12px;
+    background: rgba(0, 0, 0, 0.17);
+    flex-shrink: 0;
+  }
+
+  /* Tab bar */
+  .s4-tab-bar {
+    display: flex;
+    width: 374px;
+    margin: 0 auto;
+    background: #fff;
+  }
+
+  .s4-tab-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    position: relative;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+
+  .s4-tab-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 45px;
+    height: 2px;
+    background: #000;
+    border-radius: 1px;
+  }
+
+  .s4-tab-item img {
+    width: 22px;
+    height: 22px;
+    opacity: 0.35;
+  }
+
+  .s4-tab-item.active img { opacity: 1; }
+
+  .s4-tab-divider {
+    width: 390px;
+    height: 0.5px;
+    background: rgba(0, 0, 0, 0.12);
+  }
+
+  /* Playlist row */
+  .s4-playlist-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    width: 390px;
+    background: #fff;
+    overflow-x: auto;
+  }
+
+  .s4-playlist-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  .s4-playlist-item img { width: 15px; height: 15px; }
+
+  .s4-playlist-item span {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.3;
+    color: #000;
+    white-space: nowrap;
+  }
+
+  .s4-playlist-divider {
+    width: 0;
+    height: 12px;
+    border-left: 0.5px solid rgba(0, 0, 0, 0.12);
+    flex-shrink: 0;
+  }
+
+  /* Video Grid */
+  .s4-video-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5px;
+    width: 390px;
+    background: #fff;
+  }
+
+  .s4-video-empty {
+    width: 390px;
+    padding: 72px 16px 96px;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.4);
+    font-size: 13px;
+    line-height: 1.3;
+    display: none;
+  }
+
+  .s4-video-cell {
+    width: 129px;
+    height: 173px;
+    position: relative;
+    overflow: hidden;
+    background: #eee;
+  }
+
+  .s4-video-cell img.s4-video-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .s4-video-cell__overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 52px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.4));
+  }
+
+  .s4-video-cell__metric {
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .s4-video-cell__metric img {
+    width: 16px;
+    height: 16px;
+  }
+
+  .s4-video-cell__metric span {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.3;
+    color: #f6f6f6;
+    letter-spacing: 0.13px;
+  }
+
+  .s4-video-badge {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    background: #fe2c55;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.3;
+    color: #fff;
+  }
+
+  .s4-video-draft-label {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 1.3;
+    color: #fff;
+  }
+
+  /* Bottom Tab Bar */
+  .s4-bottom-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 390px;
+    height: 83px;
+    background: #fff;
+    z-index: 18;
+  }
+
+  .s4-bottom-nav {
+    display: flex;
+    align-items: flex-start;
+    width: 390px;
+    gap: 2px;
+  }
+
+  .s4-bottom-cell {
+    flex: 1;
+    height: 49px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2px 0 4px;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+
+  .s4-bottom-cell__icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: -1px;
+  }
+
+  .s4-bottom-cell__icon img,
+  .s4-bottom-cell__icon svg { width: 24px; height: 24px; display: block; }
+
+  .s4-bottom-cell__label {
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 1.3;
+    color: #000;
+    text-align: center;
+    letter-spacing: 0.23px;
+  }
+
+  .s4-bottom-create {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    align-self: stretch;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+
+  .s4-bottom-create img {
+    width: 48px;
+    height: 48px;
+  }
+
+  /* ========== Account Switcher Bottom Sheet ========== */
+  .sheet-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .sheet-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .sheet-panel {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-radius: 16px 16px 0 0;
+    z-index: 101;
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    padding-bottom: 34px;
+  }
+  .sheet-panel.visible {
+    transform: translateY(0);
+  }
+
+  .sheet-handle {
+    width: 36px;
+    height: 4px;
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 100px;
+    margin: 10px auto 0;
+  }
+
+  .sheet-title {
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.3;
+    color: #000;
+    text-align: center;
+    padding: 16px 0 12px;
+  }
+
+  .sheet-accounts {
+    padding: 0 16px;
+  }
+
+  .sheet-account {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    cursor: pointer;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.08);
+  }
+  .sheet-account:last-child { border-bottom: none; }
+  .sheet-account:active { background: rgba(0,0,0,0.03); }
+
+  .sheet-account__avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .sheet-account__info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .sheet-account__name {
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.3;
+    color: #000;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .sheet-account__name img {
+    width: 10px;
+    height: 10px;
+  }
+
+  .sheet-account__handle {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.3;
+    color: rgba(0, 0, 0, 0.48);
+  }
+
+  .sheet-account__check {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+  }
+
+  .sheet-account__check svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .sheet-add-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    width: 100%;
+  }
+  .sheet-add-btn:active { background: rgba(0,0,0,0.03); }
+
+  .sheet-add-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1.5px dashed rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .sheet-add-icon svg {
+    width: 20px;
+    height: 20px;
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+  .sheet-add-text {
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.3;
+    color: #000;
+  }
+
+  /* ================================================================
+     SCREEN 5: Account Selection (Plan B)
+     ================================================================ */
+
+  .s5-content {
+    position: absolute;
+    top: 91px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 24px;
+  }
+
+  .s5-title {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1.2;
+    color: #000;
+    text-align: center;
+    margin-top: 32px;
+    margin-bottom: 8px;
+  }
+
+  .s5-subtitle {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.4;
+    color: rgba(0, 0, 0, 0.48);
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .s5-accounts {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .s5-account-card {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 16px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .s5-account-card:hover {
+    background: rgba(0, 0, 0, 0.06);
+  }
+
+  .s5-account-card:active {
+    background: rgba(0, 0, 0, 0.08);
+  }
+
+  .s5-account-card__avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .s5-account-card__info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .s5-account-card__name {
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 1.3;
+    color: #000;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .s5-account-card__name img {
+    width: 12px;
+    height: 12px;
+  }
+
+  .s5-account-card__handle {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.3;
+    color: rgba(0, 0, 0, 0.48);
+  }
+
+  .s5-account-card__meta {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.3;
+    color: rgba(0, 0, 0, 0.35);
+    margin-top: 2px;
+  }
+
+  .s5-account-card__arrow {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    opacity: 0.3;
+  }
+
+  /* ========== Plan Switcher FAB ========== */
+  .plan-fab {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    z-index: 9000;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #000;
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease;
+    line-height: 1;
+  }
+  .plan-fab:hover { transform: scale(1.08); }
+  .plan-fab:active { transform: scale(0.95); }
+
+  .plan-popup {
+    position: fixed;
+    bottom: 92px;
+    right: 40px;
+    z-index: 9001;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+    width: 200px;
+    padding: 8px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(8px) scale(0.95);
+    transition: all 0.2s ease;
+  }
+
+  .plan-popup.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+  }
+
+  .plan-popup__title {
+    font-weight: 600;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 6px 10px 4px;
+  }
+
+  .plan-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.12s;
+  }
+  .plan-option:hover { background: rgba(0, 0, 0, 0.05); }
+  .plan-option.active { background: rgba(32, 213, 236, 0.1); }
+
+  .plan-option__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.25);
+    flex-shrink: 0;
+  }
+  .plan-option.active .plan-option__dot {
+    border-color: #20d5ec;
+    background: #20d5ec;
+  }
+
+  .plan-option__info {
+    flex: 1;
+  }
+
+  .plan-option__label {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.3;
+    color: #000;
+  }
+
+  .plan-option__desc {
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 1.3;
+    color: rgba(0, 0, 0, 0.4);
+  }
+</style>
+</head>
+<body>
+
+<div class="phone-frame">
+
+  <!-- ==================== SCREEN 1: Login Options ==================== -->
+  <div class="screen active" id="screen1">
+    <div class="status-bar">
+      <span class="status-bar__time">8:00</span>
+      <div class="status-bar__icons">
+        <img class="status-bar__signal" src="https://www.figma.com/api/mcp/asset/865282a0-e196-4f57-af67-cfcaf63151be" alt="">
+        <img class="status-bar__wifi" src="https://www.figma.com/api/mcp/asset/535f2985-bab0-4893-9c25-58db52f6a5ff" alt="">
+        <img class="status-bar__battery" src="https://www.figma.com/api/mcp/asset/08a454b6-3c04-4122-9213-77dcd9a70f4f" alt="">
+      </div>
+    </div>
+
+    <div class="nav-bar" style="justify-content: flex-end;">
+      <button class="nav-bar__help-btn" aria-label="Help">
+        <div class="nav-bar__help-icon">
+          <img src="https://www.figma.com/api/mcp/asset/e9bed869-790f-4ffb-9761-40fc04181bec" alt="">
+        </div>
+      </button>
+    </div>
+
+    <div class="s1-content">
+      <div class="s1-title">
+        <h1>Log in to TikTok</h1>
+      </div>
+      <div class="s1-buttons">
+        <button class="login-btn" id="btnPhoneLogin">
+          <div class="login-btn__inner">
+            <div class="login-btn__icon-wrap login-btn__icon-wrap--person">
+              <img src="https://www.figma.com/api/mcp/asset/eadabadf-bfac-4dc1-927d-b55380670c57" alt="">
+            </div>
+            <span class="login-btn__label">Use phone / email / username</span>
+          </div>
+        </button>
+        <button class="login-btn">
+          <div class="login-btn__inner">
+            <div class="login-btn__icon-wrap login-btn__icon-wrap--fb">
+              <img src="https://www.figma.com/api/mcp/asset/8705271b-73fd-4dd4-849d-282c4f78329c" alt="">
+            </div>
+            <span class="login-btn__label">Continue with Facebook</span>
+          </div>
+        </button>
+        <button class="login-btn">
+          <div class="login-btn__inner">
+            <div class="login-btn__icon-wrap login-btn__icon-wrap--google">
+              <img src="https://www.figma.com/api/mcp/asset/f56c8d59-f2fa-4725-a3f8-b34ed1a9f58d" alt="">
+            </div>
+            <span class="login-btn__label">Continue with Google</span>
+          </div>
+        </button>
+        <button class="login-btn">
+          <div class="login-btn__inner">
+            <div class="login-btn__icon-wrap login-btn__icon-wrap--apple">
+              <img src="https://www.figma.com/api/mcp/asset/369ec012-e4a3-4da6-8454-c36f478c6f65" alt="">
+            </div>
+            <span class="login-btn__label">Continue with Apple</span>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <div class="s1-bottom">
+      <div class="s1-terms">
+        <p>By continuing, you agree to our <a href="#">Terms of Service</a> and acknowledge that you have read our <a href="#">Privacy Policy</a> to learn how we collect, use, and share your data.</p>
+      </div>
+      <div class="s1-signup-bar">
+        <p><span>Don't have an account?</span><a href="#"> Sign up</a></p>
+        <div class="home-indicator"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SCREEN 2: Phone Number ==================== -->
+  <div class="screen hidden-right" id="screen2">
+    <div class="status-bar">
+      <span class="status-bar__time">8:00</span>
+      <div class="status-bar__icons">
+        <img class="status-bar__signal" src="https://www.figma.com/api/mcp/asset/865282a0-e196-4f57-af67-cfcaf63151be" alt="">
+        <img class="status-bar__wifi" src="https://www.figma.com/api/mcp/asset/535f2985-bab0-4893-9c25-58db52f6a5ff" alt="">
+        <img class="status-bar__battery" src="https://www.figma.com/api/mcp/asset/08a454b6-3c04-4122-9213-77dcd9a70f4f" alt="">
+      </div>
+    </div>
+
+    <div class="nav-bar">
+      <button class="nav-bar__back-btn" id="s2Back" aria-label="Back">
+        <div class="nav-bar__back-icon"></div>
+      </button>
+      <span class="nav-bar__title">Log in</span>
+      <button class="nav-bar__help-btn" aria-label="Help">
+        <div class="nav-bar__help-icon">
+          <img src="https://www.figma.com/api/mcp/asset/e9bed869-790f-4ffb-9761-40fc04181bec" alt="">
+        </div>
+      </button>
+    </div>
+
+    <div class="s2-tabs">
+      <button class="s2-tab active">Phone</button>
+      <button class="s2-tab">Email / Username</button>
+    </div>
+
+    <div class="s2-input-area">
+      <div class="s2-phone-row">
+        <button class="s2-country-code">
+          US +1
+          <div class="s2-country-code__chevron"></div>
+        </button>
+        <div class="s2-divider"></div>
+        <input type="tel" class="s2-phone-input" id="phoneInput" placeholder="Phone number" maxlength="14">
+      </div>
+    </div>
+
+    <div class="s2-middle">
+      <div class="s2-save-row">
+        <div class="s2-checkbox">
+          <div class="s2-checkbox__circle">
+            <div class="s2-checkbox__check"></div>
+          </div>
+        </div>
+        <span class="s2-save-text">Save login info on your iCloud devices to log in automatically next time.</span>
+      </div>
+      <button class="s2-continue-btn" id="btnContinue">Continue</button>
+    </div>
+
+    <!-- Keyboard -->
+    <div class="keyboard">
+      <div class="keyboard__row">
+        <button class="key" data-key="1"><span class="key__num">1</span></button>
+        <button class="key" data-key="2"><span class="key__num">2</span><span class="key__sub">ABC</span></button>
+        <button class="key" data-key="3"><span class="key__num">3</span><span class="key__sub">DEF</span></button>
+      </div>
+      <div class="keyboard__row">
+        <button class="key" data-key="4"><span class="key__num">4</span><span class="key__sub">GHI</span></button>
+        <button class="key" data-key="5"><span class="key__num">5</span><span class="key__sub">JKL</span></button>
+        <button class="key" data-key="6"><span class="key__num">6</span><span class="key__sub">MNO</span></button>
+      </div>
+      <div class="keyboard__row">
+        <button class="key" data-key="7"><span class="key__num">7</span><span class="key__sub">PQRS</span></button>
+        <button class="key" data-key="8"><span class="key__num">8</span><span class="key__sub">TUV</span></button>
+        <button class="key" data-key="9"><span class="key__num">9</span><span class="key__sub">WXYZ</span></button>
+      </div>
+      <div class="keyboard__row">
+        <div class="key key--empty"></div>
+        <button class="key" data-key="0"><span class="key__num">0</span></button>
+        <button class="key key--delete" data-key="del">
+          <div class="key__delete-icon">
+            <svg viewBox="0 0 23 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8.28 1H19.5C21.16 1 22.5 2.34 22.5 4V13C22.5 14.66 21.16 16 19.5 16H8.28C7.4 16 6.56 15.62 5.98 14.96L1.36 9.62C0.72 8.88 0.72 7.82 1.36 7.08L5.98 1.74C6.56 1.08 7.4 0.7 8.28 0.7" stroke="black" stroke-width="1.2" fill="none"/>
+              <line x1="10" y1="5.5" x2="17" y2="11.5" stroke="black" stroke-width="1.4" stroke-linecap="round"/>
+              <line x1="17" y1="5.5" x2="10" y2="11.5" stroke="black" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <div class="home-indicator" style="z-index: 20;"></div>
+  </div>
+
+  <!-- ==================== SCREEN 3: Verification Code ==================== -->
+  <div class="screen hidden-right" id="screen3">
+    <div class="status-bar">
+      <span class="status-bar__time">8:00</span>
+      <div class="status-bar__icons">
+        <img class="status-bar__signal" src="https://www.figma.com/api/mcp/asset/865282a0-e196-4f57-af67-cfcaf63151be" alt="">
+        <img class="status-bar__wifi" src="https://www.figma.com/api/mcp/asset/535f2985-bab0-4893-9c25-58db52f6a5ff" alt="">
+        <img class="status-bar__battery" src="https://www.figma.com/api/mcp/asset/08a454b6-3c04-4122-9213-77dcd9a70f4f" alt="">
+      </div>
+    </div>
+
+    <div class="nav-bar">
+      <button class="nav-bar__back-btn" id="s3Back" aria-label="Back">
+        <div class="nav-bar__back-icon"></div>
+      </button>
+      <span class="nav-bar__title"></span>
+      <button class="nav-bar__help-btn" aria-label="Help">
+        <div class="nav-bar__help-icon">
+          <img src="https://www.figma.com/api/mcp/asset/e9bed869-790f-4ffb-9761-40fc04181bec" alt="">
+        </div>
+      </button>
+    </div>
+
+    <div class="s3-content">
+      <h1 class="s3-title">Enter 6-digit code</h1>
+      <p class="s3-subtitle" id="s3PhoneDisplay">Your code was sent to +1 4129196666</p>
+
+      <div class="s3-code-boxes" id="codeBoxes">
+        <div class="s3-code-box" data-idx="0">1</div>
+        <div class="s3-code-box" data-idx="1">2</div>
+        <div class="s3-code-box active" data-idx="2"></div>
+        <div class="s3-code-box" data-idx="3"></div>
+        <div class="s3-code-box" data-idx="4"></div>
+        <div class="s3-code-box" data-idx="5"></div>
+      </div>
+
+      <p class="s3-resend">Resend code <span id="resendTimer">49s</span></p>
+      <a href="#" class="s3-help-link">Need help logging in?</a>
+    </div>
+
+    <!-- SMS Suggestion Bar -->
+    <div class="s3-sms-bar" id="smsBar">
+      <div class="s3-sms-divider-left"></div>
+      <div class="s3-sms-inner" id="smsAutoFill">
+        <div class="s3-sms-content">
+          <span class="s3-sms-label">From Messages</span>
+          <span class="s3-sms-code">123 456</span>
+        </div>
+      </div>
+      <div class="s3-sms-divider-right"></div>
+    </div>
+
+    <!-- Keyboard -->
+    <div class="keyboard">
+      <div class="keyboard__row">
+        <button class="key" data-key="1"><span class="key__num">1</span></button>
+        <button class="key" data-key="2"><span class="key__num">2</span><span class="key__sub">ABC</span></button>
+        <button class="key" data-key="3"><span class="key__num">3</span><span class="key__sub">DEF</span></button>
+      </div>
+      <div class="keyboard__row">
+        <button class="key" data-key="4"><span class="key__num">4</span><span class="key__sub">GHI</span></button>
+        <button class="key" data-key="5"><span class="key__num">5</span><span class="key__sub">JKL</span></button>
+        <button class="key" data-key="6"><span class="key__num">6</span><span class="key__sub">MNO</span></button>
+      </div>
+      <div class="keyboard__row">
+        <button class="key" data-key="7"><span class="key__num">7</span><span class="key__sub">PQRS</span></button>
+        <button class="key" data-key="8"><span class="key__num">8</span><span class="key__sub">TUV</span></button>
+        <button class="key" data-key="9"><span class="key__num">9</span><span class="key__sub">WXYZ</span></button>
+      </div>
+      <div class="keyboard__row">
+        <div class="key key--empty"></div>
+        <button class="key" data-key="0"><span class="key__num">0</span></button>
+        <button class="key key--delete" data-key="del">
+          <div class="key__delete-icon">
+            <svg viewBox="0 0 23 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8.28 1H19.5C21.16 1 22.5 2.34 22.5 4V13C22.5 14.66 21.16 16 19.5 16H8.28C7.4 16 6.56 15.62 5.98 14.96L1.36 9.62C0.72 8.88 0.72 7.82 1.36 7.08L5.98 1.74C6.56 1.08 7.4 0.7 8.28 0.7" stroke="black" stroke-width="1.2" fill="none"/>
+              <line x1="10" y1="5.5" x2="17" y2="11.5" stroke="black" stroke-width="1.4" stroke-linecap="round"/>
+              <line x1="17" y1="5.5" x2="10" y2="11.5" stroke="black" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <div class="home-indicator" style="z-index: 20;"></div>
+  </div>
+
+  <!-- ==================== SCREEN 4: Profile Page ==================== -->
+  <div class="screen hidden-right" id="screen4">
+    <div class="s4-scroll">
+      <!-- Status Bar -->
+      <div class="s4-status-bar">
+        <span class="status-bar__time">8:00</span>
+        <div class="status-bar__icons">
+          <img class="status-bar__signal" src="https://www.figma.com/api/mcp/asset/b1089d63-6d01-46fa-8514-c178accda801" alt="">
+          <img class="status-bar__wifi" src="https://www.figma.com/api/mcp/asset/7c31a43f-d542-491e-b525-f72d2bbdf50b" alt="">
+          <img class="status-bar__battery" src="https://www.figma.com/api/mcp/asset/f3cef841-69a2-44d4-af9e-2eb12b5e09ec" alt="">
+        </div>
+      </div>
+
+      <!-- Nav Bar -->
+      <div class="s4-nav">
+        <div class="s4-nav__left">
+          <button class="s4-nav-icon"><img src="https://www.figma.com/api/mcp/asset/aef1eb39-5b6b-4eeb-94ff-3364e940195b" alt="Edit"></button>
+        </div>
+        <div class="s4-nav__right">
+          <button class="s4-nav-icon"><img src="https://www.figma.com/api/mcp/asset/53388a17-fed2-4cf9-9ce0-7230fa9de948" alt="Visitors"></button>
+          <button class="s4-nav-icon" aria-label="Add Friend">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M13.75 16.0417H21.0833M17.4167 12.375L17.4167 19.7083" stroke="black" stroke-width="1.83333" stroke-linecap="round"/>
+              <path d="M10.3125 11.4577C11.705 11.4577 12.9211 11.551 13.9717 11.7546C13.41 12.2065 12.9376 12.7655 12.5889 13.402C11.9284 13.3305 11.1742 13.2917 10.3125 13.2917C7.14147 13.2917 5.42508 13.8071 4.48633 14.611C3.63976 15.3363 3.24914 16.4567 3.21191 18.2682C3.24299 18.2826 3.27732 18.3018 3.31836 18.318C3.66162 18.4539 4.20955 18.5857 4.93848 18.6979C6.37981 18.9198 8.33442 19.0348 10.3125 19.0348C11.1459 19.0348 11.9751 19.0125 12.7637 18.9723C13.2 19.6636 13.7854 20.2504 14.4756 20.6881C13.1967 20.8074 11.7486 20.8678 10.3125 20.8678C8.28091 20.8678 6.22537 20.7515 4.65918 20.5104C3.8844 20.3911 3.17756 20.2335 2.64355 20.0221C2.38031 19.9179 2.10193 19.7782 1.87402 19.5817C1.64342 19.3829 1.375 19.043 1.375 18.5622C1.37504 16.4042 1.78357 14.5123 3.29395 13.2184C4.75729 11.9652 7.05129 11.4577 10.3125 11.4577ZM10.3125 0.916664C12.9704 0.916664 15.125 3.07129 15.125 5.72916C15.125 8.38703 12.9704 10.5417 10.3125 10.5417C7.65463 10.5417 5.5 8.38703 5.5 5.72916C5.5 3.07129 7.65463 0.916664 10.3125 0.916664ZM10.3125 2.74967C8.66715 2.74967 7.33301 4.08382 7.33301 5.72916C7.33301 7.37451 8.66715 8.70866 10.3125 8.70866C11.9578 8.70866 13.292 7.37451 13.292 5.72916C13.292 4.08382 11.9578 2.74967 10.3125 2.74967Z" fill="black"/>
+            </svg>
+          </button>
+          <button class="s4-nav-icon"><img src="https://www.figma.com/api/mcp/asset/2c82d08a-6955-40a2-a96a-65f38b97fcf4" alt="Menu"></button>
+        </div>
+      </div>
+
+      <!-- Profile Header -->
+      <div class="s4-profile-header">
+        <div class="s4-name-row" id="nameArrowBtn" style="cursor:pointer;">
+          <span class="s4-name">Coldplay</span>
+          <div class="s4-name-arrow">
+            <img src="https://www.figma.com/api/mcp/asset/ff9aa8a7-cc87-41cc-ae48-d65d3824c1c2" alt="">
+          </div>
+        </div>
+        <div class="s4-username-row">
+          <span class="s4-username">@coldplay</span>
+          <div class="s4-badge"><img src="https://www.figma.com/api/mcp/asset/dbbc7394-da9b-4d22-9891-713363525fb3" alt="Verified"></div>
+          <span class="s4-dot">·</span>
+          <span class="s4-category">Artist</span>
+        </div>
+        <div class="s4-stats">
+          <div class="s4-stat"><span class="s4-stat__num" id="s4FollowingNum">36</span><span class="s4-stat__label">Following</span></div>
+          <div class="s4-stat"><span class="s4-stat__num" id="s4FollowersNum">8.1M</span><span class="s4-stat__label">Followers</span></div>
+          <div class="s4-stat"><span class="s4-stat__num" id="s4LikesNum">88.3M</span><span class="s4-stat__label">Likes</span></div>
+        </div>
+
+        <!-- Avatar -->
+        <div class="s4-avatar-area">
+          <div class="s4-avatar">
+            <img class="s4-avatar__photo" src="coldplay-avatar.png" alt="Avatar">
+            <div class="s4-avatar__ring">
+              <img src="https://www.figma.com/api/mcp/asset/553d0f35-c207-4bd1-87b1-2f3cc109ef17" alt="">
+            </div>
+            <div class="s4-avatar__plus">
+              <img src="https://www.figma.com/api/mcp/asset/7dfd7280-331f-4032-94fc-9c8160d15f80" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bio -->
+      <div class="s4-bio">
+        <p class="s4-bio__pronouns" id="s4Pronouns">He/him/his</p>
+        <p class="s4-bio__text" id="s4BioText">Tik Official Coldplay Tok. The new album, Moon Music, out now. Your Japanese bestie🇯🇵🫶#comedy</p>
+        <p class="s4-bio__link" id="s4BioLink">lemon8-app.com/bimbingan and 1 more</p>
+      </div>
+
+      <!-- University row -->
+      <div class="s4-info-row" style="margin-top: 4px;" id="s4UniversityRow">
+        <div class="s4-info-item">
+          <div class="s4-info-item__icon"><img src="https://www.figma.com/api/mcp/asset/551140d3-376f-47d4-b2cc-767111605aa5" alt=""></div>
+          <span class="s4-info-item__text">University of California</span>
+        </div>
+      </div>
+
+      <!-- Phone / Email / Address row -->
+      <div class="s4-info-row" style="margin-top: 2px;" id="s4ContactRow">
+        <div class="s4-info-item">
+          <div class="s4-info-item__icon"><img src="https://www.figma.com/api/mcp/asset/83246a48-2cda-4338-b082-6fa18d86c6bb" alt=""></div>
+          <span class="s4-info-item__text">Phone</span>
+        </div>
+        <div class="s4-info-divider"></div>
+        <div class="s4-info-item">
+          <div class="s4-info-item__icon"><img src="https://www.figma.com/api/mcp/asset/b9fe3a7c-80e2-43e6-9580-ca8958823dde" alt=""></div>
+          <span class="s4-info-item__text">Email</span>
+        </div>
+        <div class="s4-info-divider"></div>
+        <div class="s4-info-item">
+          <div class="s4-info-item__icon"><img src="https://www.figma.com/api/mcp/asset/57c8f510-9803-4a07-b019-4bb1025e9c3a" alt=""></div>
+          <span class="s4-info-item__text">Address</span>
+        </div>
+      </div>
+
+      <!-- Tags row -->
+      <div class="s4-tags-row" id="s4TagsRow">
+        <div class="s4-tag">
+          <div class="s4-tag__icon"><img src="https://www.figma.com/api/mcp/asset/42f64d39-b158-4710-8c39-6063d453b78e" alt=""></div>
+          <span class="s4-tag__text">TikTok studio</span>
+        </div>
+        <div class="s4-tag-divider"></div>
+        <div class="s4-tag">
+          <div class="s4-tag__icon"><img src="https://www.figma.com/api/mcp/asset/df41f695-c8a2-4d66-9d07-2d53be988df8" alt=""></div>
+          <span class="s4-tag__text">Fans family</span>
+        </div>
+        <div class="s4-tag-divider"></div>
+        <div class="s4-tag">
+          <div class="s4-tag__icon"><img src="https://www.figma.com/api/mcp/asset/6d79725a-25c9-4b09-bade-eadb7da86558" alt=""></div>
+          <span class="s4-tag__text">Showcase</span>
+        </div>
+      </div>
+
+      <!-- Content Tab Bar -->
+      <div style="background:#fff;width:390px;overflow:hidden;">
+        <div class="s4-tab-bar">
+          <button class="s4-tab-item active">
+            <img src="https://www.figma.com/api/mcp/asset/7f45da48-e074-455e-a8cb-f68e45eeefb0" alt="Grid">
+            <img src="https://www.figma.com/api/mcp/asset/cb1624b7-4660-4e06-a481-636e8d9345d0" alt="" style="width:12px;height:12px;margin-left:-2px;">
+          </button>
+          <button class="s4-tab-item">
+            <img src="https://www.figma.com/api/mcp/asset/6d53c1bc-8763-4911-aa40-a701072c2ea6" alt="Repost">
+          </button>
+          <button class="s4-tab-item">
+            <img src="https://www.figma.com/api/mcp/asset/d2f63b8a-9f3f-466f-8eec-6237c79595a6" alt="Bookmark">
+          </button>
+          <button class="s4-tab-item">
+            <img src="https://www.figma.com/api/mcp/asset/8ad2ed71-c853-4bae-b91d-4eb2fefe9c03" alt="Like">
+          </button>
+        </div>
+        <div class="s4-tab-divider"></div>
+      </div>
+
+      <!-- Playlist Row -->
+      <div class="s4-playlist-row">
+        <div class="s4-playlist-item">
+          <img src="https://www.figma.com/api/mcp/asset/b00a39ab-257f-47f8-9b60-8d113a17d204" alt="">
+        </div>
+        <div class="s4-playlist-divider"></div>
+        <div class="s4-playlist-item">
+          <img src="https://www.figma.com/api/mcp/asset/3aa2dd2e-3451-49b0-af6c-204a15995931" alt="">
+          <span>Product Reviews 2024</span>
+        </div>
+        <div class="s4-playlist-divider"></div>
+        <div class="s4-playlist-item">
+          <img src="https://www.figma.com/api/mcp/asset/3aa2dd2e-3451-49b0-af6c-204a15995931" alt="">
+          <span>Makeup Tutorials</span>
+        </div>
+      </div>
+
+      <!-- Video Grid -->
+      <div class="s4-video-grid" id="s4VideoGrid">
+        <!-- Row 1 -->
+        <div class="s4-video-cell">
+          <img class="s4-video-cover" src="https://www.figma.com/api/mcp/asset/7cffc31b-7ca5-48db-9ed4-e29f02d09782" alt="">
+          <div class="s4-video-cell__overlay"></div>
+          <div class="s4-video-draft-label">Drafts · 2</div>
+          <div class="s4-video-cell__metric">
+            <img src="https://www.figma.com/api/mcp/asset/a086916b-c24f-4d86-bca7-33d5806ab28a" alt="">
+            <span>84.6MB</span>
+          </div>
+        </div>
+        <div class="s4-video-cell">
+          <img class="s4-video-cover" src="https://www.figma.com/api/mcp/asset/c2888d0d-2bcf-4657-9a68-c75d46594e9c" alt="">
+          <div class="s4-video-cell__overlay"></div>
+          <div class="s4-video-badge">Pinned</div>
+          <div class="s4-video-cell__metric">
+            <img src="https://www.figma.com/api/mcp/asset/ae28a0cf-f2fe-44d5-bb08-c834deaa6c87" alt="">
+            <span>16.5K</span>
+          </div>
+        </div>
+        <div class="s4-video-cell">
+          <img class="s4-video-cover" src="https://www.figma.com/api/mcp/asset/7f2830af-9731-4c65-a426-6d38580c6376" alt="">
+          <div class="s4-video-cell__overlay"></div>
+          <div class="s4-video-badge">Pinned</div>
+          <div class="s4-video-cell__metric">
+            <img src="https://www.figma.com/api/mcp/asset/6edcaf15-c0cc-479d-97a2-ad3ae78c4802" alt="">
+            <span>9,126</span>
+          </div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="s4-video-cell">
+          <img class="s4-video-cover" src="https://www.figma.com/api/mcp/asset/156bcd2f-3c9a-4dac-b092-47a0ee9123d1" alt="">
+          <div class="s4-video-cell__overlay"></div>
+        </div>
+        <div class="s4-video-cell">
+          <img class="s4-video-cover" src="https://www.figma.com/api/mcp/asset/ff259fb4-e467-4cfe-b1ba-1962e902755d" alt="">
+          <div class="s4-video-cell__overlay"></div>
+          <div class="s4-video-cell__metric">
+            <img src="https://www.figma.com/api/mcp/asset/6bdfb5a2-036c-43ff-868c-898b9daf0de3" alt="">
+            <span>712</span>
+          </div>
+        </div>
+        <div class="s4-video-cell">
+          <img class="s4-video-cover" src="https://www.figma.com/api/mcp/asset/de2a7852-15f7-48e8-b5e2-2299f6bd1594" alt="">
+          <div class="s4-video-cell__overlay"></div>
+          <div class="s4-video-cell__metric">
+            <img src="https://www.figma.com/api/mcp/asset/6bdfb5a2-036c-43ff-868c-898b9daf0de3" alt="">
+            <span>10.1K</span>
+          </div>
+        </div>
+
+        <!-- Row 3 -->
+        <div class="s4-video-cell">
+          <img class="s4-video-cover" src="https://www.figma.com/api/mcp/asset/2afad960-4d22-4065-8ae2-9d442a185a32" alt="">
+          <div class="s4-video-cell__overlay"></div>
+        </div>
+        <div class="s4-video-cell">
+          <img class="s4-video-cover" src="https://www.figma.com/api/mcp/asset/543a0826-8d99-439a-8071-832724f58b36" alt="">
+          <div class="s4-video-cell__overlay"></div>
+          <div class="s4-video-cell__metric">
+            <img src="https://www.figma.com/api/mcp/asset/6bdfb5a2-036c-43ff-868c-898b9daf0de3" alt="">
+            <span>5,952</span>
+          </div>
+        </div>
+        <div class="s4-video-cell">
+          <img class="s4-video-cover" src="https://www.figma.com/api/mcp/asset/ddd0efe8-29fa-47b5-8819-c27b52e0794c" alt="">
+          <div class="s4-video-cell__overlay"></div>
+          <div class="s4-video-cell__metric">
+            <img src="https://www.figma.com/api/mcp/asset/6bdfb5a2-036c-43ff-868c-898b9daf0de3" alt="">
+            <span>5,504</span>
+          </div>
+        </div>
+      </div>
+      <div class="s4-video-empty" id="s4VideoEmpty">No posts yet</div>
+
+      <!-- Bottom Tab Bar -->
+      <div class="s4-bottom-bar">
+        <div class="s4-bottom-nav">
+          <button class="s4-bottom-cell">
+            <div class="s4-bottom-cell__icon"><img src="https://www.figma.com/api/mcp/asset/a5e76623-51fa-47fa-93e9-ed4df3152004" alt=""></div>
+            <span class="s4-bottom-cell__label">Home</span>
+          </button>
+          <button class="s4-bottom-cell">
+            <div class="s4-bottom-cell__icon"><img src="https://www.figma.com/api/mcp/asset/1acabc70-2ac0-4e7c-b6a5-509d4a58fb5b" alt=""></div>
+            <span class="s4-bottom-cell__label">Friends</span>
+          </button>
+          <button class="s4-bottom-create" aria-label="Create">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M46.8487 27.577C47.0504 24.8611 47.0504 23.1341 46.8487 20.4182C45.9707 8.60136 32.3588 9.77504 24 9.77503V38.2201C32.3588 38.2201 45.9707 39.3938 46.8487 27.577Z" fill="#FA2D6C"/>
+              <path d="M1.15134 27.577C0.949553 24.8611 0.949553 23.1341 1.15134 20.4182C2.0293 8.60136 15.6412 9.77504 24 9.77503V38.2201C15.6412 38.2201 2.0293 39.3938 1.15134 27.577Z" fill="#20D5EC"/>
+              <path d="M5.45857 18.1785C5.88916 12.2475 10.9503 10.2831 15.9707 9.90886C21.316 9.51036 26.6836 9.51036 32.0289 9.90886C37.0493 10.2831 42.1105 12.2475 42.541 18.1785C42.8465 22.3857 42.8465 25.6095 42.541 29.8167C42.1105 35.7477 37.0493 37.7121 32.029 38.0863C26.6836 38.4848 21.316 38.4848 15.9707 38.0863C10.9503 37.7121 5.88916 35.7477 5.45857 29.8167C5.15313 25.6095 5.15313 22.3857 5.45857 18.1785Z" fill="black"/>
+              <path d="M24 18V30" stroke="white" stroke-width="3" stroke-linecap="round"/>
+              <path d="M18 24L30 24" stroke="white" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <button class="s4-bottom-cell">
+            <div class="s4-bottom-cell__icon"><img src="https://www.figma.com/api/mcp/asset/000c241c-870e-4dd8-a90a-4b35488eb6c5" alt=""></div>
+            <span class="s4-bottom-cell__label">Inbox</span>
+          </button>
+          <button class="s4-bottom-cell">
+            <div class="s4-bottom-cell__icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 13C15.5336 13 17.8787 13.5549 19.332 14.7998C20.811 16.0668 21.25 17.9426 21.25 20.25C21.25 20.5754 21.0698 20.8207 20.8799 20.9844C20.6915 21.1468 20.4448 21.2737 20.1816 21.3779C19.6511 21.5879 18.9244 21.7527 18.0918 21.8809C16.4171 22.1387 14.2021 22.2656 12 22.2656C9.79794 22.2656 7.58288 22.1387 5.9082 21.8809C5.07563 21.7527 4.34885 21.5879 3.81836 21.3779C3.5552 21.2737 3.30854 21.1468 3.12012 20.9844C2.93025 20.8207 2.75 20.5754 2.75 20.25C2.75 17.9426 3.18897 16.0668 4.66797 14.7998C6.12129 13.5549 8.46641 13 12 13ZM12 14C8.51546 14 6.48549 14.5598 5.31836 15.5596C4.18509 16.5305 3.75601 18.0154 3.75 20.2031C3.75563 20.2089 3.76283 20.2174 3.77344 20.2266C3.84135 20.285 3.9708 20.3632 4.18555 20.4482C4.61203 20.6171 5.25273 20.7682 6.06055 20.8926C7.66711 21.1399 9.8271 21.2656 12 21.2656C14.1729 21.2656 16.3329 21.1399 17.9395 20.8926C18.7473 20.7682 19.388 20.6171 19.8145 20.4482C20.0292 20.3632 20.1587 20.285 20.2266 20.2266C20.2369 20.2177 20.2434 20.2089 20.249 20.2031C20.243 18.0154 19.8149 16.5305 18.6816 15.5596C17.5145 14.5598 15.4845 14 12 14Z" fill="black"/>
+                <path d="M12 13.5C19.0182 13.5 20.75 15.7292 20.75 20.25C20.75 22.2708 3.25 22.2708 3.25 20.25C3.25 15.7292 4.98177 13.5 12 13.5ZM12 1.75C14.6234 1.75 16.75 3.87665 16.75 6.5C16.75 9.12335 14.6234 11.25 12 11.25C9.37665 11.25 7.25 9.12335 7.25 6.5C7.25 3.87665 9.37665 1.75 12 1.75Z" fill="black"/>
+              </svg>
+            </div>
+            <span class="s4-bottom-cell__label">Profile</span>
+          </button>
+        </div>
+        <div class="home-indicator"></div>
+      </div>
+    </div>
+
+    <!-- Account Switcher Bottom Sheet -->
+    <div class="sheet-overlay" id="sheetOverlay"></div>
+    <div class="sheet-panel" id="sheetPanel">
+      <div class="sheet-handle"></div>
+      <div class="sheet-title">Switch account</div>
+      <div class="sheet-accounts">
+        <button class="sheet-account" data-account="coldplay">
+          <img class="sheet-account__avatar" src="https://www.figma.com/api/mcp/asset/1396ab78-50e1-480b-a6d5-546bbfb37f08" alt="">
+          <div class="sheet-account__info">
+            <div class="sheet-account__name">
+              Coldplay
+              <img src="https://www.figma.com/api/mcp/asset/dbbc7394-da9b-4d22-9891-713363525fb3" alt="">
+            </div>
+            <div class="sheet-account__handle">@coldplay</div>
+          </div>
+          <div class="sheet-account__check" id="checkColdplay">
+            <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="11" cy="11" r="11" fill="#20d5ec"/>
+              <path d="M6.5 11.5L9.5 14.5L15.5 8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </button>
+        <button class="sheet-account" data-account="coldplay1">
+          <div class="sheet-account__avatar" style="background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;">C1</div>
+          <div class="sheet-account__info">
+            <div class="sheet-account__name">Coldplay1</div>
+            <div class="sheet-account__handle">@coldplay1</div>
+          </div>
+          <div class="sheet-account__check" id="checkColdplay1" style="opacity:0;">
+            <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="11" cy="11" r="11" fill="#20d5ec"/>
+              <path d="M6.5 11.5L9.5 14.5L15.5 8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </button>
+      </div>
+      <button class="sheet-add-btn">
+        <div class="sheet-add-icon">
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 4V16M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="sheet-add-text">Add account</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ============== SCREEN 5: Account Selection (Plan B) ============== -->
+  <div class="screen hidden-right" id="screen5">
+    <div class="status-bar" style="display:flex; align-items:center; justify-content:space-between; padding:14px 24px 0; height:44px; box-sizing:border-box;">
+      <span style="font-size:15px; font-weight:600; letter-spacing:-0.3px;">9:41</span>
+      <span style="display:flex; gap:6px; align-items:center;">
+        <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><rect x="0" y="3" width="3" height="9" rx="1" fill="#000"/><rect x="5" y="2" width="3" height="10" rx="1" fill="#000"/><rect x="10" y="0" width="3" height="12" rx="1" fill="#000"/><rect x="15" y="0" width="3" height="12" rx="1" fill="#000" opacity=".25"/></svg>
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 2.4C10.6 2.4 12.9 3.5 14.5 5.2L16 3.7C14 1.4 11.2 0 8 0S2 1.4 0 3.7L1.5 5.2C3.1 3.5 5.4 2.4 8 2.4z" fill="#000"/><path d="M8 6.8c1.5 0 2.9.6 3.9 1.6L13.5 6.8C12 5.3 10.1 4.4 8 4.4S4 5.3 2.5 6.8L4.1 8.4C5.1 7.4 6.5 6.8 8 6.8z" fill="#000"/><circle cx="8" cy="11" r="1.5" fill="#000"/></svg>
+        <svg width="27" height="13" viewBox="0 0 27 13" fill="none"><rect x=".5" y=".5" width="22" height="12" rx="2" stroke="#000" stroke-opacity=".35"/><rect x="2" y="2" width="18" height="9" rx="1" fill="#000"/><path d="M24 4.5v4a2.5 2.5 0 000-4z" fill="#000" opacity=".4"/></svg>
+      </span>
+    </div>
+
+    <div class="nav-bar" style="top:44px;">
+      <button class="nav-bar__back-btn" id="s5Back" aria-label="Back">
+        <div class="nav-bar__back-icon"></div>
+      </button>
+      <div style="flex:1;"></div>
+      <div style="width:44px;height:44px;"></div>
+    </div>
+
+    <div class="s5-content">
+      <div class="s5-title">Welcome back!</div>
+      <div class="s5-subtitle">Choose an account to continue</div>
+
+      <div class="s5-accounts">
+        <!-- Coldplay main account -->
+        <div class="s5-account-card" data-target="coldplay" id="s5CardColdplay">
+          <img class="s5-account-card__avatar" src="coldplay-avatar.png" alt="">
+          <div class="s5-account-card__info">
+            <div class="s5-account-card__name">
+              Coldplay
+              <img src="https://p16-sign-sg.tiktokcdn.com/tos-alisg-avt-0068/verified-badge.png" onerror="this.style.display='none'" alt="">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 0l1.76 2.08L11.36 1l.52 2.84L14.72 4.6 13.16 6.68 14.72 8.76l-2.84.76L11.36 12.36 8.76 11.32 7 13.4 5.24 11.32 2.64 12.36l-.52-2.84L-.72 8.76 .84 6.68-.72 4.6l2.84-.76L2.64 1l2.6 1.04L7 0z" fill="#20D5EC"/><path d="M6.1 8.9L4.2 7l.85-.85L6.1 7.2l2.85-2.85.85.85L6.1 8.9z" fill="#fff"/></svg>
+            </div>
+            <div class="s5-account-card__handle">@coldplay</div>
+            <div class="s5-account-card__meta">12.3M followers · 298 posts</div>
+          </div>
+          <svg class="s5-account-card__arrow" viewBox="0 0 20 20" fill="none"><path d="M7.5 5l5 5-5 5" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+
+        <!-- Coldplay1 secondary account -->
+        <div class="s5-account-card" data-target="coldplay1" id="s5CardColdplay1">
+          <div class="s5-account-card__avatar" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:22px;">C</div>
+          <div class="s5-account-card__info">
+            <div class="s5-account-card__name">coldplay1</div>
+            <div class="s5-account-card__handle">@coldplay1</div>
+            <div class="s5-account-card__meta">17 followers · 0 posts</div>
+          </div>
+          <svg class="s5-account-card__arrow" viewBox="0 0 20 20" fill="none"><path d="M7.5 5l5 5-5 5" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<!-- ============== Plan Switcher FAB (outside phone frame) ============== -->
+<button class="plan-fab" id="planFab">A</button>
+<div class="plan-popup" id="planPopup">
+  <div class="plan-popup__title">Login Flow</div>
+  <button class="plan-option active" data-plan="A" id="planOptA">
+    <div class="plan-option__dot"></div>
+    <div class="plan-option__info">
+      <div class="plan-option__label">Plan A</div>
+      <div class="plan-option__desc">Verify → Profile</div>
+    </div>
+  </button>
+  <button class="plan-option" data-plan="B" id="planOptB">
+    <div class="plan-option__dot"></div>
+    <div class="plan-option__info">
+      <div class="plan-option__label">Plan B</div>
+      <div class="plan-option__desc">Verify → Pick Account → Profile</div>
+    </div>
+  </button>
+</div>
+
+<script>
+(function() {
+  var currentPlan = 'A';
+
+  // ========== Screen Navigation ==========
+  function goTo(fromId, toId) {
+    const from = document.getElementById(fromId);
+    const to = document.getElementById(toId);
+    from.classList.remove('active');
+    from.classList.add('hidden-left');
+    to.classList.remove('hidden-right', 'hidden-left');
+    to.classList.add('active');
+  }
+
+  function goBack(fromId, toId) {
+    const from = document.getElementById(fromId);
+    const to = document.getElementById(toId);
+    from.classList.remove('active');
+    from.classList.add('hidden-right');
+    to.classList.remove('hidden-left');
+    to.classList.add('active');
+  }
+
+  function resetToScreen1() {
+    ['screen1','screen2','screen3','screen4','screen5'].forEach(function(id) {
+      var el = document.getElementById(id);
+      el.classList.remove('active','hidden-left','hidden-right');
+      if (id === 'screen1') el.classList.add('active');
+      else el.classList.add('hidden-right');
+    });
+  }
+
+  // Screen 1 → Screen 2
+  document.getElementById('btnPhoneLogin').addEventListener('click', function() {
+    goTo('screen1', 'screen2');
+    setTimeout(function() { document.getElementById('phoneInput').focus(); }, 400);
+  });
+
+  // Screen 2 → Screen 1
+  document.getElementById('s2Back').addEventListener('click', function() {
+    goBack('screen2', 'screen1');
+  });
+
+  // Screen 2 → Screen 3
+  document.getElementById('btnContinue').addEventListener('click', function() {
+    var phone = document.getElementById('phoneInput').value.trim();
+    if (phone.length > 0) {
+      document.getElementById('s3PhoneDisplay').textContent = 'Your code was sent to +1 ' + phone;
+    }
+    goTo('screen2', 'screen3');
+    startResendTimer();
+    resetCodeBoxes();
+  });
+
+  // Screen 3 → Screen 2
+  document.getElementById('s3Back').addEventListener('click', function() {
+    goBack('screen3', 'screen2');
+  });
+
+  // ========== Screen 2: Phone Input via Keyboard ==========
+  var phoneInput = document.getElementById('phoneInput');
+
+  document.getElementById('screen2').querySelectorAll('.key[data-key]').forEach(function(key) {
+    key.addEventListener('click', function() {
+      var val = this.dataset.key;
+      if (val === 'del') {
+        phoneInput.value = phoneInput.value.slice(0, -1);
+      } else if (phoneInput.value.length < 14) {
+        phoneInput.value += val;
+      }
+      phoneInput.dispatchEvent(new Event('input'));
+    });
+  });
+
+  // ========== Screen 3: Code Input ==========
+  var codeDigits = ['1', '2', '', '', '', ''];
+  var codePos = 2;
+
+  function renderCodeBoxes() {
+    var boxes = document.querySelectorAll('#codeBoxes .s3-code-box');
+    boxes.forEach(function(box, i) {
+      box.textContent = codeDigits[i];
+      box.classList.toggle('active', i === codePos);
+    });
+  }
+
+  function resetCodeBoxes() {
+    codeDigits = ['1', '2', '', '', '', ''];
+    codePos = 2;
+    renderCodeBoxes();
+    var smsBar = document.getElementById('smsBar');
+    if (smsBar) smsBar.style.display = 'flex';
+  }
+
+  document.getElementById('screen3').querySelectorAll('.key[data-key]').forEach(function(key) {
+    key.addEventListener('click', function() {
+      var val = this.dataset.key;
+      if (val === 'del') {
+        if (codePos > 0 && codeDigits[codePos] === '') {
+          codePos--;
+        }
+        codeDigits[codePos] = '';
+      } else {
+        if (codePos < 6) {
+          codeDigits[codePos] = val;
+          if (codePos < 5) codePos++;
+          else codePos = 5;
+        }
+      }
+      renderCodeBoxes();
+      checkCodeComplete();
+    });
+  });
+
+  function checkCodeComplete() {
+    var filled = codeDigits.filter(function(d) { return d !== ''; }).length;
+    if (filled === 6) {
+      setTimeout(function() {
+        if (currentPlan === 'B') {
+          goTo('screen3', 'screen5');
+        } else {
+          goTo('screen3', 'screen4');
+        }
+      }, 600);
+    }
+  }
+
+  // SMS Auto-fill
+  document.getElementById('smsAutoFill').addEventListener('click', function() {
+    codeDigits = ['1', '2', '3', '4', '5', '6'];
+    codePos = 6;
+    renderCodeBoxes();
+    document.getElementById('smsBar').style.display = 'none';
+    checkCodeComplete();
+  });
+
+  // ========== Resend Timer ==========
+  var timerInterval;
+  function startResendTimer() {
+    var seconds = 49;
+    var timerEl = document.getElementById('resendTimer');
+    clearInterval(timerInterval);
+    timerEl.textContent = seconds + 's';
+    timerInterval = setInterval(function() {
+      seconds--;
+      if (seconds <= 0) {
+        clearInterval(timerInterval);
+        timerEl.textContent = '';
+        timerEl.parentElement.innerHTML = '<a href="#" style="color:#161823;font-weight:600;">Resend code</a>';
+      } else {
+        timerEl.textContent = seconds + 's';
+      }
+    }, 1000);
+  }
+
+  // Tab switching on screen 2
+  document.querySelectorAll('.s2-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      document.querySelectorAll('.s2-tab').forEach(function(t) { t.classList.remove('active'); });
+      this.classList.add('active');
+    });
+  });
+
+  // ========== Account Switcher Bottom Sheet ==========
+  var sheetOverlay = document.getElementById('sheetOverlay');
+  var sheetPanel = document.getElementById('sheetPanel');
+  var currentAccount = 'coldplay';
+
+  function openSheet() {
+    sheetOverlay.classList.add('visible');
+    sheetPanel.classList.add('visible');
+  }
+
+  function closeSheet() {
+    sheetOverlay.classList.remove('visible');
+    sheetPanel.classList.remove('visible');
+  }
+
+  document.getElementById('nameArrowBtn').addEventListener('click', openSheet);
+  sheetOverlay.addEventListener('click', closeSheet);
+
+  document.querySelectorAll('.sheet-account').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      applyAccount(this.dataset.account);
+      closeSheet();
+    });
+  });
+
+  // ========== Screen 5: Account Selection ==========
+  document.getElementById('s5Back').addEventListener('click', function() {
+    goBack('screen5', 'screen3');
+  });
+
+  function applyAccount(acct) {
+    currentAccount = acct;
+    document.getElementById('checkColdplay').style.opacity = acct === 'coldplay' ? '1' : '0';
+    document.getElementById('checkColdplay1').style.opacity = acct === 'coldplay1' ? '1' : '0';
+
+    var nameEl = document.querySelector('.s4-name');
+    var usernameEl = document.querySelector('.s4-username');
+    var pronounsEl = document.getElementById('s4Pronouns');
+    var bioTextEl = document.getElementById('s4BioText');
+    var bioLinkEl = document.getElementById('s4BioLink');
+    var followingNumEl = document.getElementById('s4FollowingNum');
+    var followersNumEl = document.getElementById('s4FollowersNum');
+    var likesNumEl = document.getElementById('s4LikesNum');
+    var universityRowEl = document.getElementById('s4UniversityRow');
+    var contactRowEl = document.getElementById('s4ContactRow');
+    var tagsRowEl = document.getElementById('s4TagsRow');
+    var videoGridEl = document.getElementById('s4VideoGrid');
+    var videoEmptyEl = document.getElementById('s4VideoEmpty');
+
+    if (acct === 'coldplay') {
+      nameEl.textContent = 'Coldplay';
+      usernameEl.textContent = '@coldplay';
+      pronounsEl.textContent = 'He/him/his';
+      bioTextEl.textContent = 'Tik Official Coldplay Tok. The new album, Moon Music, out now. Your Japanese bestie\u{1F1EF}\u{1F1F5}\u{1FAF6}#comedy';
+      bioLinkEl.textContent = 'lemon8-app.com/bimbingan and 1 more';
+      followingNumEl.textContent = '36';
+      followersNumEl.textContent = '8.1M';
+      likesNumEl.textContent = '88.3M';
+      bioLinkEl.style.display = 'block';
+      universityRowEl.style.display = 'flex';
+      contactRowEl.style.display = 'flex';
+      tagsRowEl.style.display = 'flex';
+      videoGridEl.style.display = 'flex';
+      videoEmptyEl.style.display = 'none';
+    } else {
+      nameEl.textContent = 'Coldplay1';
+      usernameEl.textContent = '@coldplay1';
+      pronounsEl.textContent = '';
+      bioTextEl.textContent = 'New here. First post coming soon.';
+      followingNumEl.textContent = '2';
+      followersNumEl.textContent = '17';
+      likesNumEl.textContent = '39';
+      bioLinkEl.style.display = 'none';
+      universityRowEl.style.display = 'none';
+      contactRowEl.style.display = 'none';
+      tagsRowEl.style.display = 'none';
+      videoGridEl.style.display = 'none';
+      videoEmptyEl.style.display = 'block';
+    }
+  }
+
+  document.querySelectorAll('.s5-account-card').forEach(function(card) {
+    card.addEventListener('click', function() {
+      var target = this.dataset.target;
+      applyAccount(target);
+      goTo('screen5', 'screen4');
+    });
+  });
+
+  // ========== Plan Switcher ==========
+  var planFab = document.getElementById('planFab');
+  var planPopup = document.getElementById('planPopup');
+  var planOptA = document.getElementById('planOptA');
+  var planOptB = document.getElementById('planOptB');
+
+  planFab.addEventListener('click', function(e) {
+    e.stopPropagation();
+    planPopup.classList.toggle('visible');
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!planPopup.contains(e.target) && e.target !== planFab) {
+      planPopup.classList.remove('visible');
+    }
+  });
+
+  function switchPlan(plan) {
+    currentPlan = plan;
+    planFab.textContent = plan;
+    planOptA.classList.toggle('active', plan === 'A');
+    planOptB.classList.toggle('active', plan === 'B');
+    planPopup.classList.remove('visible');
+    resetToScreen1();
+  }
+
+  planOptA.addEventListener('click', function() { switchPlan('A'); });
+  planOptB.addEventListener('click', function() { switchPlan('B'); });
+})();
+</script>
+
+</body>
+</html>
