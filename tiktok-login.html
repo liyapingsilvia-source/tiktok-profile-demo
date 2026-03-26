@@ -955,6 +955,22 @@
     object-fit: cover;
   }
 
+  .s4-avatar__empty-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 38px;
+    height: 38px;
+    display: none;
+  }
+
+  .s4-avatar__empty-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
   .s4-avatar__ring {
     position: absolute;
     inset: -6px;
@@ -1488,6 +1504,125 @@
     color: #000;
   }
 
+  /* ========== Add Account Half-Sheet ========== */
+  .add-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 110;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .add-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .add-sheet {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-radius: 16px 16px 0 0;
+    z-index: 111;
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    padding-bottom: 34px;
+  }
+  .add-sheet.visible {
+    transform: translateY(0);
+  }
+
+  .add-sheet__handle {
+    width: 36px;
+    height: 4px;
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 100px;
+    margin: 10px auto 0;
+  }
+
+  .add-sheet__title {
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.3;
+    color: #000;
+    text-align: center;
+    padding: 16px 0 8px;
+  }
+
+  .add-sheet__options {
+    padding: 0 16px;
+  }
+
+  .add-sheet__option {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 0;
+    cursor: pointer;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.06);
+  }
+  .add-sheet__option:last-child { border-bottom: none; }
+  .add-sheet__option:active { background: rgba(0, 0, 0, 0.03); }
+
+  .add-sheet__icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .add-sheet__label {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .add-sheet__label-main {
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.3;
+    color: #161823;
+  }
+
+  .add-sheet__label-sub {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.4;
+    color: rgba(0, 0, 0, 0.44);
+    margin-top: 2px;
+  }
+
+  .add-sheet__arrow {
+    flex-shrink: 0;
+  }
+
+  .add-sheet__cancel {
+    display: block;
+    width: calc(100% - 32px);
+    margin: 12px 16px 0;
+    padding: 14px 0;
+    border-radius: 8px;
+    border: none;
+    background: rgba(0, 0, 0, 0.04);
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.3;
+    color: #161823;
+    cursor: pointer;
+    text-align: center;
+  }
+  .add-sheet__cancel:active { background: rgba(0, 0, 0, 0.08); }
+
   /* ================================================================
      SCREEN 5: Account Selection (Plan B)
      ================================================================ */
@@ -1601,6 +1736,448 @@
     opacity: 0.3;
   }
 
+  /* ================================================================
+     SCREEN 6: Create New Account Consent
+     ================================================================ */
+  .s6-statusbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 24px 0;
+    height: 44px;
+    box-sizing: border-box;
+  }
+  .s6-statusbar__time {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+  }
+  .s6-statusbar__icons {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .s6-topbar {
+    height: 44px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+  }
+
+  .s6-back {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  .s6-back:active { opacity: 0.6; }
+
+  .s6-scroll {
+    position: absolute;
+    top: 88px;
+    left: 0;
+    right: 0;
+    bottom: 120px;
+    overflow-y: auto;
+    padding: 0 24px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .s6-title {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 1.27;
+    color: #000;
+    margin-bottom: 20px;
+    letter-spacing: -0.2px;
+  }
+
+  .s6-center-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: #f5f5f5;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    cursor: pointer;
+  }
+  .s6-center-card:active { background: #ebebeb; }
+
+  .s6-center-card__avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .s6-center-card__info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .s6-center-card__name {
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.3;
+    color: #000;
+  }
+
+  .s6-center-card__accounts {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.4;
+    color: rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .s6-center-card__arrow {
+    flex-shrink: 0;
+    opacity: 0.4;
+  }
+
+  .s6-body {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.5;
+    color: rgba(0, 0, 0, 0.7);
+    margin-bottom: 16px;
+  }
+
+  .s6-section-title {
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1.3;
+    color: #000;
+    margin-bottom: 8px;
+  }
+
+  .s6-subsection-title {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.3;
+    color: #000;
+    margin-bottom: 10px;
+    margin-top: 4px;
+  }
+
+  .s6-list {
+    padding-left: 18px;
+    margin: 0 0 20px 0;
+  }
+
+  .s6-list li {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.5;
+    color: rgba(0, 0, 0, 0.7);
+    margin-bottom: 10px;
+  }
+
+  .s6-list li a {
+    color: #161823;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .s6-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px 24px 34px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-top: 0.5px solid rgba(0, 0, 0, 0.06);
+  }
+
+  .s6-btn-primary {
+    width: 100%;
+    height: 48px;
+    border-radius: 24px;
+    background: #FE2C55;
+    color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 48px;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+  }
+  .s6-btn-primary:active { opacity: 0.85; }
+
+  .s6-btn-secondary {
+    width: 100%;
+    height: 48px;
+    border-radius: 24px;
+    background: none;
+    color: #161823;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 48px;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+  }
+  .s6-btn-secondary:active { background: rgba(0, 0, 0, 0.03); }
+
+  /* ========== Screen 7: Sign Up Primary Button ========== */
+  .login-btn--primary {
+    background: #FE2C55 !important;
+    border-color: #FE2C55 !important;
+  }
+  .login-btn--primary .login-btn__label {
+    color: #fff !important;
+  }
+
+  .s7-or {
+    text-align: center;
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.4);
+    padding: 4px 0 2px;
+  }
+
+  /* ========== Screen 10: Sign Up Verification extras ========== */
+  .s10-consent {
+    position: absolute;
+    top: 310px;
+    left: 24px;
+    right: 24px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .s10-consent__check {
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .s10-consent__text {
+    font-size: 12px;
+    line-height: 1.5;
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+  .s10-email-hint {
+    position: absolute;
+    top: 370px;
+    left: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.5);
+    background: #f5f5f5;
+    padding: 8px 14px;
+    border-radius: 8px;
+  }
+
+  /* ========== Post-Signup Onboarding (11/12/13/14) ========== */
+  .onb-page { position: relative; width: 100%; height: 100%; background: #fff; }
+  .onb-top {
+    height: 44px; display:flex; align-items:center; justify-content:space-between;
+    padding: 0 16px; color: rgba(0,0,0,0.45); font-size: 13px; font-weight: 500;
+  }
+  .onb-top .skip { background:none; border:none; color: rgba(0,0,0,0.45); cursor:pointer; padding:0; }
+  .onb-card { padding: 8px 24px 0; }
+  .onb-title { font-size: 38px; font-weight: 700; line-height: 0.95; letter-spacing: -0.6px; color:#161823; margin-bottom: 8px; }
+  .onb-sub { font-size: 14px; color: rgba(0,0,0,0.55); line-height: 1.4; margin-bottom: 18px; }
+  .onb-input {
+    width: 100%; height: 44px; border: none; border-radius: 8px; background: #f1f1f3;
+    padding: 0 14px; font-size: 16px; color: #161823; outline: none;
+  }
+  .onb-count { margin-top: 8px; font-size: 12px; color: rgba(0,0,0,0.45); }
+  .onb-bottom { position: absolute; left: 0; right: 0; bottom: 334px; padding: 0 24px; }
+  .onb-continue {
+    width:100%; height:48px; border:none; border-radius:24px; font-weight:700; font-size:16px; cursor:pointer;
+    background:#f4b2c4; color:#fff;
+  }
+  .onb-continue.enabled { background:#FE2C55; }
+  .onb-kbd { position:absolute; left:0; right:0; bottom:34px; background:#d3d4da; padding:8px 6px 10px; }
+  .onb-kbd-row { display:flex; gap:4px; justify-content:center; margin-bottom:4px; }
+  .onb-key {
+    min-width: 32px; height: 38px; border:none; border-radius:5px; background:#fff; color:#161823;
+    font-size: 18px; box-shadow: 0 1px 0 rgba(0,0,0,0.18); cursor:pointer; padding:0 10px;
+  }
+  .onb-key.wide { min-width: 70px; font-size: 14px; }
+
+  /* Onboarding pages: shift whole content area down by 44px */
+  #screen11 .onb-page,
+  #screen12 .onb-page,
+  #screen13 .onb-page {
+    padding-top: 44px;
+    box-sizing: border-box;
+  }
+
+  .taste-wrap { padding: 12px 24px 0; }
+  #screen12 .taste-wrap { padding-top: 12px; }
+  .taste-title { font-size: 48px; font-weight: 700; line-height: 0.92; letter-spacing: -0.7px; color:#161823; margin-bottom: 10px; }
+  .taste-sub { font-size: 14px; color: rgba(0,0,0,0.55); margin-bottom: 18px; }
+  .taste-grid { display:flex; flex-wrap:wrap; gap:10px 10px; }
+  .taste-chip {
+    border: 1px solid rgba(0,0,0,0.08); border-radius: 999px; background:#fff; padding: 9px 13px;
+    font-size: 14px; color:#161823; cursor:pointer;
+  }
+  .taste-chip.active { background: #ffe8ee; border-color: #ffd0dc; color:#d81e49; font-weight:600; }
+  .taste-bottom { position:absolute; left:0; right:0; bottom:34px; padding: 0 24px; display:flex; gap:12px; }
+  .taste-btn {
+    flex:1; height:48px; border:none; border-radius:24px; font-weight:700; font-size:18px; cursor:pointer;
+  }
+  .taste-btn.skip { background:#efeff2; color:#6d6f73; }
+  .taste-btn.next { background:#f4b2c4; color:#fff; }
+  .taste-btn.next.enabled { background:#FE2C55; }
+
+  .swipe-wrap { padding: 18px 24px 0; }
+  #screen13 .swipe-wrap { padding-top: 18px; }
+  .swipe-title { font-size: 52px; font-weight: 700; line-height: 0.9; letter-spacing:-0.8px; color:#161823; margin-bottom: 8px; }
+  .swipe-sub { font-size: 14px; color: rgba(0,0,0,0.6); line-height: 1.45; margin-bottom: 16px; }
+  .swipe-phone {
+    width: 130px; height: 244px; border-radius: 14px; overflow: hidden; margin: 0 auto;
+    box-shadow: 0 5px 16px rgba(0,0,0,0.24); border:1px solid rgba(0,0,0,0.15);
+  }
+  .swipe-phone img { width:100%; height:100%; object-fit: cover; display:block; }
+  .swipe-bottom { position:absolute; left:0; right:0; bottom:34px; padding: 0 24px; display:flex; gap:12px; }
+  .swipe-btn {
+    flex:1; height:48px; border:none; border-radius:24px; background:#FE2C55; color:#fff;
+    font-weight:700; font-size:16px; cursor:pointer;
+  }
+  .swipe-btn.skip { background:#efeff2; color:#6d6f73; }
+
+  /* ========== Flow View ========== */
+  .flow-view {
+    position: fixed;
+    inset: 0;
+    z-index: 8000;
+    background: #f0f0f0;
+    display: none;
+    flex-direction: column;
+  }
+  .flow-view.visible { display: flex; }
+
+  .flow-topbar {
+    height: 52px;
+    background: #fff;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    flex-shrink: 0;
+    z-index: 2;
+  }
+  .flow-topbar__title {
+    font-weight: 700;
+    font-size: 15px;
+    color: #161823;
+  }
+  .flow-topbar__close {
+    font-weight: 600;
+    font-size: 13px;
+    color: #FE2C55;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px 14px;
+    border-radius: 6px;
+  }
+  .flow-topbar__close:hover { background: rgba(254,44,85,0.06); }
+
+  .flow-canvas {
+    flex: 1;
+    overflow: auto;
+    position: relative;
+    padding: 40px 32px 60px;
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .flow-arrows {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: visible;
+  }
+
+  .flow-card {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .flow-card__label {
+    font-weight: 600;
+    font-size: 11px;
+    color: rgba(0,0,0,0.5);
+    text-align: center;
+    background: #fff;
+    padding: 3px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  .flow-card__frame {
+    width: 195px;
+    height: 422px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.06);
+    background: #fff;
+    position: relative;
+    pointer-events: none;
+    transform: scale(1);
+  }
+
+  .flow-card__frame > .screen {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 390px !important;
+    height: 844px !important;
+    transform: scale(0.5) !important;
+    transform-origin: top left !important;
+    pointer-events: none !important;
+    opacity: 1 !important;
+    display: block !important;
+  }
+
+  .flow-card__frame > .screen.flow-hidden {
+    display: none !important;
+  }
+
+  .flow-card__badge {
+    font-weight: 600;
+    font-size: 11px;
+    color: #fff;
+    background: #FE2C55;
+    padding: 2px 8px;
+    border-radius: 10px;
+    white-space: nowrap;
+  }
+
+  .flow-card__badge.alt {
+    background: #20d5ec;
+  }
+
   /* ========== Plan Switcher FAB ========== */
   .plan-fab {
     position: fixed;
@@ -1701,6 +2278,12 @@
     font-size: 11px;
     line-height: 1.3;
     color: rgba(0, 0, 0, 0.4);
+  }
+
+  .plan-popup__divider {
+    height: 1px;
+    background: rgba(0,0,0,0.08);
+    margin: 4px 10px;
   }
 </style>
 </head>
@@ -2005,6 +2588,12 @@
         <div class="s4-avatar-area">
           <div class="s4-avatar">
             <img class="s4-avatar__photo" src="coldplay-avatar.png" alt="Avatar">
+            <div class="s4-avatar__empty-icon" aria-hidden="true">
+              <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M23.7499 19C23.7499 21.6234 21.6233 23.75 18.9999 23.75C16.3766 23.75 14.2499 21.6234 14.2499 19C14.2499 16.3767 16.3766 14.25 18.9999 14.25C21.6233 14.25 23.7499 16.3767 23.7499 19Z" fill="#FE2C55"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M7.90773 6.75033C4.82126 7.2133 2.35067 9.55131 1.71834 12.6076C0.84503 16.8286 0.804414 21.1795 1.59877 25.4161L1.70448 25.9799C2.34238 29.382 5.0708 32.0033 8.49572 32.5045L9.97569 32.7211C15.96 33.5968 22.0399 33.5968 28.0242 32.7211L29.5041 32.5045C32.9291 32.0033 35.6575 29.382 36.2954 25.9799L36.4011 25.4161C37.1954 21.1795 37.1548 16.8286 36.2815 12.6076C35.6492 9.55131 33.1786 7.2133 30.0921 6.75033L28.3653 6.4913C27.6762 6.38794 27.0278 6.10046 26.4885 5.65921L25.6808 4.99839C24.9363 4.38928 24.5641 4.0847 24.1657 3.83803C23.3082 3.30714 22.3478 2.96432 21.348 2.83224C20.8835 2.77087 20.4025 2.77087 19.4406 2.77087H18.5593C17.5973 2.77087 17.1164 2.77087 16.6518 2.83224C15.652 2.96432 14.6916 3.30714 13.8342 3.83803C13.4358 4.0847 13.0636 4.38926 12.3191 4.99837L11.5114 5.65921C10.9721 6.10046 10.3237 6.38794 9.63458 6.4913L7.90773 6.75033ZM26.9166 19C26.9166 23.3723 23.3722 26.9167 18.9999 26.9167C14.6277 26.9167 11.0833 23.3723 11.0833 19C11.0833 14.6278 14.6277 11.0834 18.9999 11.0834C23.3722 11.0834 26.9166 14.6278 26.9166 19Z" fill="#FE2C55"/>
+              </svg>
+            </div>
             <div class="s4-avatar__ring">
               <img src="https://www.figma.com/api/mcp/asset/553d0f35-c207-4bd1-87b1-2f3cc109ef17" alt="">
             </div>
@@ -2254,7 +2843,7 @@
           </div>
         </button>
       </div>
-      <button class="sheet-add-btn">
+      <button class="sheet-add-btn" id="sheetAddBtn">
         <div class="sheet-add-icon">
           <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M10 4V16M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -2262,6 +2851,40 @@
         </div>
         <span class="sheet-add-text">Add account</span>
       </button>
+    </div>
+
+    <!-- Add Account Half-Sheet -->
+    <div class="add-overlay" id="addOverlay"></div>
+    <div class="add-sheet" id="addSheet">
+      <div class="add-sheet__handle"></div>
+      <div class="add-sheet__title">Add account</div>
+      <div class="add-sheet__options">
+        <button class="add-sheet__option" id="addOptLogin">
+          <div class="add-sheet__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 1.5c-5 0-9 2.2-9 5.5 0 .6.4 1 1 1h16c.6 0 1-.4 1-1 0-3.3-4-5.5-9-5.5z" fill="#161823"/>
+            </svg>
+          </div>
+          <div class="add-sheet__label">
+            <div class="add-sheet__label-main">Log in to an existing account</div>
+            <div class="add-sheet__label-sub">Use phone, email, or social login</div>
+          </div>
+          <svg class="add-sheet__arrow" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7.5 5l5 5-5 5" stroke="rgba(0,0,0,0.34)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="add-sheet__option" id="addOptCreate">
+          <div class="add-sheet__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z" fill="#161823"/>
+            </svg>
+          </div>
+          <div class="add-sheet__label">
+            <div class="add-sheet__label-main">Create a new account</div>
+            <div class="add-sheet__label-sub">Sign up with a fresh TikTok account</div>
+          </div>
+          <svg class="add-sheet__arrow" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7.5 5l5 5-5 5" stroke="rgba(0,0,0,0.34)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <button class="add-sheet__cancel" id="addSheetCancel">Cancel</button>
     </div>
   </div>
 
@@ -2286,7 +2909,7 @@
 
     <div class="s5-content">
       <div class="s5-title">Welcome back!</div>
-      <div class="s5-subtitle">Choose an account to continue</div>
+      <div class="s5-subtitle">Choose an account to continue. Other accounts are available in Switch account.</div>
 
       <div class="s5-accounts">
         <!-- Coldplay main account -->
@@ -2318,13 +2941,340 @@
     </div>
   </div>
 
+  <!-- ============== SCREEN 7: Sign Up Options ============== -->
+  <div class="screen hidden-right" id="screen7">
+    <div class="status-bar">
+      <span class="status-bar__time">8:00</span>
+      <div class="status-bar__icons">
+        <img class="status-bar__signal" src="https://www.figma.com/api/mcp/asset/865282a0-e196-4f57-af67-cfcaf63151be" alt="">
+        <img class="status-bar__wifi" src="https://www.figma.com/api/mcp/asset/535f2985-bab0-4893-9c25-58db52f6a5ff" alt="">
+        <img class="status-bar__battery" src="https://www.figma.com/api/mcp/asset/08a454b6-3c04-4122-9213-77dcd9a70f4f" alt="">
+      </div>
+    </div>
+    <div class="nav-bar" style="justify-content: flex-end;">
+      <button class="nav-bar__help-btn" aria-label="Help">
+        <div class="nav-bar__help-icon">
+          <img src="https://www.figma.com/api/mcp/asset/e9bed869-790f-4ffb-9761-40fc04181bec" alt="">
+        </div>
+      </button>
+    </div>
+    <div class="s1-content">
+      <div class="s1-title"><h1>Sign up for TikTok</h1></div>
+      <div class="s1-buttons">
+        <button class="login-btn login-btn--primary" id="btnSignUpPhone">
+          <div class="login-btn__inner">
+            <div class="login-btn__icon-wrap login-btn__icon-wrap--person">
+              <img src="https://www.figma.com/api/mcp/asset/eadabadf-bfac-4dc1-927d-b55380670c57" alt="">
+            </div>
+            <span class="login-btn__label">Use phone or email</span>
+          </div>
+        </button>
+        <div class="s7-or"><span>or</span></div>
+        <button class="login-btn">
+          <div class="login-btn__inner">
+            <div class="login-btn__icon-wrap login-btn__icon-wrap--fb">
+              <img src="https://www.figma.com/api/mcp/asset/8705271b-73fd-4dd4-849d-282c4f78329c" alt="">
+            </div>
+            <span class="login-btn__label">Continue with Facebook</span>
+          </div>
+        </button>
+        <button class="login-btn">
+          <div class="login-btn__inner">
+            <div class="login-btn__icon-wrap login-btn__icon-wrap--apple">
+              <img src="https://www.figma.com/api/mcp/asset/369ec012-e4a3-4da6-8454-c36f478c6f65" alt="">
+            </div>
+            <span class="login-btn__label">Continue with Apple</span>
+          </div>
+        </button>
+        <button class="login-btn">
+          <div class="login-btn__inner">
+            <div class="login-btn__icon-wrap login-btn__icon-wrap--google">
+              <img src="https://www.figma.com/api/mcp/asset/f56c8d59-f2fa-4725-a3f8-b34ed1a9f58d" alt="">
+            </div>
+            <span class="login-btn__label">Continue with Google</span>
+          </div>
+        </button>
+      </div>
+    </div>
+    <div class="s1-bottom">
+      <div class="s1-terms">
+        <p>By signing up, you agree to our <a href="#">Terms of Service</a> and acknowledge that you have read our <a href="#">Privacy Policy</a>.</p>
+      </div>
+      <div class="s1-signup-bar">
+        <p><span>Already have an account?</span><a href="#" id="s7LoginLink"> Log in</a></p>
+        <div class="home-indicator"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== SCREEN 10: New Account Empty Profile ============== -->
+  <div class="screen hidden-right" id="screen10">
+    <div class="s4-scroll">
+      <div class="s4-status-bar">
+        <span class="status-bar__time">8:00</span>
+        <div class="status-bar__icons">
+          <img class="status-bar__signal" src="https://www.figma.com/api/mcp/asset/b1089d63-6d01-46fa-8514-c178accda801" alt="">
+          <img class="status-bar__wifi" src="https://www.figma.com/api/mcp/asset/7c31a43f-d542-491e-b525-f72d2bbdf50b" alt="">
+          <img class="status-bar__battery" src="https://www.figma.com/api/mcp/asset/f3cef841-69a2-44d4-af9e-2eb12b5e09ec" alt="">
+        </div>
+      </div>
+      <div class="s4-nav">
+        <div class="s4-nav__left">
+          <button class="s4-nav-icon"><img src="https://www.figma.com/api/mcp/asset/aef1eb39-5b6b-4eeb-94ff-3364e940195b" alt="Edit"></button>
+        </div>
+        <div class="s4-nav__right">
+          <button class="s4-nav-icon"><img src="https://www.figma.com/api/mcp/asset/53388a17-fed2-4cf9-9ce0-7230fa9de948" alt="Visitors"></button>
+          <button class="s4-nav-icon" aria-label="Add Friend">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M13.75 16.0417H21.0833M17.4167 12.375L17.4167 19.7083" stroke="black" stroke-width="1.83333" stroke-linecap="round"/>
+              <path d="M10.3125 11.4577C11.705 11.4577 12.9211 11.551 13.9717 11.7546C13.41 12.2065 12.9376 12.7655 12.5889 13.402C11.9284 13.3305 11.1742 13.2917 10.3125 13.2917C7.14147 13.2917 5.42508 13.8071 4.48633 14.611C3.63976 15.3363 3.24914 16.4567 3.21191 18.2682C3.24299 18.2826 3.27732 18.3018 3.31836 18.318C3.66162 18.4539 4.20955 18.5857 4.93848 18.6979C6.37981 18.9198 8.33442 19.0348 10.3125 19.0348C11.1459 19.0348 11.9751 19.0125 12.7637 18.9723C13.2 19.6636 13.7854 20.2504 14.4756 20.6881C13.1967 20.8074 11.7486 20.8678 10.3125 20.8678C8.28091 20.8678 6.22537 20.7515 4.65918 20.5104C3.8844 20.3911 3.17756 20.2335 2.64355 20.0221C2.38031 19.9179 2.10193 19.7782 1.87402 19.5817C1.64342 19.3829 1.375 19.043 1.375 18.5622C1.37504 16.4042 1.78357 14.5123 3.29395 13.2184C4.75729 11.9652 7.05129 11.4577 10.3125 11.4577ZM10.3125 0.916664C12.9704 0.916664 15.125 3.07129 15.125 5.72916C15.125 8.38703 12.9704 10.5417 10.3125 10.5417C7.65463 10.5417 5.5 8.38703 5.5 5.72916C5.5 3.07129 7.65463 0.916664 10.3125 0.916664ZM10.3125 2.74967C8.66715 2.74967 7.33301 4.08382 7.33301 5.72916C7.33301 7.37451 8.66715 8.70866 10.3125 8.70866C11.9578 8.70866 13.292 7.37451 13.292 5.72916C13.292 4.08382 11.9578 2.74967 10.3125 2.74967Z" fill="black"/>
+            </svg>
+          </button>
+          <button class="s4-nav-icon"><img src="https://www.figma.com/api/mcp/asset/2c82d08a-6955-40a2-a96a-65f38b97fcf4" alt="Menu"></button>
+        </div>
+      </div>
+      <div class="s4-profile-header">
+        <div class="s4-name-row"><span class="s4-name" style="font-size:13px;font-weight:600;">+ Add name</span></div>
+        <div class="s4-username-row"><span class="s4-username">@user1221</span></div>
+        <div class="s4-stats">
+          <div class="s4-stat"><span class="s4-stat__num">0</span><span class="s4-stat__label">Following</span></div>
+          <div class="s4-stat"><span class="s4-stat__num">0</span><span class="s4-stat__label">Followers</span></div>
+          <div class="s4-stat"><span class="s4-stat__num">0</span><span class="s4-stat__label">Likes</span></div>
+        </div>
+        <div class="s4-avatar-area">
+          <div class="s4-avatar" style="background:#e9e9e9;">
+            <div class="s4-avatar__empty-icon" style="display:block;" aria-hidden="true">
+              <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M23.7499 19C23.7499 21.6234 21.6233 23.75 18.9999 23.75C16.3766 23.75 14.2499 21.6234 14.2499 19C14.2499 16.3767 16.3766 14.25 18.9999 14.25C21.6233 14.25 23.7499 16.3767 23.7499 19Z" fill="#FE2C55"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M7.90773 6.75033C4.82126 7.2133 2.35067 9.55131 1.71834 12.6076C0.84503 16.8286 0.804414 21.1795 1.59877 25.4161L1.70448 25.9799C2.34238 29.382 5.0708 32.0033 8.49572 32.5045L9.97569 32.7211C15.96 33.5968 22.0399 33.5968 28.0242 32.7211L29.5041 32.5045C32.9291 32.0033 35.6575 29.382 36.2954 25.9799L36.4011 25.4161C37.1954 21.1795 37.1548 16.8286 36.2815 12.6076C35.6492 9.55131 33.1786 7.2133 30.0921 6.75033L28.3653 6.4913C27.6762 6.38794 27.0278 6.10046 26.4885 5.65921L25.6808 4.99839C24.9363 4.38928 24.5641 4.0847 24.1657 3.83803C23.3082 3.30714 22.3478 2.96432 21.348 2.83224C20.8835 2.77087 20.4025 2.77087 19.4406 2.77087H18.5593C17.5973 2.77087 17.1164 2.77087 16.6518 2.83224C15.652 2.96432 14.6916 3.30714 13.8342 3.83803C13.4358 4.0847 13.0636 4.38926 12.3191 4.99837L11.5114 5.65921C10.9721 6.10046 10.3237 6.38794 9.63458 6.4913L7.90773 6.75033ZM26.9166 19C26.9166 23.3723 23.3722 26.9167 18.9999 26.9167C14.6277 26.9167 11.0833 23.3723 11.0833 19C11.0833 14.6278 14.6277 11.0834 18.9999 11.0834C23.3722 11.0834 26.9166 14.6278 26.9166 19Z" fill="#FE2C55"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="s4-bio"><p class="s4-bio__text">+ Add bio · ♡ I'm interested in...</p></div>
+      <div style="background:#fff;width:390px;overflow:hidden;">
+        <div class="s4-tab-bar">
+          <button class="s4-tab-item active">
+            <img src="https://www.figma.com/api/mcp/asset/7f45da48-e074-455e-a8cb-f68e45eeefb0" alt="Grid">
+            <img src="https://www.figma.com/api/mcp/asset/cb1624b7-4660-4e06-a481-636e8d9345d0" alt="" style="width:12px;height:12px;margin-left:-2px;">
+          </button>
+          <button class="s4-tab-item"><img src="https://www.figma.com/api/mcp/asset/6d53c1bc-8763-4911-aa40-a701072c2ea6" alt="Repost"></button>
+          <button class="s4-tab-item"><img src="https://www.figma.com/api/mcp/asset/d2f63b8a-9f3f-466f-8eec-6237c79595a6" alt="Bookmark"></button>
+          <button class="s4-tab-item"><img src="https://www.figma.com/api/mcp/asset/8ad2ed71-c853-4bae-b91d-4eb2fefe9c03" alt="Like"></button>
+        </div>
+        <div class="s4-tab-divider"></div>
+      </div>
+      <div class="s4-video-empty"></div>
+      <div class="s4-bottom-bar">
+        <div class="s4-bottom-nav">
+          <button class="s4-bottom-cell"><div class="s4-bottom-cell__icon"><img src="https://www.figma.com/api/mcp/asset/a5e76623-51fa-47fa-93e9-ed4df3152004" alt=""></div><span class="s4-bottom-cell__label">Home</span></button>
+          <button class="s4-bottom-cell"><div class="s4-bottom-cell__icon"><img src="https://www.figma.com/api/mcp/asset/1acabc70-2ac0-4e7c-b6a5-509d4a58fb5b" alt=""></div><span class="s4-bottom-cell__label">Friends</span></button>
+          <button class="s4-bottom-create" aria-label="Create">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M46.8487 27.577C47.0504 24.8611 47.0504 23.1341 46.8487 20.4182C45.9707 8.60136 32.3588 9.77504 24 9.77503V38.2201C32.3588 38.2201 45.9707 39.3938 46.8487 27.577Z" fill="#FA2D6C"/>
+              <path d="M1.15134 27.577C0.949553 24.8611 0.949553 23.1341 1.15134 20.4182C2.0293 8.60136 15.6412 9.77504 24 9.77503V38.2201C15.6412 38.2201 2.0293 39.3938 1.15134 27.577Z" fill="#20D5EC"/>
+              <path d="M5.45857 18.1785C5.88916 12.2475 10.9503 10.2831 15.9707 9.90886C21.316 9.51036 26.6836 9.51036 32.0289 9.90886C37.0493 10.2831 42.1105 12.2475 42.541 18.1785C42.8465 22.3857 42.8465 25.6095 42.541 29.8167C42.1105 35.7477 37.0493 37.7121 32.029 38.0863C26.6836 38.4848 21.316 38.4848 15.9707 38.0863C10.9503 37.7121 5.88916 35.7477 5.45857 29.8167C5.15313 25.6095 5.15313 22.3857 5.45857 18.1785Z" fill="black"/>
+              <path d="M24 18V30" stroke="white" stroke-width="3" stroke-linecap="round"/>
+              <path d="M18 24L30 24" stroke="white" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <button class="s4-bottom-cell"><div class="s4-bottom-cell__icon"><img src="https://www.figma.com/api/mcp/asset/000c241c-870e-4dd8-a90a-4b35488eb6c5" alt=""></div><span class="s4-bottom-cell__label">Inbox</span></button>
+          <button class="s4-bottom-cell"><div class="s4-bottom-cell__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 13C15.5336 13 17.8787 13.5549 19.332 14.7998C20.811 16.0668 21.25 17.9426 21.25 20.25C21.25 20.5754 21.0698 20.8207 20.8799 20.9844C20.6915 21.1468 20.4448 21.2737 20.1816 21.3779C19.6511 21.5879 18.9244 21.7527 18.0918 21.8809C16.4171 22.1387 14.2021 22.2656 12 22.2656C9.79794 22.2656 7.58288 22.1387 5.9082 21.8809C5.07563 21.7527 4.34885 21.5879 3.81836 21.3779C3.5552 21.2737 3.30854 21.1468 3.12012 20.9844C2.93025 20.8207 2.75 20.5754 2.75 20.25C2.75 17.9426 3.18897 16.0668 4.66797 14.7998C6.12129 13.5549 8.46641 13 12 13Z" fill="black"/><path d="M12 13.5C19.0182 13.5 20.75 15.7292 20.75 20.25C20.75 22.2708 3.25 22.2708 3.25 20.25C3.25 15.7292 4.98177 13.5 12 13.5ZM12 1.75C14.6234 1.75 16.75 3.87665 16.75 6.5C16.75 9.12335 14.6234 11.25 12 11.25C9.37665 11.25 7.25 9.12335 7.25 6.5C7.25 3.87665 9.37665 1.75 12 1.75Z" fill="black"/></svg></div><span class="s4-bottom-cell__label">Profile</span></button>
+        </div>
+        <div class="home-indicator"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== SCREEN 11: Create Nickname (Skippable) ============== -->
+  <div class="screen hidden-right" id="screen11">
+    <div class="onb-page">
+      <div class="status-bar">
+        <span class="status-bar__time">8:00</span>
+        <div class="status-bar__icons">
+          <img class="status-bar__signal" src="https://www.figma.com/api/mcp/asset/865282a0-e196-4f57-af67-cfcaf63151be" alt="">
+          <img class="status-bar__wifi" src="https://www.figma.com/api/mcp/asset/535f2985-bab0-4893-9c25-58db52f6a5ff" alt="">
+          <img class="status-bar__battery" src="https://www.figma.com/api/mcp/asset/08a454b6-3c04-4122-9213-77dcd9a70f4f" alt="">
+        </div>
+      </div>
+      <div class="onb-top">
+        <button class="skip" id="s11Skip">Skip</button>
+        <button class="nav-bar__help-btn" aria-label="Help">
+          <div class="nav-bar__help-icon"><img src="https://www.figma.com/api/mcp/asset/e9bed869-790f-4ffb-9761-40fc04181bec" alt=""></div>
+        </button>
+      </div>
+      <div class="onb-card">
+        <h1 class="onb-title">Create nickname</h1>
+        <p class="onb-sub">This can be anything you like and can be changed later. If you skip this step, you will be automatically assigned a default nickname.</p>
+        <input class="onb-input" id="s11Nickname" placeholder="Nickname" maxlength="30">
+        <div class="onb-count" id="s11Count">0/30</div>
+      </div>
+      <div class="onb-bottom"><button class="onb-continue" id="s11Continue">Continue</button></div>
+      <div class="onb-kbd" id="s11Kbd">
+        <div class="onb-kbd-row">
+          <button class="onb-key" data-k="Q">Q</button><button class="onb-key" data-k="W">W</button><button class="onb-key" data-k="E">E</button><button class="onb-key" data-k="R">R</button><button class="onb-key" data-k="T">T</button><button class="onb-key" data-k="Y">Y</button><button class="onb-key" data-k="U">U</button><button class="onb-key" data-k="I">I</button><button class="onb-key" data-k="O">O</button><button class="onb-key" data-k="P">P</button>
+        </div>
+        <div class="onb-kbd-row">
+          <button class="onb-key" data-k="A">A</button><button class="onb-key" data-k="S">S</button><button class="onb-key" data-k="D">D</button><button class="onb-key" data-k="F">F</button><button class="onb-key" data-k="G">G</button><button class="onb-key" data-k="H">H</button><button class="onb-key" data-k="J">J</button><button class="onb-key" data-k="K">K</button><button class="onb-key" data-k="L">L</button>
+        </div>
+        <div class="onb-kbd-row">
+          <button class="onb-key" data-k="Z">Z</button><button class="onb-key" data-k="X">X</button><button class="onb-key" data-k="C">C</button><button class="onb-key" data-k="V">V</button><button class="onb-key" data-k="B">B</button><button class="onb-key" data-k="N">N</button><button class="onb-key" data-k="M">M</button><button class="onb-key wide" data-k="DEL">⌫</button>
+        </div>
+        <div class="onb-kbd-row">
+          <button class="onb-key wide" data-k="SPACE">space</button>
+          <button class="onb-key wide" data-k="ENTER">return</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== SCREEN 12: Taste Builder (Skippable) ============== -->
+  <div class="screen hidden-right" id="screen12">
+    <div class="onb-page">
+      <div class="status-bar">
+        <span class="status-bar__time">8:00</span>
+        <div class="status-bar__icons">
+          <img class="status-bar__signal" src="https://www.figma.com/api/mcp/asset/865282a0-e196-4f57-af67-cfcaf63151be" alt="">
+          <img class="status-bar__wifi" src="https://www.figma.com/api/mcp/asset/535f2985-bab0-4893-9c25-58db52f6a5ff" alt="">
+          <img class="status-bar__battery" src="https://www.figma.com/api/mcp/asset/08a454b6-3c04-4122-9213-77dcd9a70f4f" alt="">
+        </div>
+      </div>
+      <div class="onb-top">
+        <button class="skip" id="s12Skip">Skip</button>
+        <button class="nav-bar__help-btn" aria-label="Help">
+          <div class="nav-bar__help-icon"><img src="https://www.figma.com/api/mcp/asset/e9bed869-790f-4ffb-9761-40fc04181bec" alt=""></div>
+        </button>
+      </div>
+      <div class="taste-wrap">
+        <h1 class="taste-title">Choose your interests</h1>
+        <p class="taste-sub">Get better video recommendations</p>
+        <div class="taste-grid" id="tasteGrid">
+          <button class="taste-chip">🎩 Comedy</button><button class="taste-chip">📍 Story Time</button>
+          <button class="taste-chip">🤔 Oddly Satisfying</button><button class="taste-chip">🐶 Animals</button>
+          <button class="taste-chip">💃 Dance</button><button class="taste-chip">💄 Beauty & Style</button>
+          <button class="taste-chip">🍔 Food</button><button class="taste-chip">🏀 Sports</button>
+          <button class="taste-chip">💼 On the Job</button><button class="taste-chip">🎨 Art</button>
+          <button class="taste-chip">👍 Life Hacks</button><button class="taste-chip">🚙 Off-Roading</button>
+          <button class="taste-chip">🚗 Auto</button>
+        </div>
+      </div>
+      <div class="taste-bottom">
+        <button class="taste-btn next" id="s12Next">Next</button>
+      </div>
+      <div class="home-indicator"></div>
+    </div>
+  </div>
+
+  <!-- ============== SCREEN 13: Swipe Up ============== -->
+  <div class="screen hidden-right" id="screen13">
+    <div class="onb-page">
+      <div class="status-bar">
+        <span class="status-bar__time">8:00</span>
+        <div class="status-bar__icons">
+          <img class="status-bar__signal" src="https://www.figma.com/api/mcp/asset/865282a0-e196-4f57-af67-cfcaf63151be" alt="">
+          <img class="status-bar__wifi" src="https://www.figma.com/api/mcp/asset/535f2985-bab0-4893-9c25-58db52f6a5ff" alt="">
+          <img class="status-bar__battery" src="https://www.figma.com/api/mcp/asset/08a454b6-3c04-4122-9213-77dcd9a70f4f" alt="">
+        </div>
+      </div>
+      <div class="swipe-wrap">
+        <h1 class="swipe-title">Swipe up</h1>
+        <p class="swipe-sub">Videos are personalized for you based on what you watch, like, and share.</p>
+        <div class="swipe-phone"><img src="tiktok-feed/assets/video3.png" alt=""></div>
+      </div>
+      <div class="swipe-bottom">
+        <button class="swipe-btn skip" id="s13Skip">Skip</button>
+        <button class="swipe-btn" id="s13Start">Start watching</button>
+      </div>
+      <div class="home-indicator"></div>
+    </div>
+  </div>
+
+  <!-- ============== SCREEN 14: Feed Landing ============== -->
+  <div class="screen hidden-right" id="screen14">
+    <div class="s4-scroll" style="background:#000;">
+      <img src="tiktok-feed/assets/video3.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+      <div class="s4-status-bar" style="position:relative;color:#fff;">
+        <span class="status-bar__time">8:00</span>
+        <div class="status-bar__icons">
+          <img class="status-bar__signal" src="https://www.figma.com/api/mcp/asset/865282a0-e196-4f57-af67-cfcaf63151be" alt="">
+          <img class="status-bar__wifi" src="https://www.figma.com/api/mcp/asset/535f2985-bab0-4893-9c25-58db52f6a5ff" alt="">
+          <img class="status-bar__battery" src="https://www.figma.com/api/mcp/asset/08a454b6-3c04-4122-9213-77dcd9a70f4f" alt="">
+        </div>
+      </div>
+      <div style="position:absolute;top:98px;left:0;right:0;display:flex;justify-content:center;gap:24px;color:#fff;font-size:15px;font-weight:600;z-index:2;">
+        <span style="opacity:.7;">Following</span><span>For You</span>
+      </div>
+      <div class="s4-bottom-bar" style="background:rgba(0,0,0,.9);">
+        <div class="s4-bottom-nav">
+          <button class="s4-bottom-cell"><div class="s4-bottom-cell__icon"><img src="https://www.figma.com/api/mcp/asset/a5e76623-51fa-47fa-93e9-ed4df3152004" alt=""></div><span class="s4-bottom-cell__label" style="color:#fff;">Home</span></button>
+          <button class="s4-bottom-cell"><div class="s4-bottom-cell__icon"><img src="https://www.figma.com/api/mcp/asset/1acabc70-2ac0-4e7c-b6a5-509d4a58fb5b" alt=""></div><span class="s4-bottom-cell__label" style="color:#fff;">Friends</span></button>
+          <button class="s4-bottom-create" aria-label="Create">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M46.8487 27.577C47.0504 24.8611 47.0504 23.1341 46.8487 20.4182C45.9707 8.60136 32.3588 9.77504 24 9.77503V38.2201C32.3588 38.2201 45.9707 39.3938 46.8487 27.577Z" fill="#FA2D6C"/><path d="M1.15134 27.577C0.949553 24.8611 0.949553 23.1341 1.15134 20.4182C2.0293 8.60136 15.6412 9.77504 24 9.77503V38.2201C15.6412 38.2201 2.0293 39.3938 1.15134 27.577Z" fill="#20D5EC"/><path d="M5.45857 18.1785C5.88916 12.2475 10.9503 10.2831 15.9707 9.90886C21.316 9.51036 26.6836 9.51036 32.0289 9.90886C37.0493 10.2831 42.1105 12.2475 42.541 18.1785C42.8465 22.3857 42.8465 25.6095 42.541 29.8167C42.1105 35.7477 37.0493 37.7121 32.029 38.0863C26.6836 38.4848 21.316 38.4848 15.9707 38.0863C10.9503 37.7121 5.88916 35.7477 5.45857 29.8167C5.15313 25.6095 5.15313 22.3857 5.45857 18.1785Z" fill="black"/><path d="M24 18V30" stroke="white" stroke-width="3" stroke-linecap="round"/><path d="M18 24L30 24" stroke="white" stroke-width="3" stroke-linecap="round"/></svg>
+          </button>
+          <button class="s4-bottom-cell"><div class="s4-bottom-cell__icon"><img src="https://www.figma.com/api/mcp/asset/000c241c-870e-4dd8-a90a-4b35488eb6c5" alt=""></div><span class="s4-bottom-cell__label" style="color:#fff;">Inbox</span></button>
+          <button class="s4-bottom-cell"><div class="s4-bottom-cell__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 13C15.5336 13 17.8787 13.5549 19.332 14.7998C20.811 16.0668 21.25 17.9426 21.25 20.25C21.25 20.5754 21.0698 20.8207 20.8799 20.9844C20.6915 21.1468 20.4448 21.2737 20.1816 21.3779C19.6511 21.5879 18.9244 21.7527 18.0918 21.8809C16.4171 22.1387 14.2021 22.2656 12 22.2656C9.79794 22.2656 7.58288 22.1387 5.9082 21.8809C5.07563 21.7527 4.34885 21.5879 3.81836 21.3779C3.5552 21.2737 3.30854 21.1468 3.12012 20.9844C2.93025 20.8207 2.75 20.5754 2.75 20.25C2.75 17.9426 3.18897 16.0668 4.66797 14.7998C6.12129 13.5549 8.46641 13 12 13Z" fill="black"/><path d="M12 13.5C19.0182 13.5 20.75 15.7292 20.75 20.25C20.75 22.2708 3.25 22.2708 3.25 20.25C3.25 15.7292 4.98177 13.5 12 13.5ZM12 1.75C14.6234 1.75 16.75 3.87665 16.75 6.5C16.75 9.12335 14.6234 11.25 12 11.25C9.37665 11.25 7.25 9.12335 7.25 6.5C7.25 3.87665 9.37665 1.75 12 1.75Z" fill="black"/></svg></div><span class="s4-bottom-cell__label" style="color:#fff;">Profile</span></button>
+        </div>
+        <div class="home-indicator"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== SCREEN 6: Create New Account Consent ============== -->
+  <div class="screen hidden-right" id="screen6">
+    <div class="s6-statusbar">
+      <span class="s6-statusbar__time">8:00</span>
+      <span class="s6-statusbar__icons">
+        <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><rect x="0" y="3" width="3" height="9" rx="1" fill="#000"/><rect x="5" y="2" width="3" height="10" rx="1" fill="#000"/><rect x="10" y="0" width="3" height="12" rx="1" fill="#000"/><rect x="15" y="0" width="3" height="12" rx="1" fill="#000" opacity=".25"/></svg>
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 2.4C10.6 2.4 12.9 3.5 14.5 5.2L16 3.7C14 1.4 11.2 0 8 0S2 1.4 0 3.7L1.5 5.2C3.1 3.5 5.4 2.4 8 2.4z" fill="#000"/><path d="M8 6.8c1.5 0 2.9.6 3.9 1.6L13.5 6.8C12 5.3 10.1 4.4 8 4.4S4 5.3 2.5 6.8L4.1 8.4C5.1 7.4 6.5 6.8 8 6.8z" fill="#000"/><circle cx="8" cy="11" r="1.5" fill="#000"/></svg>
+        <svg width="27" height="13" viewBox="0 0 27 13" fill="none"><rect x=".5" y=".5" width="22" height="12" rx="2" stroke="#000" stroke-opacity=".35"/><rect x="2" y="2" width="18" height="9" rx="1" fill="#000"/><path d="M24 4.5v4a2.5 2.5 0 000-4z" fill="#000" opacity=".4"/></svg>
+      </span>
+    </div>
+
+    <div class="s6-topbar">
+      <button class="s6-back" id="s6Back" aria-label="Back">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 19l-7-7 7-7" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <div class="s6-scroll">
+      <h1 class="s6-title">To create a new TikTok account in this Accounts Center, allow the following</h1>
+
+      <div class="s6-center-card">
+        <img class="s6-center-card__avatar" src="https://www.figma.com/api/mcp/asset/1396ab78-50e1-480b-a6d5-546bbfb37f08" alt="">
+        <div class="s6-center-card__info">
+          <div class="s6-center-card__name">Accounts Center</div>
+          <div class="s6-center-card__accounts">Coldplay, coldplay1</div>
+        </div>
+        <svg class="s6-center-card__arrow" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7.5 5l5 5-5 5" stroke="rgba(0,0,0,0.34)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+
+      <p class="s6-body">Creating your account this way helps unlock features that work across our products, like using the same login info to access your accounts.</p>
+      <p class="s6-body">Your posts, friends, followers and messages won't be automatically carried over into your new account.</p>
+
+      <h2 class="s6-section-title">What this means for you</h2>
+      <p class="s6-body">If you allow us to combine and use your info across accounts in this Accounts Center on different TikTok Company Products, here's what we will provide:</p>
+
+      <h3 class="s6-subsection-title">More personalized experiences</h3>
+      <ul class="s6-list">
+        <li>If we show you <a href="javascript:void(0)">ads</a>, like in For You or LIVE, we'll personalize them for you and others and measure how they perform</li>
+        <li>We'll personalize content and suggestions, like channel recommendations, for you and others</li>
+        <li>We'll provide the option to use <a href="javascript:void(0)">connected experiences</a>, like sharing across profiles</li>
+      </ul>
+    </div>
+
+    <div class="s6-bottom">
+      <button class="s6-btn-primary" id="s6Allow">Allow and continue</button>
+      <button class="s6-btn-secondary" id="s6UsePhone">Use mobile number or email</button>
+    </div>
+  </div>
 
 </div>
 
 <!-- ============== Plan Switcher FAB (outside phone frame) ============== -->
 <button class="plan-fab" id="planFab">A</button>
 <div class="plan-popup" id="planPopup">
-  <div class="plan-popup__title">Login Flow</div>
+  <div class="plan-popup__title">Plan</div>
   <button class="plan-option active" data-plan="A" id="planOptA">
     <div class="plan-option__dot"></div>
     <div class="plan-option__info">
@@ -2339,11 +3289,39 @@
       <div class="plan-option__desc">Verify → Pick Account → Profile</div>
     </div>
   </button>
+  <div class="plan-popup__divider"></div>
+  <div class="plan-popup__title">Mode</div>
+  <button class="plan-option active" id="modeDemo">
+    <div class="plan-option__dot"></div>
+    <div class="plan-option__info">
+      <div class="plan-option__label">Demo</div>
+      <div class="plan-option__desc">Interactive prototype</div>
+    </div>
+  </button>
+  <button class="plan-option" id="modeFlow">
+    <div class="plan-option__dot"></div>
+    <div class="plan-option__info">
+      <div class="plan-option__label">Flow</div>
+      <div class="plan-option__desc">All screens overview</div>
+    </div>
+  </button>
+</div>
+
+<!-- ============== Flow View (full-page, hidden by default) ============== -->
+<div class="flow-view" id="flowView">
+  <div class="flow-topbar">
+    <span class="flow-topbar__title" id="flowTitle">Plan A — Flow</span>
+    <button class="flow-topbar__close" id="flowClose">Back to Demo</button>
+  </div>
+  <div class="flow-canvas" id="flowCanvas">
+    <svg class="flow-arrows" id="flowArrows"></svg>
+  </div>
 </div>
 
 <script>
 (function() {
   var currentPlan = 'A';
+  var authFlowMode = 'signin'; // signin | signup
 
   // ========== Screen Navigation ==========
   function goTo(fromId, toId) {
@@ -2364,9 +3342,29 @@
     to.classList.add('active');
   }
 
+  // Ensure target screen always enters from right side.
+  function goToFromRight(fromId, toId) {
+    var to = document.getElementById(toId);
+    to.classList.remove('active', 'hidden-left', 'hidden-right');
+    to.classList.add('hidden-right');
+    // Force reflow so transition starts from hidden-right.
+    void to.offsetWidth;
+    goTo(fromId, toId);
+  }
+
+  function applyAuthFlowUI(mode) {
+    authFlowMode = mode;
+    var isSignUp = mode === 'signup';
+    var s2Title = document.querySelector('#screen2 .nav-bar__title');
+    if (s2Title) s2Title.textContent = isSignUp ? 'Sign up' : 'Log in';
+    var s3Help = document.querySelector('#screen3 .s3-help-link');
+    if (s3Help) s3Help.textContent = isSignUp ? 'Need help signing up?' : 'Need help logging in?';
+  }
+
   function resetToScreen1() {
-    ['screen1','screen2','screen3','screen4','screen5'].forEach(function(id) {
+    ['screen1','screen2','screen3','screen4','screen5','screen6','screen7','screen10','screen11','screen12','screen13','screen14'].forEach(function(id) {
       var el = document.getElementById(id);
+      if (!el) return;
       el.classList.remove('active','hidden-left','hidden-right');
       if (id === 'screen1') el.classList.add('active');
       else el.classList.add('hidden-right');
@@ -2375,13 +3373,15 @@
 
   // Screen 1 → Screen 2
   document.getElementById('btnPhoneLogin').addEventListener('click', function() {
+    applyAuthFlowUI('signin');
     goTo('screen1', 'screen2');
     setTimeout(function() { document.getElementById('phoneInput').focus(); }, 400);
   });
 
   // Screen 2 → Screen 1
   document.getElementById('s2Back').addEventListener('click', function() {
-    goBack('screen2', 'screen1');
+    if (authFlowMode === 'signup') goBack('screen2', 'screen7');
+    else goBack('screen2', 'screen1');
   });
 
   // Screen 2 → Screen 3
@@ -2390,7 +3390,8 @@
     if (phone.length > 0) {
       document.getElementById('s3PhoneDisplay').textContent = 'Your code was sent to +1 ' + phone;
     }
-    goTo('screen2', 'screen3');
+    if (authFlowMode === 'signup') goToFromRight('screen2', 'screen3');
+    else goTo('screen2', 'screen3');
     startResendTimer();
     resetCodeBoxes();
   });
@@ -2459,7 +3460,10 @@
     var filled = codeDigits.filter(function(d) { return d !== ''; }).length;
     if (filled === 6) {
       setTimeout(function() {
-        if (currentPlan === 'B') {
+        if (authFlowMode === 'signup') {
+          applyAccount('newuser');
+          goTo('screen3', 'screen10');
+        } else if (currentPlan === 'B') {
           goTo('screen3', 'screen5');
         } else {
           goTo('screen3', 'screen4');
@@ -2529,6 +3533,141 @@
     });
   });
 
+  // ========== Add Account Half-Sheet ==========
+  var addOverlay = document.getElementById('addOverlay');
+  var addSheet = document.getElementById('addSheet');
+  var sheetAddBtn = document.getElementById('sheetAddBtn');
+  var addSheetCancel = document.getElementById('addSheetCancel');
+  var addOptLogin = document.getElementById('addOptLogin');
+  var addOptCreate = document.getElementById('addOptCreate');
+
+  function openAddSheet() {
+    closeSheet();
+    setTimeout(function() {
+      addOverlay.classList.add('visible');
+      addSheet.classList.add('visible');
+    }, 200);
+  }
+
+  function closeAddSheet() {
+    addOverlay.classList.remove('visible');
+    addSheet.classList.remove('visible');
+  }
+
+  sheetAddBtn.addEventListener('click', openAddSheet);
+  addOverlay.addEventListener('click', closeAddSheet);
+  addSheetCancel.addEventListener('click', closeAddSheet);
+
+  addOptLogin.addEventListener('click', function() {
+    closeAddSheet();
+    setTimeout(function() {
+      applyAuthFlowUI('signin');
+      goTo('screen4', 'screen1');
+    }, 250);
+  });
+
+  addOptCreate.addEventListener('click', function() {
+    closeAddSheet();
+    setTimeout(function() {
+      goTo('screen4', 'screen6');
+    }, 250);
+  });
+
+  // ========== Screen 6: Create New Account Consent ==========
+  document.getElementById('s6Back').addEventListener('click', function() {
+    goBack('screen6', 'screen4');
+  });
+
+  document.getElementById('s6Allow').addEventListener('click', function() {
+    goTo('screen6', 'screen11');
+  });
+
+  document.getElementById('s6UsePhone').addEventListener('click', function() {
+    goTo('screen6', 'screen7');
+  });
+
+  // ========== Screen 7: Sign Up Options ==========
+  document.getElementById('btnSignUpPhone').addEventListener('click', function() {
+    applyAuthFlowUI('signup');
+    goToFromRight('screen7', 'screen2');
+    setTimeout(function() { document.getElementById('phoneInput').focus(); }, 400);
+  });
+
+  document.getElementById('s7LoginLink').addEventListener('click', function(e) {
+    e.preventDefault();
+    applyAuthFlowUI('signin');
+    goTo('screen7', 'screen1');
+  });
+
+  // ========== Screen 11: Nickname ==========
+  (function() {
+    var s11Input = document.getElementById('s11Nickname');
+    var s11Count = document.getElementById('s11Count');
+    var s11Continue = document.getElementById('s11Continue');
+
+    function updateS11State() {
+      var n = s11Input.value.length;
+      s11Count.textContent = n + '/30';
+      s11Continue.classList.toggle('enabled', n > 0);
+    }
+
+    document.getElementById('s11Skip').addEventListener('click', function() {
+      goTo('screen11', 'screen12');
+    });
+    s11Continue.addEventListener('click', function() {
+      goTo('screen11', 'screen12');
+    });
+    s11Input.addEventListener('input', updateS11State);
+
+    document.getElementById('s11Kbd').querySelectorAll('.onb-key').forEach(function(key) {
+      key.addEventListener('click', function() {
+        var k = this.dataset.k;
+        if (k === 'DEL') s11Input.value = s11Input.value.slice(0, -1);
+        else if (k === 'SPACE' && s11Input.value.length < 30) s11Input.value += ' ';
+        else if (k === 'ENTER') goTo('screen11', 'screen12');
+        else if (k && k.length === 1 && s11Input.value.length < 30) s11Input.value += k.toLowerCase();
+        s11Input.dispatchEvent(new Event('input'));
+      });
+    });
+    updateS11State();
+  })();
+
+  // ========== Screen 12: Taste Builder ==========
+  (function() {
+    var next = document.getElementById('s12Next');
+    var chips = document.querySelectorAll('#tasteGrid .taste-chip');
+    function updateNext() {
+      var has = document.querySelectorAll('#tasteGrid .taste-chip.active').length > 0;
+      next.classList.toggle('enabled', has);
+    }
+    chips.forEach(function(chip) {
+      chip.addEventListener('click', function() {
+        chip.classList.toggle('active');
+        updateNext();
+      });
+    });
+    document.getElementById('s12Skip').addEventListener('click', function() { goTo('screen12', 'screen13'); });
+    next.addEventListener('click', function() { goTo('screen12', 'screen13'); });
+    updateNext();
+  })();
+
+  // ========== Screen 13: Swipe Up ==========
+  document.getElementById('s13Skip').addEventListener('click', function() {
+    goTo('screen13', 'screen14');
+  });
+  document.getElementById('s13Start').addEventListener('click', function() {
+    goTo('screen13', 'screen14');
+  });
+
+  // ========== Screen 10: New Account Empty Profile ==========
+  // Keep this block safe even if no dedicated back button.
+  var s10BackBtn = document.getElementById('s10Back');
+  if (s10BackBtn) {
+    s10BackBtn.addEventListener('click', function() {
+      goBack('screen10', 'screen3');
+    });
+  }
+
   // ========== Screen 5: Account Selection ==========
   document.getElementById('s5Back').addEventListener('click', function() {
     goBack('screen5', 'screen3');
@@ -2541,6 +3680,15 @@
 
     var nameEl = document.querySelector('.s4-name');
     var usernameEl = document.querySelector('.s4-username');
+    var badgeEl = document.querySelector('.s4-badge');
+    var dotEl = document.querySelector('.s4-dot');
+    var categoryEl = document.querySelector('.s4-category');
+    var avatarPhotoEl = document.querySelector('.s4-avatar__photo');
+    var avatarEmptyIconEl = document.querySelector('.s4-avatar__empty-icon');
+    var avatarRingEl = document.querySelector('.s4-avatar__ring');
+    var avatarPlusEl = document.querySelector('.s4-avatar__plus');
+    var avatarEl = document.querySelector('.s4-avatar');
+    var playlistRowEl = document.querySelector('.s4-playlist-row');
     var pronounsEl = document.getElementById('s4Pronouns');
     var bioTextEl = document.getElementById('s4BioText');
     var bioLinkEl = document.getElementById('s4BioLink');
@@ -2555,7 +3703,23 @@
 
     if (acct === 'coldplay') {
       nameEl.textContent = 'Coldplay';
+      nameEl.style.fontSize = '';
+      nameEl.style.fontWeight = '';
       usernameEl.textContent = '@coldplay';
+      if (badgeEl) badgeEl.style.display = 'block';
+      if (dotEl) dotEl.style.display = 'inline';
+      if (categoryEl) {
+        categoryEl.style.display = 'inline';
+        categoryEl.textContent = 'Artist';
+      }
+      if (avatarPhotoEl) {
+        avatarPhotoEl.style.display = 'block';
+        avatarPhotoEl.src = 'coldplay-avatar.png';
+      }
+      if (avatarEmptyIconEl) avatarEmptyIconEl.style.display = 'none';
+      if (avatarRingEl) avatarRingEl.style.display = 'block';
+      if (avatarPlusEl) avatarPlusEl.style.display = 'flex';
+      if (avatarEl) avatarEl.style.background = 'transparent';
       pronounsEl.textContent = 'He/him/his';
       bioTextEl.textContent = 'Tik Official Coldplay Tok. The new album, Moon Music, out now. Your Japanese bestie\u{1F1EF}\u{1F1F5}\u{1FAF6}#comedy';
       bioLinkEl.textContent = 'lemon8-app.com/bimbingan and 1 more';
@@ -2566,11 +3730,26 @@
       universityRowEl.style.display = 'flex';
       contactRowEl.style.display = 'flex';
       tagsRowEl.style.display = 'flex';
+      if (playlistRowEl) playlistRowEl.style.display = 'flex';
       videoGridEl.style.display = 'flex';
       videoEmptyEl.style.display = 'none';
-    } else {
+      videoEmptyEl.textContent = 'No posts yet';
+    } else if (acct === 'coldplay1') {
       nameEl.textContent = 'Coldplay1';
+      nameEl.style.fontSize = '';
+      nameEl.style.fontWeight = '';
       usernameEl.textContent = '@coldplay1';
+      if (badgeEl) badgeEl.style.display = 'none';
+      if (dotEl) dotEl.style.display = 'none';
+      if (categoryEl) categoryEl.style.display = 'none';
+      if (avatarPhotoEl) {
+        avatarPhotoEl.style.display = 'block';
+        avatarPhotoEl.src = 'coldplay-avatar.png';
+      }
+      if (avatarEmptyIconEl) avatarEmptyIconEl.style.display = 'none';
+      if (avatarRingEl) avatarRingEl.style.display = 'block';
+      if (avatarPlusEl) avatarPlusEl.style.display = 'flex';
+      if (avatarEl) avatarEl.style.background = 'transparent';
       pronounsEl.textContent = '';
       bioTextEl.textContent = 'New here. First post coming soon.';
       followingNumEl.textContent = '2';
@@ -2580,8 +3759,37 @@
       universityRowEl.style.display = 'none';
       contactRowEl.style.display = 'none';
       tagsRowEl.style.display = 'none';
+      if (playlistRowEl) playlistRowEl.style.display = 'none';
       videoGridEl.style.display = 'none';
       videoEmptyEl.style.display = 'block';
+      videoEmptyEl.textContent = 'No posts yet';
+    } else {
+      // Brand-new empty account state after sign-up
+      nameEl.textContent = '+ Add name';
+      nameEl.style.fontSize = '13px';
+      nameEl.style.fontWeight = '600';
+      usernameEl.textContent = '@user1221';
+      if (badgeEl) badgeEl.style.display = 'none';
+      if (dotEl) dotEl.style.display = 'none';
+      if (categoryEl) categoryEl.style.display = 'none';
+      if (avatarPhotoEl) avatarPhotoEl.style.display = 'none';
+      if (avatarEmptyIconEl) avatarEmptyIconEl.style.display = 'block';
+      if (avatarRingEl) avatarRingEl.style.display = 'none';
+      if (avatarPlusEl) avatarPlusEl.style.display = 'none';
+      if (avatarEl) avatarEl.style.background = '#e9e9e9';
+      pronounsEl.textContent = '';
+      bioTextEl.textContent = "+ Add bio · ♡ I'm interested in...";
+      bioLinkEl.style.display = 'none';
+      followingNumEl.textContent = '0';
+      followersNumEl.textContent = '0';
+      likesNumEl.textContent = '0';
+      universityRowEl.style.display = 'none';
+      contactRowEl.style.display = 'none';
+      tagsRowEl.style.display = 'none';
+      if (playlistRowEl) playlistRowEl.style.display = 'none';
+      videoGridEl.style.display = 'none';
+      videoEmptyEl.style.display = 'block';
+      videoEmptyEl.textContent = '';
     }
   }
 
@@ -2598,6 +3806,15 @@
   var planPopup = document.getElementById('planPopup');
   var planOptA = document.getElementById('planOptA');
   var planOptB = document.getElementById('planOptB');
+  var modeDemo = document.getElementById('modeDemo');
+  var modeFlow = document.getElementById('modeFlow');
+  var flowView = document.getElementById('flowView');
+  var flowCanvas = document.getElementById('flowCanvas');
+  var flowArrows = document.getElementById('flowArrows');
+  var flowTitle = document.getElementById('flowTitle');
+  var flowClose = document.getElementById('flowClose');
+  var phoneFrame = document.querySelector('.phone-frame');
+  var currentMode = 'demo';
 
   planFab.addEventListener('click', function(e) {
     e.stopPropagation();
@@ -2617,10 +3834,189 @@
     planOptB.classList.toggle('active', plan === 'B');
     planPopup.classList.remove('visible');
     resetToScreen1();
+    if (currentMode === 'flow') buildFlow();
   }
 
   planOptA.addEventListener('click', function() { switchPlan('A'); });
   planOptB.addEventListener('click', function() { switchPlan('B'); });
+
+  // ========== Flow / Demo Mode ==========
+  var flowDefinitions = {
+    A: [
+      { id: 'screen1', label: 'Login Options' },
+      { id: 'screen2', label: 'Phone Number' },
+      { id: 'screen3', label: 'Verification Code' },
+      { id: 'screen4', label: 'Profile Page' },
+      { id: 'screen4', label: 'Switch account panel', panel: 'switch', badge: 'Panel state' },
+      { id: 'screen4', label: 'Add account panel', panel: 'add', badge: 'Panel state' },
+      { id: 'screen6', label: 'Consent', badge: 'Add account', badgeAlt: true },
+      { id: 'screen7', label: 'Sign Up', badge: 'Sign up flow' },
+      { id: 'screen2', label: 'Phone (reused)', badge: 'Sign up flow' },
+      { id: 'screen3', label: 'Verify (reused)', badge: 'Sign up flow' },
+      { id: 'screen10', label: 'New Empty Profile', badge: 'Sign up result', badgeAlt: true }
+      ,{ id: 'screen11', label: 'Create nickname', badge: 'Onboarding' }
+      ,{ id: 'screen12', label: 'Choose interests (Skip/Next)', badge: 'Onboarding' }
+      ,{ id: 'screen13', label: 'Swipe up (Skip/Start)', badge: 'Onboarding' }
+      ,{ id: 'screen14', label: 'Feed landing', badge: 'Onboarding result', badgeAlt: true }
+    ],
+    B: [
+      { id: 'screen1', label: 'Login Options' },
+      { id: 'screen2', label: 'Phone Number' },
+      { id: 'screen3', label: 'Verification Code' },
+      { id: 'screen5', label: 'Pick Account' },
+      { id: 'screen4', label: 'Profile Page' },
+      { id: 'screen4', label: 'Switch account panel', panel: 'switch', badge: 'Panel state' },
+      { id: 'screen4', label: 'Add account panel', panel: 'add', badge: 'Panel state' },
+      { id: 'screen6', label: 'Consent', badge: 'Add account', badgeAlt: true },
+      { id: 'screen7', label: 'Sign Up', badge: 'Sign up flow' },
+      { id: 'screen2', label: 'Phone (reused)', badge: 'Sign up flow' },
+      { id: 'screen3', label: 'Verify (reused)', badge: 'Sign up flow' },
+      { id: 'screen10', label: 'New Empty Profile', badge: 'Sign up result', badgeAlt: true }
+      ,{ id: 'screen11', label: 'Create nickname', badge: 'Onboarding' }
+      ,{ id: 'screen12', label: 'Choose interests (Skip/Next)', badge: 'Onboarding' }
+      ,{ id: 'screen13', label: 'Swipe up (Skip/Start)', badge: 'Onboarding' }
+      ,{ id: 'screen14', label: 'Feed landing', badge: 'Onboarding result', badgeAlt: true }
+    ]
+  };
+
+  function buildFlow() {
+    var plan = currentPlan;
+    var screens = flowDefinitions[plan] || flowDefinitions.A;
+    flowTitle.textContent = 'Plan ' + plan + ' — Flow';
+
+    // Clear
+    flowCanvas.querySelectorAll('.flow-card').forEach(function(c) { c.remove(); });
+    flowArrows.innerHTML = '';
+
+    screens.forEach(function(def, i) {
+      var card = document.createElement('div');
+      card.className = 'flow-card';
+      card.setAttribute('data-flow-index', i);
+
+      var label = document.createElement('div');
+      label.className = 'flow-card__label';
+      label.textContent = (i + 1) + '. ' + def.label;
+      card.appendChild(label);
+
+      var frame = document.createElement('div');
+      frame.className = 'flow-card__frame';
+
+      var srcScreen = document.getElementById(def.id);
+      var clone = srcScreen.cloneNode(true);
+      clone.removeAttribute('id');
+      clone.classList.remove('active', 'hidden-left', 'hidden-right');
+      clone.classList.add('screen');
+      clone.style.cssText = '';
+
+      // Render panel states as standalone flow cards.
+      if (def.panel === 'switch') {
+        var switchOverlay = clone.querySelector('.sheet-overlay');
+        var switchPanel = clone.querySelector('.sheet-panel');
+        if (switchOverlay) switchOverlay.classList.add('visible');
+        if (switchPanel) switchPanel.classList.add('visible');
+      } else if (def.panel === 'add') {
+        var addOverlay = clone.querySelector('.add-overlay');
+        var addSheet = clone.querySelector('.add-sheet');
+        if (addOverlay) addOverlay.classList.add('visible');
+        if (addSheet) addSheet.classList.add('visible');
+      }
+
+      frame.appendChild(clone);
+      card.appendChild(frame);
+
+      if (def.badge) {
+        var badge = document.createElement('div');
+        badge.className = 'flow-card__badge' + (def.badgeAlt ? ' alt' : '');
+        badge.textContent = def.badge;
+        card.appendChild(badge);
+      }
+
+      flowCanvas.appendChild(card);
+    });
+
+    requestAnimationFrame(function() {
+      requestAnimationFrame(drawArrows);
+    });
+  }
+
+  function drawArrows() {
+    var cards = flowCanvas.querySelectorAll('.flow-card');
+    if (cards.length < 2) return;
+    var canvasRect = flowCanvas.getBoundingClientRect();
+    var scrollLeft = flowCanvas.scrollLeft;
+    var scrollTop = flowCanvas.scrollTop;
+    var pathsHtml = '';
+
+    for (var i = 0; i < cards.length - 1; i++) {
+      var a = cards[i].querySelector('.flow-card__frame');
+      var b = cards[i + 1].querySelector('.flow-card__frame');
+      var aRect = a.getBoundingClientRect();
+      var bRect = b.getBoundingClientRect();
+
+      var x1 = aRect.right - canvasRect.left + scrollLeft + 4;
+      var y1 = aRect.top + aRect.height / 2 - canvasRect.top + scrollTop;
+      var x2 = bRect.left - canvasRect.left + scrollLeft - 4;
+      var y2 = bRect.top + bRect.height / 2 - canvasRect.top + scrollTop;
+
+      var mx = (x1 + x2) / 2;
+
+      pathsHtml +=
+        '<path d="M' + x1 + ' ' + y1 +
+        ' C' + mx + ' ' + y1 + ' ' + mx + ' ' + y2 + ' ' + x2 + ' ' + y2 +
+        '" stroke="rgba(0,0,0,0.18)" stroke-width="2" fill="none" stroke-dasharray="6 4" />' +
+        '<polygon points="' +
+        (x2) + ',' + (y2) + ' ' +
+        (x2 - 8) + ',' + (y2 - 4) + ' ' +
+        (x2 - 8) + ',' + (y2 + 4) +
+        '" fill="rgba(0,0,0,0.25)" />';
+    }
+
+    var totalW = 0;
+    var maxH = 0;
+    cards.forEach(function(c) {
+      var r = c.getBoundingClientRect();
+      totalW = Math.max(totalW, r.right - canvasRect.left + scrollLeft + 40);
+      maxH = Math.max(maxH, r.bottom - canvasRect.top + scrollTop + 40);
+    });
+
+    flowArrows.setAttribute('width', totalW);
+    flowArrows.setAttribute('height', maxH);
+    flowArrows.style.width = totalW + 'px';
+    flowArrows.style.height = maxH + 'px';
+    flowArrows.innerHTML = pathsHtml;
+  }
+
+  function enterFlowMode() {
+    currentMode = 'flow';
+    modeDemo.classList.remove('active');
+    modeFlow.classList.add('active');
+    planPopup.classList.remove('visible');
+    phoneFrame.style.display = 'none';
+    planFab.style.display = 'none';
+    flowView.classList.add('visible');
+    buildFlow();
+  }
+
+  function enterDemoMode() {
+    currentMode = 'demo';
+    modeFlow.classList.remove('active');
+    modeDemo.classList.add('active');
+    planPopup.classList.remove('visible');
+    flowView.classList.remove('visible');
+    phoneFrame.style.display = '';
+    planFab.style.display = '';
+  }
+
+  modeFlow.addEventListener('click', enterFlowMode);
+  modeDemo.addEventListener('click', function() {
+    enterDemoMode();
+    planPopup.classList.remove('visible');
+  });
+  flowClose.addEventListener('click', enterDemoMode);
+
+  flowCanvas.addEventListener('scroll', function() {
+    requestAnimationFrame(drawArrows);
+  });
 })();
 </script>
 
