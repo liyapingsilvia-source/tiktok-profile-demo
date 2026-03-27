@@ -1028,6 +1028,65 @@
   .avatar-gradient-bg.visible {
     opacity: 1;
   }
+  .avatar-gradient-bg.gray-animated {
+    background: transparent;
+    opacity: 1;
+    overflow: hidden;
+  }
+  .avatar-gradient-bg.gray-animated .gray-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(50px);
+    will-change: transform, opacity;
+  }
+  .avatar-gradient-bg.gray-animated .gray-blob-1 {
+    width: 280px; height: 220px;
+    background: rgba(150,152,160,0.50);
+    top: -60px; left: -40px;
+    animation: blobDrift1 6s ease-in-out infinite;
+  }
+  .avatar-gradient-bg.gray-animated .gray-blob-2 {
+    width: 220px; height: 200px;
+    background: rgba(180,182,188,0.40);
+    top: -30px; right: -30px;
+    animation: blobDrift2 7s ease-in-out infinite;
+  }
+  .avatar-gradient-bg.gray-animated .gray-blob-3 {
+    width: 300px; height: 180px;
+    background: rgba(200,200,206,0.35);
+    top: 60px; left: 40px;
+    animation: blobDrift3 8s ease-in-out infinite;
+  }
+  .avatar-gradient-bg.gray-animated .gray-blob-4 {
+    width: 200px; height: 160px;
+    background: rgba(170,172,180,0.30);
+    top: 20px; right: 20px;
+    animation: blobDrift4 5.5s ease-in-out infinite;
+  }
+  @keyframes blobDrift1 {
+    0%   { transform: translate(0, 0) scale(1); opacity: 0.5; }
+    33%  { transform: translate(80px, 40px) scale(1.15); opacity: 0.7; }
+    66%  { transform: translate(30px, 70px) scale(0.95); opacity: 0.45; }
+    100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+  }
+  @keyframes blobDrift2 {
+    0%   { transform: translate(0, 0) scale(1); opacity: 0.4; }
+    33%  { transform: translate(-70px, 50px) scale(1.1); opacity: 0.65; }
+    66%  { transform: translate(-30px, 20px) scale(1.2); opacity: 0.35; }
+    100% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+  }
+  @keyframes blobDrift3 {
+    0%   { transform: translate(0, 0) scale(1); opacity: 0.35; }
+    33%  { transform: translate(-50px, -30px) scale(1.2); opacity: 0.55; }
+    66%  { transform: translate(60px, -10px) scale(0.9); opacity: 0.4; }
+    100% { transform: translate(0, 0) scale(1); opacity: 0.35; }
+  }
+  @keyframes blobDrift4 {
+    0%   { transform: translate(0, 0) scale(1); opacity: 0.3; }
+    33%  { transform: translate(-40px, 30px) scale(1.25); opacity: 0.55; }
+    66%  { transform: translate(50px, 50px) scale(1.05); opacity: 0.3; }
+    100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+  }
 
   /* Follow row (visitor only, between stats and bio) */
   .follow-row {
@@ -1314,6 +1373,30 @@
   }
   .demo-mode-indicator.visitor {
     transform: translateX(100%);
+  }
+
+  .demo-tri-toggle {
+    display: flex;
+    background: rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 3px;
+    gap: 2px;
+  }
+  .demo-tri-btn {
+    flex: 1;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.4);
+    padding: 6px 0;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    user-select: none;
+  }
+  .demo-tri-btn.active {
+    color: #fff;
+    background: rgba(255,255,255,0.15);
   }
 </style>
 </head>
@@ -1701,10 +1784,10 @@
   <div>
     <div class="demo-label">Gradient Background</div>
     <div style="height:8px"></div>
-    <div class="demo-mode-toggle" id="gradientToggle">
-      <div class="demo-mode-btn active" data-grad="on" onclick="switchGradientMode(true)">渐变开</div>
-      <div class="demo-mode-btn" data-grad="off" onclick="switchGradientMode(false)">无渐变</div>
-      <div class="demo-mode-indicator" id="gradientIndicator"></div>
+    <div class="demo-tri-toggle" id="gradientToggle">
+      <div class="demo-tri-btn active" data-grad="color" onclick="switchGradientMode('color')">取色渐变</div>
+      <div class="demo-tri-btn" data-grad="gray" onclick="switchGradientMode('gray')">灰色动效</div>
+      <div class="demo-tri-btn" data-grad="off" onclick="switchGradientMode('off')">无渐变</div>
     </div>
   </div>
   <div>
@@ -1839,27 +1922,43 @@ var avatarOptions = [
 
 var gradientEnabled = true;
 
-function switchGradientMode(enabled) {
-  gradientEnabled = !!enabled;
+var currentGradientMode = 'color';
+
+function ensureGrayBlobs(container) {
+  if (container.querySelector('.gray-blob')) return;
+  for (var i = 1; i <= 4; i++) {
+    var blob = document.createElement('div');
+    blob.className = 'gray-blob gray-blob-' + i;
+    container.appendChild(blob);
+  }
+}
+
+function removeGrayBlobs(container) {
+  var blobs = container.querySelectorAll('.gray-blob');
+  blobs.forEach(function(b) { b.remove(); });
+}
+
+function switchGradientMode(mode) {
+  currentGradientMode = mode;
+  gradientEnabled = (mode !== 'off');
 
   var gradientToggle = document.getElementById('gradientToggle');
-  var indicator = document.getElementById('gradientIndicator');
-  var btns = gradientToggle ? gradientToggle.querySelectorAll('.demo-mode-btn') : [];
-
+  var btns = gradientToggle ? gradientToggle.querySelectorAll('.demo-tri-btn') : [];
   btns.forEach(function(btn) {
-    btn.classList.toggle('active', btn.dataset.grad === (enabled ? 'on' : 'off'));
+    btn.classList.toggle('active', btn.dataset.grad === mode);
   });
 
-  if (indicator) {
-    // Reuse the same CSS transform (the class name is arbitrary).
-    if (enabled) indicator.classList.remove('visitor');
-    else indicator.classList.add('visitor');
-  }
-
   var gradBg = document.getElementById('avatarGradientBg');
-  if (gradBg) {
-    if (enabled) gradBg.classList.add('visible');
-    else gradBg.classList.remove('visible');
+  if (!gradBg) return;
+
+  gradBg.classList.remove('visible', 'gray-animated');
+  removeGrayBlobs(gradBg);
+
+  if (mode === 'color') {
+    gradBg.classList.add('visible');
+  } else if (mode === 'gray') {
+    ensureGrayBlobs(gradBg);
+    gradBg.classList.add('gray-animated');
   }
 }
 
@@ -2009,8 +2108,14 @@ function applyTheme(colors) {
 
   var gradBg = document.getElementById('avatarGradientBg');
   if (gradBg) {
-    if (gradientEnabled) gradBg.classList.add('visible');
-    else gradBg.classList.remove('visible');
+    gradBg.classList.remove('visible', 'gray-animated');
+    removeGrayBlobs(gradBg);
+    if (currentGradientMode === 'color') {
+      gradBg.classList.add('visible');
+    } else if (currentGradientMode === 'gray') {
+      ensureGrayBlobs(gradBg);
+      gradBg.classList.add('gray-animated');
+    }
   }
 
   var followBtn = document.getElementById('followBtn');
@@ -2069,7 +2174,8 @@ function switchAvatar(index) {
   });
 
   var gradBg = document.getElementById('avatarGradientBg');
-  gradBg.classList.remove('visible');
+  gradBg.classList.remove('visible', 'gray-animated');
+  removeGrayBlobs(gradBg);
   avatarPhoto.style.opacity = '0.3';
 
   var img = new Image();

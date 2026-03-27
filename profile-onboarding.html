@@ -53,7 +53,6 @@
     background: #f0f0f0;
     display: flex;
     justify-content: center;
-    align-items: center;
     min-height: 100vh;
   }
 
@@ -63,7 +62,6 @@
     background: #fff;
     position: relative;
     overflow: hidden;
-    border-radius: 44px;
   }
 
   /* ===== Status Bar ===== */
@@ -316,11 +314,10 @@
     border-radius: 25px 25px 0 0;
     z-index: 3;
     opacity: 0;
-    transition: transform 0.45s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 1s ease-out;
+    transition: opacity 0.4s ease-out;
   }
   .bio-card-bg.visible {
     opacity: 1;
-    transition: transform 0.45s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.3s ease-out;
   }
 
   /* ===== Bio & Links ===== */
@@ -1030,6 +1027,7 @@
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.35s ease, transform 0.35s ease;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   }
   .reveal-btn.visible {
     opacity: 1;
@@ -1524,15 +1522,11 @@ function switchBottomNav(el, label) {
           grayLayer.classList.add('fade-out');
           gradientLayer.classList.add('show');
 
-          // Hold gradient for 2s, then fade out gradient first
+          // Hold gradient for 2s, then fade out + hide card + remove bio spacing
           setTimeout(function() {
             gradientLayer.classList.remove('show');
+            bioCardBg.classList.remove('visible');
             spacingEls.forEach(function(el) { el.classList.remove('card-spacing'); });
-
-            // After gradient fully gone (0.6s), then hide card
-            setTimeout(function() {
-              bioCardBg.classList.remove('visible');
-            }, 650);
           }, 2000);
         }, 620);
       }, 2000);

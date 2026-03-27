@@ -497,6 +497,9 @@
     flex-shrink: 0;
     position: relative;
     margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .s2-checkbox__circle {
@@ -734,6 +737,128 @@
   }
   .s3-help-link:hover { text-decoration: underline; }
 
+  /* Screen 13: 验证后 — 手机号绑定状态（Add phone 流程） */
+  .s13-wrap {
+    position: absolute;
+    top: 107px;
+    left: 24px;
+    right: 24px;
+    bottom: 40px;
+    display: flex;
+    flex-direction: column;
+  }
+  .s13-title {
+    font-family: 'TikTok Sans', -apple-system, sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 1.25;
+    color: #000;
+    margin: 0 0 8px 0;
+  }
+  .s13-desc {
+    font-family: 'TikTok Sans', -apple-system, sans-serif;
+    font-size: 14px;
+    line-height: 1.35;
+    color: rgba(0, 0, 0, 0.5);
+    margin: 0 0 24px 0;
+  }
+  .s13-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .s13-option {
+    width: 100%;
+    text-align: left;
+    padding: 16px 18px;
+    border-radius: 12px;
+    border: none;
+    background: #f1f1f2;
+    font-family: 'TikTok Sans', -apple-system, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.35;
+    color: #161823;
+    cursor: pointer;
+    transition: background 0.12s ease;
+  }
+  .s13-option:active {
+    background: #e8e8ea;
+  }
+
+  /* Screen 15: 手机号已绑定 — 展示已占用账号 */
+  .s15-wrap {
+    position: absolute;
+    top: 107px;
+    left: 24px;
+    right: 24px;
+    bottom: 40px;
+    display: flex;
+    flex-direction: column;
+  }
+  .s15-title {
+    font-family: 'TikTok Sans', -apple-system, sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 1.25;
+    color: #000;
+    margin: 0 0 8px 0;
+  }
+  .s15-desc {
+    font-family: 'TikTok Sans', -apple-system, sans-serif;
+    font-size: 14px;
+    line-height: 1.35;
+    color: rgba(0, 0, 0, 0.5);
+    margin: 0 0 20px 0;
+  }
+  .s15-bound-card.s5-account-card {
+    cursor: default;
+    pointer-events: none;
+  }
+  .s15-bound-card.s5-account-card:hover,
+  .s15-bound-card.s5-account-card:active {
+    background: rgba(0, 0, 0, 0.03);
+  }
+  .s15-actions {
+    margin-top: auto;
+    padding-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .s15-btn-primary {
+    width: 100%;
+    height: 48px;
+    border-radius: 8px;
+    border: none;
+    background: #fe2c55;
+    color: #fff;
+    font-family: 'TikTok Text', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.3;
+    cursor: pointer;
+  }
+  .s15-btn-primary:active {
+    opacity: 0.92;
+  }
+  .s15-btn-secondary {
+    width: 100%;
+    height: 48px;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: #fff;
+    color: #161823;
+    font-family: 'TikTok Text', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.3;
+    cursor: pointer;
+  }
+  .s15-btn-secondary:active {
+    background: rgba(0, 0, 0, 0.04);
+  }
+
   /* SMS Suggestion Bar */
   .s3-sms-bar {
     position: absolute;
@@ -813,6 +938,37 @@
     width: 390px;
   }
 
+  /* Feed landing (screen14): no solid white bar under status content — blend over video */
+  #screen14 .s4-status-bar {
+    background: transparent;
+    height: 47px;
+    box-sizing: border-box;
+    z-index: 5;
+  }
+  #screen14 .s4-status-bar .status-bar__time {
+    color: #fff;
+  }
+
+  /* screen14 Feed: dark tab bar — glyph #FFFFFF (light UI uses #000000) */
+  #screen14 .s4-bottom-bar--dark .s4-bottom-cell__icon img {
+    filter: brightness(0) invert(1);
+  }
+  #screen14 .s4-bottom-bar--dark .s4-bottom-cell {
+    opacity: 0.84;
+  }
+  #screen14 .s4-bottom-bar--dark .s4-bottom-cell.is-active {
+    opacity: 1;
+  }
+  #screen14 .s4-bottom-bar--dark .s4-bottom-cell__label {
+    color: #FFFFFF;
+  }
+  #screen14 .s4-bottom-bar--dark .s4-bottom-cell.is-active .s4-bottom-cell__label {
+    font-weight: 600;
+  }
+  #screen14 .s4-bottom-bar--dark .home-indicator {
+    background: rgba(255, 255, 255, 0.35);
+  }
+
   .s4-nav {
     position: sticky;
     top: 60px;
@@ -848,6 +1004,229 @@
     height: 22px;
   }
 
+  /* Add phone — Figma 19222:786996 (Log-in Sign-up 2025)
+     整层不要用 transform：会破坏 flex 子项布局/绘制，出现白屏。动画放在内层 .add-phone-screen__panel */
+  .add-phone-screen {
+    position: absolute;
+    inset: 0;
+    z-index: 50;
+    background: transparent;
+    display: none;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .add-phone-screen.is-open {
+    display: block;
+    pointer-events: auto;
+  }
+  .add-phone-screen__panel {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .add-phone-screen.is-open .add-phone-screen__panel {
+    transform: translateX(0);
+  }
+  .aps-status {
+    height: 47px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+    width: 390px;
+  }
+  .aps-status .time {
+    position: absolute;
+    left: 64px;
+    top: 50%;
+    transform: translate(-50%, calc(-50% + 2px));
+    width: 58px;
+    text-align: center;
+    font-family: 'TikTok Sans', -apple-system, sans-serif;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 1.3;
+    color: #000;
+  }
+  .aps-status .signal {
+    position: absolute;
+    right: 84.7px;
+    top: 50%;
+    transform: translateY(calc(-50% + 2.1px));
+    width: 21.298px;
+    height: 12.798px;
+  }
+  .aps-status .connection {
+    position: absolute;
+    right: 60.32px;
+    top: 50%;
+    transform: translateY(calc(-50% + 2px));
+    width: 17.68px;
+    height: 13px;
+  }
+  .aps-status .battery {
+    position: absolute;
+    right: 25.57px;
+    top: 50%;
+    transform: translateY(calc(-50% + 2.5px));
+    width: 29.432px;
+    height: 14px;
+  }
+  .aps-nav {
+    height: 44px;
+    width: 390px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    padding: 0;
+  }
+  .aps-back {
+    width: 52px;
+    height: 44px;
+    padding: 0;
+    border: none;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 16px;
+    cursor: pointer;
+  }
+  .aps-back img {
+    width: 24px;
+    height: 24px;
+    display: block;
+  }
+  .aps-content {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 36px 32px 16px;
+    box-sizing: border-box;
+  }
+  .aps-title {
+    font-family: 'TikTok Sans', -apple-system, sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1.2;
+    letter-spacing: 0;
+    color: #000;
+    margin: 0 0 24px 0;
+    max-width: 326px;
+  }
+  .aps-field-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+  .aps-input-inner {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    background: #f1f1f2;
+    border-radius: 8px;
+    padding: 0 12px;
+    box-sizing: border-box;
+  }
+  .aps-cc {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.3;
+    color: #000;
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    padding: 0;
+    font-family: 'TikTok Sans', -apple-system, sans-serif;
+  }
+  .aps-cc-ch {
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid rgba(0, 0, 0, 0.5);
+    margin-top: 2px;
+  }
+  .aps-cc-divide {
+    width: 1px;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.12);
+    margin: 0 12px;
+    flex-shrink: 0;
+  }
+  .aps-input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: 'TikTok Sans', -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.3;
+    color: #000;
+    caret-color: #fe2c55;
+  }
+  .aps-input::placeholder {
+    color: rgba(0, 0, 0, 0.3);
+  }
+  .aps-disclaimer {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.3;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.48);
+    font-family: 'TikTok Sans', -apple-system, sans-serif;
+  }
+  .aps-disclaimer .aps-learn {
+    font-size: 14px;
+    color: #2b5db9;
+    text-decoration: none;
+    font-family: 'TikTok Sans', -apple-system, sans-serif;
+    font-weight: 400;
+  }
+  .aps-disclaimer .aps-learn:hover {
+    text-decoration: underline;
+  }
+  .aps-cta {
+    flex-shrink: 0;
+    padding: 16px 16px 12px;
+    box-sizing: border-box;
+  }
+  .aps-continue {
+    width: 100%;
+    height: 48px;
+    border-radius: 8px;
+    border: none;
+    font-family: 'TikTok Text', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.3;
+    letter-spacing: 0.0296px;
+    color: #fff;
+    background: rgba(254, 44, 85, 0.4);
+    cursor: not-allowed;
+  }
+  .aps-continue:not(:disabled) {
+    background: #fe2c55;
+    cursor: pointer;
+  }
+  /* Add phone: 与 screen2 共用 .keyboard 样式，仅占位高度 */
+  .add-phone-screen .add-phone-kb-slot {
+    flex-shrink: 0;
+    width: 390px;
+    height: 290px;
+    position: relative;
+  }
+
   .s4-profile-header {
     background: #fff;
     padding: 8px 16px 0;
@@ -875,7 +1254,7 @@
     flex-shrink: 0;
   }
 
-  .s4-name-arrow img { width: 100%; height: 100%; }
+  .s4-name-arrow svg { width: 100%; height: 100%; display: block; }
 
   .s4-username-row {
     display: flex;
@@ -1984,76 +2363,83 @@
     border-radius: 8px;
   }
 
-  /* ========== Post-Signup Onboarding (11/12/13/14) ========== */
+  /* ========== Post-Signup Onboarding: Create Nickname ========== */
   .onb-page { position: relative; width: 100%; height: 100%; background: #fff; }
-  .onb-top {
-    height: 44px; display:flex; align-items:center; justify-content:space-between;
-    padding: 0 16px; color: rgba(0,0,0,0.45); font-size: 13px; font-weight: 500;
+  .onb-nav {
+    position: absolute; top: 47px; left: 0; width: 390px; height: 44px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 16px; box-sizing: border-box;
   }
-  .onb-top .skip { background:none; border:none; color: rgba(0,0,0,0.45); cursor:pointer; padding:0; }
-  .onb-card { padding: 8px 24px 0; }
-  .onb-title { font-size: 38px; font-weight: 700; line-height: 0.95; letter-spacing: -0.6px; color:#161823; margin-bottom: 8px; }
-  .onb-sub { font-size: 14px; color: rgba(0,0,0,0.55); line-height: 1.4; margin-bottom: 18px; }
+  .onb-nav .onb-skip {
+    background: none; border: none; font-size: 16px; font-weight: 400;
+    color: rgba(0,0,0,0.48); cursor: pointer; padding: 0; line-height: 1.3;
+  }
+  .onb-nav .onb-help { width: 24px; height: 24px; background: none; border: none; padding: 0; cursor: pointer; }
+  .onb-nav .onb-help img { width: 100%; height: 100%; display: block; }
+  .onb-card {
+    position: absolute; top: 127px; left: 32px; width: 326px;
+    display: flex; flex-direction: column; gap: 20px;
+  }
+  .onb-title-group { display: flex; flex-direction: column; gap: 12px; }
+  .onb-title {
+    font-size: 32px; font-weight: 700; line-height: 1.2;
+    color: #000; margin: 0;
+  }
+  .onb-sub {
+    font-size: 14px; font-weight: 400; line-height: 1.3;
+    color: rgba(0,0,0,0.48); margin: 0;
+  }
+  .onb-input-group { display: flex; flex-direction: column; gap: 8px; }
   .onb-input {
-    width: 100%; height: 44px; border: none; border-radius: 8px; background: #f1f1f3;
-    padding: 0 14px; font-size: 16px; color: #161823; outline: none;
+    width: 326px; height: 44px; border: none; border-radius: 8px; background: #f1f1f3;
+    padding: 0 14px; font-size: 16px; color: #161823; outline: none; box-sizing: border-box;
   }
-  .onb-count { margin-top: 8px; font-size: 12px; color: rgba(0,0,0,0.45); }
-  .onb-bottom { position: absolute; left: 0; right: 0; bottom: 334px; padding: 0 24px; }
+  .onb-count { font-size: 12px; line-height: 1.3; color: rgba(0,0,0,0.48); margin: 0; }
+  .onb-cta {
+    position: absolute; top: 474px; left: 0; right: 0;
+    padding: 16px 32px 12px;
+  }
   .onb-continue {
-    width:100%; height:48px; border:none; border-radius:24px; font-weight:700; font-size:16px; cursor:pointer;
-    background:#f4b2c4; color:#fff;
+    width: 100%; height: 52px; border: none; border-radius: 999px;
+    font-weight: 600; font-size: 16px; cursor: pointer;
+    background: #FE2C55; color: #fff; opacity: 0.4;
   }
-  .onb-continue.enabled { background:#FE2C55; }
-  .onb-kbd { position:absolute; left:0; right:0; bottom:34px; background:#d3d4da; padding:8px 6px 10px; }
-  .onb-kbd-row { display:flex; gap:4px; justify-content:center; margin-bottom:4px; }
+  .onb-continue.enabled { opacity: 1; }
+  .onb-kbd {
+    position: absolute; left: 0; right: 0; top: 554px; height: 290px;
+    background: #d1d3d9; backdrop-filter: blur(54px); -webkit-backdrop-filter: blur(54px);
+    padding: 8px 3px 0;
+  }
+  .onb-kbd-rows { display: flex; flex-direction: column; gap: 12px; }
+  .onb-kbd-row { display: flex; gap: 6px; justify-content: center; }
   .onb-key {
-    min-width: 32px; height: 38px; border:none; border-radius:5px; background:#fff; color:#161823;
-    font-size: 18px; box-shadow: 0 1px 0 rgba(0,0,0,0.18); cursor:pointer; padding:0 10px;
+    height: 42px; min-width: 33px; border: none; border-radius: 4.6px; background: #fff;
+    color: #000; font-size: 22px; font-family: -apple-system, 'SF Pro Display', sans-serif;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.3); cursor: pointer; padding: 0 6px;
+    display: flex; align-items: center; justify-content: center;
   }
-  .onb-key.wide { min-width: 70px; font-size: 14px; }
-
-  /* Onboarding pages: shift whole content area down by 44px */
-  #screen11 .onb-page,
-  #screen12 .onb-page,
-  #screen13 .onb-page {
-    padding-top: 44px;
-    box-sizing: border-box;
+  .onb-key.fn {
+    min-width: 42px; background: #abb0bc; font-size: 0; padding: 0;
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
   }
-
-  .taste-wrap { padding: 12px 24px 0; }
-  #screen12 .taste-wrap { padding-top: 12px; }
-  .taste-title { font-size: 48px; font-weight: 700; line-height: 0.92; letter-spacing: -0.7px; color:#161823; margin-bottom: 10px; }
-  .taste-sub { font-size: 14px; color: rgba(0,0,0,0.55); margin-bottom: 18px; }
-  .taste-grid { display:flex; flex-wrap:wrap; gap:10px 10px; }
-  .taste-chip {
-    border: 1px solid rgba(0,0,0,0.08); border-radius: 999px; background:#fff; padding: 9px 13px;
-    font-size: 14px; color:#161823; cursor:pointer;
+  .onb-key.fn img { display: block; object-fit: contain; }
+  .onb-key.fn.shift img { width: 19px; height: 16px; }
+  .onb-key.fn.del img { width: 23px; height: 17px; }
+  .onb-key.wide-bottom {
+    min-width: 91px; background: #abb0bc; font-size: 16px;
+    font-family: -apple-system, 'SF Pro Text', sans-serif;
+    letter-spacing: -0.32px;
   }
-  .taste-chip.active { background: #ffe8ee; border-color: #ffd0dc; color:#d81e49; font-weight:600; }
-  .taste-bottom { position:absolute; left:0; right:0; bottom:34px; padding: 0 24px; display:flex; gap:12px; }
-  .taste-btn {
-    flex:1; height:48px; border:none; border-radius:24px; font-weight:700; font-size:18px; cursor:pointer;
+  .onb-key.space {
+    flex: 1; font-size: 16px;
+    font-family: -apple-system, 'SF Pro Text', sans-serif;
+    letter-spacing: -0.32px;
   }
-  .taste-btn.skip { background:#efeff2; color:#6d6f73; }
-  .taste-btn.next { background:#f4b2c4; color:#fff; }
-  .taste-btn.next.enabled { background:#FE2C55; }
-
-  .swipe-wrap { padding: 18px 24px 0; }
-  #screen13 .swipe-wrap { padding-top: 18px; }
-  .swipe-title { font-size: 52px; font-weight: 700; line-height: 0.9; letter-spacing:-0.8px; color:#161823; margin-bottom: 8px; }
-  .swipe-sub { font-size: 14px; color: rgba(0,0,0,0.6); line-height: 1.45; margin-bottom: 16px; }
-  .swipe-phone {
-    width: 130px; height: 244px; border-radius: 14px; overflow: hidden; margin: 0 auto;
-    box-shadow: 0 5px 16px rgba(0,0,0,0.24); border:1px solid rgba(0,0,0,0.15);
+  .onb-kbd-emoji {
+    display: flex; justify-content: space-between; padding: 12px 31px 0;
   }
-  .swipe-phone img { width:100%; height:100%; object-fit: cover; display:block; }
-  .swipe-bottom { position:absolute; left:0; right:0; bottom:34px; padding: 0 24px; display:flex; gap:12px; }
-  .swipe-btn {
-    flex:1; height:48px; border:none; border-radius:24px; background:#FE2C55; color:#fff;
-    font-weight:700; font-size:16px; cursor:pointer;
-  }
-  .swipe-btn.skip { background:#efeff2; color:#6d6f73; }
+  .onb-kbd-emoji img { width: 27px; height: 27px; }
+  .onb-kbd-emoji img:last-child { width: 19px; height: 28px; }
 
   /* ========== Flow View ========== */
   .flow-view {
@@ -2099,11 +2485,12 @@
     overflow: auto;
     position: relative;
     padding: 40px 32px 60px;
-    display: flex;
-    gap: 32px;
-    align-items: flex-start;
+    display: block;
     -webkit-overflow-scrolling: touch;
+    cursor: grab;
   }
+  .flow-canvas.dragging { cursor: grabbing; user-select: none; }
+  .flow-spacer { width: 0; height: 0; }
 
   .flow-arrows {
     position: absolute;
@@ -2318,7 +2705,9 @@
         <button class="login-btn" id="btnPhoneLogin">
           <div class="login-btn__inner">
             <div class="login-btn__icon-wrap login-btn__icon-wrap--person">
-              <img src="https://www.figma.com/api/mcp/asset/eadabadf-bfac-4dc1-927d-b55380670c57" alt="">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12.0001 3.25C9.70008 3.25 7.83341 5.11667 7.83341 7.41667C7.83341 9.71667 9.70008 11.5833 12.0001 11.5833C14.3001 11.5833 16.1667 9.71667 16.1667 7.41667C16.1667 5.11667 14.3001 3.25 12.0001 3.25ZM12.0001 12.8333C7.44175 12.8333 4.91675 16.1333 4.91675 18.85C4.91675 20.3333 5.75008 20.3333 8.66675 20.3333H15.3334C18.2501 20.3333 19.0834 20.3333 19.0834 18.85C19.0834 16.1333 16.5584 12.8333 12.0001 12.8333Z" fill="black"/>
+              </svg>
             </div>
             <span class="login-btn__label">Use phone / email / username</span>
           </div>
@@ -2403,9 +2792,10 @@
     <div class="s2-middle">
       <div class="s2-save-row">
         <div class="s2-checkbox">
-          <div class="s2-checkbox__circle">
-            <div class="s2-checkbox__check"></div>
-          </div>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M0 8C0 3.58172 3.58172 0 8 0C12.4183 0 16 3.58172 16 8C16 12.4183 12.4183 16 8 16C3.58172 16 0 12.4183 0 8Z" fill="#FE2C55"/>
+            <path d="M11.1021 4.00684C11.1815 4.01563 11.2596 4.06688 11.4155 4.16895L11.9175 4.49805C12.0736 4.60024 12.1522 4.65127 12.1919 4.7207C12.2267 4.7816 12.2414 4.85215 12.2339 4.92188C12.2252 5.00142 12.174 5.08019 12.0718 5.23633L8.29053 11.0107C8.27264 11.0381 8.25585 11.0632 8.24072 11.0859L7.99854 11.457C7.85648 11.6738 7.62128 11.8119 7.36279 11.8311C7.10436 11.8502 6.85165 11.7481 6.6792 11.5547L6.36865 11.2061C6.35471 11.1905 6.33953 11.174 6.32373 11.1562L4.06494 8.61914C3.94107 8.48003 3.87921 8.41029 3.85889 8.33301C3.84104 8.26491 3.84502 8.19253 3.87061 8.12695C3.89973 8.05247 3.96957 7.99027 4.10889 7.86621L4.55713 7.46777C4.69642 7.34374 4.76594 7.28109 4.84326 7.26074C4.91135 7.2429 4.98374 7.24687 5.04932 7.27246C5.12385 7.30154 5.18597 7.37139 5.31006 7.51074L7.19971 9.63379L10.6772 4.32324C10.7795 4.1671 10.8305 4.08858 10.8999 4.04883C10.961 4.01392 11.0321 3.99922 11.1021 4.00684Z" fill="white"/>
+          </svg>
         </div>
         <span class="s2-save-text">Save login info on your iCloud devices to log in automatically next time.</span>
       </div>
@@ -2534,6 +2924,166 @@
     <div class="home-indicator" style="z-index: 20;"></div>
   </div>
 
+  <!-- ==================== SCREEN 12: Verification (after Add phone — same UI as screen3) ==================== -->
+  <div class="screen hidden-right" id="screen12">
+    <div class="status-bar">
+      <span class="status-bar__time">8:00</span>
+      <div class="status-bar__icons">
+        <img class="status-bar__signal" src="https://www.figma.com/api/mcp/asset/865282a0-e196-4f57-af67-cfcaf63151be" alt="">
+        <img class="status-bar__wifi" src="https://www.figma.com/api/mcp/asset/535f2985-bab0-4893-9c25-58db52f6a5ff" alt="">
+        <img class="status-bar__battery" src="https://www.figma.com/api/mcp/asset/08a454b6-3c04-4122-9213-77dcd9a70f4f" alt="">
+      </div>
+    </div>
+
+    <div class="nav-bar">
+      <button class="nav-bar__back-btn" id="s12Back" aria-label="Back">
+        <div class="nav-bar__back-icon"></div>
+      </button>
+      <span class="nav-bar__title"></span>
+      <button class="nav-bar__help-btn" aria-label="Help">
+        <div class="nav-bar__help-icon">
+          <img src="https://www.figma.com/api/mcp/asset/e9bed869-790f-4ffb-9761-40fc04181bec" alt="">
+        </div>
+      </button>
+    </div>
+
+    <div class="s3-content">
+      <h1 class="s3-title">Enter 6-digit code</h1>
+      <p class="s3-subtitle" id="s12PhoneDisplay">Your code was sent to +1 4129196666</p>
+
+      <div class="s3-code-boxes" id="s12CodeBoxes">
+        <div class="s3-code-box" data-idx="0">1</div>
+        <div class="s3-code-box" data-idx="1">2</div>
+        <div class="s3-code-box active" data-idx="2"></div>
+        <div class="s3-code-box" data-idx="3"></div>
+        <div class="s3-code-box" data-idx="4"></div>
+        <div class="s3-code-box" data-idx="5"></div>
+      </div>
+
+      <p class="s3-resend">Resend code <span id="s12ResendTimer">49s</span></p>
+      <a href="#" class="s3-help-link">Need help logging in?</a>
+    </div>
+
+    <div class="s3-sms-bar" id="s12SmsBar">
+      <div class="s3-sms-divider-left"></div>
+      <div class="s3-sms-inner" id="s12SmsAutoFill">
+        <div class="s3-sms-content">
+          <span class="s3-sms-label">From Messages</span>
+          <span class="s3-sms-code">123 456</span>
+        </div>
+      </div>
+      <div class="s3-sms-divider-right"></div>
+    </div>
+
+    <div class="keyboard">
+      <div class="keyboard__row">
+        <button class="key" data-key="1"><span class="key__num">1</span></button>
+        <button class="key" data-key="2"><span class="key__num">2</span><span class="key__sub">ABC</span></button>
+        <button class="key" data-key="3"><span class="key__num">3</span><span class="key__sub">DEF</span></button>
+      </div>
+      <div class="keyboard__row">
+        <button class="key" data-key="4"><span class="key__num">4</span><span class="key__sub">GHI</span></button>
+        <button class="key" data-key="5"><span class="key__num">5</span><span class="key__sub">JKL</span></button>
+        <button class="key" data-key="6"><span class="key__num">6</span><span class="key__sub">MNO</span></button>
+      </div>
+      <div class="keyboard__row">
+        <button class="key" data-key="7"><span class="key__num">7</span><span class="key__sub">PQRS</span></button>
+        <button class="key" data-key="8"><span class="key__num">8</span><span class="key__sub">TUV</span></button>
+        <button class="key" data-key="9"><span class="key__num">9</span><span class="key__sub">WXYZ</span></button>
+      </div>
+      <div class="keyboard__row">
+        <div class="key key--empty"></div>
+        <button class="key" data-key="0"><span class="key__num">0</span></button>
+        <button class="key key--delete" data-key="del">
+          <div class="key__delete-icon">
+            <svg viewBox="0 0 23 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8.28 1H19.5C21.16 1 22.5 2.34 22.5 4V13C22.5 14.66 21.16 16 19.5 16H8.28C7.4 16 6.56 15.62 5.98 14.96L1.36 9.62C0.72 8.88 0.72 7.82 1.36 7.08L5.98 1.74C6.56 1.08 7.4 0.7 8.28 0.7" stroke="black" stroke-width="1.2" fill="none"/>
+              <line x1="10" y1="5.5" x2="17" y2="11.5" stroke="black" stroke-width="1.4" stroke-linecap="round"/>
+              <line x1="17" y1="5.5" x2="10" y2="11.5" stroke="black" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <div class="home-indicator" style="z-index: 20;"></div>
+  </div>
+
+  <!-- ==================== SCREEN 13: 验证后 — 手机号是否已绑定 ==================== -->
+  <div class="screen hidden-right" id="screen13">
+    <div class="status-bar">
+      <span class="status-bar__time">8:00</span>
+      <div class="status-bar__icons">
+        <img class="status-bar__signal" src="https://www.figma.com/api/mcp/asset/865282a0-e196-4f57-af67-cfcaf63151be" alt="">
+        <img class="status-bar__wifi" src="https://www.figma.com/api/mcp/asset/535f2985-bab0-4893-9c25-58db52f6a5ff" alt="">
+        <img class="status-bar__battery" src="https://www.figma.com/api/mcp/asset/08a454b6-3c04-4122-9213-77dcd9a70f4f" alt="">
+      </div>
+    </div>
+
+    <div class="nav-bar">
+      <button class="nav-bar__back-btn" id="s13Back" aria-label="Back">
+        <div class="nav-bar__back-icon"></div>
+      </button>
+      <span class="nav-bar__title"></span>
+      <div style="width:44px;height:44px;flex-shrink:0;" aria-hidden="true"></div>
+    </div>
+
+    <div class="s13-wrap">
+      <h1 class="s13-title">手机号状态</h1>
+      <p class="s13-desc">请选择与当前验证号码相符的情况（演示用）</p>
+      <div class="s13-options">
+        <button type="button" class="s13-option" id="s13OptNotBound">手机号没有被绑定过</button>
+        <button type="button" class="s13-option" id="s13OptBound">手机号已经被绑定</button>
+      </div>
+    </div>
+
+    <div class="home-indicator" style="z-index: 20;"></div>
+  </div>
+
+  <!-- ==================== SCREEN 15: Already linked — show account using this number ==================== -->
+  <div class="screen hidden-right" id="screen15">
+    <div class="status-bar">
+      <span class="status-bar__time">8:00</span>
+      <div class="status-bar__icons">
+        <img class="status-bar__signal" src="https://www.figma.com/api/mcp/asset/865282a0-e196-4f57-af67-cfcaf63151be" alt="">
+        <img class="status-bar__wifi" src="https://www.figma.com/api/mcp/asset/535f2985-bab0-4893-9c25-58db52f6a5ff" alt="">
+        <img class="status-bar__battery" src="https://www.figma.com/api/mcp/asset/08a454b6-3c04-4122-9213-77dcd9a70f4f" alt="">
+      </div>
+    </div>
+
+    <div class="nav-bar">
+      <button class="nav-bar__back-btn" id="s15Back" aria-label="Back">
+        <div class="nav-bar__back-icon"></div>
+      </button>
+      <span class="nav-bar__title"></span>
+      <div style="width:44px;height:44px;flex-shrink:0;" aria-hidden="true"></div>
+    </div>
+
+    <div class="s15-wrap">
+      <div class="s15-top">
+        <h1 class="s15-title">This phone number is already linked to an account</h1>
+        <p class="s15-desc">The following account is using this phone number.</p>
+        <div class="s5-account-card s15-bound-card" aria-hidden="true">
+          <img class="s5-account-card__avatar" src="coldplay-avatar.png" alt="">
+          <div class="s5-account-card__info">
+            <div class="s5-account-card__name">
+              Coldplay
+              <img src="https://p16-sign-sg.tiktokcdn.com/tos-alisg-avt-0068/verified-badge.png" onerror="this.style.display='none'" alt="">
+            </div>
+            <div class="s5-account-card__handle">@coldplay</div>
+            <div class="s5-account-card__meta">12.3M followers · 298 posts</div>
+          </div>
+        </div>
+      </div>
+      <div class="s15-actions">
+        <button type="button" class="s15-btn-primary" id="s15ConfirmBind">Confirm link</button>
+        <button type="button" class="s15-btn-secondary" id="s15ChangePhone">Use a different phone number</button>
+      </div>
+    </div>
+
+    <div class="home-indicator" style="z-index: 20;"></div>
+  </div>
+
   <!-- ==================== SCREEN 4: Profile Page ==================== -->
   <div class="screen hidden-right" id="screen4">
     <div class="s4-scroll">
@@ -2560,7 +3110,7 @@
               <path d="M10.3125 11.4577C11.705 11.4577 12.9211 11.551 13.9717 11.7546C13.41 12.2065 12.9376 12.7655 12.5889 13.402C11.9284 13.3305 11.1742 13.2917 10.3125 13.2917C7.14147 13.2917 5.42508 13.8071 4.48633 14.611C3.63976 15.3363 3.24914 16.4567 3.21191 18.2682C3.24299 18.2826 3.27732 18.3018 3.31836 18.318C3.66162 18.4539 4.20955 18.5857 4.93848 18.6979C6.37981 18.9198 8.33442 19.0348 10.3125 19.0348C11.1459 19.0348 11.9751 19.0125 12.7637 18.9723C13.2 19.6636 13.7854 20.2504 14.4756 20.6881C13.1967 20.8074 11.7486 20.8678 10.3125 20.8678C8.28091 20.8678 6.22537 20.7515 4.65918 20.5104C3.8844 20.3911 3.17756 20.2335 2.64355 20.0221C2.38031 19.9179 2.10193 19.7782 1.87402 19.5817C1.64342 19.3829 1.375 19.043 1.375 18.5622C1.37504 16.4042 1.78357 14.5123 3.29395 13.2184C4.75729 11.9652 7.05129 11.4577 10.3125 11.4577ZM10.3125 0.916664C12.9704 0.916664 15.125 3.07129 15.125 5.72916C15.125 8.38703 12.9704 10.5417 10.3125 10.5417C7.65463 10.5417 5.5 8.38703 5.5 5.72916C5.5 3.07129 7.65463 0.916664 10.3125 0.916664ZM10.3125 2.74967C8.66715 2.74967 7.33301 4.08382 7.33301 5.72916C7.33301 7.37451 8.66715 8.70866 10.3125 8.70866C11.9578 8.70866 13.292 7.37451 13.292 5.72916C13.292 4.08382 11.9578 2.74967 10.3125 2.74967Z" fill="black"/>
             </svg>
           </button>
-          <button class="s4-nav-icon"><img src="https://www.figma.com/api/mcp/asset/2c82d08a-6955-40a2-a96a-65f38b97fcf4" alt="Menu"></button>
+          <button type="button" class="s4-nav-icon s4-nav-menu-btn" aria-label="Menu"><img src="https://www.figma.com/api/mcp/asset/2c82d08a-6955-40a2-a96a-65f38b97fcf4" alt="Menu"></button>
         </div>
       </div>
 
@@ -2568,8 +3118,10 @@
       <div class="s4-profile-header">
         <div class="s4-name-row" id="nameArrowBtn" style="cursor:pointer;">
           <span class="s4-name">Coldplay</span>
-          <div class="s4-name-arrow">
-            <img src="https://www.figma.com/api/mcp/asset/ff9aa8a7-cc87-41cc-ae48-d65d3824c1c2" alt="">
+          <div class="s4-name-arrow" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M8.5062 11.7428C8.24014 12.0532 7.75992 12.0532 7.49386 11.7428L2.94334 6.43386C2.57267 6.00141 2.87994 5.33333 3.44951 5.33333L12.5505 5.33333C13.1201 5.33333 13.4274 6.00141 13.0567 6.43386L8.5062 11.7428Z" fill="black"/>
+            </svg>
           </div>
         </div>
         <div class="s4-username-row">
@@ -2879,7 +3431,7 @@
           </div>
           <div class="add-sheet__label">
             <div class="add-sheet__label-main">Create a new account</div>
-            <div class="add-sheet__label-sub">Sign up with a fresh TikTok account</div>
+            <div class="add-sheet__label-sub">signup—no phone, email, or password</div>
           </div>
           <svg class="add-sheet__arrow" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7.5 5l5 5-5 5" stroke="rgba(0,0,0,0.34)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
@@ -3030,7 +3582,7 @@
               <path d="M10.3125 11.4577C11.705 11.4577 12.9211 11.551 13.9717 11.7546C13.41 12.2065 12.9376 12.7655 12.5889 13.402C11.9284 13.3305 11.1742 13.2917 10.3125 13.2917C7.14147 13.2917 5.42508 13.8071 4.48633 14.611C3.63976 15.3363 3.24914 16.4567 3.21191 18.2682C3.24299 18.2826 3.27732 18.3018 3.31836 18.318C3.66162 18.4539 4.20955 18.5857 4.93848 18.6979C6.37981 18.9198 8.33442 19.0348 10.3125 19.0348C11.1459 19.0348 11.9751 19.0125 12.7637 18.9723C13.2 19.6636 13.7854 20.2504 14.4756 20.6881C13.1967 20.8074 11.7486 20.8678 10.3125 20.8678C8.28091 20.8678 6.22537 20.7515 4.65918 20.5104C3.8844 20.3911 3.17756 20.2335 2.64355 20.0221C2.38031 19.9179 2.10193 19.7782 1.87402 19.5817C1.64342 19.3829 1.375 19.043 1.375 18.5622C1.37504 16.4042 1.78357 14.5123 3.29395 13.2184C4.75729 11.9652 7.05129 11.4577 10.3125 11.4577ZM10.3125 0.916664C12.9704 0.916664 15.125 3.07129 15.125 5.72916C15.125 8.38703 12.9704 10.5417 10.3125 10.5417C7.65463 10.5417 5.5 8.38703 5.5 5.72916C5.5 3.07129 7.65463 0.916664 10.3125 0.916664ZM10.3125 2.74967C8.66715 2.74967 7.33301 4.08382 7.33301 5.72916C7.33301 7.37451 8.66715 8.70866 10.3125 8.70866C11.9578 8.70866 13.292 7.37451 13.292 5.72916C13.292 4.08382 11.9578 2.74967 10.3125 2.74967Z" fill="black"/>
             </svg>
           </button>
-          <button class="s4-nav-icon"><img src="https://www.figma.com/api/mcp/asset/2c82d08a-6955-40a2-a96a-65f38b97fcf4" alt="Menu"></button>
+          <button type="button" class="s4-nav-icon s4-nav-menu-btn" aria-label="Menu"><img src="https://www.figma.com/api/mcp/asset/2c82d08a-6955-40a2-a96a-65f38b97fcf4" alt="Menu"></button>
         </div>
       </div>
       <div class="s4-profile-header">
@@ -3068,7 +3620,7 @@
       <div class="s4-video-empty"></div>
       <div class="s4-bottom-bar">
         <div class="s4-bottom-nav">
-          <button class="s4-bottom-cell"><div class="s4-bottom-cell__icon"><img src="https://www.figma.com/api/mcp/asset/a5e76623-51fa-47fa-93e9-ed4df3152004" alt=""></div><span class="s4-bottom-cell__label">Home</span></button>
+          <button class="s4-bottom-cell is-active"><div class="s4-bottom-cell__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 20.25H4C3.44772 20.25 3 19.8023 3 19.25V10.4474C3 9.95009 3.18524 9.4706 3.51949 9.10227L10.5195 1.38655C11.3145 0.510166 12.6855 0.510167 13.4805 1.38655L20.4805 9.10227C20.8148 9.4706 21 9.95009 21 10.4474V19.25C21 19.8023 20.5523 20.25 20 20.25Z" fill="#FFFFFF"/></svg></div><span class="s4-bottom-cell__label">Home</span></button>
           <button class="s4-bottom-cell"><div class="s4-bottom-cell__icon"><img src="https://www.figma.com/api/mcp/asset/1acabc70-2ac0-4e7c-b6a5-509d4a58fb5b" alt=""></div><span class="s4-bottom-cell__label">Friends</span></button>
           <button class="s4-bottom-create" aria-label="Create">
             <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -3093,108 +3645,57 @@
       <div class="status-bar">
         <span class="status-bar__time">8:00</span>
         <div class="status-bar__icons">
-          <img class="status-bar__signal" src="https://www.figma.com/api/mcp/asset/865282a0-e196-4f57-af67-cfcaf63151be" alt="">
-          <img class="status-bar__wifi" src="https://www.figma.com/api/mcp/asset/535f2985-bab0-4893-9c25-58db52f6a5ff" alt="">
-          <img class="status-bar__battery" src="https://www.figma.com/api/mcp/asset/08a454b6-3c04-4122-9213-77dcd9a70f4f" alt="">
+          <img class="status-bar__signal" src="https://www.figma.com/api/mcp/asset/582f2553-362a-4959-9e26-7b99da7c326f" alt="">
+          <img class="status-bar__wifi" src="https://www.figma.com/api/mcp/asset/7037e1df-36d0-4899-9d41-6ca246ea43e8" alt="">
+          <img class="status-bar__battery" src="https://www.figma.com/api/mcp/asset/0cd53d8d-7806-4496-bf06-8db5df97fe2a" alt="">
         </div>
       </div>
-      <div class="onb-top">
-        <button class="skip" id="s11Skip">Skip</button>
-        <button class="nav-bar__help-btn" aria-label="Help">
-          <div class="nav-bar__help-icon"><img src="https://www.figma.com/api/mcp/asset/e9bed869-790f-4ffb-9761-40fc04181bec" alt=""></div>
+      <div class="onb-nav">
+        <button class="onb-skip" id="s11Skip">Skip</button>
+        <button class="onb-help" aria-label="Help">
+          <img src="https://www.figma.com/api/mcp/asset/60fef42a-23c9-4eee-bdb0-85ec5800b3d6" alt="">
         </button>
       </div>
       <div class="onb-card">
-        <h1 class="onb-title">Create nickname</h1>
-        <p class="onb-sub">This can be anything you like and can be changed later. If you skip this step, you will be automatically assigned a default nickname.</p>
-        <input class="onb-input" id="s11Nickname" placeholder="Nickname" maxlength="30">
-        <div class="onb-count" id="s11Count">0/30</div>
+        <div class="onb-title-group">
+          <h1 class="onb-title">Create nickname</h1>
+          <p class="onb-sub">This can be anything you like and can be changed later. If you skip this step, you will be automatically assigned a default nickname.</p>
+        </div>
+        <div class="onb-input-group">
+          <input class="onb-input" id="s11Nickname" placeholder="Nickname" maxlength="30">
+          <p class="onb-count" id="s11Count">0/30</p>
+        </div>
       </div>
-      <div class="onb-bottom"><button class="onb-continue" id="s11Continue">Continue</button></div>
+      <div class="onb-cta"><button class="onb-continue" id="s11Continue">Continue</button></div>
       <div class="onb-kbd" id="s11Kbd">
-        <div class="onb-kbd-row">
-          <button class="onb-key" data-k="Q">Q</button><button class="onb-key" data-k="W">W</button><button class="onb-key" data-k="E">E</button><button class="onb-key" data-k="R">R</button><button class="onb-key" data-k="T">T</button><button class="onb-key" data-k="Y">Y</button><button class="onb-key" data-k="U">U</button><button class="onb-key" data-k="I">I</button><button class="onb-key" data-k="O">O</button><button class="onb-key" data-k="P">P</button>
+        <div class="onb-kbd-rows">
+          <div class="onb-kbd-row">
+            <button class="onb-key" data-k="Q">Q</button><button class="onb-key" data-k="W">W</button><button class="onb-key" data-k="E">E</button><button class="onb-key" data-k="R">R</button><button class="onb-key" data-k="T">T</button><button class="onb-key" data-k="Y">Y</button><button class="onb-key" data-k="U">U</button><button class="onb-key" data-k="I">I</button><button class="onb-key" data-k="O">O</button><button class="onb-key" data-k="P">P</button>
+          </div>
+          <div class="onb-kbd-row">
+            <button class="onb-key" data-k="A">A</button><button class="onb-key" data-k="S">S</button><button class="onb-key" data-k="D">D</button><button class="onb-key" data-k="F">F</button><button class="onb-key" data-k="G">G</button><button class="onb-key" data-k="H">H</button><button class="onb-key" data-k="J">J</button><button class="onb-key" data-k="K">K</button><button class="onb-key" data-k="L">L</button>
+          </div>
+          <div class="onb-kbd-row">
+            <button class="onb-key fn shift" data-k="SHIFT"><img src="https://www.figma.com/api/mcp/asset/ad5a5cdc-8085-4d0e-bd34-7b106a1c8acc" alt=""></button><button class="onb-key" data-k="Z">Z</button><button class="onb-key" data-k="X">X</button><button class="onb-key" data-k="C">C</button><button class="onb-key" data-k="V">V</button><button class="onb-key" data-k="B">B</button><button class="onb-key" data-k="N">N</button><button class="onb-key" data-k="M">M</button><button class="onb-key fn del" data-k="DEL"><img src="https://www.figma.com/api/mcp/asset/2810cc31-4e95-4d37-a19d-733741bf7825" alt=""></button>
+          </div>
+          <div class="onb-kbd-row">
+            <button class="onb-key wide-bottom" data-k="NUM">123</button><button class="onb-key space" data-k="SPACE">space</button><button class="onb-key wide-bottom" data-k="ENTER">return</button>
+          </div>
         </div>
-        <div class="onb-kbd-row">
-          <button class="onb-key" data-k="A">A</button><button class="onb-key" data-k="S">S</button><button class="onb-key" data-k="D">D</button><button class="onb-key" data-k="F">F</button><button class="onb-key" data-k="G">G</button><button class="onb-key" data-k="H">H</button><button class="onb-key" data-k="J">J</button><button class="onb-key" data-k="K">K</button><button class="onb-key" data-k="L">L</button>
-        </div>
-        <div class="onb-kbd-row">
-          <button class="onb-key" data-k="Z">Z</button><button class="onb-key" data-k="X">X</button><button class="onb-key" data-k="C">C</button><button class="onb-key" data-k="V">V</button><button class="onb-key" data-k="B">B</button><button class="onb-key" data-k="N">N</button><button class="onb-key" data-k="M">M</button><button class="onb-key wide" data-k="DEL">⌫</button>
-        </div>
-        <div class="onb-kbd-row">
-          <button class="onb-key wide" data-k="SPACE">space</button>
-          <button class="onb-key wide" data-k="ENTER">return</button>
+        <div class="onb-kbd-emoji">
+          <img src="https://www.figma.com/api/mcp/asset/1db3b6cb-0bac-4e28-830b-a0bf67b21d5b" alt="emoji">
+          <img src="https://www.figma.com/api/mcp/asset/e5247684-072f-4234-9fcf-51d34aa13d26" alt="dictation">
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ============== SCREEN 12: Taste Builder (Skippable) ============== -->
-  <div class="screen hidden-right" id="screen12">
-    <div class="onb-page">
-      <div class="status-bar">
-        <span class="status-bar__time">8:00</span>
-        <div class="status-bar__icons">
-          <img class="status-bar__signal" src="https://www.figma.com/api/mcp/asset/865282a0-e196-4f57-af67-cfcaf63151be" alt="">
-          <img class="status-bar__wifi" src="https://www.figma.com/api/mcp/asset/535f2985-bab0-4893-9c25-58db52f6a5ff" alt="">
-          <img class="status-bar__battery" src="https://www.figma.com/api/mcp/asset/08a454b6-3c04-4122-9213-77dcd9a70f4f" alt="">
-        </div>
-      </div>
-      <div class="onb-top">
-        <button class="skip" id="s12Skip">Skip</button>
-        <button class="nav-bar__help-btn" aria-label="Help">
-          <div class="nav-bar__help-icon"><img src="https://www.figma.com/api/mcp/asset/e9bed869-790f-4ffb-9761-40fc04181bec" alt=""></div>
-        </button>
-      </div>
-      <div class="taste-wrap">
-        <h1 class="taste-title">Choose your interests</h1>
-        <p class="taste-sub">Get better video recommendations</p>
-        <div class="taste-grid" id="tasteGrid">
-          <button class="taste-chip">🎩 Comedy</button><button class="taste-chip">📍 Story Time</button>
-          <button class="taste-chip">🤔 Oddly Satisfying</button><button class="taste-chip">🐶 Animals</button>
-          <button class="taste-chip">💃 Dance</button><button class="taste-chip">💄 Beauty & Style</button>
-          <button class="taste-chip">🍔 Food</button><button class="taste-chip">🏀 Sports</button>
-          <button class="taste-chip">💼 On the Job</button><button class="taste-chip">🎨 Art</button>
-          <button class="taste-chip">👍 Life Hacks</button><button class="taste-chip">🚙 Off-Roading</button>
-          <button class="taste-chip">🚗 Auto</button>
-        </div>
-      </div>
-      <div class="taste-bottom">
-        <button class="taste-btn next" id="s12Next">Next</button>
-      </div>
-      <div class="home-indicator"></div>
-    </div>
-  </div>
-
-  <!-- ============== SCREEN 13: Swipe Up ============== -->
-  <div class="screen hidden-right" id="screen13">
-    <div class="onb-page">
-      <div class="status-bar">
-        <span class="status-bar__time">8:00</span>
-        <div class="status-bar__icons">
-          <img class="status-bar__signal" src="https://www.figma.com/api/mcp/asset/865282a0-e196-4f57-af67-cfcaf63151be" alt="">
-          <img class="status-bar__wifi" src="https://www.figma.com/api/mcp/asset/535f2985-bab0-4893-9c25-58db52f6a5ff" alt="">
-          <img class="status-bar__battery" src="https://www.figma.com/api/mcp/asset/08a454b6-3c04-4122-9213-77dcd9a70f4f" alt="">
-        </div>
-      </div>
-      <div class="swipe-wrap">
-        <h1 class="swipe-title">Swipe up</h1>
-        <p class="swipe-sub">Videos are personalized for you based on what you watch, like, and share.</p>
-        <div class="swipe-phone"><img src="tiktok-feed/assets/video3.png" alt=""></div>
-      </div>
-      <div class="swipe-bottom">
-        <button class="swipe-btn skip" id="s13Skip">Skip</button>
-        <button class="swipe-btn" id="s13Start">Start watching</button>
-      </div>
-      <div class="home-indicator"></div>
-    </div>
-  </div>
 
   <!-- ============== SCREEN 14: Feed Landing ============== -->
   <div class="screen hidden-right" id="screen14">
     <div class="s4-scroll" style="background:#000;">
       <img src="tiktok-feed/assets/video3.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-      <div class="s4-status-bar" style="position:relative;color:#fff;">
+      <div class="s4-status-bar" style="position:relative;">
         <span class="status-bar__time">8:00</span>
         <div class="status-bar__icons">
           <img class="status-bar__signal" src="https://www.figma.com/api/mcp/asset/865282a0-e196-4f57-af67-cfcaf63151be" alt="">
@@ -3205,15 +3706,15 @@
       <div style="position:absolute;top:98px;left:0;right:0;display:flex;justify-content:center;gap:24px;color:#fff;font-size:15px;font-weight:600;z-index:2;">
         <span style="opacity:.7;">Following</span><span>For You</span>
       </div>
-      <div class="s4-bottom-bar" style="background:rgba(0,0,0,.9);">
+      <div class="s4-bottom-bar s4-bottom-bar--dark" style="background:rgba(0,0,0,.9);">
         <div class="s4-bottom-nav">
-          <button class="s4-bottom-cell"><div class="s4-bottom-cell__icon"><img src="https://www.figma.com/api/mcp/asset/a5e76623-51fa-47fa-93e9-ed4df3152004" alt=""></div><span class="s4-bottom-cell__label" style="color:#fff;">Home</span></button>
-          <button class="s4-bottom-cell"><div class="s4-bottom-cell__icon"><img src="https://www.figma.com/api/mcp/asset/1acabc70-2ac0-4e7c-b6a5-509d4a58fb5b" alt=""></div><span class="s4-bottom-cell__label" style="color:#fff;">Friends</span></button>
+          <button class="s4-bottom-cell"><div class="s4-bottom-cell__icon"><img src="https://www.figma.com/api/mcp/asset/a5e76623-51fa-47fa-93e9-ed4df3152004" alt=""></div><span class="s4-bottom-cell__label">Home</span></button>
+          <button class="s4-bottom-cell"><div class="s4-bottom-cell__icon"><img src="https://www.figma.com/api/mcp/asset/1acabc70-2ac0-4e7c-b6a5-509d4a58fb5b" alt=""></div><span class="s4-bottom-cell__label">Friends</span></button>
           <button class="s4-bottom-create" aria-label="Create">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M46.8487 27.577C47.0504 24.8611 47.0504 23.1341 46.8487 20.4182C45.9707 8.60136 32.3588 9.77504 24 9.77503V38.2201C32.3588 38.2201 45.9707 39.3938 46.8487 27.577Z" fill="#FA2D6C"/><path d="M1.15134 27.577C0.949553 24.8611 0.949553 23.1341 1.15134 20.4182C2.0293 8.60136 15.6412 9.77504 24 9.77503V38.2201C15.6412 38.2201 2.0293 39.3938 1.15134 27.577Z" fill="#20D5EC"/><path d="M5.45857 18.1785C5.88916 12.2475 10.9503 10.2831 15.9707 9.90886C21.316 9.51036 26.6836 9.51036 32.0289 9.90886C37.0493 10.2831 42.1105 12.2475 42.541 18.1785C42.8465 22.3857 42.8465 25.6095 42.541 29.8167C42.1105 35.7477 37.0493 37.7121 32.029 38.0863C26.6836 38.4848 21.316 38.4848 15.9707 38.0863C10.9503 37.7121 5.88916 35.7477 5.45857 29.8167C5.15313 25.6095 5.15313 22.3857 5.45857 18.1785Z" fill="black"/><path d="M24 18V30" stroke="white" stroke-width="3" stroke-linecap="round"/><path d="M18 24L30 24" stroke="white" stroke-width="3" stroke-linecap="round"/></svg>
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M46.8487 27.577C47.0504 24.8611 47.0504 23.1341 46.8487 20.4182C45.9707 8.60136 32.3588 9.77504 24 9.77503V38.2201C32.3588 38.2201 45.9707 39.3938 46.8487 27.577Z" fill="#FA2D6C"/><path d="M1.15134 27.577C0.949553 24.8611 0.949553 23.1341 1.15134 20.4182C2.0293 8.60136 15.6412 9.77504 24 9.77503V38.2201C15.6412 38.2201 2.0293 39.3938 1.15134 27.577Z" fill="#20D5EC"/><path d="M5.45857 18.1785C5.88916 12.2475 10.9503 10.2831 15.9707 9.90886C21.316 9.51036 26.6836 9.51036 32.0289 9.90886C37.0493 10.2831 42.1105 12.2475 42.541 18.1785C42.8465 22.3857 42.8465 25.6095 42.541 29.8167C42.1105 35.7477 37.0493 37.7121 32.029 38.0863C26.6836 38.4848 21.316 38.4848 15.9707 38.0863C10.9503 37.7121 5.88916 35.7477 5.45857 29.8167C5.15313 25.6095 5.15313 22.3857 5.45857 18.1785Z" fill="#FFFFFF"/><path d="M24 18V30" stroke="#000000" stroke-width="3" stroke-linecap="round"/><path d="M18 24L30 24" stroke="#000000" stroke-width="3" stroke-linecap="round"/></svg>
           </button>
-          <button class="s4-bottom-cell"><div class="s4-bottom-cell__icon"><img src="https://www.figma.com/api/mcp/asset/000c241c-870e-4dd8-a90a-4b35488eb6c5" alt=""></div><span class="s4-bottom-cell__label" style="color:#fff;">Inbox</span></button>
-          <button class="s4-bottom-cell"><div class="s4-bottom-cell__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 13C15.5336 13 17.8787 13.5549 19.332 14.7998C20.811 16.0668 21.25 17.9426 21.25 20.25C21.25 20.5754 21.0698 20.8207 20.8799 20.9844C20.6915 21.1468 20.4448 21.2737 20.1816 21.3779C19.6511 21.5879 18.9244 21.7527 18.0918 21.8809C16.4171 22.1387 14.2021 22.2656 12 22.2656C9.79794 22.2656 7.58288 22.1387 5.9082 21.8809C5.07563 21.7527 4.34885 21.5879 3.81836 21.3779C3.5552 21.2737 3.30854 21.1468 3.12012 20.9844C2.93025 20.8207 2.75 20.5754 2.75 20.25C2.75 17.9426 3.18897 16.0668 4.66797 14.7998C6.12129 13.5549 8.46641 13 12 13Z" fill="black"/><path d="M12 13.5C19.0182 13.5 20.75 15.7292 20.75 20.25C20.75 22.2708 3.25 22.2708 3.25 20.25C3.25 15.7292 4.98177 13.5 12 13.5ZM12 1.75C14.6234 1.75 16.75 3.87665 16.75 6.5C16.75 9.12335 14.6234 11.25 12 11.25C9.37665 11.25 7.25 9.12335 7.25 6.5C7.25 3.87665 9.37665 1.75 12 1.75Z" fill="black"/></svg></div><span class="s4-bottom-cell__label" style="color:#fff;">Profile</span></button>
+          <button class="s4-bottom-cell"><div class="s4-bottom-cell__icon"><img src="https://www.figma.com/api/mcp/asset/000c241c-870e-4dd8-a90a-4b35488eb6c5" alt=""></div><span class="s4-bottom-cell__label">Inbox</span></button>
+          <button type="button" class="s4-bottom-cell" id="s14TabProfile"><div class="s4-bottom-cell__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 13C15.5336 13 17.8787 13.5549 19.332 14.7998C20.811 16.0668 21.25 17.9426 21.25 20.25C21.25 20.5754 21.0698 20.8207 20.8799 20.9844C20.6915 21.1468 20.4448 21.2737 20.1816 21.3779C19.6511 21.5879 18.9244 21.7527 18.0918 21.8809C16.4171 22.1387 14.2021 22.2656 12 22.2656C9.79794 22.2656 7.58288 22.1387 5.9082 21.8809C5.07563 21.7527 4.34885 21.5879 3.81836 21.3779C3.5552 21.2737 3.30854 21.1468 3.12012 20.9844C2.93025 20.8207 2.75 20.5754 2.75 20.25C2.75 17.9426 3.18897 16.0668 4.66797 14.7998C6.12129 13.5549 8.46641 13 12 13Z" fill="#FFFFFF"/><path d="M12 13.5C19.0182 13.5 20.75 15.7292 20.75 20.25C20.75 22.2708 3.25 22.2708 3.25 20.25C3.25 15.7292 4.98177 13.5 12 13.5ZM12 1.75C14.6234 1.75 16.75 3.87665 16.75 6.5C16.75 9.12335 14.6234 11.25 12 11.25C9.37665 11.25 7.25 9.12335 7.25 6.5C7.25 3.87665 9.37665 1.75 12 1.75Z" fill="#FFFFFF"/></svg></div><span class="s4-bottom-cell__label">Profile</span></button>
         </div>
         <div class="home-indicator"></div>
       </div>
@@ -3238,12 +3739,12 @@
     </div>
 
     <div class="s6-scroll">
-      <h1 class="s6-title">To create a new TikTok account in this Accounts Center, allow the following</h1>
+      <h1 class="s6-title">To create a new TikTok account using your linked TikTok logins, allow the following</h1>
 
       <div class="s6-center-card">
         <img class="s6-center-card__avatar" src="https://www.figma.com/api/mcp/asset/1396ab78-50e1-480b-a6d5-546bbfb37f08" alt="">
         <div class="s6-center-card__info">
-          <div class="s6-center-card__name">Accounts Center</div>
+          <div class="s6-center-card__name">Linked accounts</div>
           <div class="s6-center-card__accounts">Coldplay, coldplay1</div>
         </div>
         <svg class="s6-center-card__arrow" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7.5 5l5 5-5 5" stroke="rgba(0,0,0,0.34)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -3253,7 +3754,7 @@
       <p class="s6-body">Your posts, friends, followers and messages won't be automatically carried over into your new account.</p>
 
       <h2 class="s6-section-title">What this means for you</h2>
-      <p class="s6-body">If you allow us to combine and use your info across accounts in this Accounts Center on different TikTok Company Products, here's what we will provide:</p>
+      <p class="s6-body">If you allow us to combine and use your information across these linked accounts when you use different TikTok Company Products, here's what we will provide:</p>
 
       <h3 class="s6-subsection-title">More personalized experiences</h3>
       <ul class="s6-list">
@@ -3266,6 +3767,76 @@
     <div class="s6-bottom">
       <button class="s6-btn-primary" id="s6Allow">Allow and continue</button>
       <button class="s6-btn-secondary" id="s6UsePhone">Use mobile number or email</button>
+    </div>
+  </div>
+
+  <!-- Add phone — Figma 19222:786996 (Log-in Sign-up 2025) -->
+  <div class="add-phone-screen" id="addPhoneScreen" aria-hidden="true">
+    <div class="add-phone-screen__panel">
+    <div class="aps-status">
+      <span class="time">8:00</span>
+      <img class="signal" src="https://www.figma.com/api/mcp/asset/6fd64d8e-55b4-4d74-b18d-6115a98938a2" alt="">
+      <img class="connection" src="https://www.figma.com/api/mcp/asset/5957c348-8616-4711-bc35-23cced4652b8" alt="">
+      <img class="battery" src="https://www.figma.com/api/mcp/asset/9e2c1970-553a-4754-b7d6-93a55d3f03cf" alt="">
+    </div>
+    <div class="aps-nav">
+      <button type="button" class="aps-back" id="addPhoneBack" aria-label="Back">
+        <img src="https://www.figma.com/api/mcp/asset/b41f87d8-1851-4439-a6a7-93cd8250cf8a" alt="">
+      </button>
+    </div>
+    <div class="aps-content">
+      <h1 class="aps-title">Add phone</h1>
+      <div class="aps-field-stack">
+        <div class="aps-input-inner">
+          <button type="button" class="aps-cc" id="addPhoneCcBtn">
+            US +1
+            <span class="aps-cc-ch" aria-hidden="true"></span>
+          </button>
+          <div class="aps-cc-divide" aria-hidden="true"></div>
+          <input type="tel" class="aps-input" id="addPhoneInput" placeholder="Phone number" maxlength="14" autocomplete="tel" inputmode="tel">
+        </div>
+      </div>
+      <p class="aps-disclaimer">
+        <span>You’ll receive a verification code via SMS. Your phone number may be used to connect you with others, improve ads, and more, depending on your settings. </span>
+        <a href="#" class="aps-learn" id="addPhoneLearnMore">Learn more</a>
+      </p>
+    </div>
+    <div class="aps-cta">
+      <button type="button" class="aps-continue" id="addPhoneContinue" disabled>Continue</button>
+    </div>
+    <div class="add-phone-kb-slot">
+      <!-- 与 screen2 相同的数字键盘（复用 .keyboard / .key） -->
+      <div class="keyboard" id="addPhoneKeyboard">
+        <div class="keyboard__row">
+          <button type="button" class="key" data-key="1"><span class="key__num">1</span></button>
+          <button type="button" class="key" data-key="2"><span class="key__num">2</span><span class="key__sub">ABC</span></button>
+          <button type="button" class="key" data-key="3"><span class="key__num">3</span><span class="key__sub">DEF</span></button>
+        </div>
+        <div class="keyboard__row">
+          <button type="button" class="key" data-key="4"><span class="key__num">4</span><span class="key__sub">GHI</span></button>
+          <button type="button" class="key" data-key="5"><span class="key__num">5</span><span class="key__sub">JKL</span></button>
+          <button type="button" class="key" data-key="6"><span class="key__num">6</span><span class="key__sub">MNO</span></button>
+        </div>
+        <div class="keyboard__row">
+          <button type="button" class="key" data-key="7"><span class="key__num">7</span><span class="key__sub">PQRS</span></button>
+          <button type="button" class="key" data-key="8"><span class="key__num">8</span><span class="key__sub">TUV</span></button>
+          <button type="button" class="key" data-key="9"><span class="key__num">9</span><span class="key__sub">WXYZ</span></button>
+        </div>
+        <div class="keyboard__row">
+          <div class="key key--empty"></div>
+          <button type="button" class="key" data-key="0"><span class="key__num">0</span></button>
+          <button type="button" class="key key--delete" data-key="del">
+            <div class="key__delete-icon">
+              <svg viewBox="0 0 23 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.28 1H19.5C21.16 1 22.5 2.34 22.5 4V13C22.5 14.66 21.16 16 19.5 16H8.28C7.4 16 6.56 15.62 5.98 14.96L1.36 9.62C0.72 8.88 0.72 7.82 1.36 7.08L5.98 1.74C6.56 1.08 7.4 0.7 8.28 0.7" stroke="black" stroke-width="1.2" fill="none"/>
+                <line x1="10" y1="5.5" x2="17" y2="11.5" stroke="black" stroke-width="1.4" stroke-linecap="round"/>
+                <line x1="17" y1="5.5" x2="10" y2="11.5" stroke="black" stroke-width="1.4" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
     </div>
   </div>
 
@@ -3314,6 +3885,7 @@
     <button class="flow-topbar__close" id="flowClose">Back to Demo</button>
   </div>
   <div class="flow-canvas" id="flowCanvas">
+    <div class="flow-spacer" id="flowSpacer"></div>
     <svg class="flow-arrows" id="flowArrows"></svg>
   </div>
 </div>
@@ -3322,6 +3894,8 @@
 (function() {
   var currentPlan = 'A';
   var authFlowMode = 'signin'; // signin | signup
+  /** After sign-up verify, user is on feed; Profile tab opens empty profile. */
+  var signupVerifyFeedPending = false;
 
   // ========== Screen Navigation ==========
   function goTo(fromId, toId) {
@@ -3359,10 +3933,15 @@
     if (s2Title) s2Title.textContent = isSignUp ? 'Sign up' : 'Log in';
     var s3Help = document.querySelector('#screen3 .s3-help-link');
     if (s3Help) s3Help.textContent = isSignUp ? 'Need help signing up?' : 'Need help logging in?';
+    var s12Help = document.querySelector('#screen12 .s3-help-link');
+    if (s12Help) s12Help.textContent = isSignUp ? 'Need help signing up?' : 'Need help logging in?';
   }
 
   function resetToScreen1() {
-    ['screen1','screen2','screen3','screen4','screen5','screen6','screen7','screen10','screen11','screen12','screen13','screen14'].forEach(function(id) {
+    signupVerifyFeedPending = false;
+    closeAddPhoneScreen();
+    clearInterval(timerInterval12);
+    ['screen1','screen2','screen3','screen12','screen13','screen15','screen4','screen5','screen6','screen7','screen10','screen11','screen14'].forEach(function(id) {
       var el = document.getElementById(id);
       if (!el) return;
       el.classList.remove('active','hidden-left','hidden-right');
@@ -3401,20 +3980,26 @@
     goBack('screen3', 'screen2');
   });
 
-  // ========== Screen 2: Phone Input via Keyboard ==========
+  // ========== Screen 2: Phone Input via Keyboard（与 Add phone 共用 bindNumericKeyboard）==========
   var phoneInput = document.getElementById('phoneInput');
 
-  document.getElementById('screen2').querySelectorAll('.key[data-key]').forEach(function(key) {
-    key.addEventListener('click', function() {
-      var val = this.dataset.key;
-      if (val === 'del') {
-        phoneInput.value = phoneInput.value.slice(0, -1);
-      } else if (phoneInput.value.length < 14) {
-        phoneInput.value += val;
-      }
-      phoneInput.dispatchEvent(new Event('input'));
+  function bindNumericKeyboard(container, inputEl) {
+    if (!container || !inputEl) return;
+    container.querySelectorAll('.key[data-key]').forEach(function(key) {
+      key.addEventListener('click', function() {
+        var val = this.dataset.key;
+        if (val === 'del') {
+          inputEl.value = inputEl.value.slice(0, -1);
+        } else if (inputEl.value.length < 14) {
+          inputEl.value += val;
+        }
+        inputEl.dispatchEvent(new Event('input'));
+      });
     });
-  });
+  }
+
+  bindNumericKeyboard(document.querySelector('#screen2 .keyboard'), phoneInput);
+  bindNumericKeyboard(document.getElementById('addPhoneKeyboard'), document.getElementById('addPhoneInput'));
 
   // ========== Screen 3: Code Input ==========
   var codeDigits = ['1', '2', '', '', '', ''];
@@ -3462,7 +4047,8 @@
       setTimeout(function() {
         if (authFlowMode === 'signup') {
           applyAccount('newuser');
-          goTo('screen3', 'screen10');
+          signupVerifyFeedPending = true;
+          goToFromRight('screen3', 'screen14');
         } else if (currentPlan === 'B') {
           goTo('screen3', 'screen5');
         } else {
@@ -3472,6 +4058,12 @@
     }
   }
 
+  document.getElementById('s14TabProfile').addEventListener('click', function() {
+    if (!signupVerifyFeedPending) return;
+    goToFromRight('screen14', 'screen10');
+    signupVerifyFeedPending = false;
+  });
+
   // SMS Auto-fill
   document.getElementById('smsAutoFill').addEventListener('click', function() {
     codeDigits = ['1', '2', '3', '4', '5', '6'];
@@ -3480,6 +4072,130 @@
     document.getElementById('smsBar').style.display = 'none';
     checkCodeComplete();
   });
+
+  // ========== Screen 12: Verification after Add phone（UI 与 screen3 一致）==========
+  var addPhoneVerifyFromScreenId = 'screen4';
+  var codeDigits12 = ['1', '2', '', '', '', ''];
+  var codePos12 = 2;
+
+  function renderCodeBoxes12() {
+    var boxes = document.querySelectorAll('#s12CodeBoxes .s3-code-box');
+    boxes.forEach(function(box, i) {
+      box.textContent = codeDigits12[i];
+      box.classList.toggle('active', i === codePos12);
+    });
+  }
+
+  function resetCodeBoxes12() {
+    codeDigits12 = ['1', '2', '', '', '', ''];
+    codePos12 = 2;
+    renderCodeBoxes12();
+    var smsBar = document.getElementById('s12SmsBar');
+    if (smsBar) smsBar.style.display = 'flex';
+  }
+
+  function checkCodeComplete12() {
+    var filled = codeDigits12.filter(function(d) { return d !== ''; }).length;
+    if (filled === 6) {
+      setTimeout(function() {
+        goToFromRight('screen12', 'screen13');
+      }, 600);
+    }
+  }
+
+  document.getElementById('screen12').querySelectorAll('.key[data-key]').forEach(function(key) {
+    key.addEventListener('click', function() {
+      var val = this.dataset.key;
+      if (val === 'del') {
+        if (codePos12 > 0 && codeDigits12[codePos12] === '') {
+          codePos12--;
+        }
+        codeDigits12[codePos12] = '';
+      } else {
+        if (codePos12 < 6) {
+          codeDigits12[codePos12] = val;
+          if (codePos12 < 5) codePos12++;
+          else codePos12 = 5;
+        }
+      }
+      renderCodeBoxes12();
+      checkCodeComplete12();
+    });
+  });
+
+  document.getElementById('s12SmsAutoFill').addEventListener('click', function() {
+    codeDigits12 = ['1', '2', '3', '4', '5', '6'];
+    codePos12 = 6;
+    renderCodeBoxes12();
+    document.getElementById('s12SmsBar').style.display = 'none';
+    checkCodeComplete12();
+  });
+
+  document.getElementById('s12Back').addEventListener('click', function() {
+    goBack('screen12', addPhoneVerifyFromScreenId);
+    openAddPhoneScreen();
+  });
+
+  document.getElementById('s13Back').addEventListener('click', function() {
+    goBack('screen13', 'screen12');
+  });
+
+  document.getElementById('s13OptNotBound').addEventListener('click', function() {
+    demoToast('This number is not linked to another account.');
+    goToFromRight('screen13', addPhoneVerifyFromScreenId);
+  });
+
+  document.getElementById('s13OptBound').addEventListener('click', function() {
+    goToFromRight('screen13', 'screen15');
+  });
+
+  document.getElementById('s15Back').addEventListener('click', function() {
+    goBack('screen15', 'screen13');
+  });
+
+  document.getElementById('s15ConfirmBind').addEventListener('click', function() {
+    demoToast('Link confirmed');
+    goToFromRight('screen15', addPhoneVerifyFromScreenId);
+  });
+
+  document.getElementById('s15ChangePhone').addEventListener('click', function() {
+    goToFromRight('screen15', addPhoneVerifyFromScreenId);
+    setTimeout(function() {
+      openAddPhoneScreen();
+    }, 350);
+  });
+
+  function ensureS12ResendMarkup() {
+    var p = document.querySelector('#screen12 .s3-resend');
+    if (p && !document.getElementById('s12ResendTimer')) {
+      p.innerHTML = 'Resend code <span id="s12ResendTimer">49s</span>';
+    }
+  }
+
+  var timerInterval12;
+  function startResendTimer12() {
+    ensureS12ResendMarkup();
+    var seconds = 49;
+    var timerEl = document.getElementById('s12ResendTimer');
+    if (!timerEl) return;
+    clearInterval(timerInterval12);
+    timerEl.textContent = seconds + 's';
+    timerInterval12 = setInterval(function() {
+      seconds--;
+      timerEl = document.getElementById('s12ResendTimer');
+      if (!timerEl) {
+        clearInterval(timerInterval12);
+        return;
+      }
+      if (seconds <= 0) {
+        clearInterval(timerInterval12);
+        timerEl.textContent = '';
+        timerEl.parentElement.innerHTML = '<a href="#" style="color:#161823;font-weight:600;">Resend code</a>';
+      } else {
+        timerEl.textContent = seconds + 's';
+      }
+    }, 1000);
+  }
 
   // ========== Resend Timer ==========
   var timerInterval;
@@ -3612,10 +4328,10 @@
     }
 
     document.getElementById('s11Skip').addEventListener('click', function() {
-      goTo('screen11', 'screen12');
+      goTo('screen11', 'screen14');
     });
     s11Continue.addEventListener('click', function() {
-      goTo('screen11', 'screen12');
+      goTo('screen11', 'screen14');
     });
     s11Input.addEventListener('input', updateS11State);
 
@@ -3624,40 +4340,14 @@
         var k = this.dataset.k;
         if (k === 'DEL') s11Input.value = s11Input.value.slice(0, -1);
         else if (k === 'SPACE' && s11Input.value.length < 30) s11Input.value += ' ';
-        else if (k === 'ENTER') goTo('screen11', 'screen12');
+        else if (k === 'ENTER') goTo('screen11', 'screen14');
+        else if (k === 'SHIFT' || k === 'NUM') { /* no-op */ }
         else if (k && k.length === 1 && s11Input.value.length < 30) s11Input.value += k.toLowerCase();
         s11Input.dispatchEvent(new Event('input'));
       });
     });
     updateS11State();
   })();
-
-  // ========== Screen 12: Taste Builder ==========
-  (function() {
-    var next = document.getElementById('s12Next');
-    var chips = document.querySelectorAll('#tasteGrid .taste-chip');
-    function updateNext() {
-      var has = document.querySelectorAll('#tasteGrid .taste-chip.active').length > 0;
-      next.classList.toggle('enabled', has);
-    }
-    chips.forEach(function(chip) {
-      chip.addEventListener('click', function() {
-        chip.classList.toggle('active');
-        updateNext();
-      });
-    });
-    document.getElementById('s12Skip').addEventListener('click', function() { goTo('screen12', 'screen13'); });
-    next.addEventListener('click', function() { goTo('screen12', 'screen13'); });
-    updateNext();
-  })();
-
-  // ========== Screen 13: Swipe Up ==========
-  document.getElementById('s13Skip').addEventListener('click', function() {
-    goTo('screen13', 'screen14');
-  });
-  document.getElementById('s13Start').addEventListener('click', function() {
-    goTo('screen13', 'screen14');
-  });
 
   // ========== Screen 10: New Account Empty Profile ==========
   // Keep this block safe even if no dedicated back button.
@@ -3810,11 +4500,13 @@
   var modeFlow = document.getElementById('modeFlow');
   var flowView = document.getElementById('flowView');
   var flowCanvas = document.getElementById('flowCanvas');
+  var flowSpacer = document.getElementById('flowSpacer');
   var flowArrows = document.getElementById('flowArrows');
   var flowTitle = document.getElementById('flowTitle');
   var flowClose = document.getElementById('flowClose');
   var phoneFrame = document.querySelector('.phone-frame');
   var currentMode = 'demo';
+  var currentFlowScreens = [];
 
   planFab.addEventListener('click', function(e) {
     e.stopPropagation();
@@ -3843,46 +4535,53 @@
   // ========== Flow / Demo Mode ==========
   var flowDefinitions = {
     A: [
-      { id: 'screen1', label: 'Login Options' },
-      { id: 'screen2', label: 'Phone Number' },
-      { id: 'screen3', label: 'Verification Code' },
-      { id: 'screen4', label: 'Profile Page' },
-      { id: 'screen4', label: 'Switch account panel', panel: 'switch', badge: 'Panel state' },
-      { id: 'screen4', label: 'Add account panel', panel: 'add', badge: 'Panel state' },
-      { id: 'screen6', label: 'Consent', badge: 'Add account', badgeAlt: true },
-      { id: 'screen7', label: 'Sign Up', badge: 'Sign up flow' },
-      { id: 'screen2', label: 'Phone (reused)', badge: 'Sign up flow' },
-      { id: 'screen3', label: 'Verify (reused)', badge: 'Sign up flow' },
-      { id: 'screen10', label: 'New Empty Profile', badge: 'Sign up result', badgeAlt: true }
-      ,{ id: 'screen11', label: 'Create nickname', badge: 'Onboarding' }
-      ,{ id: 'screen12', label: 'Choose interests (Skip/Next)', badge: 'Onboarding' }
-      ,{ id: 'screen13', label: 'Swipe up (Skip/Start)', badge: 'Onboarding' }
-      ,{ id: 'screen14', label: 'Feed landing', badge: 'Onboarding result', badgeAlt: true }
+      { id: 'screen1', label: 'Login Options', col: 0, row: 0 },
+      { id: 'screen2', label: 'Phone Number', col: 1, row: 0 },
+      { id: 'screen3', label: 'Verification Code', col: 2, row: 0 },
+      { id: 'screen4', label: 'Profile Page', col: 3, row: 0 },
+      { id: 'screen4', label: 'Switch account panel', panel: 'switch', badge: 'Panel state', col: 4, row: 0 },
+      { id: 'screen4', label: 'Add account panel', panel: 'add', badge: 'Panel state', col: 5, row: 0 },
+      { id: 'screen6', label: 'Consent', badge: 'Add account', badgeAlt: true, col: 6, row: 0 },
+      { id: 'screen11', label: 'Create nickname', badge: 'Allow and continue', badgeAlt: true, from: 6, col: 7, row: 0 },
+      { id: 'screen14', label: 'Feed landing', badge: 'Allow branch result', badgeAlt: true, from: 7, col: 8, row: 0 },
+      { id: 'screen7', label: 'Sign Up', badge: 'Use mobile number or email', from: 6, col: 7, row: 1 },
+      { id: 'screen2', label: 'Phone (reused)', badge: 'Sign up flow', from: 9, col: 8, row: 1 },
+      { id: 'screen3', label: 'Verify (reused)', badge: 'Sign up flow', from: 10, col: 9, row: 1 },
+      { id: 'screen14', label: 'Feed landing', badge: 'After verify', badgeAlt: true, from: 11, col: 10, row: 1 },
+      { id: 'screen10', label: 'New Empty Profile', badge: 'Profile tab', badgeAlt: true, from: 12, col: 11, row: 1 }
     ],
     B: [
-      { id: 'screen1', label: 'Login Options' },
-      { id: 'screen2', label: 'Phone Number' },
-      { id: 'screen3', label: 'Verification Code' },
-      { id: 'screen5', label: 'Pick Account' },
-      { id: 'screen4', label: 'Profile Page' },
-      { id: 'screen4', label: 'Switch account panel', panel: 'switch', badge: 'Panel state' },
-      { id: 'screen4', label: 'Add account panel', panel: 'add', badge: 'Panel state' },
-      { id: 'screen6', label: 'Consent', badge: 'Add account', badgeAlt: true },
-      { id: 'screen7', label: 'Sign Up', badge: 'Sign up flow' },
-      { id: 'screen2', label: 'Phone (reused)', badge: 'Sign up flow' },
-      { id: 'screen3', label: 'Verify (reused)', badge: 'Sign up flow' },
-      { id: 'screen10', label: 'New Empty Profile', badge: 'Sign up result', badgeAlt: true }
-      ,{ id: 'screen11', label: 'Create nickname', badge: 'Onboarding' }
-      ,{ id: 'screen12', label: 'Choose interests (Skip/Next)', badge: 'Onboarding' }
-      ,{ id: 'screen13', label: 'Swipe up (Skip/Start)', badge: 'Onboarding' }
-      ,{ id: 'screen14', label: 'Feed landing', badge: 'Onboarding result', badgeAlt: true }
+      { id: 'screen1', label: 'Login Options', col: 0, row: 0 },
+      { id: 'screen2', label: 'Phone Number', col: 1, row: 0 },
+      { id: 'screen3', label: 'Verification Code', col: 2, row: 0 },
+      { id: 'screen5', label: 'Pick Account', col: 3, row: 0 },
+      { id: 'screen4', label: 'Profile Page', col: 4, row: 0 },
+      { id: 'screen4', label: 'Switch account panel', panel: 'switch', badge: 'Panel state', col: 5, row: 0 },
+      { id: 'screen4', label: 'Add account panel', panel: 'add', badge: 'Panel state', col: 6, row: 0 },
+      { id: 'screen6', label: 'Consent', badge: 'Add account', badgeAlt: true, col: 7, row: 0 },
+      { id: 'screen11', label: 'Create nickname', badge: 'Allow and continue', badgeAlt: true, from: 7, col: 8, row: 0 },
+      { id: 'screen14', label: 'Feed landing', badge: 'Allow branch result', badgeAlt: true, from: 8, col: 9, row: 0 },
+      { id: 'screen7', label: 'Sign Up', badge: 'Use mobile number or email', from: 7, col: 8, row: 1 },
+      { id: 'screen2', label: 'Phone (reused)', badge: 'Sign up flow', from: 10, col: 9, row: 1 },
+      { id: 'screen3', label: 'Verify (reused)', badge: 'Sign up flow', from: 11, col: 10, row: 1 },
+      { id: 'screen14', label: 'Feed landing', badge: 'After verify', badgeAlt: true, from: 12, col: 11, row: 1 },
+      { id: 'screen10', label: 'New Empty Profile', badge: 'Profile tab', badgeAlt: true, from: 13, col: 12, row: 1 }
     ]
   };
 
   function buildFlow() {
     var plan = currentPlan;
     var screens = flowDefinitions[plan] || flowDefinitions.A;
+    currentFlowScreens = screens;
     flowTitle.textContent = 'Plan ' + plan + ' — Flow';
+    var maxCol = 0;
+    var maxRow = 0;
+    screens.forEach(function(def) {
+      if (typeof def.col === 'number') maxCol = Math.max(maxCol, def.col);
+      if (typeof def.row === 'number') maxRow = Math.max(maxRow, def.row);
+    });
+    flowSpacer.style.width = (32 + (maxCol + 1) * 240 + 260) + 'px';
+    flowSpacer.style.height = (40 + (maxRow + 1) * 520 + 120) + 'px';
 
     // Clear
     flowCanvas.querySelectorAll('.flow-card').forEach(function(c) { c.remove(); });
@@ -3892,6 +4591,11 @@
       var card = document.createElement('div');
       card.className = 'flow-card';
       card.setAttribute('data-flow-index', i);
+      if (typeof def.col === 'number' && typeof def.row === 'number') {
+        card.style.position = 'absolute';
+        card.style.left = (32 + def.col * 240) + 'px';
+        card.style.top = (40 + def.row * 520) + 'px';
+      }
 
       var label = document.createElement('div');
       label.className = 'flow-card__label';
@@ -3921,6 +4625,11 @@
         if (addSheet) addSheet.classList.add('visible');
       }
 
+      if (def.id === 'screen2' && def.badge === 'Sign up flow') {
+        var flowS2Title = clone.querySelector('.nav-bar__title');
+        if (flowS2Title) flowS2Title.textContent = 'Sign up';
+      }
+
       frame.appendChild(clone);
       card.appendChild(frame);
 
@@ -3947,28 +4656,38 @@
     var scrollTop = flowCanvas.scrollTop;
     var pathsHtml = '';
 
-    for (var i = 0; i < cards.length - 1; i++) {
-      var a = cards[i].querySelector('.flow-card__frame');
-      var b = cards[i + 1].querySelector('.flow-card__frame');
-      var aRect = a.getBoundingClientRect();
-      var bRect = b.getBoundingClientRect();
+    for (var i = 1; i < cards.length; i++) {
+      var def = currentFlowScreens[i] || {};
+      var fromList;
+      if (Array.isArray(def.from)) fromList = def.from;
+      else if (typeof def.from === 'number') fromList = [def.from];
+      else fromList = [i - 1];
 
-      var x1 = aRect.right - canvasRect.left + scrollLeft + 4;
-      var y1 = aRect.top + aRect.height / 2 - canvasRect.top + scrollTop;
-      var x2 = bRect.left - canvasRect.left + scrollLeft - 4;
-      var y2 = bRect.top + bRect.height / 2 - canvasRect.top + scrollTop;
+      fromList.forEach(function(fromIdx) {
+        if (fromIdx < 0 || fromIdx >= cards.length || fromIdx === i) return;
+        var a = cards[fromIdx].querySelector('.flow-card__frame');
+        var b = cards[i].querySelector('.flow-card__frame');
+        if (!a || !b) return;
 
-      var mx = (x1 + x2) / 2;
+        var aRect = a.getBoundingClientRect();
+        var bRect = b.getBoundingClientRect();
 
-      pathsHtml +=
-        '<path d="M' + x1 + ' ' + y1 +
-        ' C' + mx + ' ' + y1 + ' ' + mx + ' ' + y2 + ' ' + x2 + ' ' + y2 +
-        '" stroke="rgba(0,0,0,0.18)" stroke-width="2" fill="none" stroke-dasharray="6 4" />' +
-        '<polygon points="' +
-        (x2) + ',' + (y2) + ' ' +
-        (x2 - 8) + ',' + (y2 - 4) + ' ' +
-        (x2 - 8) + ',' + (y2 + 4) +
-        '" fill="rgba(0,0,0,0.25)" />';
+        var x1 = aRect.right - canvasRect.left + scrollLeft + 4;
+        var y1 = aRect.top + aRect.height / 2 - canvasRect.top + scrollTop;
+        var x2 = bRect.left - canvasRect.left + scrollLeft - 4;
+        var y2 = bRect.top + bRect.height / 2 - canvasRect.top + scrollTop;
+        var mx = (x1 + x2) / 2;
+
+        pathsHtml +=
+          '<path d="M' + x1 + ' ' + y1 +
+          ' C' + mx + ' ' + y1 + ' ' + mx + ' ' + y2 + ' ' + x2 + ' ' + y2 +
+          '" stroke="rgba(0,0,0,0.18)" stroke-width="2" fill="none" stroke-dasharray="6 4" />' +
+          '<polygon points="' +
+          (x2) + ',' + (y2) + ' ' +
+          (x2 - 8) + ',' + (y2 - 4) + ' ' +
+          (x2 - 8) + ',' + (y2 + 4) +
+          '" fill="rgba(0,0,0,0.25)" />';
+      });
     }
 
     var totalW = 0;
@@ -4017,6 +4736,116 @@
   flowCanvas.addEventListener('scroll', function() {
     requestAnimationFrame(drawArrows);
   });
+
+  // Drag-to-pan for flow canvas.
+  (function() {
+    var isPanning = false;
+    var startX = 0;
+    var startY = 0;
+    var startLeft = 0;
+    var startTop = 0;
+
+    flowCanvas.addEventListener('mousedown', function(e) {
+      if (e.button !== 0) return;
+      isPanning = true;
+      startX = e.clientX;
+      startY = e.clientY;
+      startLeft = flowCanvas.scrollLeft;
+      startTop = flowCanvas.scrollTop;
+      flowCanvas.classList.add('dragging');
+      e.preventDefault();
+    });
+
+    window.addEventListener('mousemove', function(e) {
+      if (!isPanning) return;
+      flowCanvas.scrollLeft = startLeft - (e.clientX - startX);
+      flowCanvas.scrollTop = startTop - (e.clientY - startY);
+    });
+
+    window.addEventListener('mouseup', function() {
+      if (!isPanning) return;
+      isPanning = false;
+      flowCanvas.classList.remove('dragging');
+    });
+  })();
+
+  // ========== Add phone (hamburger on profile screens) ==========
+  function demoToast(msg) {
+    var t = document.createElement('div');
+    t.style.cssText = 'position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.78);color:#fff;padding:10px 18px;border-radius:10px;font-size:13px;z-index:100000;font-family:-apple-system,sans-serif;max-width:90vw;pointer-events:none;';
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(function() { if (t.parentNode) t.parentNode.removeChild(t); }, 1600);
+  }
+
+  function syncAddPhoneContinue() {
+    var inp = document.getElementById('addPhoneInput');
+    var btn = document.getElementById('addPhoneContinue');
+    if (!inp || !btn) return;
+    var raw = inp.value || '';
+    var digits = raw.replace(/\D/g, '').slice(0, 14);
+    if (digits !== raw) inp.value = digits;
+    btn.disabled = digits.length < 10;
+  }
+
+  function openAddPhoneScreen() {
+    var el = document.getElementById('addPhoneScreen');
+    if (!el) return;
+    el.classList.add('is-open');
+    el.setAttribute('aria-hidden', 'false');
+    setTimeout(function() {
+      var inp = document.getElementById('addPhoneInput');
+      if (inp) {
+        inp.focus();
+        syncAddPhoneContinue();
+      }
+    }, 50);
+  }
+
+  function closeAddPhoneScreen() {
+    var el = document.getElementById('addPhoneScreen');
+    if (!el) return;
+    el.classList.remove('is-open');
+    el.setAttribute('aria-hidden', 'true');
+    var inp = document.getElementById('addPhoneInput');
+    if (inp) inp.blur();
+  }
+
+  document.querySelectorAll('.s4-nav-menu-btn').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      openAddPhoneScreen();
+    });
+  });
+
+  (function initAddPhone() {
+    var back = document.getElementById('addPhoneBack');
+    var inp = document.getElementById('addPhoneInput');
+    var cont = document.getElementById('addPhoneContinue');
+    var cc = document.getElementById('addPhoneCcBtn');
+    var lm = document.getElementById('addPhoneLearnMore');
+    if (back) back.addEventListener('click', closeAddPhoneScreen);
+    if (cc) cc.addEventListener('click', function() { demoToast('Country code'); });
+    if (lm) lm.addEventListener('click', function(e) { e.preventDefault(); demoToast('Learn more'); });
+    if (inp) {
+      inp.addEventListener('input', syncAddPhoneContinue);
+      inp.addEventListener('paste', function() { setTimeout(syncAddPhoneContinue, 0); });
+    }
+    if (cont) {
+      cont.addEventListener('click', function() {
+        if (cont.disabled) return;
+        var active = document.querySelector('.screen.active');
+        addPhoneVerifyFromScreenId = active && active.id ? active.id : 'screen4';
+        var phone = (document.getElementById('addPhoneInput').value || '').replace(/\D/g, '');
+        var disp = document.getElementById('s12PhoneDisplay');
+        if (disp) disp.textContent = 'Your code was sent to +1 ' + phone;
+        closeAddPhoneScreen();
+        goToFromRight(addPhoneVerifyFromScreenId, 'screen12');
+        startResendTimer12();
+        resetCodeBoxes12();
+      });
+    }
+  })();
 })();
 </script>
 
