@@ -665,6 +665,7 @@
   }
 
   .s3-title {
+    font-family: 'TikTok Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
     font-weight: 700;
     font-size: 28px;
     line-height: 1.2;
@@ -748,19 +749,19 @@
     flex-direction: column;
   }
   .s13-title {
-    font-family: 'TikTok Sans', -apple-system, sans-serif;
+    font-family: 'TikTok Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
     font-weight: 700;
-    font-size: 22px;
-    line-height: 1.25;
+    font-size: 28px;
+    line-height: 1.2;
     color: #000;
-    margin: 0 0 8px 0;
+    margin: 0 0 12px 0;
   }
   .s13-desc {
     font-family: 'TikTok Sans', -apple-system, sans-serif;
-    font-size: 14px;
-    line-height: 1.35;
+    font-size: 15px;
+    line-height: 1.3;
     color: rgba(0, 0, 0, 0.5);
-    margin: 0 0 24px 0;
+    margin: 0 0 28px 0;
   }
   .s13-options {
     display: flex;
@@ -797,19 +798,19 @@
     flex-direction: column;
   }
   .s15-title {
-    font-family: 'TikTok Sans', -apple-system, sans-serif;
+    font-family: 'TikTok Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
     font-weight: 700;
-    font-size: 22px;
-    line-height: 1.25;
+    font-size: 28px;
+    line-height: 1.2;
     color: #000;
-    margin: 0 0 8px 0;
+    margin: 0 0 12px 0;
   }
   .s15-desc {
     font-family: 'TikTok Sans', -apple-system, sans-serif;
-    font-size: 14px;
-    line-height: 1.35;
+    font-size: 15px;
+    line-height: 1.3;
     color: rgba(0, 0, 0, 0.5);
-    margin: 0 0 20px 0;
+    margin: 0 0 28px 0;
   }
   .s15-bound-card.s5-account-card {
     cursor: default;
@@ -829,7 +830,7 @@
   .s15-btn-primary {
     width: 100%;
     height: 48px;
-    border-radius: 8px;
+    border-radius: 999px;
     border: none;
     background: #fe2c55;
     color: #fff;
@@ -845,7 +846,7 @@
   .s15-btn-secondary {
     width: 100%;
     height: 48px;
-    border-radius: 8px;
+    border-radius: 999px;
     border: 1px solid rgba(0, 0, 0, 0.12);
     background: #fff;
     color: #161823;
@@ -857,6 +858,222 @@
   }
   .s15-btn-secondary:active {
     background: rgba(0, 0, 0, 0.04);
+  }
+
+  /* Screen 15b: Plan B — 以手机号为核心，展示多个并列账号 */
+  .s15b-wrap {
+    position: absolute;
+    top: 107px;
+    left: 24px;
+    right: 24px;
+    bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .s15b-title {
+    font-family: 'TikTok Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 1.2;
+    color: #000;
+    margin: 0 0 8px 0;
+  }
+  .s15b-phone {
+    font-family: 'TikTok Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+    font-weight: 700;
+    font-size: 26px;
+    line-height: 1.2;
+    color: #fe2c55;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.2px;
+  }
+  .s15b-subtitle {
+    font-family: 'TikTok Sans', -apple-system, sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.3;
+    color: rgba(0, 0, 0, 0.5);
+    margin: 0 0 24px 0;
+  }
+  .s15b-section-label {
+    font-family: 'TikTok Sans', -apple-system, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: rgba(0, 0, 0, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 0 10px 0;
+  }
+  .s15b-accounts {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .s15b-account {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: rgba(0,0,0,0.03);
+    border-radius: 14px;
+  }
+  .s15b-account__avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  .s15b-account__avatar--letter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 17px;
+  }
+  .s15b-account__info {
+    flex: 1;
+    min-width: 0;
+  }
+  .s15b-account__name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #000;
+    line-height: 1.25;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .s15b-account__name img {
+    width: 12px;
+    height: 12px;
+  }
+  .s15b-account__handle {
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(0,0,0,0.48);
+    line-height: 1.25;
+  }
+  .s15b-account__badge {
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(0,0,0,0.35);
+    background: rgba(0,0,0,0.06);
+    padding: 3px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .s15b-actions {
+    margin-top: auto;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  /* Screen 16: 二次确认 — 绑定至主账号 */
+  .s16-wrap {
+    position: absolute;
+    top: 107px;
+    left: 24px;
+    right: 24px;
+    bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .s16-title {
+    font-family: 'TikTok Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 1.2;
+    color: #000;
+    margin: 0 0 12px 0;
+  }
+  .s16-illust {
+    display: flex;
+    justify-content: center;
+    padding: 24px 0 8px;
+  }
+  .s16-illust svg {
+    width: 200px;
+    height: auto;
+  }
+  .s16-section-label {
+    font-family: 'TikTok Sans', -apple-system, sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.3;
+    color: rgba(0, 0, 0, 0.5);
+    margin: 20px 0 12px 0;
+  }
+  .s16-info-card {
+    background: rgba(0,0,0,0.03);
+    border-radius: 14px;
+    padding: 14px 16px;
+  }
+  .s16-info-card__header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .s16-info-card__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  .s16-info-card__avatar--letter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .s16-info-card__name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #000;
+    line-height: 1.25;
+  }
+  .s16-info-card__handle {
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(0,0,0,0.48);
+    line-height: 1.25;
+  }
+  .s16-info-card__row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(0,0,0,0.65);
+    line-height: 1.4;
+    padding: 3px 0;
+  }
+  .s16-info-card__row-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    opacity: 0.5;
+  }
+  .s16-actions {
+    margin-top: auto;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex-shrink: 0;
   }
 
   /* SMS Suggestion Bar */
@@ -950,7 +1167,8 @@
   }
 
   /* screen14 Feed: dark tab bar — glyph #FFFFFF (light UI uses #000000) */
-  #screen14 .s4-bottom-bar--dark .s4-bottom-cell__icon img {
+  #screen14 .s4-bottom-bar--dark .s4-bottom-cell__icon img,
+  #screen14 .s4-bottom-bar--dark .s4-bottom-cell__icon svg {
     filter: brightness(0) invert(1);
   }
   #screen14 .s4-bottom-bar--dark .s4-bottom-cell {
@@ -1105,17 +1323,17 @@
     flex: 1 1 auto;
     min-height: 0;
     overflow-y: auto;
-    padding: 36px 32px 16px;
+    padding: 16px 24px 16px;
     box-sizing: border-box;
   }
   .aps-title {
-    font-family: 'TikTok Sans', -apple-system, sans-serif;
+    font-family: 'TikTok Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
     font-weight: 700;
-    font-size: 32px;
+    font-size: 28px;
     line-height: 1.2;
     letter-spacing: 0;
     color: #000;
-    margin: 0 0 24px 0;
+    margin: 0 0 12px 0;
     max-width: 326px;
   }
   .aps-field-stack {
@@ -1180,10 +1398,10 @@
   }
   .aps-disclaimer {
     margin: 0;
-    font-size: 13px;
+    font-size: 15px;
     line-height: 1.3;
     font-weight: 400;
-    color: rgba(0, 0, 0, 0.48);
+    color: rgba(0, 0, 0, 0.5);
     font-family: 'TikTok Sans', -apple-system, sans-serif;
   }
   .aps-disclaimer .aps-learn {
@@ -1204,7 +1422,7 @@
   .aps-continue {
     width: 100%;
     height: 48px;
-    border-radius: 8px;
+    border-radius: 999px;
     border: none;
     font-family: 'TikTok Text', -apple-system, BlinkMacSystemFont, sans-serif;
     font-weight: 500;
@@ -1212,12 +1430,11 @@
     line-height: 1.3;
     letter-spacing: 0.0296px;
     color: #fff;
-    background: rgba(254, 44, 85, 0.4);
-    cursor: not-allowed;
-  }
-  .aps-continue:not(:disabled) {
     background: #fe2c55;
     cursor: pointer;
+  }
+  .aps-continue:active {
+    opacity: 0.9;
   }
   /* Add phone: 与 screen2 共用 .keyboard 样式，仅占位高度 */
   .add-phone-screen .add-phone-kb-slot {
@@ -1538,6 +1755,15 @@
   }
 
   .s4-tab-item.active img { opacity: 1; }
+
+  .s4-tab-item svg {
+    width: 22px;
+    height: 22px;
+    opacity: 0.35;
+    display: block;
+  }
+
+  .s4-tab-item.active svg { opacity: 1; }
 
   .s4-tab-divider {
     width: 390px;
@@ -1964,6 +2190,8 @@
   .add-sheet__label {
     flex: 1;
     min-width: 0;
+    display: flex;
+    align-items: center;
   }
 
   .add-sheet__label-main {
@@ -1973,13 +2201,7 @@
     color: #161823;
   }
 
-  .add-sheet__label-sub {
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 1.4;
-    color: rgba(0, 0, 0, 0.44);
-    margin-top: 2px;
-  }
+  .add-sheet__label-sub { display: none; }
 
   .add-sheet__arrow {
     flex-shrink: 0;
@@ -2196,6 +2418,16 @@
     height: 48px;
     border-radius: 50%;
     object-fit: cover;
+    flex-shrink: 0;
+  }
+  .s6-center-card__phone-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-shrink: 0;
   }
 
@@ -2484,13 +2716,50 @@
     flex: 1;
     overflow: auto;
     position: relative;
-    padding: 40px 32px 60px;
     display: block;
     -webkit-overflow-scrolling: touch;
     cursor: grab;
   }
   .flow-canvas.dragging { cursor: grabbing; user-select: none; }
+  .flow-canvas__inner {
+    transform-origin: 0 0;
+    position: relative;
+    padding: 40px 32px 60px;
+    will-change: transform;
+  }
   .flow-spacer { width: 0; height: 0; }
+  .flow-zoom-controls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+    padding-left: 16px;
+  }
+  .flow-zoom-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid rgba(0,0,0,0.12);
+    background: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    color: #161823;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+  .flow-zoom-btn:hover { background: #f5f5f5; }
+  .flow-zoom-btn:active { background: #eee; }
+  .flow-zoom-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(0,0,0,0.5);
+    min-width: 40px;
+    text-align: center;
+    user-select: none;
+  }
 
   .flow-arrows {
     position: absolute;
@@ -2509,6 +2778,17 @@
     gap: 8px;
     position: relative;
     z-index: 2;
+    cursor: pointer;
+  }
+  .flow-card__frame {
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+  }
+  .flow-card:hover .flow-card__frame {
+    box-shadow: 0 6px 28px rgba(254,44,85,0.18), 0 2px 8px rgba(0,0,0,0.1);
+    transform: scale(1.02);
+  }
+  .flow-card:active .flow-card__frame {
+    transform: scale(0.98);
   }
 
   .flow-card__label {
@@ -2549,6 +2829,50 @@
 
   .flow-card__frame > .screen.flow-hidden {
     display: none !important;
+  }
+
+  /* Flow: Profile + Add phone overlay (same scale as single .screen) */
+  .flow-card__frame > .flow-addphone-wrap {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 390px !important;
+    height: 844px !important;
+    transform: scale(0.5) !important;
+    transform-origin: top left !important;
+    pointer-events: none !important;
+    opacity: 1 !important;
+    display: block !important;
+    overflow: hidden;
+    border-radius: 44px;
+    background: #fff;
+  }
+  .flow-addphone-wrap > .screen {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 390px !important;
+    height: 844px !important;
+    transform: none !important;
+    transform-origin: top left !important;
+  }
+  .flow-addphone-wrap .add-phone-screen {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 390px !important;
+    z-index: 50 !important;
+    display: block !important;
+    pointer-events: none !important;
+  }
+  .flow-addphone-wrap .add-phone-screen.is-open {
+    pointer-events: none !important;
+  }
+  .flow-addphone-wrap .add-phone-screen__panel {
+    transform: translateX(0) !important;
+    transition: none !important;
   }
 
   .flow-card__badge {
@@ -3084,6 +3408,154 @@
     <div class="home-indicator" style="z-index: 20;"></div>
   </div>
 
+  <!-- ==================== SCREEN 15b: Plan B — 以手机号为核心 ==================== -->
+  <div class="screen hidden-right" id="screen15b">
+    <div class="status-bar">
+      <span class="status-bar__time">8:00</span>
+      <div class="status-bar__icons">
+        <img class="status-bar__signal" src="https://www.figma.com/api/mcp/asset/865282a0-e196-4f57-af67-cfcaf63151be" alt="">
+        <img class="status-bar__wifi" src="https://www.figma.com/api/mcp/asset/535f2985-bab0-4893-9c25-58db52f6a5ff" alt="">
+        <img class="status-bar__battery" src="https://www.figma.com/api/mcp/asset/08a454b6-3c04-4122-9213-77dcd9a70f4f" alt="">
+      </div>
+    </div>
+
+    <div class="nav-bar">
+      <button class="nav-bar__back-btn" id="s15bBack" aria-label="Back">
+        <div class="nav-bar__back-icon"></div>
+      </button>
+      <span class="nav-bar__title"></span>
+      <div style="width:44px;height:44px;flex-shrink:0;" aria-hidden="true"></div>
+    </div>
+
+    <div class="s15b-wrap">
+      <h1 class="s15b-title">Link to this number</h1>
+      <p class="s15b-phone" id="s15bPhone">+1 412-919-6666</p>
+      <p class="s15b-subtitle">This phone number is already linked to the following accounts.</p>
+
+      <p class="s15b-section-label">Linked accounts</p>
+      <div class="s15b-accounts">
+        <div class="s15b-account">
+          <img class="s15b-account__avatar" src="coldplay-avatar.png" alt="">
+          <div class="s15b-account__info">
+            <div class="s15b-account__name">
+              Coldplay
+              <img src="https://p16-sign-sg.tiktokcdn.com/tos-alisg-avt-0068/verified-badge.png" onerror="this.style.display='none'" alt="">
+            </div>
+            <div class="s15b-account__handle">@coldplay</div>
+          </div>
+        </div>
+        <div class="s15b-account">
+          <div class="s15b-account__avatar s15b-account__avatar--letter" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">C</div>
+          <div class="s15b-account__info">
+            <div class="s15b-account__name">coldplay1</div>
+            <div class="s15b-account__handle">@coldplay1</div>
+          </div>
+        </div>
+        <div class="s15b-account">
+          <div class="s15b-account__avatar s15b-account__avatar--letter" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">J</div>
+          <div class="s15b-account__info">
+            <div class="s15b-account__name">john_music</div>
+            <div class="s15b-account__handle">@john_music</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="s15b-actions">
+        <button type="button" class="s15-btn-primary" id="s15bConfirm">Link to this number</button>
+        <button type="button" class="s15-btn-secondary" id="s15bChangePhone">Use a different phone number</button>
+      </div>
+    </div>
+
+    <div class="home-indicator" style="z-index: 20;"></div>
+  </div>
+
+  <!-- ==================== SCREEN 16: 二次确认 — 绑定至主账号 ==================== -->
+  <div class="screen hidden-right" id="screen16">
+    <div class="status-bar">
+      <span class="status-bar__time">8:00</span>
+      <div class="status-bar__icons">
+        <img class="status-bar__signal" src="https://www.figma.com/api/mcp/asset/865282a0-e196-4f57-af67-cfcaf63151be" alt="">
+        <img class="status-bar__wifi" src="https://www.figma.com/api/mcp/asset/535f2985-bab0-4893-9c25-58db52f6a5ff" alt="">
+        <img class="status-bar__battery" src="https://www.figma.com/api/mcp/asset/08a454b6-3c04-4122-9213-77dcd9a70f4f" alt="">
+      </div>
+    </div>
+
+    <div class="nav-bar">
+      <button class="nav-bar__back-btn" id="s16Back" aria-label="Back">
+        <div class="nav-bar__back-icon"></div>
+      </button>
+      <span class="nav-bar__title"></span>
+      <div style="width:44px;height:44px;flex-shrink:0;" aria-hidden="true"></div>
+    </div>
+
+    <div class="s16-wrap">
+      <h1 class="s16-title">Link to the following main account</h1>
+
+      <!-- 绑定示意图 -->
+      <div class="s16-illust">
+        <svg viewBox="0 0 200 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- 左侧：当前账号 -->
+          <circle cx="50" cy="36" r="22" fill="#7159a7"/>
+          <text x="50" y="42" text-anchor="middle" fill="#fff" font-size="17" font-weight="700" font-family="sans-serif">C</text>
+          <text x="50" y="72" text-anchor="middle" fill="#000" font-size="8.5" font-weight="500" font-family="sans-serif">coldplay1</text>
+          <text x="50" y="84" text-anchor="middle" fill="rgba(0,0,0,0.38)" font-size="7" font-family="sans-serif">Current</text>
+          <!-- 中间：箭头 -->
+          <circle cx="100" cy="36" r="12" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="1.2"/>
+          <path d="M95 36h10M101.5 32l3.5 4-3.5 4" stroke="rgba(0,0,0,0.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <!-- 右侧：主账号 -->
+          <circle cx="150" cy="36" r="22" fill="#e8e8e8"/>
+          <foreignObject x="128" y="14" width="44" height="44"><img xmlns="http://www.w3.org/1999/xhtml" src="coldplay-avatar.png" style="width:44px;height:44px;border-radius:50%;object-fit:cover;" alt=""/></foreignObject>
+          <text x="150" y="72" text-anchor="middle" fill="#000" font-size="8.5" font-weight="500" font-family="sans-serif">Coldplay</text>
+          <text x="150" y="84" text-anchor="middle" fill="rgba(0,0,0,0.38)" font-size="7" font-family="sans-serif">Main account</text>
+        </svg>
+      </div>
+
+      <!-- 主账号登录方式 -->
+      <p class="s16-section-label">After linking, you can use the main account's login methods</p>
+      <div class="s16-info-card">
+        <div class="s16-info-card__header">
+          <img class="s16-info-card__avatar" src="coldplay-avatar.png" alt="">
+          <div>
+            <div class="s16-info-card__name">Coldplay</div>
+            <div class="s16-info-card__handle">@coldplay</div>
+          </div>
+        </div>
+        <div class="s16-info-card__row">
+          <svg class="s16-info-card__row-icon" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M2 6l6 3.5L14 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>+1 123-234-3456</span>
+        </div>
+        <div class="s16-info-card__row">
+          <svg class="s16-info-card__row-icon" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M2 6l6 3.5L14 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>ab******gh@gmail.com</span>
+        </div>
+      </div>
+
+      <!-- 当前账号登录方式 -->
+      <p class="s16-section-label">Current account's login methods will be unlinked</p>
+      <div class="s16-info-card">
+        <div class="s16-info-card__header">
+          <div class="s16-info-card__avatar s16-info-card__avatar--letter" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">C</div>
+          <div>
+            <div class="s16-info-card__name">coldplay1</div>
+            <div class="s16-info-card__handle">@coldplay1</div>
+          </div>
+        </div>
+        <div class="s16-info-card__row">
+          <svg class="s16-info-card__row-icon" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M2 6l6 3.5L14 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>12*******88@gmail.com</span>
+        </div>
+      </div>
+
+      <!-- 按钮 -->
+      <div class="s16-actions">
+        <button type="button" class="s15-btn-primary" id="s16Confirm">Confirm</button>
+        <button type="button" class="s15-btn-secondary" id="s16ChangePhone">Change phone number</button>
+      </div>
+    </div>
+
+    <div class="home-indicator" style="z-index: 20;"></div>
+  </div>
+
   <!-- ==================== SCREEN 4: Profile Page ==================== -->
   <div class="screen hidden-right" id="screen4">
     <div class="s4-scroll">
@@ -3110,7 +3582,7 @@
               <path d="M10.3125 11.4577C11.705 11.4577 12.9211 11.551 13.9717 11.7546C13.41 12.2065 12.9376 12.7655 12.5889 13.402C11.9284 13.3305 11.1742 13.2917 10.3125 13.2917C7.14147 13.2917 5.42508 13.8071 4.48633 14.611C3.63976 15.3363 3.24914 16.4567 3.21191 18.2682C3.24299 18.2826 3.27732 18.3018 3.31836 18.318C3.66162 18.4539 4.20955 18.5857 4.93848 18.6979C6.37981 18.9198 8.33442 19.0348 10.3125 19.0348C11.1459 19.0348 11.9751 19.0125 12.7637 18.9723C13.2 19.6636 13.7854 20.2504 14.4756 20.6881C13.1967 20.8074 11.7486 20.8678 10.3125 20.8678C8.28091 20.8678 6.22537 20.7515 4.65918 20.5104C3.8844 20.3911 3.17756 20.2335 2.64355 20.0221C2.38031 19.9179 2.10193 19.7782 1.87402 19.5817C1.64342 19.3829 1.375 19.043 1.375 18.5622C1.37504 16.4042 1.78357 14.5123 3.29395 13.2184C4.75729 11.9652 7.05129 11.4577 10.3125 11.4577ZM10.3125 0.916664C12.9704 0.916664 15.125 3.07129 15.125 5.72916C15.125 8.38703 12.9704 10.5417 10.3125 10.5417C7.65463 10.5417 5.5 8.38703 5.5 5.72916C5.5 3.07129 7.65463 0.916664 10.3125 0.916664ZM10.3125 2.74967C8.66715 2.74967 7.33301 4.08382 7.33301 5.72916C7.33301 7.37451 8.66715 8.70866 10.3125 8.70866C11.9578 8.70866 13.292 7.37451 13.292 5.72916C13.292 4.08382 11.9578 2.74967 10.3125 2.74967Z" fill="black"/>
             </svg>
           </button>
-          <button type="button" class="s4-nav-icon s4-nav-menu-btn" aria-label="Menu"><img src="https://www.figma.com/api/mcp/asset/2c82d08a-6955-40a2-a96a-65f38b97fcf4" alt="Menu"></button>
+          <button type="button" class="s4-nav-icon s4-nav-menu-btn" aria-label="Menu"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M18.7917 16.7295C19.2978 16.7295 19.7085 17.1394 19.7087 17.6455C19.7087 18.1518 19.2979 18.5625 18.7917 18.5625H3.20868C2.70242 18.5625 2.29169 18.1518 2.29169 17.6455C2.29186 17.1394 2.70253 16.7295 3.20868 16.7295H18.7917ZM18.7917 10.083C19.2979 10.083 19.7087 10.4937 19.7087 11C19.7087 11.5063 19.2979 11.917 18.7917 11.917H3.20868C2.70242 11.917 2.29169 11.5063 2.29169 11C2.29169 10.4937 2.70242 10.083 3.20868 10.083H18.7917ZM18.7917 3.4375C19.2979 3.4375 19.7087 3.84823 19.7087 4.35449C19.7085 4.8606 19.2978 5.27051 18.7917 5.27051H3.20868C2.70253 5.27051 2.29186 4.8606 2.29169 4.35449C2.29169 3.84823 2.70242 3.4375 3.20868 3.4375H18.7917Z" fill="black"/></svg></button>
         </div>
       </div>
 
@@ -3215,10 +3687,14 @@
             <img src="https://www.figma.com/api/mcp/asset/cb1624b7-4660-4e06-a481-636e8d9345d0" alt="" style="width:12px;height:12px;margin-left:-2px;">
           </button>
           <button class="s4-tab-item">
-            <img src="https://www.figma.com/api/mcp/asset/6d53c1bc-8763-4911-aa40-a701072c2ea6" alt="Repost">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M7.89241 8.53666C7.69489 8.69498 7.40644 8.66321 7.24812 8.4657L5.44228 6.21283V12.925C5.44228 13.9669 5.443 14.6932 5.4892 15.2586C5.53452 15.8134 5.61901 16.1321 5.74202 16.3735C6.00567 16.8909 6.42637 17.3116 6.94381 17.5753C7.18522 17.6983 7.50394 17.7828 8.05868 17.8281C8.62411 17.8743 9.3504 17.875 10.3923 17.875H11.4584C11.7115 17.875 11.9167 18.0802 11.9167 18.3333L11.9167 19.25C11.9167 19.5032 11.7115 19.7084 11.4584 19.7084L10.3531 19.7084C9.35963 19.7084 8.55828 19.7084 7.90939 19.6554C7.24127 19.6008 6.65443 19.4854 6.1115 19.2088C5.24909 18.7694 4.54792 18.0682 4.1085 17.2058C3.83186 16.6629 3.71654 16.076 3.66195 15.4079C3.60893 14.759 3.60894 13.9577 3.60895 12.9642L3.60895 6.28006L1.92171 8.4507C1.76636 8.65055 1.47841 8.68663 1.27856 8.53128L0.554819 7.96872C0.354964 7.81337 0.318883 7.52542 0.474231 7.32556L4.15959 2.58434C4.34136 2.3505 4.69385 2.34787 4.87909 2.57896L8.67862 7.31905C8.83694 7.51656 8.80516 7.80502 8.60765 7.96334L7.89241 8.53666ZM20.7253 13.4637C20.5277 13.3055 20.2392 13.3376 20.0811 13.5352L18.3331 15.72V9.03576C18.3332 8.04233 18.3332 7.24096 18.2801 6.59209C18.2256 5.92398 18.1102 5.33714 17.8336 4.7942C17.3942 3.93179 16.693 3.23063 15.8306 2.79121C15.2877 2.51457 14.7008 2.39924 14.0327 2.34466C13.3838 2.29164 12.5826 2.29165 11.5892 2.29166H10.5417C10.2886 2.29166 10.0834 2.49686 10.0834 2.74999V3.66666C10.0834 3.91979 10.2886 4.12499 10.5417 4.12499H11.5498C12.5917 4.12499 13.318 4.12571 13.8834 4.1719C14.4382 4.21723 14.7569 4.30172 14.9983 4.42473C15.5157 4.68838 15.9364 5.10908 16.2001 5.62652C16.3231 5.86793 16.4076 6.18665 16.4529 6.74138C16.4991 7.30682 16.4998 8.03311 16.4998 9.075V15.7202L14.752 13.5353C14.5939 13.3376 14.3054 13.3056 14.1078 13.4637L13.392 14.0363C13.1943 14.1944 13.1622 14.4829 13.3204 14.6805L17.0584 19.3533C17.2418 19.5827 17.5907 19.5827 17.7741 19.3533L21.5127 14.6806C21.6708 14.4829 21.6388 14.1945 21.4411 14.0363L20.7253 13.4637Z" fill="black" fill-opacity="0.48"/>
+            </svg>
           </button>
           <button class="s4-tab-item">
-            <img src="https://www.figma.com/api/mcp/asset/d2f63b8a-9f3f-466f-8eec-6237c79595a6" alt="Bookmark">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M16.0417 3.66668H5.95835C5.70522 3.66668 5.50002 3.87188 5.50002 4.12501V17.2316L9.55491 13.937C10.3969 13.2529 11.6032 13.2529 12.4451 13.937L16.5 17.2316V4.12501C16.5 3.87188 16.2948 3.66668 16.0417 3.66668ZM5.95835 1.83334H16.0417C17.3073 1.83334 18.3334 2.85936 18.3334 4.12501V19.1575C18.3334 19.9293 17.4377 20.3556 16.8386 19.8689L11.289 15.3598C11.1206 15.223 10.8794 15.223 10.711 15.3598L5.1614 19.8689C4.56234 20.3556 3.66669 19.9293 3.66669 19.1575V4.12501C3.66669 2.85936 4.6927 1.83334 5.95835 1.83334Z" fill="black" fill-opacity="0.48"/>
+            </svg>
           </button>
           <button class="s4-tab-item">
             <img src="https://www.figma.com/api/mcp/asset/8ad2ed71-c853-4bae-b91d-4eb2fefe9c03" alt="Like">
@@ -3419,7 +3895,6 @@
           </div>
           <div class="add-sheet__label">
             <div class="add-sheet__label-main">Log in to an existing account</div>
-            <div class="add-sheet__label-sub">Use phone, email, or social login</div>
           </div>
           <svg class="add-sheet__arrow" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7.5 5l5 5-5 5" stroke="rgba(0,0,0,0.34)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
@@ -3431,7 +3906,6 @@
           </div>
           <div class="add-sheet__label">
             <div class="add-sheet__label-main">Create a new account</div>
-            <div class="add-sheet__label-sub">signup—no phone, email, or password</div>
           </div>
           <svg class="add-sheet__arrow" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7.5 5l5 5-5 5" stroke="rgba(0,0,0,0.34)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
@@ -3582,7 +4056,7 @@
               <path d="M10.3125 11.4577C11.705 11.4577 12.9211 11.551 13.9717 11.7546C13.41 12.2065 12.9376 12.7655 12.5889 13.402C11.9284 13.3305 11.1742 13.2917 10.3125 13.2917C7.14147 13.2917 5.42508 13.8071 4.48633 14.611C3.63976 15.3363 3.24914 16.4567 3.21191 18.2682C3.24299 18.2826 3.27732 18.3018 3.31836 18.318C3.66162 18.4539 4.20955 18.5857 4.93848 18.6979C6.37981 18.9198 8.33442 19.0348 10.3125 19.0348C11.1459 19.0348 11.9751 19.0125 12.7637 18.9723C13.2 19.6636 13.7854 20.2504 14.4756 20.6881C13.1967 20.8074 11.7486 20.8678 10.3125 20.8678C8.28091 20.8678 6.22537 20.7515 4.65918 20.5104C3.8844 20.3911 3.17756 20.2335 2.64355 20.0221C2.38031 19.9179 2.10193 19.7782 1.87402 19.5817C1.64342 19.3829 1.375 19.043 1.375 18.5622C1.37504 16.4042 1.78357 14.5123 3.29395 13.2184C4.75729 11.9652 7.05129 11.4577 10.3125 11.4577ZM10.3125 0.916664C12.9704 0.916664 15.125 3.07129 15.125 5.72916C15.125 8.38703 12.9704 10.5417 10.3125 10.5417C7.65463 10.5417 5.5 8.38703 5.5 5.72916C5.5 3.07129 7.65463 0.916664 10.3125 0.916664ZM10.3125 2.74967C8.66715 2.74967 7.33301 4.08382 7.33301 5.72916C7.33301 7.37451 8.66715 8.70866 10.3125 8.70866C11.9578 8.70866 13.292 7.37451 13.292 5.72916C13.292 4.08382 11.9578 2.74967 10.3125 2.74967Z" fill="black"/>
             </svg>
           </button>
-          <button type="button" class="s4-nav-icon s4-nav-menu-btn" aria-label="Menu"><img src="https://www.figma.com/api/mcp/asset/2c82d08a-6955-40a2-a96a-65f38b97fcf4" alt="Menu"></button>
+          <button type="button" class="s4-nav-icon s4-nav-menu-btn" aria-label="Menu"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M18.7917 16.7295C19.2978 16.7295 19.7085 17.1394 19.7087 17.6455C19.7087 18.1518 19.2979 18.5625 18.7917 18.5625H3.20868C2.70242 18.5625 2.29169 18.1518 2.29169 17.6455C2.29186 17.1394 2.70253 16.7295 3.20868 16.7295H18.7917ZM18.7917 10.083C19.2979 10.083 19.7087 10.4937 19.7087 11C19.7087 11.5063 19.2979 11.917 18.7917 11.917H3.20868C2.70242 11.917 2.29169 11.5063 2.29169 11C2.29169 10.4937 2.70242 10.083 3.20868 10.083H18.7917ZM18.7917 3.4375C19.2979 3.4375 19.7087 3.84823 19.7087 4.35449C19.7085 4.8606 19.2978 5.27051 18.7917 5.27051H3.20868C2.70253 5.27051 2.29186 4.8606 2.29169 4.35449C2.29169 3.84823 2.70242 3.4375 3.20868 3.4375H18.7917Z" fill="black"/></svg></button>
         </div>
       </div>
       <div class="s4-profile-header">
@@ -3611,8 +4085,8 @@
             <img src="https://www.figma.com/api/mcp/asset/7f45da48-e074-455e-a8cb-f68e45eeefb0" alt="Grid">
             <img src="https://www.figma.com/api/mcp/asset/cb1624b7-4660-4e06-a481-636e8d9345d0" alt="" style="width:12px;height:12px;margin-left:-2px;">
           </button>
-          <button class="s4-tab-item"><img src="https://www.figma.com/api/mcp/asset/6d53c1bc-8763-4911-aa40-a701072c2ea6" alt="Repost"></button>
-          <button class="s4-tab-item"><img src="https://www.figma.com/api/mcp/asset/d2f63b8a-9f3f-466f-8eec-6237c79595a6" alt="Bookmark"></button>
+          <button class="s4-tab-item"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.89241 8.53666C7.69489 8.69498 7.40644 8.66321 7.24812 8.4657L5.44228 6.21283V12.925C5.44228 13.9669 5.443 14.6932 5.4892 15.2586C5.53452 15.8134 5.61901 16.1321 5.74202 16.3735C6.00567 16.8909 6.42637 17.3116 6.94381 17.5753C7.18522 17.6983 7.50394 17.7828 8.05868 17.8281C8.62411 17.8743 9.3504 17.875 10.3923 17.875H11.4584C11.7115 17.875 11.9167 18.0802 11.9167 18.3333L11.9167 19.25C11.9167 19.5032 11.7115 19.7084 11.4584 19.7084L10.3531 19.7084C9.35963 19.7084 8.55828 19.7084 7.90939 19.6554C7.24127 19.6008 6.65443 19.4854 6.1115 19.2088C5.24909 18.7694 4.54792 18.0682 4.1085 17.2058C3.83186 16.6629 3.71654 16.076 3.66195 15.4079C3.60893 14.759 3.60894 13.9577 3.60895 12.9642L3.60895 6.28006L1.92171 8.4507C1.76636 8.65055 1.47841 8.68663 1.27856 8.53128L0.554819 7.96872C0.354964 7.81337 0.318883 7.52542 0.474231 7.32556L4.15959 2.58434C4.34136 2.3505 4.69385 2.34787 4.87909 2.57896L8.67862 7.31905C8.83694 7.51656 8.80516 7.80502 8.60765 7.96334L7.89241 8.53666ZM20.7253 13.4637C20.5277 13.3055 20.2392 13.3376 20.0811 13.5352L18.3331 15.72V9.03576C18.3332 8.04233 18.3332 7.24096 18.2801 6.59209C18.2256 5.92398 18.1102 5.33714 17.8336 4.7942C17.3942 3.93179 16.693 3.23063 15.8306 2.79121C15.2877 2.51457 14.7008 2.39924 14.0327 2.34466C13.3838 2.29164 12.5826 2.29165 11.5892 2.29166H10.5417C10.2886 2.29166 10.0834 2.49686 10.0834 2.74999V3.66666C10.0834 3.91979 10.2886 4.12499 10.5417 4.12499H11.5498C12.5917 4.12499 13.318 4.12571 13.8834 4.1719C14.4382 4.21723 14.7569 4.30172 14.9983 4.42473C15.5157 4.68838 15.9364 5.10908 16.2001 5.62652C16.3231 5.86793 16.4076 6.18665 16.4529 6.74138C16.4991 7.30682 16.4998 8.03311 16.4998 9.075V15.7202L14.752 13.5353C14.5939 13.3376 14.3054 13.3056 14.1078 13.4637L13.392 14.0363C13.1943 14.1944 13.1622 14.4829 13.3204 14.6805L17.0584 19.3533C17.2418 19.5827 17.5907 19.5827 17.7741 19.3533L21.5127 14.6806C21.6708 14.4829 21.6388 14.1945 21.4411 14.0363L20.7253 13.4637Z" fill="black" fill-opacity="0.48"/></svg></button>
+          <button class="s4-tab-item"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M16.0417 3.66668H5.95835C5.70522 3.66668 5.50002 3.87188 5.50002 4.12501V17.2316L9.55491 13.937C10.3969 13.2529 11.6032 13.2529 12.4451 13.937L16.5 17.2316V4.12501C16.5 3.87188 16.2948 3.66668 16.0417 3.66668ZM5.95835 1.83334H16.0417C17.3073 1.83334 18.3334 2.85936 18.3334 4.12501V19.1575C18.3334 19.9293 17.4377 20.3556 16.8386 19.8689L11.289 15.3598C11.1206 15.223 10.8794 15.223 10.711 15.3598L5.1614 19.8689C4.56234 20.3556 3.66669 19.9293 3.66669 19.1575V4.12501C3.66669 2.85936 4.6927 1.83334 5.95835 1.83334Z" fill="black" fill-opacity="0.48"/></svg></button>
           <button class="s4-tab-item"><img src="https://www.figma.com/api/mcp/asset/8ad2ed71-c853-4bae-b91d-4eb2fefe9c03" alt="Like"></button>
         </div>
         <div class="s4-tab-divider"></div>
@@ -3739,9 +4213,10 @@
     </div>
 
     <div class="s6-scroll">
-      <h1 class="s6-title">To create a new TikTok account using your linked TikTok logins, allow the following</h1>
+      <h1 class="s6-title" id="s6Title">To create a new TikTok account using your linked TikTok logins, allow the following</h1>
 
-      <div class="s6-center-card">
+      <!-- Plan A: Linked accounts card -->
+      <div class="s6-center-card" id="s6CardA">
         <img class="s6-center-card__avatar" src="https://www.figma.com/api/mcp/asset/1396ab78-50e1-480b-a6d5-546bbfb37f08" alt="">
         <div class="s6-center-card__info">
           <div class="s6-center-card__name">Linked accounts</div>
@@ -3750,7 +4225,19 @@
         <svg class="s6-center-card__arrow" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7.5 5l5 5-5 5" stroke="rgba(0,0,0,0.34)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
 
-      <p class="s6-body">Creating your account this way helps unlock features that work across our products, like using the same login info to access your accounts.</p>
+      <!-- Plan B: Phone number card -->
+      <div class="s6-center-card" id="s6CardB" style="display:none;">
+        <div class="s6-center-card__phone-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="5" y="1" width="14" height="22" rx="3" stroke="#000" stroke-width="1.5"/><circle cx="12" cy="18.5" r="1" fill="#000"/><line x1="9" y1="4" x2="15" y2="4" stroke="#000" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </div>
+        <div class="s6-center-card__info">
+          <div class="s6-center-card__name">Phone number</div>
+          <div class="s6-center-card__accounts" id="s6CardBPhone">+1 412-919-6666</div>
+        </div>
+        <svg class="s6-center-card__arrow" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7.5 5l5 5-5 5" stroke="rgba(0,0,0,0.34)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+
+      <p class="s6-body" id="s6BodyFirst">Creating your account this way helps unlock features that work across our products, like using the same login info to access your accounts.</p>
       <p class="s6-body">Your posts, friends, followers and messages won't be automatically carried over into your new account.</p>
 
       <h2 class="s6-section-title">What this means for you</h2>
@@ -3802,7 +4289,7 @@
       </p>
     </div>
     <div class="aps-cta">
-      <button type="button" class="aps-continue" id="addPhoneContinue" disabled>Continue</button>
+      <button type="button" class="aps-continue" id="addPhoneContinue">Continue</button>
     </div>
     <div class="add-phone-kb-slot">
       <!-- 与 screen2 相同的数字键盘（复用 .keyboard / .key） -->
@@ -3882,11 +4369,19 @@
 <div class="flow-view" id="flowView">
   <div class="flow-topbar">
     <span class="flow-topbar__title" id="flowTitle">Plan A — Flow</span>
+    <div class="flow-zoom-controls">
+      <button class="flow-zoom-btn" id="flowZoomOut" title="Zoom out">−</button>
+      <span class="flow-zoom-label" id="flowZoomLabel">100%</span>
+      <button class="flow-zoom-btn" id="flowZoomIn" title="Zoom in">+</button>
+      <button class="flow-zoom-btn" id="flowZoomFit" title="Fit to screen" style="font-size:13px;width:auto;padding:0 8px;">Fit</button>
+    </div>
     <button class="flow-topbar__close" id="flowClose">Back to Demo</button>
   </div>
   <div class="flow-canvas" id="flowCanvas">
-    <div class="flow-spacer" id="flowSpacer"></div>
-    <svg class="flow-arrows" id="flowArrows"></svg>
+    <div class="flow-canvas__inner" id="flowInner">
+      <div class="flow-spacer" id="flowSpacer"></div>
+      <svg class="flow-arrows" id="flowArrows"></svg>
+    </div>
   </div>
 </div>
 
@@ -3941,7 +4436,7 @@
     signupVerifyFeedPending = false;
     closeAddPhoneScreen();
     clearInterval(timerInterval12);
-    ['screen1','screen2','screen3','screen12','screen13','screen15','screen4','screen5','screen6','screen7','screen10','screen11','screen14'].forEach(function(id) {
+    ['screen1','screen2','screen3','screen12','screen13','screen15','screen15b','screen16','screen4','screen5','screen6','screen7','screen10','screen11','screen14'].forEach(function(id) {
       var el = document.getElementById(id);
       if (!el) return;
       el.classList.remove('active','hidden-left','hidden-right');
@@ -4146,7 +4641,14 @@
   });
 
   document.getElementById('s13OptBound').addEventListener('click', function() {
-    goToFromRight('screen13', 'screen15');
+    if (currentPlan === 'B') {
+      var phone = (document.getElementById('addPhoneInput').value || '').replace(/\D/g, '');
+      var disp = document.getElementById('s15bPhone');
+      if (disp) disp.textContent = '+1 ' + (phone || '412-919-6666');
+      goToFromRight('screen13', 'screen15b');
+    } else {
+      goToFromRight('screen13', 'screen15');
+    }
   });
 
   document.getElementById('s15Back').addEventListener('click', function() {
@@ -4154,12 +4656,44 @@
   });
 
   document.getElementById('s15ConfirmBind').addEventListener('click', function() {
-    demoToast('Link confirmed');
-    goToFromRight('screen15', addPhoneVerifyFromScreenId);
+    goToFromRight('screen15', 'screen16');
   });
 
   document.getElementById('s15ChangePhone').addEventListener('click', function() {
     goToFromRight('screen15', addPhoneVerifyFromScreenId);
+    setTimeout(function() {
+      openAddPhoneScreen();
+    }, 350);
+  });
+
+  // Screen 15b (Plan B)
+  document.getElementById('s15bBack').addEventListener('click', function() {
+    goBack('screen15b', 'screen13');
+  });
+
+  document.getElementById('s15bConfirm').addEventListener('click', function() {
+    goToFromRight('screen15b', 'screen16');
+  });
+
+  document.getElementById('s15bChangePhone').addEventListener('click', function() {
+    goToFromRight('screen15b', addPhoneVerifyFromScreenId);
+    setTimeout(function() {
+      openAddPhoneScreen();
+    }, 350);
+  });
+
+  document.getElementById('s16Back').addEventListener('click', function() {
+    var prev = (currentPlan === 'B') ? 'screen15b' : 'screen15';
+    goBack('screen16', prev);
+  });
+
+  document.getElementById('s16Confirm').addEventListener('click', function() {
+    demoToast('Link confirmed');
+    goToFromRight('screen16', addPhoneVerifyFromScreenId);
+  });
+
+  document.getElementById('s16ChangePhone').addEventListener('click', function() {
+    goToFromRight('screen16', addPhoneVerifyFromScreenId);
     setTimeout(function() {
       openAddPhoneScreen();
     }, 350);
@@ -4282,9 +4816,28 @@
     }, 250);
   });
 
+  function applyS6Plan() {
+    var titleEl = document.getElementById('s6Title');
+    var cardA = document.getElementById('s6CardA');
+    var cardB = document.getElementById('s6CardB');
+    var bodyFirst = document.getElementById('s6BodyFirst');
+    if (currentPlan === 'B') {
+      if (titleEl) titleEl.textContent = 'To create a new TikTok account under this phone number, allow the following';
+      if (cardA) cardA.style.display = 'none';
+      if (cardB) cardB.style.display = '';
+      if (bodyFirst) bodyFirst.textContent = 'Creating your account this way links it to your phone number, so you can use the same number to access all your accounts.';
+    } else {
+      if (titleEl) titleEl.textContent = 'To create a new TikTok account using your linked TikTok logins, allow the following';
+      if (cardA) cardA.style.display = '';
+      if (cardB) cardB.style.display = 'none';
+      if (bodyFirst) bodyFirst.textContent = 'Creating your account this way helps unlock features that work across our products, like using the same login info to access your accounts.';
+    }
+  }
+
   addOptCreate.addEventListener('click', function() {
     closeAddSheet();
     setTimeout(function() {
+      applyS6Plan();
       goTo('screen4', 'screen6');
     }, 250);
   });
@@ -4500,13 +5053,19 @@
   var modeFlow = document.getElementById('modeFlow');
   var flowView = document.getElementById('flowView');
   var flowCanvas = document.getElementById('flowCanvas');
+  var flowInner = document.getElementById('flowInner');
   var flowSpacer = document.getElementById('flowSpacer');
   var flowArrows = document.getElementById('flowArrows');
   var flowTitle = document.getElementById('flowTitle');
   var flowClose = document.getElementById('flowClose');
+  var flowZoomIn = document.getElementById('flowZoomIn');
+  var flowZoomOut = document.getElementById('flowZoomOut');
+  var flowZoomFit = document.getElementById('flowZoomFit');
+  var flowZoomLabel = document.getElementById('flowZoomLabel');
   var phoneFrame = document.querySelector('.phone-frame');
   var currentMode = 'demo';
   var currentFlowScreens = [];
+  var flowScale = 1;
 
   planFab.addEventListener('click', function(e) {
     e.stopPropagation();
@@ -4548,7 +5107,13 @@
       { id: 'screen2', label: 'Phone (reused)', badge: 'Sign up flow', from: 9, col: 8, row: 1 },
       { id: 'screen3', label: 'Verify (reused)', badge: 'Sign up flow', from: 10, col: 9, row: 1 },
       { id: 'screen14', label: 'Feed landing', badge: 'After verify', badgeAlt: true, from: 11, col: 10, row: 1 },
-      { id: 'screen10', label: 'New Empty Profile', badge: 'Profile tab', badgeAlt: true, from: 12, col: 11, row: 1 }
+      { id: 'screen10', label: 'New Empty Profile', badge: 'Profile tab', badgeAlt: true, from: 12, col: 11, row: 1 },
+      { id: 'screen4', label: 'Add phone', panel: 'addPhone', badge: 'Profile → ⋮', from: 3, col: 3, row: 2 },
+      { id: 'screen12', label: 'Verify (Add phone)', badge: 'SMS code', from: 13, col: 4, row: 2 },
+      { id: 'screen13', label: 'Binding status', badge: 'Pick one', from: 14, col: 5, row: 2 },
+      { id: 'screen15', label: 'Already linked', badge: 'If bound', from: 15, col: 6, row: 2 },
+      { id: 'screen16', label: 'Confirm link', badge: 'Confirm link', from: 16, col: 7, row: 2 },
+      { id: 'screen4', label: 'Profile', badge: 'If not linked', from: 15, col: 7, row: 3 }
     ],
     B: [
       { id: 'screen1', label: 'Login Options', col: 0, row: 0 },
@@ -4565,7 +5130,13 @@
       { id: 'screen2', label: 'Phone (reused)', badge: 'Sign up flow', from: 10, col: 9, row: 1 },
       { id: 'screen3', label: 'Verify (reused)', badge: 'Sign up flow', from: 11, col: 10, row: 1 },
       { id: 'screen14', label: 'Feed landing', badge: 'After verify', badgeAlt: true, from: 12, col: 11, row: 1 },
-      { id: 'screen10', label: 'New Empty Profile', badge: 'Profile tab', badgeAlt: true, from: 13, col: 12, row: 1 }
+      { id: 'screen10', label: 'New Empty Profile', badge: 'Profile tab', badgeAlt: true, from: 13, col: 12, row: 1 },
+      { id: 'screen4', label: 'Add phone', panel: 'addPhone', badge: 'Profile → ⋮', from: 4, col: 3, row: 2 },
+      { id: 'screen12', label: 'Verify (Add phone)', badge: 'SMS code', from: 15, col: 4, row: 2 },
+      { id: 'screen13', label: 'Binding status', badge: 'Pick one', from: 16, col: 5, row: 2 },
+      { id: 'screen15b', label: 'Phone linked', badge: 'If bound (B)', from: 17, col: 6, row: 2 },
+      { id: 'screen16', label: 'Confirm link', badge: 'Confirm link', from: 18, col: 7, row: 2 },
+      { id: 'screen4', label: 'Profile', badge: 'If not linked', from: 17, col: 7, row: 3 }
     ]
   };
 
@@ -4584,13 +5155,16 @@
     flowSpacer.style.height = (40 + (maxRow + 1) * 520 + 120) + 'px';
 
     // Clear
-    flowCanvas.querySelectorAll('.flow-card').forEach(function(c) { c.remove(); });
+    flowInner.querySelectorAll('.flow-card').forEach(function(c) { c.remove(); });
     flowArrows.innerHTML = '';
 
     screens.forEach(function(def, i) {
       var card = document.createElement('div');
       card.className = 'flow-card';
       card.setAttribute('data-flow-index', i);
+      card.setAttribute('data-screen-id', def.id);
+      if (def.panel) card.setAttribute('data-panel', def.panel);
+      if (def.badge === 'Sign up flow' || def.badge === 'Use mobile number or email') card.setAttribute('data-auth', 'signup');
       if (typeof def.col === 'number' && typeof def.row === 'number') {
         card.style.position = 'absolute';
         card.style.left = (32 + def.col * 240) + 'px';
@@ -4605,32 +5179,80 @@
       var frame = document.createElement('div');
       frame.className = 'flow-card__frame';
 
-      var srcScreen = document.getElementById(def.id);
-      var clone = srcScreen.cloneNode(true);
-      clone.removeAttribute('id');
-      clone.classList.remove('active', 'hidden-left', 'hidden-right');
-      clone.classList.add('screen');
-      clone.style.cssText = '';
+      if (def.panel === 'addPhone') {
+        var profileBase = document.getElementById('screen4');
+        var addPhoneSrc = document.getElementById('addPhoneScreen');
+        if (profileBase && addPhoneSrc) {
+          var profileClone = profileBase.cloneNode(true);
+          profileClone.removeAttribute('id');
+          profileClone.classList.remove('active', 'hidden-left', 'hidden-right');
+          profileClone.classList.add('screen');
+          profileClone.style.cssText = '';
+          var apClone = addPhoneSrc.cloneNode(true);
+          apClone.removeAttribute('id');
+          apClone.classList.add('is-open');
+          apClone.setAttribute('aria-hidden', 'false');
+          var wrap = document.createElement('div');
+          wrap.className = 'flow-addphone-wrap';
+          wrap.appendChild(profileClone);
+          wrap.appendChild(apClone);
+          frame.appendChild(wrap);
+        } else if (profileBase) {
+          var fallback = profileBase.cloneNode(true);
+          fallback.removeAttribute('id');
+          fallback.classList.remove('active', 'hidden-left', 'hidden-right');
+          fallback.classList.add('screen');
+          fallback.style.cssText = '';
+          frame.appendChild(fallback);
+        }
+      } else {
+        var srcScreen = document.getElementById(def.id);
+        if (!srcScreen) {
+          var miss = document.createElement('div');
+          miss.className = 'screen';
+          miss.style.padding = '16px';
+          miss.textContent = 'Missing #' + def.id;
+          frame.appendChild(miss);
+        } else {
+        var clone = srcScreen.cloneNode(true);
+        clone.removeAttribute('id');
+        clone.classList.remove('active', 'hidden-left', 'hidden-right');
+        clone.classList.add('screen');
+        clone.style.cssText = '';
 
-      // Render panel states as standalone flow cards.
-      if (def.panel === 'switch') {
-        var switchOverlay = clone.querySelector('.sheet-overlay');
-        var switchPanel = clone.querySelector('.sheet-panel');
-        if (switchOverlay) switchOverlay.classList.add('visible');
-        if (switchPanel) switchPanel.classList.add('visible');
-      } else if (def.panel === 'add') {
-        var addOverlay = clone.querySelector('.add-overlay');
-        var addSheet = clone.querySelector('.add-sheet');
-        if (addOverlay) addOverlay.classList.add('visible');
-        if (addSheet) addSheet.classList.add('visible');
+        // Render panel states as standalone flow cards.
+        if (def.panel === 'switch') {
+          var switchOverlay = clone.querySelector('.sheet-overlay');
+          var switchPanel = clone.querySelector('.sheet-panel');
+          if (switchOverlay) switchOverlay.classList.add('visible');
+          if (switchPanel) switchPanel.classList.add('visible');
+        } else if (def.panel === 'add') {
+          var addOverlay = clone.querySelector('.add-overlay');
+          var addSheet = clone.querySelector('.add-sheet');
+          if (addOverlay) addOverlay.classList.add('visible');
+          if (addSheet) addSheet.classList.add('visible');
+        }
+
+        if (def.id === 'screen2' && def.badge === 'Sign up flow') {
+          var flowS2Title = clone.querySelector('.nav-bar__title');
+          if (flowS2Title) flowS2Title.textContent = 'Sign up';
+        }
+
+        if (def.id === 'screen6' && plan === 'B') {
+          var fcA = clone.querySelector('#s6CardA');
+          var fcB = clone.querySelector('#s6CardB');
+          var fcTitle = clone.querySelector('#s6Title');
+          var fcBody = clone.querySelector('#s6BodyFirst');
+          if (fcA) fcA.style.display = 'none';
+          if (fcB) { fcB.style.display = ''; fcB.removeAttribute('id'); }
+          if (fcTitle) { fcTitle.textContent = 'To create a new TikTok account under this phone number, allow the following'; fcTitle.removeAttribute('id'); }
+          if (fcBody) { fcBody.textContent = 'Creating your account this way links it to your phone number, so you can use the same number to access all your accounts.'; fcBody.removeAttribute('id'); }
+          if (fcA) fcA.removeAttribute('id');
+        }
+
+        frame.appendChild(clone);
+        }
       }
-
-      if (def.id === 'screen2' && def.badge === 'Sign up flow') {
-        var flowS2Title = clone.querySelector('.nav-bar__title');
-        if (flowS2Title) flowS2Title.textContent = 'Sign up';
-      }
-
-      frame.appendChild(clone);
       card.appendChild(frame);
 
       if (def.badge) {
@@ -4640,7 +5262,7 @@
         card.appendChild(badge);
       }
 
-      flowCanvas.appendChild(card);
+      flowInner.appendChild(card);
     });
 
     requestAnimationFrame(function() {
@@ -4649,11 +5271,11 @@
   }
 
   function drawArrows() {
-    var cards = flowCanvas.querySelectorAll('.flow-card');
+    var cards = flowInner.querySelectorAll('.flow-card');
     if (cards.length < 2) return;
-    var canvasRect = flowCanvas.getBoundingClientRect();
-    var scrollLeft = flowCanvas.scrollLeft;
-    var scrollTop = flowCanvas.scrollTop;
+    var canvasRect = flowInner.getBoundingClientRect();
+    var scrollLeft = 0;
+    var scrollTop = 0;
     var pathsHtml = '';
 
     for (var i = 1; i < cards.length; i++) {
@@ -4713,7 +5335,11 @@
     phoneFrame.style.display = 'none';
     planFab.style.display = 'none';
     flowView.classList.add('visible');
+    flowScale = 1;
+    flowInner.style.transform = 'scale(1)';
+    flowZoomLabel.textContent = '100%';
     buildFlow();
+    setTimeout(flowZoomFitToScreen, 80);
   }
 
   function enterDemoMode() {
@@ -4726,6 +5352,56 @@
     planFab.style.display = '';
   }
 
+  function jumpToScreenFromFlow(screenId, panel, authMode) {
+    closeSheet();
+    closeAddSheet();
+    closeAddPhoneScreen();
+
+    var allIds = ['screen1','screen2','screen3','screen4','screen5','screen6','screen7',
+                  'screen10','screen11','screen12','screen13','screen14','screen15','screen15b','screen16'];
+    allIds.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.classList.remove('active', 'hidden-left', 'hidden-right');
+      el.classList.add('hidden-right');
+    });
+
+    var target = document.getElementById(screenId);
+    if (target) {
+      target.classList.remove('hidden-right', 'hidden-left');
+      target.classList.add('active');
+    }
+
+    if (authMode === 'signup') {
+      applyAuthFlowUI('signup');
+    } else {
+      applyAuthFlowUI('signin');
+    }
+
+    if (screenId === 'screen6') applyS6Plan();
+
+    if (panel === 'switch') {
+      setTimeout(openSheet, 100);
+    } else if (panel === 'add') {
+      setTimeout(function() { addOverlay.classList.add('visible'); addSheet.classList.add('visible'); }, 100);
+    } else if (panel === 'addPhone') {
+      setTimeout(openAddPhoneScreen, 100);
+    }
+
+    enterDemoMode();
+  }
+
+  flowInner.addEventListener('click', function(e) {
+    if (flowDragged) return;
+    var card = e.target.closest('.flow-card');
+    if (!card) return;
+    var screenId = card.getAttribute('data-screen-id');
+    var panel = card.getAttribute('data-panel');
+    var authMode = card.getAttribute('data-auth');
+    if (!screenId) return;
+    jumpToScreenFromFlow(screenId, panel, authMode);
+  });
+
   modeFlow.addEventListener('click', enterFlowMode);
   modeDemo.addEventListener('click', function() {
     enterDemoMode();
@@ -4737,7 +5413,58 @@
     requestAnimationFrame(drawArrows);
   });
 
-  // Drag-to-pan for flow canvas.
+  // Zoom helpers
+  function applyFlowZoom(newScale, centerX, centerY) {
+    var minScale = 0.15;
+    var maxScale = 1.5;
+    newScale = Math.max(minScale, Math.min(maxScale, newScale));
+    if (newScale === flowScale) return;
+    var oldScale = flowScale;
+    flowScale = newScale;
+    flowInner.style.transform = 'scale(' + flowScale + ')';
+    flowZoomLabel.textContent = Math.round(flowScale * 100) + '%';
+    if (typeof centerX === 'number') {
+      var ratio = newScale / oldScale;
+      flowCanvas.scrollLeft = (flowCanvas.scrollLeft + centerX) * ratio - centerX;
+      flowCanvas.scrollTop = (flowCanvas.scrollTop + centerY) * ratio - centerY;
+    }
+    requestAnimationFrame(drawArrows);
+  }
+
+  function flowZoomFitToScreen() {
+    var cw = flowCanvas.clientWidth;
+    var ch = flowCanvas.clientHeight;
+    var sw = parseFloat(flowSpacer.style.width) || 3000;
+    var sh = parseFloat(flowSpacer.style.height) || 1200;
+    var scale = Math.min(cw / sw, ch / sh, 1);
+    applyFlowZoom(scale);
+    flowCanvas.scrollLeft = 0;
+    flowCanvas.scrollTop = 0;
+    requestAnimationFrame(drawArrows);
+  }
+
+  flowZoomIn.addEventListener('click', function() {
+    applyFlowZoom(flowScale + 0.1, flowCanvas.clientWidth / 2, flowCanvas.clientHeight / 2);
+  });
+  flowZoomOut.addEventListener('click', function() {
+    applyFlowZoom(flowScale - 0.1, flowCanvas.clientWidth / 2, flowCanvas.clientHeight / 2);
+  });
+  flowZoomFit.addEventListener('click', flowZoomFitToScreen);
+
+  // Wheel zoom (Ctrl/Cmd + wheel or pinch)
+  flowCanvas.addEventListener('wheel', function(e) {
+    if (e.ctrlKey || e.metaKey) {
+      e.preventDefault();
+      var rect = flowCanvas.getBoundingClientRect();
+      var cx = e.clientX - rect.left;
+      var cy = e.clientY - rect.top;
+      var delta = e.deltaY > 0 ? -0.08 : 0.08;
+      applyFlowZoom(flowScale + delta, cx, cy);
+    }
+  }, { passive: false });
+
+  // Drag-to-pan for flow canvas (suppress click if dragged).
+  var flowDragged = false;
   (function() {
     var isPanning = false;
     var startX = 0;
@@ -4748,6 +5475,7 @@
     flowCanvas.addEventListener('mousedown', function(e) {
       if (e.button !== 0) return;
       isPanning = true;
+      flowDragged = false;
       startX = e.clientX;
       startY = e.clientY;
       startLeft = flowCanvas.scrollLeft;
@@ -4758,6 +5486,9 @@
 
     window.addEventListener('mousemove', function(e) {
       if (!isPanning) return;
+      var dx = Math.abs(e.clientX - startX);
+      var dy = Math.abs(e.clientY - startY);
+      if (dx > 4 || dy > 4) flowDragged = true;
       flowCanvas.scrollLeft = startLeft - (e.clientX - startX);
       flowCanvas.scrollTop = startTop - (e.clientY - startY);
     });
@@ -4780,25 +5511,21 @@
 
   function syncAddPhoneContinue() {
     var inp = document.getElementById('addPhoneInput');
-    var btn = document.getElementById('addPhoneContinue');
-    if (!inp || !btn) return;
+    if (!inp) return;
     var raw = inp.value || '';
     var digits = raw.replace(/\D/g, '').slice(0, 14);
     if (digits !== raw) inp.value = digits;
-    btn.disabled = digits.length < 10;
   }
 
   function openAddPhoneScreen() {
     var el = document.getElementById('addPhoneScreen');
     if (!el) return;
+    var inp = document.getElementById('addPhoneInput');
+    if (inp) inp.value = '';
     el.classList.add('is-open');
     el.setAttribute('aria-hidden', 'false');
     setTimeout(function() {
-      var inp = document.getElementById('addPhoneInput');
-      if (inp) {
-        inp.focus();
-        syncAddPhoneContinue();
-      }
+      if (inp) inp.focus();
     }, 50);
   }
 
@@ -4833,12 +5560,11 @@
     }
     if (cont) {
       cont.addEventListener('click', function() {
-        if (cont.disabled) return;
+        var phone = (document.getElementById('addPhoneInput').value || '').replace(/\D/g, '');
         var active = document.querySelector('.screen.active');
         addPhoneVerifyFromScreenId = active && active.id ? active.id : 'screen4';
-        var phone = (document.getElementById('addPhoneInput').value || '').replace(/\D/g, '');
         var disp = document.getElementById('s12PhoneDisplay');
-        if (disp) disp.textContent = 'Your code was sent to +1 ' + phone;
+        if (disp) disp.textContent = 'Your code was sent to +1 ' + (phone || '4129196666');
         closeAddPhoneScreen();
         goToFromRight(addPhoneVerifyFromScreenId, 'screen12');
         startResendTimer12();
