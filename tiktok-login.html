@@ -810,7 +810,7 @@
     font-size: 15px;
     line-height: 1.3;
     color: rgba(0, 0, 0, 0.5);
-    margin: 0 0 28px 0;
+    margin: 0 0 12px 0;
   }
   .s15-bound-card.s5-account-card {
     cursor: default;
@@ -847,8 +847,8 @@
     width: 100%;
     height: 48px;
     border-radius: 999px;
-    border: 1px solid rgba(0, 0, 0, 0.12);
-    background: #fff;
+    border: none;
+    background: rgba(0, 0, 0, 0.06);
     color: #161823;
     font-family: 'TikTok Text', -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 16px;
@@ -857,7 +857,7 @@
     cursor: pointer;
   }
   .s15-btn-secondary:active {
-    background: rgba(0, 0, 0, 0.04);
+    background: rgba(0, 0, 0, 0.1);
   }
 
   /* Screen 15b: Plan B — 以手机号为核心，展示多个并列账号 */
@@ -1061,12 +1061,37 @@
     line-height: 1.4;
     padding: 3px 0;
   }
+  .s16-subtitle {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.3;
+    color: rgba(0,0,0,0.5);
+    margin: 0 0 8px 0;
+  }
   .s16-info-card__row-icon {
     width: 16px;
     height: 16px;
     flex-shrink: 0;
     opacity: 0.5;
   }
+  .s16-info-card__row--added {
+    color: #00875a;
+  }
+  .s16-info-card__row--added .s16-info-card__row-icon { opacity: 0.7; color: #00875a; }
+  .s16-info-card__row--removed {
+    color: rgba(0,0,0,0.35);
+  }
+  .s16-info-card__row--removed .s16-info-card__row-icon { opacity: 0.4; }
+  .s16-badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 1px 6px;
+    border-radius: 4px;
+    margin-left: auto;
+    white-space: nowrap;
+  }
+  .s16-badge--added { background: rgba(0,135,90,0.1); color: #00875a; }
+  .s16-badge--removed { background: rgba(0,0,0,0.06); color: rgba(0,0,0,0.4); }
   .s16-actions {
     margin-top: auto;
     padding-top: 20px;
@@ -2454,6 +2479,7 @@
   }
 
   .s6-center-card__arrow {
+    display: none;
     flex-shrink: 0;
     opacity: 0.4;
   }
@@ -2534,16 +2560,16 @@
     width: 100%;
     height: 48px;
     border-radius: 24px;
-    background: none;
+    background: rgba(0, 0, 0, 0.06);
     color: #161823;
     font-weight: 700;
     font-size: 15px;
     line-height: 48px;
     text-align: center;
-    border: 1px solid rgba(0, 0, 0, 0.12);
+    border: none;
     cursor: pointer;
   }
-  .s6-btn-secondary:active { background: rgba(0, 0, 0, 0.03); }
+  .s6-btn-secondary:active { background: rgba(0, 0, 0, 0.1); }
 
   /* ========== Screen 7: Sign Up Primary Button ========== */
   .login-btn--primary {
@@ -3410,8 +3436,24 @@
 
     <div class="s15-wrap">
       <div class="s15-top">
-        <h1 class="s15-title">This phone number is already linked to an account</h1>
-        <p class="s15-desc">The following account is using this phone number.</p>
+        <h1 class="s15-title">Link as a secondary account</h1>
+
+        <div class="s16-illust" style="margin: 4px 0 16px;">
+          <svg viewBox="0 0 200 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="36" r="22" fill="#7159a7"/>
+            <text x="50" y="42" text-anchor="middle" fill="#fff" font-size="17" font-weight="700" font-family="sans-serif">C</text>
+            <text x="50" y="72" text-anchor="middle" fill="#000" font-size="8.5" font-weight="500" font-family="sans-serif">coldplay1</text>
+            <text x="50" y="84" text-anchor="middle" fill="rgba(0,0,0,0.38)" font-size="7" font-family="sans-serif">Current</text>
+            <circle cx="100" cy="36" r="12" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="1.2"/>
+            <path d="M95 36h10M101.5 32l3.5 4-3.5 4" stroke="rgba(0,0,0,0.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <circle cx="150" cy="36" r="22" fill="#e8e8e8"/>
+            <foreignObject x="128" y="14" width="44" height="44"><img xmlns="http://www.w3.org/1999/xhtml" src="coldplay-avatar.png" style="width:44px;height:44px;border-radius:50%;object-fit:cover;" alt=""/></foreignObject>
+            <text x="150" y="72" text-anchor="middle" fill="#000" font-size="8.5" font-weight="500" font-family="sans-serif">Coldplay</text>
+            <text x="150" y="84" text-anchor="middle" fill="rgba(0,0,0,0.38)" font-size="7" font-family="sans-serif">Main account</text>
+          </svg>
+        </div>
+
+        <p class="s15-desc">Main account associated with this phone number:</p>
         <div class="s5-account-card s15-bound-card" aria-hidden="true">
           <img class="s5-account-card__avatar" src="coldplay-avatar.png" alt="">
           <div class="s5-account-card__info">
@@ -3425,7 +3467,7 @@
         </div>
       </div>
       <div class="s15-actions">
-        <button type="button" class="s15-btn-primary" id="s15ConfirmBind">Confirm link</button>
+        <button type="button" class="s15-btn-primary" id="s15ConfirmBind">Confirm and link</button>
         <button type="button" class="s15-btn-secondary" id="s15ChangePhone">Use a different phone number</button>
       </div>
     </div>
@@ -3514,29 +3556,10 @@
     </div>
 
     <div class="s16-wrap">
-      <h1 class="s16-title">Link to the following main account</h1>
+      <h1 class="s16-title">Login method changes</h1>
+      <p class="s16-subtitle">After linking, the following login methods will be updated for your accounts.</p>
 
-      <!-- 绑定示意图 -->
-      <div class="s16-illust">
-        <svg viewBox="0 0 200 96" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- 左侧：当前账号 -->
-          <circle cx="50" cy="36" r="22" fill="#7159a7"/>
-          <text x="50" y="42" text-anchor="middle" fill="#fff" font-size="17" font-weight="700" font-family="sans-serif">C</text>
-          <text x="50" y="72" text-anchor="middle" fill="#000" font-size="8.5" font-weight="500" font-family="sans-serif">coldplay1</text>
-          <text x="50" y="84" text-anchor="middle" fill="rgba(0,0,0,0.38)" font-size="7" font-family="sans-serif">Current</text>
-          <!-- 中间：箭头 -->
-          <circle cx="100" cy="36" r="12" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="1.2"/>
-          <path d="M95 36h10M101.5 32l3.5 4-3.5 4" stroke="rgba(0,0,0,0.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-          <!-- 右侧：主账号 -->
-          <circle cx="150" cy="36" r="22" fill="#e8e8e8"/>
-          <foreignObject x="128" y="14" width="44" height="44"><img xmlns="http://www.w3.org/1999/xhtml" src="coldplay-avatar.png" style="width:44px;height:44px;border-radius:50%;object-fit:cover;" alt=""/></foreignObject>
-          <text x="150" y="72" text-anchor="middle" fill="#000" font-size="8.5" font-weight="500" font-family="sans-serif">Coldplay</text>
-          <text x="150" y="84" text-anchor="middle" fill="rgba(0,0,0,0.38)" font-size="7" font-family="sans-serif">Main account</text>
-        </svg>
-      </div>
-
-      <!-- 主账号登录方式 -->
-      <p class="s16-section-label">After linking, you can use the main account's login methods</p>
+      <p class="s16-section-label">Main account — no changes</p>
       <div class="s16-info-card">
         <div class="s16-info-card__header">
           <img class="s16-info-card__avatar" src="coldplay-avatar.png" alt="">
@@ -3546,7 +3569,7 @@
           </div>
         </div>
         <div class="s16-info-card__row">
-          <svg class="s16-info-card__row-icon" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M2 6l6 3.5L14 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg class="s16-info-card__row-icon" viewBox="0 0 16 16" fill="none"><rect x="3" y="1" width="10" height="14" rx="2.5" stroke="currentColor" stroke-width="1.2"/><circle cx="8" cy="12" r=".8" fill="currentColor"/><line x1="6" y1="3.2" x2="10" y2="3.2" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"/></svg>
           <span>+1 123-234-3456</span>
         </div>
         <div class="s16-info-card__row">
@@ -3555,8 +3578,7 @@
         </div>
       </div>
 
-      <!-- 当前账号登录方式 -->
-      <p class="s16-section-label">Current account's login methods will be unlinked</p>
+      <p class="s16-section-label">Current account — login methods removed</p>
       <div class="s16-info-card">
         <div class="s16-info-card__header">
           <div class="s16-info-card__avatar s16-info-card__avatar--letter" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">C</div>
@@ -3565,13 +3587,18 @@
             <div class="s16-info-card__handle">@coldplay1</div>
           </div>
         </div>
-        <div class="s16-info-card__row">
+        <div class="s16-info-card__row s16-info-card__row--removed">
           <svg class="s16-info-card__row-icon" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M2 6l6 3.5L14 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span>12*******88@gmail.com</span>
+          <span style="text-decoration: line-through; opacity: 0.5;">12*******88@gmail.com</span>
+          <span class="s16-badge s16-badge--removed">Removed</span>
+        </div>
+        <div class="s16-info-card__row s16-info-card__row--removed">
+          <svg class="s16-info-card__row-icon" viewBox="0 0 16 16" fill="none"><rect x="3" y="1" width="10" height="14" rx="2.5" stroke="currentColor" stroke-width="1.2"/><circle cx="8" cy="12" r=".8" fill="currentColor"/><line x1="6" y1="3.2" x2="10" y2="3.2" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"/></svg>
+          <span style="text-decoration: line-through; opacity: 0.5;">+1 412-919-6666</span>
+          <span class="s16-badge s16-badge--removed">Removed</span>
         </div>
       </div>
 
-      <!-- 按钮 -->
       <div class="s16-actions">
         <button type="button" class="s15-btn-primary" id="s16Confirm">Confirm</button>
         <button type="button" class="s15-btn-secondary" id="s16ChangePhone">Change phone number</button>
@@ -4087,7 +4114,14 @@
         </div>
       </div>
       <div class="s4-profile-header">
-        <div class="s4-name-row"><span class="s4-name" style="font-size:13px;font-weight:600;">+ Add name</span></div>
+        <div class="s4-name-row" style="cursor:pointer;">
+          <span class="s4-name">user1221</span>
+          <div class="s4-name-arrow" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M8.5062 11.7428C8.24014 12.0532 7.75992 12.0532 7.49386 11.7428L2.94334 6.43386C2.57267 6.00141 2.87994 5.33333 3.44951 5.33333L12.5505 5.33333C13.1201 5.33333 13.4274 6.00141 13.0567 6.43386L8.5062 11.7428Z" fill="black"/>
+            </svg>
+          </div>
+        </div>
         <div class="s4-username-row"><span class="s4-username">@user1221</span></div>
         <div class="s4-stats">
           <div class="s4-stat"><span class="s4-stat__num">0</span><span class="s4-stat__label">Following</span></div>
@@ -4244,10 +4278,10 @@
 
       <!-- Plan A: Linked accounts card -->
       <div class="s6-center-card" id="s6CardA">
-        <img class="s6-center-card__avatar" src="https://www.figma.com/api/mcp/asset/1396ab78-50e1-480b-a6d5-546bbfb37f08" alt="">
+        <img class="s6-center-card__avatar" src="coldplay-avatar.png" alt="">
         <div class="s6-center-card__info">
-          <div class="s6-center-card__name">Linked accounts</div>
-          <div class="s6-center-card__accounts">Coldplay, coldplay1</div>
+          <div class="s6-center-card__name">Coldplay</div>
+          <div class="s6-center-card__accounts">@coldplay</div>
         </div>
         <svg class="s6-center-card__arrow" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7.5 5l5 5-5 5" stroke="rgba(0,0,0,0.34)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
@@ -4420,9 +4454,6 @@
 (function() {
   var currentPlan = 'A';
   var authFlowMode = 'signin'; // signin | signup
-  /** After sign-up verify, user is on feed; Profile tab opens empty profile. */
-  var signupVerifyFeedPending = false;
-
   // ========== Screen Navigation ==========
   function goTo(fromId, toId) {
     const from = document.getElementById(fromId);
@@ -4464,7 +4495,6 @@
   }
 
   function resetToScreen1() {
-    signupVerifyFeedPending = false;
     closeAddPhoneScreen();
     clearInterval(timerInterval12);
     ['screen1','screen2','screen3','screen12','screen13','screen15','screen15b','screen16','screen4','screen5','screen6','screen7','screen10','screen11','screen14'].forEach(function(id) {
@@ -4573,8 +4603,7 @@
       setTimeout(function() {
         if (authFlowMode === 'signup') {
           applyAccount('newuser');
-          signupVerifyFeedPending = true;
-          goToFromRight('screen3', 'screen14');
+          goToFromRight('screen3', 'screen10');
         } else if (currentPlan === 'B') {
           goTo('screen3', 'screen5');
         } else {
@@ -4583,12 +4612,6 @@
       }, 600);
     }
   }
-
-  document.getElementById('s14TabProfile').addEventListener('click', function() {
-    if (!signupVerifyFeedPending) return;
-    goToFromRight('screen14', 'screen10');
-    signupVerifyFeedPending = false;
-  });
 
   // SMS Auto-fill
   document.getElementById('smsAutoFill').addEventListener('click', function() {
@@ -4911,12 +4934,12 @@
       s11Continue.classList.toggle('enabled', n > 0);
     }
 
-    document.getElementById('s11Skip').addEventListener('click', function() {
-      goTo('screen11', 'screen14');
-    });
-    s11Continue.addEventListener('click', function() {
-      goTo('screen11', 'screen14');
-    });
+    function s11GoNext() {
+      applyAccount('newuser');
+      goTo('screen11', 'screen10');
+    }
+    document.getElementById('s11Skip').addEventListener('click', s11GoNext);
+    s11Continue.addEventListener('click', s11GoNext);
     s11Input.addEventListener('input', updateS11State);
 
     document.getElementById('s11Kbd').querySelectorAll('.onb-key').forEach(function(key) {
@@ -4924,7 +4947,7 @@
         var k = this.dataset.k;
         if (k === 'DEL') s11Input.value = s11Input.value.slice(0, -1);
         else if (k === 'SPACE' && s11Input.value.length < 30) s11Input.value += ' ';
-        else if (k === 'ENTER') goTo('screen11', 'screen14');
+        else if (k === 'ENTER') s11GoNext();
         else if (k === 'SHIFT' || k === 'NUM') { /* no-op */ }
         else if (k && k.length === 1 && s11Input.value.length < 30) s11Input.value += k.toLowerCase();
         s11Input.dispatchEvent(new Event('input'));
@@ -5142,18 +5165,17 @@
       { id: 'screen4', label: 'Add account panel', panel: 'add', badge: 'Panel state', col: 5, row: 0 },
       { id: 'screen6', label: 'Consent', badge: 'Add account', badgeAlt: true, col: 6, row: 0 },
       { id: 'screen11', label: 'Create nickname', badge: 'Allow and continue', badgeAlt: true, from: 6, col: 7, row: 0 },
-      { id: 'screen14', label: 'Feed landing', badge: 'Allow branch result', badgeAlt: true, from: 7, col: 8, row: 0 },
+      { id: 'screen10', label: 'New Empty Profile', badge: 'Allow branch result', badgeAlt: true, from: 7, col: 8, row: 0 },
       { id: 'screen7', label: 'Sign Up', badge: 'Use mobile number or email', from: 6, col: 7, row: 1 },
       { id: 'screen2', label: 'Phone (reused)', badge: 'Sign up flow', from: 9, col: 8, row: 1 },
       { id: 'screen3', label: 'Verify (reused)', badge: 'Sign up flow', from: 10, col: 9, row: 1 },
-      { id: 'screen14', label: 'Feed landing', badge: 'After verify', badgeAlt: true, from: 11, col: 10, row: 1 },
-      { id: 'screen10', label: 'New Empty Profile', badge: 'Profile tab', badgeAlt: true, from: 12, col: 11, row: 1 },
+      { id: 'screen10', label: 'New Empty Profile', badge: 'After verify', badgeAlt: true, from: 11, col: 10, row: 1 },
       { id: 'screen4', label: 'Add phone', panel: 'addPhone', badge: 'Profile → ⋮', from: 3, col: 3, row: 2 },
-      { id: 'screen12', label: 'Verify (Add phone)', badge: 'SMS code', from: 13, col: 4, row: 2 },
-      { id: 'screen13', label: 'Binding status', badge: 'Pick one', from: 14, col: 5, row: 2 },
-      { id: 'screen15', label: 'Already linked', badge: 'If bound', from: 15, col: 6, row: 2 },
-      { id: 'screen16', label: 'Confirm link', badge: 'Confirm link', from: 16, col: 7, row: 2 },
-      { id: 'screen4', label: 'Profile', badge: 'If not linked', from: 15, col: 7, row: 3 }
+      { id: 'screen12', label: 'Verify (Add phone)', badge: 'SMS code', from: 12, col: 4, row: 2 },
+      { id: 'screen13', label: 'Binding status', badge: 'Pick one', from: 13, col: 5, row: 2 },
+      { id: 'screen15', label: 'Already linked', badge: 'If bound', from: 14, col: 6, row: 2 },
+      { id: 'screen16', label: 'Confirm link', badge: 'Confirm link', from: 15, col: 7, row: 2 },
+      { id: 'screen4', label: 'Profile', badge: 'If not linked', from: 14, col: 7, row: 3 }
     ],
     B: [
       { id: 'screen1', label: 'Login Options', col: 0, row: 0 },
@@ -5165,18 +5187,16 @@
       { id: 'screen4', label: 'Add account panel', panel: 'add', badge: 'Panel state', col: 6, row: 0 },
       { id: 'screen6', label: 'Consent', badge: 'Add account', badgeAlt: true, col: 7, row: 0 },
       { id: 'screen11', label: 'Create nickname', badge: 'Allow and continue', badgeAlt: true, from: 7, col: 8, row: 0 },
-      { id: 'screen14', label: 'Feed landing', badge: 'Allow branch result', badgeAlt: true, from: 8, col: 9, row: 0 },
+      { id: 'screen10', label: 'New Empty Profile', badge: 'Allow branch result', badgeAlt: true, from: 8, col: 9, row: 0 },
       { id: 'screen7', label: 'Sign Up', badge: 'Use mobile number or email', from: 7, col: 8, row: 1 },
       { id: 'screen2', label: 'Phone (reused)', badge: 'Sign up flow', from: 10, col: 9, row: 1 },
       { id: 'screen3', label: 'Verify (reused)', badge: 'Sign up flow', from: 11, col: 10, row: 1 },
-      { id: 'screen14', label: 'Feed landing', badge: 'After verify', badgeAlt: true, from: 12, col: 11, row: 1 },
-      { id: 'screen10', label: 'New Empty Profile', badge: 'Profile tab', badgeAlt: true, from: 13, col: 12, row: 1 },
+      { id: 'screen10', label: 'New Empty Profile', badge: 'After verify', badgeAlt: true, from: 12, col: 11, row: 1 },
       { id: 'screen4', label: 'Add phone', panel: 'addPhone', badge: 'Profile → ⋮', from: 4, col: 3, row: 2 },
-      { id: 'screen12', label: 'Verify (Add phone)', badge: 'SMS code', from: 15, col: 4, row: 2 },
-      { id: 'screen13', label: 'Binding status', badge: 'Pick one', from: 16, col: 5, row: 2 },
-      { id: 'screen15b', label: 'Phone linked', badge: 'If bound (B)', from: 17, col: 6, row: 2 },
-      { id: 'screen16', label: 'Confirm link', badge: 'Confirm link', from: 18, col: 7, row: 2 },
-      { id: 'screen4', label: 'Profile', badge: 'If not linked', from: 17, col: 7, row: 3 }
+      { id: 'screen12', label: 'Verify (Add phone)', badge: 'SMS code', from: 14, col: 4, row: 2 },
+      { id: 'screen13', label: 'Binding status', badge: 'Pick one', from: 15, col: 5, row: 2 },
+      { id: 'screen15b', label: 'Phone linked', badge: 'If bound (B)', from: 16, col: 6, row: 2 },
+      { id: 'screen16', label: 'Confirm link', badge: 'Confirm link', from: 17, col: 7, row: 2 }
     ]
   };
 
