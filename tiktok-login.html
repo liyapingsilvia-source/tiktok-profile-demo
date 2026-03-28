@@ -2425,6 +2425,26 @@
     margin-bottom: 20px;
     letter-spacing: -0.2px;
   }
+  .s6--plan-b .s6-scroll {
+    top: 107px;
+  }
+  .s6-planb-subtitle {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.3;
+    color: rgba(0,0,0,0.5);
+    margin: 0 0 20px 0;
+  }
+  .s6--plan-b .s6-center-card {
+    margin-bottom: 6px;
+  }
+  .s6--plan-b .s6-title {
+    font-family: 'TikTok Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+    font-size: 28px;
+    line-height: 1.2;
+    letter-spacing: 0;
+    margin-bottom: 12px;
+  }
 
   .s6-center-card {
     display: flex;
@@ -2477,6 +2497,35 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
+  .s6-terms-planb {
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 1.3;
+    color: rgba(0, 0, 0, 0.48);
+    text-align: left;
+    margin: 0 0 16px 0;
+  }
+  .s6-terms-planb a {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.3;
+    color: #2b5db9;
+    text-decoration: none;
+  }
+  .s6-terms-planb a:hover { text-decoration: underline; }
+
+  .s6-email-link {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.3;
+    color: #2b5db9;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 2px;
+  }
+  .s6-email-link:hover { text-decoration: underline; }
 
   .s6-center-card__arrow {
     display: none;
@@ -2635,17 +2684,18 @@
   .onb-nav .onb-help { width: 24px; height: 24px; background: none; border: none; padding: 0; cursor: pointer; }
   .onb-nav .onb-help img { width: 100%; height: 100%; display: block; }
   .onb-card {
-    position: absolute; top: 127px; left: 32px; width: 326px;
+    position: absolute; top: 107px; left: 24px; right: 24px; width: auto;
     display: flex; flex-direction: column; gap: 20px;
   }
   .onb-title-group { display: flex; flex-direction: column; gap: 12px; }
   .onb-title {
-    font-size: 32px; font-weight: 700; line-height: 1.2;
+    font-family: 'TikTok Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+    font-size: 28px; font-weight: 700; line-height: 1.2;
     color: #000; margin: 0;
   }
   .onb-sub {
-    font-size: 14px; font-weight: 400; line-height: 1.3;
-    color: rgba(0,0,0,0.48); margin: 0;
+    font-size: 15px; font-weight: 400; line-height: 1.3;
+    color: rgba(0,0,0,0.5); margin: 0;
   }
   .onb-input-group { display: flex; flex-direction: column; gap: 8px; }
   .onb-input {
@@ -4275,6 +4325,7 @@
 
     <div class="s6-scroll">
       <h1 class="s6-title" id="s6Title">To create a new TikTok account using your linked TikTok logins, allow the following</h1>
+      <p class="s6-planb-subtitle" id="s6PlanBSubtitle" style="display:none;">You are creating a new account for yourself with the phone number that binds to the account you are logging in.</p>
 
       <!-- Plan A: Linked accounts card -->
       <div class="s6-center-card" id="s6CardA">
@@ -4297,6 +4348,7 @@
         </div>
         <svg class="s6-center-card__arrow" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7.5 5l5 5-5 5" stroke="rgba(0,0,0,0.34)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
+      <a href="javascript:void(0)" class="s6-email-link" id="s6EmailLink" style="display:none;">use email instead</a>
 
       <p class="s6-body" id="s6BodyFirst">Creating your account this way helps unlock features that work across our products, like using the same login info to access your accounts.</p>
       <p class="s6-body">Your posts, friends, followers and messages won't be automatically carried over into your new account.</p>
@@ -4313,6 +4365,7 @@
     </div>
 
     <div class="s6-bottom">
+      <p class="s6-terms-planb" id="s6TermsPlanB" style="display:none;">By continuing, you agree to our <a href="#">Terms of Service</a>, and <a href="#">Privacy Policy</a>. You may receive emails or SMS and can <a href="#">opt-out</a> at any time. <a href="#">Learn more</a></p>
       <button class="s6-btn-primary" id="s6Allow">Allow and continue</button>
       <button class="s6-btn-secondary" id="s6UsePhone">Use mobile number or email</button>
     </div>
@@ -4726,7 +4779,8 @@
   });
 
   document.getElementById('s15bConfirm').addEventListener('click', function() {
-    goToFromRight('screen15b', 'screen16');
+    goToFromRight('screen15b', addPhoneVerifyFromScreenId);
+    setTimeout(function() { demoToast('Phone number added successfully'); }, 400);
   });
 
   document.getElementById('s15bChangePhone').addEventListener('click', function() {
@@ -4871,20 +4925,46 @@
   });
 
   function applyS6Plan() {
+    var s6El = document.getElementById('screen6');
     var titleEl = document.getElementById('s6Title');
     var cardA = document.getElementById('s6CardA');
     var cardB = document.getElementById('s6CardB');
     var bodyFirst = document.getElementById('s6BodyFirst');
+    var bodySecond = document.querySelector('#screen6 .s6-body:nth-of-type(2)');
+    var sectionTitle = document.querySelector('#screen6 .s6-section-title');
+    var bodyThird = document.querySelector('#screen6 .s6-section-title + .s6-body');
+    var subTitle = document.querySelector('#screen6 .s6-subsection-title');
+    var listEl = document.querySelector('#screen6 .s6-list');
+    var allowBtn = document.getElementById('s6Allow');
+    var usePhoneBtn = document.getElementById('s6UsePhone');
+    var emailLink = document.getElementById('s6EmailLink');
+    var termsPlanB = document.getElementById('s6TermsPlanB');
+    var planBSub = document.getElementById('s6PlanBSubtitle');
+    var extraEls = [bodySecond, sectionTitle, bodyThird, subTitle, listEl];
     if (currentPlan === 'B') {
-      if (titleEl) titleEl.textContent = 'To create a new TikTok account under this phone number, allow the following';
+      if (s6El) s6El.classList.add('s6--plan-b');
+      if (titleEl) titleEl.textContent = 'Create with this phone number';
+      if (planBSub) planBSub.style.display = '';
       if (cardA) cardA.style.display = 'none';
       if (cardB) cardB.style.display = '';
-      if (bodyFirst) bodyFirst.textContent = 'Creating your account this way links it to your phone number, so you can use the same number to access all your accounts.';
+      if (emailLink) emailLink.style.display = '';
+      if (termsPlanB) termsPlanB.style.display = '';
+      if (bodyFirst) bodyFirst.style.display = 'none';
+      extraEls.forEach(function(el) { if (el) el.style.display = 'none'; });
+      if (allowBtn) allowBtn.textContent = 'Continue';
+      if (usePhoneBtn) usePhoneBtn.textContent = 'Use other phone or email';
     } else {
+      if (s6El) s6El.classList.remove('s6--plan-b');
       if (titleEl) titleEl.textContent = 'To create a new TikTok account using your linked TikTok logins, allow the following';
+      if (planBSub) planBSub.style.display = 'none';
       if (cardA) cardA.style.display = '';
       if (cardB) cardB.style.display = 'none';
-      if (bodyFirst) bodyFirst.textContent = 'Creating your account this way helps unlock features that work across our products, like using the same login info to access your accounts.';
+      if (emailLink) emailLink.style.display = 'none';
+      if (termsPlanB) termsPlanB.style.display = 'none';
+      if (bodyFirst) { bodyFirst.style.display = ''; bodyFirst.innerHTML = 'Creating your account this way helps unlock features that work across our products, like using the same login info to access your accounts.'; bodyFirst.style.marginTop = ''; }
+      extraEls.forEach(function(el) { if (el) el.style.display = ''; });
+      if (allowBtn) allowBtn.textContent = 'Allow and continue';
+      if (usePhoneBtn) usePhoneBtn.textContent = 'Use mobile number or email';
     }
   }
 
@@ -5196,7 +5276,7 @@
       { id: 'screen12', label: 'Verify (Add phone)', badge: 'SMS code', from: 14, col: 4, row: 2 },
       { id: 'screen13', label: 'Binding status', badge: 'Pick one', from: 15, col: 5, row: 2 },
       { id: 'screen15b', label: 'Phone linked', badge: 'If bound (B)', from: 16, col: 6, row: 2 },
-      { id: 'screen16', label: 'Confirm link', badge: 'Confirm link', from: 17, col: 7, row: 2 }
+      { id: 'screen4', label: 'Profile', badge: 'Confirm link', from: 17, col: 7, row: 2 }
     ]
   };
 
@@ -5299,15 +5379,27 @@
         }
 
         if (def.id === 'screen6' && plan === 'B') {
+          clone.classList.add('s6--plan-b');
           var fcA = clone.querySelector('#s6CardA');
           var fcB = clone.querySelector('#s6CardB');
           var fcTitle = clone.querySelector('#s6Title');
           var fcBody = clone.querySelector('#s6BodyFirst');
-          if (fcA) fcA.style.display = 'none';
+          var fcEmailLink = clone.querySelector('#s6EmailLink');
+          var fcAllow = clone.querySelector('#s6Allow');
+          var fcUsePhone = clone.querySelector('#s6UsePhone');
+          var fcPlanBSub = clone.querySelector('#s6PlanBSubtitle');
+          if (fcA) { fcA.style.display = 'none'; fcA.removeAttribute('id'); }
           if (fcB) { fcB.style.display = ''; fcB.removeAttribute('id'); }
-          if (fcTitle) { fcTitle.textContent = 'To create a new TikTok account under this phone number, allow the following'; fcTitle.removeAttribute('id'); }
-          if (fcBody) { fcBody.textContent = 'Creating your account this way links it to your phone number, so you can use the same number to access all your accounts.'; fcBody.removeAttribute('id'); }
-          if (fcA) fcA.removeAttribute('id');
+          if (fcEmailLink) { fcEmailLink.style.display = ''; fcEmailLink.removeAttribute('id'); }
+          if (fcTitle) { fcTitle.textContent = 'Create with this phone number'; fcTitle.removeAttribute('id'); }
+          if (fcPlanBSub) { fcPlanBSub.style.display = ''; fcPlanBSub.removeAttribute('id'); }
+          if (fcBody) { fcBody.style.display = 'none'; fcBody.removeAttribute('id'); }
+          var fcTerms = clone.querySelector('#s6TermsPlanB');
+          if (fcTerms) { fcTerms.style.display = ''; fcTerms.removeAttribute('id'); }
+          var fcExtra = clone.querySelectorAll('.s6-body:not(#s6BodyFirst), .s6-section-title, .s6-subsection-title, .s6-list');
+          fcExtra.forEach(function(el) { el.style.display = 'none'; });
+          if (fcAllow) { fcAllow.textContent = 'Continue'; fcAllow.removeAttribute('id'); }
+          if (fcUsePhone) { fcUsePhone.textContent = 'Use other phone or email'; fcUsePhone.removeAttribute('id'); }
         }
 
         frame.appendChild(clone);

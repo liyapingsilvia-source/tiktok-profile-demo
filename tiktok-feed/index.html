@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TikTok Feed</title>
+  <style>
+    @font-face {
+      font-family: 'SF Pro Text';
+      src: local('SF Pro Text'), local('-apple-system');
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #111;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    /* ===== Phone Frame ===== */
+    .phone-frame {
+      position: relative;
+      width: 390px;
+      height: 844px;
+      border-radius: 40px;
+      overflow: hidden;
+      background: #000;
+    }
+
+    /* ===== Video Background Area ===== */
+    .video-area {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 390px;
+      height: 761px;
+    }
+
+    .video-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .video-bg img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      object-fit: cover;
+    }
+
+    .video-bg .video-zoomed {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .video-bg .video-zoomed img {
+      position: absolute;
+      height: 106.5%;
+      left: -36.5%;
+      top: -0.5%;
+      width: 172.99%;
+      object-fit: initial;
+    }
+
+    .top-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 136px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .top-overlay-inner {
+      flex: none;
+      width: 390px;
+      height: 136px;
+      transform: scaleY(-1);
+    }
+
+    .top-overlay-inner img {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .bottom-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 158px;
+    }
+
+    .bottom-overlay img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* ===== Status Bar ===== */
+    .status-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 390px;
+      height: 47px;
+      overflow: hidden;
+      z-index: 20;
+    }
+
+    .status-time {
+      position: absolute;
+      left: 64px;
+      width: 58px;
+      top: calc(50% - 7.5px);
+      font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 600;
+      font-size: 17px;
+      line-height: 22px;
+      letter-spacing: -0.408px;
+      color: #fff;
+      text-align: center;
+    }
+
+    .status-signal {
+      position: absolute;
+      right: 84.7px;
+      top: 50%;
+      transform: translateY(calc(-50% + 2.1px));
+      width: 21.298px;
+      height: 12.798px;
+    }
+
+    .status-connection {
+      position: absolute;
+      right: 60.32px;
+      top: 50%;
+      transform: translateY(calc(-50% + 2px));
+      width: 17.68px;
+      height: 13px;
+    }
+
+    .status-battery {
+      position: absolute;
+      right: 25.57px;
+      top: 50%;
+      transform: translateY(calc(-50% + 2.5px));
+      width: 29.432px;
+      height: 14px;
+    }
+
+    .status-signal img,
+    .status-connection img,
+    .status-battery img {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ===== Top Tab Navigation ===== */
+    .top-nav {
+      position: absolute;
+      top: 47px;
+      left: 0;
+      width: 390px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      z-index: 20;
+    }
+
+    .nav-leading {
+      flex-shrink: 0;
+      padding: 10px 8px;
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .live-icon {
+      width: 24px;
+      height: 24px;
+      position: relative;
+    }
+
+    .live-icon img {
+      position: absolute;
+      top: 1.88%;
+      left: 4.62%;
+      right: 4.79%;
+      bottom: 8.33%;
+      width: auto;
+      height: auto;
+    }
+
+    .tab-bar {
+      flex: 1;
+      height: 44px;
+      position: relative;
+      min-width: 0;
+      min-height: 0;
+    }
+
+    .tab-items-container {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 2px;
+      -webkit-mask-image: linear-gradient(to right, transparent, black 32px);
+      mask-image: linear-gradient(to right, transparent, black 32px);
+    }
+
+    .tab-item-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 0 6px;
+      flex-shrink: 0;
+    }
+
+    .tab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 44px;
+      width: 60px;
+      gap: 7px;
+      position: relative;
+    }
+
+    .tab-item.active-tab {
+      width: auto;
+    }
+
+    .tab-item-name {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .tab-text {
+      font-family: 'TikTok Text', -apple-system, sans-serif;
+      font-weight: 500;
+      font-size: 15px;
+      line-height: 1.3;
+      letter-spacing: 0.0607px;
+      color: rgba(255, 255, 255, 0.6);
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .tab-text.active {
+      font-family: 'TikTok Text', -apple-system, sans-serif;
+      font-weight: 700;
+      color: #f6f6f6;
+    }
+
+    .tab-indicator {
+      position: absolute;
+      bottom: 2px;
+      left: 50%;
+      transform: translateX(calc(-50% + 0.5px));
+      width: 24px;
+      height: 2px;
+      background: #f6f6f6;
+      border-radius: 1px;
+    }
+
+    .nav-trailing {
+      flex-shrink: 0;
+      padding: 10px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .search-icon {
+      width: 24px;
+      height: 24px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .search-icon img {
+      position: absolute;
+      top: 7.29%;
+      left: 7.29%;
+      right: 5.57%;
+      bottom: 5.57%;
+      width: auto;
+      height: auto;
+    }
+
+    /* ===== Interaction Buttons (Right Side) ===== */
+    .interaction-btns {
+      position: absolute;
+      bottom: 95px;
+      right: 6px;
+      width: 44px;
+      height: 374px;
+      z-index: 20;
+    }
+
+    .interaction-stack {
+      position: absolute;
+      bottom: 60px;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    /* Avatar with follow */
+    .avatar-wrap {
+      display: inline-grid;
+      grid-template-columns: max-content;
+      grid-template-rows: max-content;
+      place-items: start;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .user-avatar-box {
+      grid-column: 1;
+      grid-row: 1;
+      position: relative;
+      width: 44px;
+      height: 44px;
+    }
+
+    .user-avatar-box .av-layer {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 44px;
+      height: 44px;
+    }
+
+    .user-avatar-box .av-layer img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .user-avatar-box .av-photo {
+      position: absolute;
+      inset: -2.27%;
+    }
+
+    .user-avatar-box .av-photo img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .follow-badge {
+      grid-column: 1;
+      grid-row: 1;
+      position: relative;
+      width: 20px;
+      height: 20px;
+      margin-left: 12px;
+      margin-top: 34px;
+    }
+
+    .follow-badge img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Action items */
+    .actions-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+
+    .action-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .action-icon {
+      width: 32px;
+      height: 32px;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .action-icon img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .action-count {
+      font-family: 'TikTok Sans', -apple-system, sans-serif;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 1.3;
+      color: #fff;
+      text-align: center;
+      white-space: nowrap;
+      text-shadow: 0px 1px 3px rgba(22, 24, 35, 0.2), 0px 1px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Music Disk */
+    .music-disk {
+      position: absolute;
+      bottom: 0;
+      right: 2px;
+      width: 40px;
+      height: 40px;
+    }
+
+    .music-disk .disk-layer {
+      position: absolute;
+      inset: 0;
+    }
+
+    .music-disk .disk-layer img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .music-disk .disk-oval {
+      position: absolute;
+      inset: 22.73%;
+    }
+
+    .music-disk .disk-oval img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .music-disk .mute-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 20px;
+      height: 20px;
+      overflow: hidden;
+    }
+
+    .music-disk .mute-overlay img {
+      position: absolute;
+      top: 9.13%;
+      left: 6.25%;
+      right: 2.08%;
+      bottom: 8.46%;
+      width: auto;
+      height: auto;
+    }
+
+    /* ===== Info Section (Bottom Left) ===== */
+    .info-section {
+      position: absolute;
+      bottom: 95px;
+      left: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: flex-start;
+      justify-content: flex-end;
+      z-index: 20;
+    }
+
+    .info-block {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .username-line {
+      display: flex;
+      gap: 4px;
+      height: 22px;
+      align-items: center;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+
+    .username-text {
+      font-family: 'TikTok Display', -apple-system, sans-serif;
+      font-weight: 500;
+      font-size: 17px;
+      color: #f0f0f0;
+      flex-shrink: 0;
+    }
+
+    .time-ago-text {
+      font-family: 'TikTok Sans', -apple-system, sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.5);
+      flex-shrink: 0;
+    }
+
+    .desc-box {
+      width: 278px;
+      height: 36px;
+      position: relative;
+    }
+
+    .desc-text {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      font-family: 'TikTok Text', -apple-system, sans-serif;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 1.3;
+      letter-spacing: 0.0607px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .reaction-btn {
+      width: 278px;
+      height: 36px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 6px;
+      overflow: hidden;
+      position: relative;
+      flex-shrink: 0;
+      cursor: pointer;
+      border: none;
+    }
+
+    /* ===== Camera UI (top-right) ===== */
+    .camera-ui {
+      position: absolute;
+      top: 64px; /* below status + nav */
+      right: 12px;
+      z-index: 30;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      user-select: none;
+    }
+
+    .camera-ui.is-open {
+      display: flex;
+    }
+
+    .camera-circle {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      background: rgba(0, 0, 0, 0.65);
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .camera-video,
+    .camera-photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .camera-photo {
+      display: none;
+    }
+
+    .camera-circle.has-photo .camera-photo {
+      display: block;
+    }
+
+    .camera-circle.has-photo .camera-video {
+      display: none;
+    }
+
+    .camera-close {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      width: 24px;
+      height: 24px;
+      border-radius: 12px;
+      border: none;
+      background: rgba(0, 0, 0, 0.5);
+      color: rgba(255, 255, 255, 0.95);
+      font-size: 16px;
+      line-height: 24px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .camera-close:active {
+      transform: scale(0.98);
+    }
+
+    .camera-capture {
+      width: 56px;
+      height: 56px;
+      border-radius: 28px;
+      border: 4px solid rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.08);
+      position: relative;
+      cursor: pointer;
+      box-shadow: 0px 8px 18px rgba(0, 0, 0, 0.35);
+      border: 0;
+      padding: 0;
+    }
+
+    .camera-capture::after {
+      content: '';
+      position: absolute;
+      inset: 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.92);
+    }
+
+    .camera-capture:active {
+      transform: scale(0.98);
+    }
+
+    .camera-hint {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 16px;
+      text-align: center;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 11px;
+      line-height: 1.2;
+      color: rgba(255, 255, 255, 0.8);
+      text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.35);
+      pointer-events: none;
+    }
+
+    .sticker-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 35;
+      pointer-events: none;
+      overflow: visible;
+    }
+
+    .reaction-sticker {
+      position: absolute;
+      left: 0;
+      top: 0;
+      will-change: transform;
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.45));
+      border: 2px solid rgba(255, 255, 255, 0.95);
+      border-radius: 14px;
+      background: transparent;
+    }
+
+    .reaction-inner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .reaction-icon-box {
+      width: 20px;
+      height: 20px;
+      overflow: hidden;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .reaction-icon-inner {
+      position: absolute;
+      inset: 4.17%;
+    }
+
+    .reaction-icon-inner img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .reaction-text {
+      font-family: 'TikTok Text', -apple-system, sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 1.3;
+      letter-spacing: 0.0931px;
+      color: #fff;
+      text-align: center;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ===== Bottom Navigation Bar ===== */
+    .bottom-nav {
+      position: absolute;
+      top: 761px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 390px;
+      display: flex;
+      gap: 2px;
+      align-items: flex-start;
+      background: #000;
+      overflow: hidden;
+      z-index: 20;
+    }
+
+    .nav-separator {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .nav-separator-line {
+      width: 100%;
+      height: 1px;
+      border-top: 0.5px solid rgba(255, 255, 255, 0.19);
+    }
+
+    .bar-cell {
+      flex: 1;
+      min-width: 0;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 49px;
+      padding-top: 2px;
+      padding-bottom: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .bar-cell .cell-icon {
+      width: 32px;
+      height: 32px;
+      overflow: hidden;
+      position: relative;
+      flex-shrink: 0;
+      margin-bottom: -1px;
+    }
+
+    .bar-cell .cell-icon .icon-tint {
+      position: absolute;
+    }
+
+    .bar-cell .cell-icon .icon-tint img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .tint-home { inset: 15.62% 13.33% 18.75% 13.33%; }
+    .tint-friends { inset: 19.79% 11.87% 22.72% 13.95%; }
+    .tint-inbox { inset: 18.75% 18.63% 16.83% 18.63%; }
+    .tint-profile { inset: 17.71% 22.63% 18.55% 22.63%; }
+
+    .bar-cell .cell-label {
+      font-family: 'TikTok Sans', -apple-system, sans-serif;
+      font-weight: 600;
+      font-size: 10px;
+      line-height: 1.3;
+      text-align: center;
+      min-width: 100%;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .cell-label-active {
+      color: #fff;
+    }
+
+    .cell-label-inactive {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* Create Tab */
+    .create-tab {
+      flex: 1;
+      min-width: 0;
+      min-height: 0;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      align-self: stretch;
+      position: relative;
+    }
+
+    .create-btn {
+      width: 48px;
+      height: 48px;
+      overflow: hidden;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .create-btn-inner {
+      position: absolute;
+      inset: 20.83% 5.21%;
+    }
+
+    .create-btn-inner img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* ===== Home Indicator ===== */
+    .home-indicator {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 34px;
+      overflow: hidden;
+      z-index: 20;
+    }
+
+    .home-grabber {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 140px;
+      height: 5px;
+      background: #fff;
+      border-radius: 29px;
+    }
+  </style>
+</head>
+<body>
+  <div class="phone-frame">
+
+    <!-- Video Background -->
+    <div class="video-area">
+      <div class="video-bg" aria-hidden="true">
+        <img src="assets/video.png" alt="">
+        <img src="assets/video1.png" alt="">
+        <div class="video-zoomed">
+          <img src="assets/video2.png" alt="">
+        </div>
+        <img src="assets/video3.png" alt="">
+      </div>
+      <div class="top-overlay">
+        <div class="top-overlay-inner">
+          <img src="assets/top-overlay.svg" alt="">
+        </div>
+      </div>
+      <div class="bottom-overlay">
+        <img src="assets/bottom-overlay.svg" alt="">
+      </div>
+    </div>
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <p class="status-time">8:00</p>
+      <div class="status-signal"><img src="assets/signal.svg" alt="Signal"></div>
+      <div class="status-connection"><img src="assets/connection.svg" alt="WiFi"></div>
+      <div class="status-battery"><img src="assets/battery.svg" alt="Battery"></div>
+    </div>
+
+    <!-- Top Tab Navigation -->
+    <div class="top-nav">
+      <div class="tab-bar">
+        <div class="tab-items-container">
+          <div class="tab-item-wrapper">
+            <div class="tab-item">
+              <div class="tab-item-name"><span class="tab-text">STEM</span></div>
+            </div>
+          </div>
+          <div class="tab-item-wrapper">
+            <div class="tab-item">
+              <div class="tab-item-name"><span class="tab-text">Singapore</span></div>
+            </div>
+          </div>
+          <div class="tab-item-wrapper">
+            <div class="tab-item">
+              <div class="tab-item-name"><span class="tab-text">Following</span></div>
+            </div>
+          </div>
+          <div class="tab-item-wrapper">
+            <div class="tab-item">
+              <div class="tab-item-name"><span class="tab-text">Shop</span></div>
+            </div>
+          </div>
+          <div class="tab-item-wrapper">
+            <div class="tab-item active-tab">
+              <div class="tab-item-name"><span class="tab-text active">For You</span></div>
+              <div class="tab-indicator"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-trailing">
+        <div class="search-icon">
+          <img src="assets/magnifying-glass.svg" alt="Search">
+        </div>
+      </div>
+    </div>
+
+    <!-- Interaction Buttons (Right Side) -->
+    <div class="interaction-btns">
+      <div class="interaction-stack">
+        <!-- Avatar -->
+        <div class="avatar-wrap">
+          <div class="user-avatar-box">
+            <div class="av-layer"><img src="assets/placeholder.svg" alt=""></div>
+            <div class="av-layer"><img src="assets/default-avatar.svg" alt=""></div>
+            <div class="av-photo"><img src="assets/user-avatar.png" alt="User"></div>
+          </div>
+          <div class="follow-badge"><img src="assets/follow-button.svg" alt="Follow"></div>
+        </div>
+
+        <!-- Actions -->
+        <div class="actions-col">
+          <div class="action-item">
+            <div class="action-icon"><img src="assets/like.svg" alt="Like"></div>
+            <span class="action-count">12K</span>
+          </div>
+          <div class="action-item">
+            <div class="action-icon"><img src="assets/comment.svg" alt="Comment"></div>
+            <span class="action-count">456</span>
+          </div>
+          <div class="action-item">
+            <div class="action-icon"><img src="assets/bookmark.svg" alt="Bookmark"></div>
+            <span class="action-count">68</span>
+          </div>
+          <div class="action-item">
+            <div class="action-icon"><img src="assets/share.svg" alt="Share"></div>
+            <span class="action-count">1,256</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Music Disk -->
+      <div class="music-disk">
+        <div class="disk-layer"><img src="assets/start-on-mute.svg" alt=""></div>
+        <div class="mute-overlay"><img src="assets/speaker-mute.svg" alt="Muted"></div>
+        <div class="disk-layer"><img src="assets/fallback.png" alt=""></div>
+        <div class="disk-layer"><img src="assets/full-cover.png" alt=""></div>
+        <div class="disk-oval"><img src="assets/oval5.png" alt=""></div>
+      </div>
+    </div>
+
+    <!-- Info Section (Bottom Left) -->
+    <div class="info-section">
+      <div class="info-block">
+        <div class="username-line">
+          <span class="username-text" id="usernameAlvin">Alvin</span>
+          <span class="time-ago-text">· 4d ago</span>
+        </div>
+        <div class="desc-box">
+          <p class="desc-text">I can discover more of what I like on TikTok and really enjoy watching.</p>
+        </div>
+      </div>
+      <button class="reaction-btn">
+        <div class="reaction-inner">
+          <div class="reaction-icon-box">
+            <div class="reaction-icon-inner">
+              <img src="assets/union.svg" alt="">
+            </div>
+          </div>
+          <span class="reaction-text">Leave your reaction </span>
+        </div>
+      </button>
+    </div>
+
+    <div class="sticker-layer" id="stickerLayer" aria-hidden="true"></div>
+
+    <!-- Camera UI (appears after clicking reaction button) -->
+    <div class="camera-ui" id="cameraUI" aria-hidden="true">
+      <div class="camera-circle" id="cameraRect">
+        <video class="camera-video" id="cameraVideo" autoplay muted playsinline></video>
+        <img class="camera-photo" id="cameraPhoto" alt="">
+        <button class="camera-close" id="cameraClose" type="button" aria-label="Close">×</button>
+        <div class="camera-hint" id="cameraHint">Camera</div>
+      </div>
+      <button class="camera-capture" id="cameraCapture" type="button" aria-label="Capture"></button>
+      <canvas id="cameraCanvas" width="256" height="256" style="display:none;"></canvas>
+    </div>
+
+    <!-- Bottom Navigation Bar -->
+    <div class="bottom-nav">
+      <div class="nav-separator">
+        <div class="nav-separator-line"></div>
+      </div>
+
+      <div class="bar-cell">
+        <div class="cell-icon">
+          <div class="icon-tint tint-home"><img src="assets/tint-home.svg" alt=""></div>
+        </div>
+        <span class="cell-label cell-label-active">Home</span>
+      </div>
+
+      <div class="bar-cell">
+        <div class="cell-icon">
+          <div class="icon-tint tint-friends"><img src="assets/tint-friends.svg" alt=""></div>
+        </div>
+        <span class="cell-label cell-label-inactive">Friends</span>
+      </div>
+
+      <div class="create-tab">
+        <div class="create-btn">
+          <div class="create-btn-inner"><img src="assets/create-icon.svg" alt="Create"></div>
+        </div>
+      </div>
+
+      <div class="bar-cell">
+        <div class="cell-icon">
+          <div class="icon-tint tint-inbox"><img src="assets/tint-inbox.svg" alt=""></div>
+        </div>
+        <span class="cell-label cell-label-inactive">Inbox</span>
+      </div>
+
+      <div class="bar-cell">
+        <div class="cell-icon">
+          <div class="icon-tint tint-profile"><img src="assets/tint-profile.svg" alt=""></div>
+        </div>
+        <span class="cell-label cell-label-inactive">Profile</span>
+      </div>
+    </div>
+
+    <!-- Home Indicator -->
+    <div class="home-indicator">
+      <div class="home-grabber"></div>
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.7.4/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix@2.0.5/dist/body-pix.min.js"></script>
+  <script>
+    (function () {
+      const reactionBtn = document.querySelector('.reaction-btn');
+      const phoneFrame = document.querySelector('.phone-frame');
+      const cameraUI = document.getElementById('cameraUI');
+      const cameraViewport = document.getElementById('cameraRect');
+      const videoEl = document.getElementById('cameraVideo');
+      const photoEl = document.getElementById('cameraPhoto');
+      const closeBtn = document.getElementById('cameraClose');
+      const captureBtn = document.getElementById('cameraCapture');
+      const canvas = document.getElementById('cameraCanvas');
+      const hint = document.getElementById('cameraHint');
+      const stickerLayer = document.getElementById('stickerLayer');
+
+      let stream = null;
+      let bodyPixNet = null;
+      let capturing = false;
+
+      function setHint(text) {
+        if (hint) hint.textContent = text || '';
+      }
+
+      function drawVideoCover(v, cvs) {
+        const ctx = cvs.getContext('2d');
+        const cw = cvs.width;
+        const ch = cvs.height;
+        const vw = v.videoWidth;
+        const vh = v.videoHeight;
+        if (!vw || !vh) return false;
+        const scale = Math.max(cw / vw, ch / vh);
+        const tw = vw * scale;
+        const th = vh * scale;
+        const ox = (cw - tw) / 2;
+        const oy = (ch - th) / 2;
+        ctx.drawImage(v, ox, oy, tw, th);
+        return true;
+      }
+
+      function applyPersonMask(sourceCanvas, segmentation) {
+        var w = sourceCanvas.width;
+        var h = sourceCanvas.height;
+        var ctx = sourceCanvas.getContext('2d');
+        var imgData = ctx.getImageData(0, 0, w, h);
+        var out = document.createElement('canvas');
+        out.width = w;
+        out.height = h;
+        var octx = out.getContext('2d');
+        var outImg = octx.createImageData(w, h);
+        var mask = segmentation.data;
+        var sw = segmentation.width;
+        var sh = segmentation.height;
+        var x;
+        var y;
+        var i;
+        var j;
+        var mx;
+        var my;
+        var mi;
+        var keep;
+        for (y = 0; y < h; y++) {
+          for (x = 0; x < w; x++) {
+            i = y * w + x;
+            j = i * 4;
+            mx = Math.min(sw - 1, Math.floor((x * sw) / w));
+            my = Math.min(sh - 1, Math.floor((y * sh) / h));
+            mi = my * sw + mx;
+            keep = mask[mi] > 0;
+            outImg.data[j] = imgData.data[j];
+            outImg.data[j + 1] = imgData.data[j + 1];
+            outImg.data[j + 2] = imgData.data[j + 2];
+            outImg.data[j + 3] = keep ? imgData.data[j + 3] : 0;
+          }
+        }
+        octx.putImageData(outImg, 0, 0);
+        return out;
+      }
+
+      async function ensureBodyPix() {
+        if (typeof bodyPix === 'undefined') return null;
+        if (bodyPixNet) return bodyPixNet;
+        setHint('加载抠图模型…');
+        try {
+          bodyPixNet = await bodyPix.load({
+            architecture: 'MobileNetV1',
+            outputStride: 16,
+            multiplier: 0.5,
+            quantBytes: 2
+          });
+        } catch (e) {
+          bodyPixNet = await bodyPix.load();
+        }
+        return bodyPixNet;
+      }
+
+      function getCameraCenterInFrame() {
+        const fr = phoneFrame.getBoundingClientRect();
+        const cr = cameraViewport.getBoundingClientRect();
+        return {
+          x: cr.left + cr.width / 2 - fr.left,
+          y: cr.top + cr.height / 2 - fr.top
+        };
+      }
+
+      function flyStickerToAlvin(dataUrl, startX, startY) {
+        const fr = phoneFrame.getBoundingClientRect();
+        const alvin = document.getElementById('usernameAlvin');
+        const u = alvin.getBoundingClientRect();
+
+        const img = document.createElement('img');
+        img.className = 'reaction-sticker';
+        img.src = dataUrl;
+        img.alt = '';
+        img.style.width = '92px';
+        stickerLayer.appendChild(img);
+
+        const stack = stickerLayer.querySelectorAll('.reaction-sticker').length;
+        const stackShift = (stack - 1) * 16;
+
+        const run = () => {
+          const w = img.offsetWidth;
+          const h = img.offsetHeight;
+          const finalX = u.left + u.width / 2 - fr.left + stackShift;
+          const finalY = u.top - fr.top - 10 - h / 2;
+          const midX = (startX + finalX) / 2 + 48;
+          const midY = Math.min(startY, finalY) - 95;
+
+          img.style.transformOrigin = 'center center';
+          img.style.transform =
+            'translate(' + (startX - w / 2) + 'px,' + (startY - h / 2) + 'px) scale(0.28) rotate(-18deg)';
+
+          requestAnimationFrame(function () {
+            img.animate(
+              [
+                {
+                  transform:
+                    'translate(' +
+                    (startX - w / 2) +
+                    'px,' +
+                    (startY - h / 2) +
+                    'px) scale(0.28) rotate(-18deg)',
+                  opacity: 0.9
+                },
+                {
+                  transform:
+                    'translate(' +
+                    (midX - w / 2) +
+                    'px,' +
+                    (midY - h / 2) +
+                    'px) scale(1.18) rotate(11deg)',
+                  opacity: 1,
+                  offset: 0.52
+                },
+                {
+                  transform:
+                    'translate(' +
+                    (finalX - w / 2) +
+                    'px,' +
+                    (finalY - h / 2) +
+                    'px) scale(1) rotate(0deg)',
+                  opacity: 1
+                }
+              ],
+              { duration: 1000, easing: 'cubic-bezier(0.22, 1, 0.36, 1.15)', fill: 'forwards' }
+            ).onfinish = function () {
+              var landed =
+                'translate(' +
+                (finalX - w / 2) +
+                'px,' +
+                (finalY - h / 2) +
+                'px) scale(1) rotate(0deg)';
+              img.style.transform = landed;
+              img.animate(
+                [
+                  { transform: landed },
+                  {
+                    transform:
+                      'translate(' +
+                      (finalX - w / 2) +
+                      'px,' +
+                      (finalY - h / 2) +
+                      'px) scale(1.08) rotate(0deg)'
+                  },
+                  { transform: landed }
+                ],
+                { duration: 340, easing: 'ease-out' }
+              );
+            };
+          });
+        };
+
+        if (img.decode) {
+          img.decode().then(run).catch(run);
+        } else {
+          img.onload = run;
+          img.onerror = run;
+        }
+      }
+
+      async function openCamera() {
+        cameraUI.classList.add('is-open');
+        cameraUI.setAttribute('aria-hidden', 'false');
+        cameraViewport.classList.remove('has-photo');
+        photoEl.removeAttribute('src');
+        setHint('');
+
+        try {
+          stream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: 'user' },
+            audio: false
+          });
+          videoEl.srcObject = stream;
+          await videoEl.play().catch(function () {});
+        } catch (e) {
+          setHint('无法使用摄像头');
+        }
+      }
+
+      function stopCamera() {
+        if (stream) {
+          stream.getTracks().forEach(function (t) {
+            t.stop();
+          });
+          stream = null;
+        }
+        if (videoEl) videoEl.srcObject = null;
+      }
+
+      function closeCamera() {
+        stopCamera();
+        cameraUI.classList.remove('is-open');
+        cameraUI.setAttribute('aria-hidden', 'true');
+      }
+
+      async function capturePhoto() {
+        if (!videoEl || videoEl.readyState < 2 || capturing) return;
+        capturing = true;
+        if (captureBtn) captureBtn.disabled = true;
+
+        const start = getCameraCenterInFrame();
+
+        if (!drawVideoCover(videoEl, canvas)) {
+          capturing = false;
+          if (captureBtn) captureBtn.disabled = false;
+          setHint('画面未就绪');
+          return;
+        }
+
+        let stickerCanvas = canvas;
+        try {
+          const net = await ensureBodyPix();
+          if (net) {
+            setHint('正在抠图…');
+            const segmentation = await net.segmentPerson(canvas, {
+              flipHorizontal: false,
+              internalResolution: 'medium',
+              segmentationThreshold: 0.65
+            });
+            stickerCanvas = applyPersonMask(canvas, segmentation);
+          }
+        } catch (e) {
+          stickerCanvas = canvas;
+        }
+
+        const dataUrl = stickerCanvas.toDataURL('image/png');
+        setHint('');
+        closeCamera();
+        flyStickerToAlvin(dataUrl, start.x, start.y);
+
+        capturing = false;
+        if (captureBtn) captureBtn.disabled = false;
+      }
+
+      reactionBtn?.addEventListener('click', openCamera);
+      closeBtn?.addEventListener('click', closeCamera);
+      captureBtn?.addEventListener('click', function () {
+        capturePhoto();
+      });
+    })();
+  </script>
+</body>
+</html>
