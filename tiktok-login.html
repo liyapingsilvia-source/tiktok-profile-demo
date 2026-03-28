@@ -1191,24 +1191,23 @@
     color: #fff;
   }
 
-  /* screen14 Feed: dark tab bar — glyph #FFFFFF (light UI uses #000000) */
-  #screen14 .s4-bottom-bar--dark .s4-bottom-cell__icon img,
-  #screen14 .s4-bottom-bar--dark .s4-bottom-cell__icon svg {
+  .s4-bottom-bar--dark .s4-bottom-cell__icon img,
+  .s4-bottom-bar--dark .s4-bottom-cell__icon svg {
     filter: brightness(0) invert(1);
   }
-  #screen14 .s4-bottom-bar--dark .s4-bottom-cell {
+  .s4-bottom-bar--dark .s4-bottom-cell {
     opacity: 0.84;
   }
-  #screen14 .s4-bottom-bar--dark .s4-bottom-cell.is-active {
+  .s4-bottom-bar--dark .s4-bottom-cell.is-active {
     opacity: 1;
   }
-  #screen14 .s4-bottom-bar--dark .s4-bottom-cell__label {
+  .s4-bottom-bar--dark .s4-bottom-cell__label {
     color: #FFFFFF;
   }
-  #screen14 .s4-bottom-bar--dark .s4-bottom-cell.is-active .s4-bottom-cell__label {
+  .s4-bottom-bar--dark .s4-bottom-cell.is-active .s4-bottom-cell__label {
     font-weight: 600;
   }
-  #screen14 .s4-bottom-bar--dark .home-indicator {
+  .s4-bottom-bar--dark .home-indicator {
     background: rgba(255, 255, 255, 0.35);
   }
 
@@ -2407,7 +2406,7 @@
 
   .s6-scroll {
     position: absolute;
-    top: 88px;
+    top: 107px;
     left: 0;
     right: 0;
     bottom: 120px;
@@ -2417,16 +2416,13 @@
   }
 
   .s6-title {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'TikTok Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
     font-weight: 700;
-    font-size: 22px;
-    line-height: 1.27;
+    font-size: 28px;
+    line-height: 1.2;
     color: #000;
-    margin-bottom: 20px;
-    letter-spacing: -0.2px;
-  }
-  .s6--plan-b .s6-scroll {
-    top: 107px;
+    margin-bottom: 12px;
+    letter-spacing: 0;
   }
   .s6-planb-subtitle {
     font-size: 15px;
@@ -2437,13 +2433,6 @@
   }
   .s6--plan-b .s6-center-card {
     margin-bottom: 6px;
-  }
-  .s6--plan-b .s6-title {
-    font-family: 'TikTok Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
-    font-size: 28px;
-    line-height: 1.2;
-    letter-spacing: 0;
-    margin-bottom: 12px;
   }
 
   .s6-center-card {
@@ -2457,6 +2446,87 @@
     cursor: pointer;
   }
   .s6-center-card:active { background: #ebebeb; }
+  .s6-card-a-wrap {
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .s6-card-a-hero {
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 20px 20px;
+  }
+  .s6-card-a-hero__avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 12px;
+    background: #e0e0e0;
+    box-shadow: 0 0 0 2px #fff;
+  }
+  .s6-card-a-hero__name {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.3;
+    color: #000;
+  }
+  .s6-card-a-hero__sub {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.4;
+    color: rgba(0,0,0,0.4);
+    margin-top: 2px;
+  }
+  .s6-card-a-cells {
+    background: #f5f5f5;
+    border-radius: 12px;
+  }
+  .s6-card-a-cell {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+  }
+  .s6-card-a-cell + .s6-card-a-cell {
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .s6-card-a-cell__icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .s6-card-a-cell__icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  .s6-card-a-cell__text {
+    flex: 1;
+    min-width: 0;
+  }
+  .s6-card-a-cell__label {
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.3;
+    color: #000;
+  }
+  .s6-card-a-cell__value {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.4;
+    color: rgba(0,0,0,0.4);
+    margin-top: 2px;
+  }
+  .s6-card-a-cell__arrow {
+    flex-shrink: 0;
+  }
 
   .s6-center-card__avatar {
     width: 48px;
@@ -2482,17 +2552,18 @@
   }
 
   .s6-center-card__name {
-    font-weight: 600;
-    font-size: 15px;
+    font-weight: 700;
+    font-size: 16px;
     line-height: 1.3;
     color: #000;
   }
 
   .s6-center-card__accounts {
     font-weight: 400;
-    font-size: 13px;
+    font-size: 14px;
     line-height: 1.4;
-    color: rgba(0, 0, 0, 0.5);
+    color: rgba(0, 0, 0, 0.4);
+    margin-top: 1px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -2523,7 +2594,7 @@
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
-    margin-top: 2px;
+    margin-top: 16px;
   }
   .s6-email-link:hover { text-decoration: underline; }
 
@@ -3907,7 +3978,7 @@
             <span class="s4-bottom-cell__label">Home</span>
           </button>
           <button class="s4-bottom-cell">
-            <div class="s4-bottom-cell__icon"><img src="https://www.figma.com/api/mcp/asset/1acabc70-2ac0-4e7c-b6a5-509d4a58fb5b" alt=""></div>
+            <div class="s4-bottom-cell__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.58008 12.5811C11.6383 12.5811 13.8356 13.0867 15.2441 14.3711C16.6848 15.6851 17.0605 17.5889 17.0605 19.7256C17.0604 20.2134 16.8045 20.5691 16.5693 20.7852C16.3406 20.9952 16.0623 21.1422 15.8066 21.25C15.2891 21.4681 14.613 21.6277 13.8848 21.7471C12.4099 21.9888 10.4812 22.1045 8.58008 22.1045C6.67893 22.1045 4.75024 21.9888 3.27539 21.7471C2.54729 21.6277 1.87198 21.4681 1.35449 21.25C1.09878 21.1422 0.820703 20.9952 0.591797 20.7852C0.35655 20.5691 0.0997145 20.2136 0.0996094 19.7256C0.0996651 17.5889 0.475341 15.6851 1.91602 14.3711C3.32451 13.0867 5.5218 12.5811 8.58008 12.5811ZM8.58008 14.5811C5.63911 14.5811 4.09553 15.0902 3.26367 15.8486C2.50998 16.5361 2.14216 17.615 2.10254 19.3936C2.11168 19.3976 2.12079 19.403 2.13086 19.4072C2.43145 19.5339 2.92448 19.6629 3.59863 19.7734C4.92894 19.9915 6.74106 20.1045 8.58008 20.1045C10.4191 20.1045 12.2312 19.9915 13.5615 19.7734C14.2356 19.6629 14.7287 19.5339 15.0293 19.4072C15.0389 19.4031 15.0479 19.3974 15.0566 19.3936C15.017 17.615 14.6502 16.5361 13.8965 15.8486C13.0646 15.0902 11.521 14.5811 8.58008 14.5811ZM8.58008 2.20312C11.1375 2.20336 13.2117 4.27653 13.2119 6.83398L13.2061 7.07324C13.0818 9.51994 11.0576 11.4656 8.58008 11.4658L8.3418 11.46C5.89494 11.3357 3.94922 9.31173 3.94922 6.83398C3.94947 4.27654 6.02264 2.20338 8.58008 2.20312ZM8.58008 4.20312C7.12721 4.20338 5.94947 5.38111 5.94922 6.83398C5.94922 8.28707 7.12705 9.46557 8.58008 9.46582C10.0331 9.46558 11.2119 8.28708 11.2119 6.83398C11.2117 5.3811 10.033 4.20336 8.58008 4.20312Z" fill="black"/><path d="M17.9795 13.3501C20.0511 13.3501 21.6348 13.729 22.6484 14.8394C23.6429 15.9291 23.8799 17.5055 23.8799 19.3091C23.8795 19.852 23.5646 20.2347 23.2686 20.4634C22.9788 20.6872 22.6174 20.8398 22.2617 20.9507C21.5407 21.1755 20.5865 21.3057 19.5508 21.3638C19.0547 21.3916 18.6297 21.0121 18.6016 20.5161C18.5738 20.0198 18.9539 19.5947 19.4502 19.5669C20.4256 19.5122 21.2111 19.3936 21.7266 19.2329C21.8893 19.1821 22.0008 19.1322 22.0742 19.0942C22.0537 17.4791 21.7998 16.5809 21.3184 16.0532C20.8346 15.5235 19.9178 15.1509 17.9795 15.1509C17.4826 15.1509 17.0794 14.7473 17.0791 14.2505C17.0791 13.7534 17.4824 13.3501 17.9795 13.3501ZM18.0332 4.5874C20.1043 4.5874 21.7832 6.26633 21.7832 8.3374C21.7832 10.4084 20.1043 12.0874 18.0332 12.0874C15.9623 12.0873 14.2832 10.4084 14.2832 8.3374C14.2832 6.26642 15.9622 4.58753 18.0332 4.5874ZM18.0332 6.38721C16.9564 6.38734 16.083 7.26053 16.083 8.3374C16.083 9.41425 16.9564 10.2875 18.0332 10.2876C19.1101 10.2876 19.9834 9.41433 19.9834 8.3374C19.9834 7.26045 19.1102 6.38721 18.0332 6.38721Z" fill="black"/></svg></div>
             <span class="s4-bottom-cell__label">Friends</span>
           </button>
           <button class="s4-bottom-create" aria-label="Create">
@@ -4206,7 +4277,7 @@
       <div class="s4-bottom-bar">
         <div class="s4-bottom-nav">
           <button class="s4-bottom-cell is-active"><div class="s4-bottom-cell__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 20.25H4C3.44772 20.25 3 19.8023 3 19.25V10.4474C3 9.95009 3.18524 9.4706 3.51949 9.10227L10.5195 1.38655C11.3145 0.510166 12.6855 0.510167 13.4805 1.38655L20.4805 9.10227C20.8148 9.4706 21 9.95009 21 10.4474V19.25C21 19.8023 20.5523 20.25 20 20.25Z" fill="#FFFFFF"/></svg></div><span class="s4-bottom-cell__label">Home</span></button>
-          <button class="s4-bottom-cell"><div class="s4-bottom-cell__icon"><img src="https://www.figma.com/api/mcp/asset/1acabc70-2ac0-4e7c-b6a5-509d4a58fb5b" alt=""></div><span class="s4-bottom-cell__label">Friends</span></button>
+          <button class="s4-bottom-cell"><div class="s4-bottom-cell__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.58008 12.5811C11.6383 12.5811 13.8356 13.0867 15.2441 14.3711C16.6848 15.6851 17.0605 17.5889 17.0605 19.7256C17.0604 20.2134 16.8045 20.5691 16.5693 20.7852C16.3406 20.9952 16.0623 21.1422 15.8066 21.25C15.2891 21.4681 14.613 21.6277 13.8848 21.7471C12.4099 21.9888 10.4812 22.1045 8.58008 22.1045C6.67893 22.1045 4.75024 21.9888 3.27539 21.7471C2.54729 21.6277 1.87198 21.4681 1.35449 21.25C1.09878 21.1422 0.820703 20.9952 0.591797 20.7852C0.35655 20.5691 0.0997145 20.2136 0.0996094 19.7256C0.0996651 17.5889 0.475341 15.6851 1.91602 14.3711C3.32451 13.0867 5.5218 12.5811 8.58008 12.5811ZM8.58008 14.5811C5.63911 14.5811 4.09553 15.0902 3.26367 15.8486C2.50998 16.5361 2.14216 17.615 2.10254 19.3936C2.11168 19.3976 2.12079 19.403 2.13086 19.4072C2.43145 19.5339 2.92448 19.6629 3.59863 19.7734C4.92894 19.9915 6.74106 20.1045 8.58008 20.1045C10.4191 20.1045 12.2312 19.9915 13.5615 19.7734C14.2356 19.6629 14.7287 19.5339 15.0293 19.4072C15.0389 19.4031 15.0479 19.3974 15.0566 19.3936C15.017 17.615 14.6502 16.5361 13.8965 15.8486C13.0646 15.0902 11.521 14.5811 8.58008 14.5811ZM8.58008 2.20312C11.1375 2.20336 13.2117 4.27653 13.2119 6.83398L13.2061 7.07324C13.0818 9.51994 11.0576 11.4656 8.58008 11.4658L8.3418 11.46C5.89494 11.3357 3.94922 9.31173 3.94922 6.83398C3.94947 4.27654 6.02264 2.20338 8.58008 2.20312ZM8.58008 4.20312C7.12721 4.20338 5.94947 5.38111 5.94922 6.83398C5.94922 8.28707 7.12705 9.46557 8.58008 9.46582C10.0331 9.46558 11.2119 8.28708 11.2119 6.83398C11.2117 5.3811 10.033 4.20336 8.58008 4.20312Z" fill="black"/><path d="M17.9795 13.3501C20.0511 13.3501 21.6348 13.729 22.6484 14.8394C23.6429 15.9291 23.8799 17.5055 23.8799 19.3091C23.8795 19.852 23.5646 20.2347 23.2686 20.4634C22.9788 20.6872 22.6174 20.8398 22.2617 20.9507C21.5407 21.1755 20.5865 21.3057 19.5508 21.3638C19.0547 21.3916 18.6297 21.0121 18.6016 20.5161C18.5738 20.0198 18.9539 19.5947 19.4502 19.5669C20.4256 19.5122 21.2111 19.3936 21.7266 19.2329C21.8893 19.1821 22.0008 19.1322 22.0742 19.0942C22.0537 17.4791 21.7998 16.5809 21.3184 16.0532C20.8346 15.5235 19.9178 15.1509 17.9795 15.1509C17.4826 15.1509 17.0794 14.7473 17.0791 14.2505C17.0791 13.7534 17.4824 13.3501 17.9795 13.3501ZM18.0332 4.5874C20.1043 4.5874 21.7832 6.26633 21.7832 8.3374C21.7832 10.4084 20.1043 12.0874 18.0332 12.0874C15.9623 12.0873 14.2832 10.4084 14.2832 8.3374C14.2832 6.26642 15.9622 4.58753 18.0332 4.5874ZM18.0332 6.38721C16.9564 6.38734 16.083 7.26053 16.083 8.3374C16.083 9.41425 16.9564 10.2875 18.0332 10.2876C19.1101 10.2876 19.9834 9.41433 19.9834 8.3374C19.9834 7.26045 19.1102 6.38721 18.0332 6.38721Z" fill="black"/></svg></div><span class="s4-bottom-cell__label">Friends</span></button>
           <button class="s4-bottom-create" aria-label="Create">
             <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M46.8487 27.577C47.0504 24.8611 47.0504 23.1341 46.8487 20.4182C45.9707 8.60136 32.3588 9.77504 24 9.77503V38.2201C32.3588 38.2201 45.9707 39.3938 46.8487 27.577Z" fill="#FA2D6C"/>
@@ -4294,7 +4365,7 @@
       <div class="s4-bottom-bar s4-bottom-bar--dark" style="background:rgba(0,0,0,.9);">
         <div class="s4-bottom-nav">
           <button class="s4-bottom-cell"><div class="s4-bottom-cell__icon"><img src="https://www.figma.com/api/mcp/asset/a5e76623-51fa-47fa-93e9-ed4df3152004" alt=""></div><span class="s4-bottom-cell__label">Home</span></button>
-          <button class="s4-bottom-cell"><div class="s4-bottom-cell__icon"><img src="https://www.figma.com/api/mcp/asset/1acabc70-2ac0-4e7c-b6a5-509d4a58fb5b" alt=""></div><span class="s4-bottom-cell__label">Friends</span></button>
+          <button class="s4-bottom-cell"><div class="s4-bottom-cell__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.58008 12.5811C11.6383 12.5811 13.8356 13.0867 15.2441 14.3711C16.6848 15.6851 17.0605 17.5889 17.0605 19.7256C17.0604 20.2134 16.8045 20.5691 16.5693 20.7852C16.3406 20.9952 16.0623 21.1422 15.8066 21.25C15.2891 21.4681 14.613 21.6277 13.8848 21.7471C12.4099 21.9888 10.4812 22.1045 8.58008 22.1045C6.67893 22.1045 4.75024 21.9888 3.27539 21.7471C2.54729 21.6277 1.87198 21.4681 1.35449 21.25C1.09878 21.1422 0.820703 20.9952 0.591797 20.7852C0.35655 20.5691 0.0997145 20.2136 0.0996094 19.7256C0.0996651 17.5889 0.475341 15.6851 1.91602 14.3711C3.32451 13.0867 5.5218 12.5811 8.58008 12.5811ZM8.58008 14.5811C5.63911 14.5811 4.09553 15.0902 3.26367 15.8486C2.50998 16.5361 2.14216 17.615 2.10254 19.3936C2.11168 19.3976 2.12079 19.403 2.13086 19.4072C2.43145 19.5339 2.92448 19.6629 3.59863 19.7734C4.92894 19.9915 6.74106 20.1045 8.58008 20.1045C10.4191 20.1045 12.2312 19.9915 13.5615 19.7734C14.2356 19.6629 14.7287 19.5339 15.0293 19.4072C15.0389 19.4031 15.0479 19.3974 15.0566 19.3936C15.017 17.615 14.6502 16.5361 13.8965 15.8486C13.0646 15.0902 11.521 14.5811 8.58008 14.5811ZM8.58008 2.20312C11.1375 2.20336 13.2117 4.27653 13.2119 6.83398L13.2061 7.07324C13.0818 9.51994 11.0576 11.4656 8.58008 11.4658L8.3418 11.46C5.89494 11.3357 3.94922 9.31173 3.94922 6.83398C3.94947 4.27654 6.02264 2.20338 8.58008 2.20312ZM8.58008 4.20312C7.12721 4.20338 5.94947 5.38111 5.94922 6.83398C5.94922 8.28707 7.12705 9.46557 8.58008 9.46582C10.0331 9.46558 11.2119 8.28708 11.2119 6.83398C11.2117 5.3811 10.033 4.20336 8.58008 4.20312Z" fill="black"/><path d="M17.9795 13.3501C20.0511 13.3501 21.6348 13.729 22.6484 14.8394C23.6429 15.9291 23.8799 17.5055 23.8799 19.3091C23.8795 19.852 23.5646 20.2347 23.2686 20.4634C22.9788 20.6872 22.6174 20.8398 22.2617 20.9507C21.5407 21.1755 20.5865 21.3057 19.5508 21.3638C19.0547 21.3916 18.6297 21.0121 18.6016 20.5161C18.5738 20.0198 18.9539 19.5947 19.4502 19.5669C20.4256 19.5122 21.2111 19.3936 21.7266 19.2329C21.8893 19.1821 22.0008 19.1322 22.0742 19.0942C22.0537 17.4791 21.7998 16.5809 21.3184 16.0532C20.8346 15.5235 19.9178 15.1509 17.9795 15.1509C17.4826 15.1509 17.0794 14.7473 17.0791 14.2505C17.0791 13.7534 17.4824 13.3501 17.9795 13.3501ZM18.0332 4.5874C20.1043 4.5874 21.7832 6.26633 21.7832 8.3374C21.7832 10.4084 20.1043 12.0874 18.0332 12.0874C15.9623 12.0873 14.2832 10.4084 14.2832 8.3374C14.2832 6.26642 15.9622 4.58753 18.0332 4.5874ZM18.0332 6.38721C16.9564 6.38734 16.083 7.26053 16.083 8.3374C16.083 9.41425 16.9564 10.2875 18.0332 10.2876C19.1101 10.2876 19.9834 9.41433 19.9834 8.3374C19.9834 7.26045 19.1102 6.38721 18.0332 6.38721Z" fill="black"/></svg></div><span class="s4-bottom-cell__label">Friends</span></button>
           <button class="s4-bottom-create" aria-label="Create">
             <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M46.8487 27.577C47.0504 24.8611 47.0504 23.1341 46.8487 20.4182C45.9707 8.60136 32.3588 9.77504 24 9.77503V38.2201C32.3588 38.2201 45.9707 39.3938 46.8487 27.577Z" fill="#FA2D6C"/><path d="M1.15134 27.577C0.949553 24.8611 0.949553 23.1341 1.15134 20.4182C2.0293 8.60136 15.6412 9.77504 24 9.77503V38.2201C15.6412 38.2201 2.0293 39.3938 1.15134 27.577Z" fill="#20D5EC"/><path d="M5.45857 18.1785C5.88916 12.2475 10.9503 10.2831 15.9707 9.90886C21.316 9.51036 26.6836 9.51036 32.0289 9.90886C37.0493 10.2831 42.1105 12.2475 42.541 18.1785C42.8465 22.3857 42.8465 25.6095 42.541 29.8167C42.1105 35.7477 37.0493 37.7121 32.029 38.0863C26.6836 38.4848 21.316 38.4848 15.9707 38.0863C10.9503 37.7121 5.88916 35.7477 5.45857 29.8167C5.15313 25.6095 5.15313 22.3857 5.45857 18.1785Z" fill="#FFFFFF"/><path d="M24 18V30" stroke="#000000" stroke-width="3" stroke-linecap="round"/><path d="M18 24L30 24" stroke="#000000" stroke-width="3" stroke-linecap="round"/></svg>
           </button>
@@ -4327,14 +4398,31 @@
       <h1 class="s6-title" id="s6Title">To create a new TikTok account using your linked TikTok logins, allow the following</h1>
       <p class="s6-planb-subtitle" id="s6PlanBSubtitle" style="display:none;">You are creating a new account for yourself with the phone number that binds to the account you are logging in.</p>
 
-      <!-- Plan A: Linked accounts card -->
-      <div class="s6-center-card" id="s6CardA">
-        <img class="s6-center-card__avatar" src="coldplay-avatar.png" alt="">
-        <div class="s6-center-card__info">
-          <div class="s6-center-card__name">Coldplay</div>
-          <div class="s6-center-card__accounts">@coldplay</div>
+      <!-- Plan A: Main account card -->
+      <div class="s6-card-a-wrap" id="s6CardA">
+        <div class="s6-card-a-hero">
+          <img class="s6-card-a-hero__avatar" src="coldplay-avatar.png" alt="">
+          <div class="s6-card-a-hero__name">Coldplay</div>
+          <div class="s6-card-a-hero__sub">@coldplay</div>
         </div>
-        <svg class="s6-center-card__arrow" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7.5 5l5 5-5 5" stroke="rgba(0,0,0,0.34)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="s6-card-a-cells">
+          <div class="s6-card-a-cell">
+            <div class="s6-card-a-cell__icon"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="1" width="14" height="22" rx="3" stroke="#000" stroke-width="1.5"/><circle cx="12" cy="18.5" r="1" fill="#000"/><line x1="9" y1="4" x2="15" y2="4" stroke="#000" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+            <div class="s6-card-a-cell__text">
+              <div class="s6-card-a-cell__label">Phone number</div>
+              <div class="s6-card-a-cell__value">+1 12******56</div>
+            </div>
+            <svg class="s6-card-a-cell__arrow" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7.5 5l5 5-5 5" stroke="rgba(0,0,0,0.2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="s6-card-a-cell">
+            <div class="s6-card-a-cell__icon"><svg viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="#000" stroke-width="1.5"/><path d="M2 7l10 7 10-7" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="s6-card-a-cell__text">
+              <div class="s6-card-a-cell__label">Email</div>
+              <div class="s6-card-a-cell__value">ab******gh@gmail.com</div>
+            </div>
+            <svg class="s6-card-a-cell__arrow" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7.5 5l5 5-5 5" stroke="rgba(0,0,0,0.2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
       </div>
 
       <!-- Plan B: Phone number card -->
@@ -4930,9 +5018,8 @@
     var cardA = document.getElementById('s6CardA');
     var cardB = document.getElementById('s6CardB');
     var bodyFirst = document.getElementById('s6BodyFirst');
-    var bodySecond = document.querySelector('#screen6 .s6-body:nth-of-type(2)');
+    var allBodies = s6El ? s6El.querySelectorAll('.s6-body') : [];
     var sectionTitle = document.querySelector('#screen6 .s6-section-title');
-    var bodyThird = document.querySelector('#screen6 .s6-section-title + .s6-body');
     var subTitle = document.querySelector('#screen6 .s6-subsection-title');
     var listEl = document.querySelector('#screen6 .s6-list');
     var allowBtn = document.getElementById('s6Allow');
@@ -4940,7 +5027,7 @@
     var emailLink = document.getElementById('s6EmailLink');
     var termsPlanB = document.getElementById('s6TermsPlanB');
     var planBSub = document.getElementById('s6PlanBSubtitle');
-    var extraEls = [bodySecond, sectionTitle, bodyThird, subTitle, listEl];
+    var extraEls = [sectionTitle, subTitle, listEl];
     if (currentPlan === 'B') {
       if (s6El) s6El.classList.add('s6--plan-b');
       if (titleEl) titleEl.textContent = 'Create with this phone number';
@@ -4949,22 +5036,23 @@
       if (cardB) cardB.style.display = '';
       if (emailLink) emailLink.style.display = '';
       if (termsPlanB) termsPlanB.style.display = '';
-      if (bodyFirst) bodyFirst.style.display = 'none';
+      allBodies.forEach(function(el) { el.style.display = 'none'; });
       extraEls.forEach(function(el) { if (el) el.style.display = 'none'; });
       if (allowBtn) allowBtn.textContent = 'Continue';
       if (usePhoneBtn) usePhoneBtn.textContent = 'Use other phone or email';
     } else {
       if (s6El) s6El.classList.remove('s6--plan-b');
-      if (titleEl) titleEl.textContent = 'To create a new TikTok account using your linked TikTok logins, allow the following';
+      if (titleEl) titleEl.textContent = 'Create with this main account';
       if (planBSub) planBSub.style.display = 'none';
       if (cardA) cardA.style.display = '';
       if (cardB) cardB.style.display = 'none';
       if (emailLink) emailLink.style.display = 'none';
-      if (termsPlanB) termsPlanB.style.display = 'none';
-      if (bodyFirst) { bodyFirst.style.display = ''; bodyFirst.innerHTML = 'Creating your account this way helps unlock features that work across our products, like using the same login info to access your accounts.'; bodyFirst.style.marginTop = ''; }
-      extraEls.forEach(function(el) { if (el) el.style.display = ''; });
-      if (allowBtn) allowBtn.textContent = 'Allow and continue';
-      if (usePhoneBtn) usePhoneBtn.textContent = 'Use mobile number or email';
+      if (termsPlanB) termsPlanB.style.display = '';
+      if (bodyFirst) { bodyFirst.style.display = ''; bodyFirst.innerHTML = '<ul style="margin:0;padding-left:20px;"><li style="margin-bottom:6px;">You are creating a new account for yourself and bind to the main account above.</li><li>The new account can be logged in via the main account.</li></ul>'; }
+      allBodies.forEach(function(el) { if (el !== bodyFirst) el.style.display = 'none'; });
+      extraEls.forEach(function(el) { if (el) el.style.display = 'none'; });
+      if (allowBtn) allowBtn.textContent = 'Continue';
+      if (usePhoneBtn) usePhoneBtn.textContent = 'Use other phone or email';
     }
   }
 
@@ -5378,8 +5466,7 @@
           if (flowS2Title) flowS2Title.textContent = 'Sign up';
         }
 
-        if (def.id === 'screen6' && plan === 'B') {
-          clone.classList.add('s6--plan-b');
+        if (def.id === 'screen6') {
           var fcA = clone.querySelector('#s6CardA');
           var fcB = clone.querySelector('#s6CardB');
           var fcTitle = clone.querySelector('#s6Title');
@@ -5388,18 +5475,34 @@
           var fcAllow = clone.querySelector('#s6Allow');
           var fcUsePhone = clone.querySelector('#s6UsePhone');
           var fcPlanBSub = clone.querySelector('#s6PlanBSubtitle');
-          if (fcA) { fcA.style.display = 'none'; fcA.removeAttribute('id'); }
-          if (fcB) { fcB.style.display = ''; fcB.removeAttribute('id'); }
-          if (fcEmailLink) { fcEmailLink.style.display = ''; fcEmailLink.removeAttribute('id'); }
-          if (fcTitle) { fcTitle.textContent = 'Create with this phone number'; fcTitle.removeAttribute('id'); }
-          if (fcPlanBSub) { fcPlanBSub.style.display = ''; fcPlanBSub.removeAttribute('id'); }
-          if (fcBody) { fcBody.style.display = 'none'; fcBody.removeAttribute('id'); }
           var fcTerms = clone.querySelector('#s6TermsPlanB');
-          if (fcTerms) { fcTerms.style.display = ''; fcTerms.removeAttribute('id'); }
-          var fcExtra = clone.querySelectorAll('.s6-body:not(#s6BodyFirst), .s6-section-title, .s6-subsection-title, .s6-list');
-          fcExtra.forEach(function(el) { el.style.display = 'none'; });
-          if (fcAllow) { fcAllow.textContent = 'Continue'; fcAllow.removeAttribute('id'); }
-          if (fcUsePhone) { fcUsePhone.textContent = 'Use other phone or email'; fcUsePhone.removeAttribute('id'); }
+          var fcExtra = clone.querySelectorAll('.s6-section-title, .s6-subsection-title, .s6-list');
+          var fcBodies = clone.querySelectorAll('.s6-body');
+          if (plan === 'B') {
+            clone.classList.add('s6--plan-b');
+            if (fcA) { fcA.style.display = 'none'; fcA.removeAttribute('id'); }
+            if (fcB) { fcB.style.display = ''; fcB.removeAttribute('id'); }
+            if (fcEmailLink) { fcEmailLink.style.display = ''; fcEmailLink.removeAttribute('id'); }
+            if (fcTitle) { fcTitle.textContent = 'Create with this phone number'; fcTitle.removeAttribute('id'); }
+            if (fcPlanBSub) { fcPlanBSub.style.display = ''; fcPlanBSub.removeAttribute('id'); }
+            fcBodies.forEach(function(el) { el.style.display = 'none'; });
+            if (fcTerms) { fcTerms.style.display = ''; fcTerms.removeAttribute('id'); }
+            fcExtra.forEach(function(el) { el.style.display = 'none'; });
+            if (fcAllow) { fcAllow.textContent = 'Continue'; fcAllow.removeAttribute('id'); }
+            if (fcUsePhone) { fcUsePhone.textContent = 'Use other phone or email'; fcUsePhone.removeAttribute('id'); }
+          } else {
+            if (fcTitle) { fcTitle.textContent = 'Create with this main account'; fcTitle.removeAttribute('id'); }
+            if (fcPlanBSub) { fcPlanBSub.style.display = 'none'; fcPlanBSub.removeAttribute('id'); }
+            if (fcA) { fcA.style.display = ''; fcA.removeAttribute('id'); }
+            if (fcB) { fcB.style.display = 'none'; fcB.removeAttribute('id'); }
+            if (fcEmailLink) { fcEmailLink.style.display = 'none'; fcEmailLink.removeAttribute('id'); }
+            if (fcBody) { fcBody.style.display = ''; fcBody.innerHTML = '<ul style="margin:0;padding-left:20px;"><li style="margin-bottom:6px;">You are creating a new account for yourself and bind to the main account above.</li><li>The new account can be logged in via the main account.</li></ul>'; fcBody.removeAttribute('id'); }
+            fcBodies.forEach(function(el) { if (el !== fcBody) el.style.display = 'none'; });
+            if (fcTerms) { fcTerms.style.display = ''; fcTerms.removeAttribute('id'); }
+            fcExtra.forEach(function(el) { el.style.display = 'none'; });
+            if (fcAllow) { fcAllow.textContent = 'Continue'; fcAllow.removeAttribute('id'); }
+            if (fcUsePhone) { fcUsePhone.textContent = 'Use other phone or email'; fcUsePhone.removeAttribute('id'); }
+          }
         }
 
         frame.appendChild(clone);
@@ -5655,7 +5758,7 @@
   // ========== Add phone (hamburger on profile screens) ==========
   function demoToast(msg) {
     var t = document.createElement('div');
-    t.style.cssText = 'position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.78);color:#fff;padding:10px 18px;border-radius:10px;font-size:13px;z-index:100000;font-family:-apple-system,sans-serif;max-width:90vw;pointer-events:none;';
+    t.style.cssText = 'position:fixed;top:66px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.78);color:#fff;padding:10px 18px;border-radius:999px;font-size:13px;z-index:100000;font-family:-apple-system,sans-serif;max-width:90vw;pointer-events:none;white-space:nowrap;';
     t.textContent = msg;
     document.body.appendChild(t);
     setTimeout(function() { if (t.parentNode) t.parentNode.removeChild(t); }, 1600);
