@@ -3958,16 +3958,17 @@
     <div class="sai-wrap" style="background:#f5f5f5;">
       <p class="sai-section-label">Account information</p>
       <div class="sai-card">
-        <div class="sai-row">
+        <div class="sai-row" id="saiPhoneRow" style="cursor:pointer;">
           <span class="sai-row__label">Phone number</span>
           <div class="sai-row__right">
+            <span class="sai-row__value" id="saiPhoneValue"></span>
             <svg class="sai-row__chevron" viewBox="0 0 20 20" fill="none"><path d="M7.5 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
         </div>
         <div class="sai-row">
           <span class="sai-row__label">Email</span>
           <div class="sai-row__right">
-            <span class="sai-row__value">2***4@qq.com</span>
+            <span class="sai-row__value" id="saiEmailValue"></span>
             <svg class="sai-row__chevron" viewBox="0 0 20 20" fill="none"><path d="M7.5 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
         </div>
@@ -4883,6 +4884,8 @@
   }
 
   function resetToScreen1() {
+    savedAccountPhone = '';
+    refreshAccountInfoDisplay();
     closeAddPhoneScreen();
     clearInterval(timerInterval12);
     ['screen1','screen2','screen3','screen12','screen13','screen15','screen15b','screen15c','screen16','screenAccountInfo','screen4','screen5','screen6','screen7','screen10','screen11','screen14'].forEach(function(id) {
@@ -5012,6 +5015,21 @@
 
   // ========== Screen 12: Verification after Add phone（UI 与 screen3 一致）==========
   var addPhoneVerifyFromScreenId = 'screen4';
+  var savedAccountPhone = '';
+
+  function formatAccountPhoneDisplay(digits) {
+    var d = (digits || '').replace(/\D/g, '').slice(0, 14);
+    if (!d) return '';
+    if (d.length === 10) return '+1 ' + d.slice(0, 3) + '-' + d.slice(3, 6) + '-' + d.slice(6);
+    return '+1 ' + d;
+  }
+
+  function refreshAccountInfoDisplay() {
+    var p = document.getElementById('saiPhoneValue');
+    var e = document.getElementById('saiEmailValue');
+    if (p) p.textContent = savedAccountPhone || '';
+    if (e) e.textContent = '';
+  }
   var codeDigits12 = ['1', '2', '', '', '', ''];
   var codePos12 = 2;
 
@@ -5118,7 +5136,11 @@
   });
 
   document.getElementById('s15cConfirmBind').addEventListener('click', function() {
-    goToFromRight('screen15c', 'screen16');
+    var phone = (document.getElementById('addPhoneInput').value || '').replace(/\D/g, '');
+    savedAccountPhone = formatAccountPhoneDisplay(phone || '4129196666');
+    refreshAccountInfoDisplay();
+    goToFromRight('screen15c', 'screenAccountInfo');
+    setTimeout(function() { demoToast('Phone number added successfully'); }, 400);
   });
 
   document.getElementById('s15cChangePhone').addEventListener('click', function() {
@@ -5134,6 +5156,9 @@
   });
 
   document.getElementById('s15bConfirm').addEventListener('click', function() {
+    var phone = (document.getElementById('addPhoneInput').value || '').replace(/\D/g, '');
+    savedAccountPhone = formatAccountPhoneDisplay(phone || '4129196666');
+    refreshAccountInfoDisplay();
     goToFromRight('screen15b', 'screenAccountInfo');
     setTimeout(function() { demoToast('Phone number added successfully'); }, 400);
   });
@@ -5151,6 +5176,9 @@
   });
 
   document.getElementById('s16Confirm').addEventListener('click', function() {
+    var phone = (document.getElementById('addPhoneInput').value || '').replace(/\D/g, '');
+    savedAccountPhone = formatAccountPhoneDisplay(phone || '4129196666');
+    refreshAccountInfoDisplay();
     goToFromRight('screen16', 'screenAccountInfo');
     setTimeout(function() { demoToast('Phone number added successfully'); }, 400);
   });
@@ -5165,6 +5193,11 @@
   // Screen Account Info
   document.getElementById('saiBack').addEventListener('click', function() {
     goBack('screenAccountInfo', 'screen4');
+  });
+
+  document.getElementById('saiPhoneRow').addEventListener('click', function() {
+    addPhoneVerifyFromScreenId = 'screenAccountInfo';
+    openAddPhoneScreen();
   });
 
   function ensureS12ResendMarkup() {
@@ -5610,14 +5643,14 @@
       { id: 'screen2', label: 'Phone (reused)', badge: 'Sign up flow', from: 9, col: 8, row: 1 },
       { id: 'screen3', label: 'Verify (reused)', badge: 'Sign up flow', from: 10, col: 9, row: 1 },
       { id: 'screen10', label: 'New Empty Profile', badge: 'After verify', badgeAlt: true, from: 11, col: 10, row: 1 },
-      { id: 'screen4', label: 'Add phone', panel: 'addPhone', badge: 'Profile → ⋮', from: 3, col: 3, row: 2 },
-      { id: 'screen12', label: 'Verify (Add phone)', badge: 'SMS code', from: 12, col: 4, row: 2 },
-      { id: 'screen13', label: 'Binding status', badge: 'Pick one', from: 13, col: 5, row: 2 },
-      { id: 'screen15', label: 'Already linked', badge: 'If bound', from: 15, col: 6, row: 2 },
-      { id: 'screen16', label: 'Confirm link', badge: 'Confirm link', from: 16, col: 7, row: 2 },
-      { id: 'screenAccountInfo', label: 'Account Info', badge: 'Result', from: 17, col: 8, row: 2 },
-      { id: 'screen15c', label: 'Bound to another', badge: 'If not bound', from: 15, col: 6, row: 3 },
-      { id: 'screen16', label: 'Confirm link', badge: 'Confirm link', from: 19, col: 7, row: 3 },
+      { id: 'screenAccountInfo', label: 'Account Info', badge: 'Profile → ⋮', from: 3, col: 3, row: 2 },
+      { id: 'screenAccountInfo', label: 'Add phone', panel: 'addPhone', badge: 'Phone number →', from: 13, col: 4, row: 2 },
+      { id: 'screen12', label: 'Verify (Add phone)', badge: 'SMS code', from: 14, col: 5, row: 2 },
+      { id: 'screen13', label: 'Binding status', badge: 'Pick one', from: 15, col: 6, row: 2 },
+      { id: 'screen15', label: 'Already linked', badge: 'If bound', from: 16, col: 7, row: 2 },
+      { id: 'screen16', label: 'Confirm link', badge: 'Confirm link', from: 17, col: 8, row: 2 },
+      { id: 'screenAccountInfo', label: 'Account Info', badge: 'Result', from: 18, col: 9, row: 2 },
+      { id: 'screen15c', label: 'Bound to another', badge: 'If not bound', from: 16, col: 7, row: 3 },
       { id: 'screenAccountInfo', label: 'Account Info', badge: 'Result', from: 20, col: 8, row: 3 }
     ],
     B: [
@@ -5635,11 +5668,12 @@
       { id: 'screen2', label: 'Phone (reused)', badge: 'Sign up flow', from: 10, col: 9, row: 1 },
       { id: 'screen3', label: 'Verify (reused)', badge: 'Sign up flow', from: 11, col: 10, row: 1 },
       { id: 'screen10', label: 'New Empty Profile', badge: 'After verify', badgeAlt: true, from: 12, col: 11, row: 1 },
-      { id: 'screen4', label: 'Add phone', panel: 'addPhone', badge: 'Profile → ⋮', from: 4, col: 3, row: 2 },
-      { id: 'screen12', label: 'Verify (Add phone)', badge: 'SMS code', from: 14, col: 4, row: 2 },
-      { id: 'screen13', label: 'Binding status', badge: 'Pick one', from: 15, col: 5, row: 2 },
-      { id: 'screen15b', label: 'Phone linked', badge: 'If bound (B)', from: 16, col: 6, row: 2 },
-      { id: 'screenAccountInfo', label: 'Account Info', badge: 'Result', from: 17, col: 7, row: 2 }
+      { id: 'screenAccountInfo', label: 'Account Info', badge: 'Profile → ⋮', from: 4, col: 3, row: 2 },
+      { id: 'screenAccountInfo', label: 'Add phone', panel: 'addPhone', badge: 'Phone number →', from: 14, col: 4, row: 2 },
+      { id: 'screen12', label: 'Verify (Add phone)', badge: 'SMS code', from: 15, col: 5, row: 2 },
+      { id: 'screen13', label: 'Binding status', badge: 'Pick one', from: 16, col: 6, row: 2 },
+      { id: 'screen15b', label: 'Phone linked', badge: 'If bound (B)', from: 17, col: 7, row: 2 },
+      { id: 'screenAccountInfo', label: 'Account Info', badge: 'Result', from: 18, col: 8, row: 2 }
     ]
   };
 
@@ -5683,25 +5717,25 @@
       frame.className = 'flow-card__frame';
 
       if (def.panel === 'addPhone') {
-        var profileBase = document.getElementById('screen4');
+        var aiBase = document.getElementById('screenAccountInfo');
         var addPhoneSrc = document.getElementById('addPhoneScreen');
-        if (profileBase && addPhoneSrc) {
-          var profileClone = profileBase.cloneNode(true);
-          profileClone.removeAttribute('id');
-          profileClone.classList.remove('active', 'hidden-left', 'hidden-right');
-          profileClone.classList.add('screen');
-          profileClone.style.cssText = '';
+        if (aiBase && addPhoneSrc) {
+          var aiClone = aiBase.cloneNode(true);
+          aiClone.removeAttribute('id');
+          aiClone.classList.remove('active', 'hidden-left', 'hidden-right');
+          aiClone.classList.add('screen');
+          aiClone.style.cssText = '';
           var apClone = addPhoneSrc.cloneNode(true);
           apClone.removeAttribute('id');
           apClone.classList.add('is-open');
           apClone.setAttribute('aria-hidden', 'false');
           var wrap = document.createElement('div');
           wrap.className = 'flow-addphone-wrap';
-          wrap.appendChild(profileClone);
+          wrap.appendChild(aiClone);
           wrap.appendChild(apClone);
           frame.appendChild(wrap);
-        } else if (profileBase) {
-          var fallback = profileBase.cloneNode(true);
+        } else if (aiBase) {
+          var fallback = aiBase.cloneNode(true);
           fallback.removeAttribute('id');
           fallback.classList.remove('active', 'hidden-left', 'hidden-right');
           fallback.classList.add('screen');
@@ -5915,6 +5949,7 @@
     } else if (panel === 'add') {
       setTimeout(function() { addOverlay.classList.add('visible'); addSheet.classList.add('visible'); }, 100);
     } else if (panel === 'addPhone') {
+      addPhoneVerifyFromScreenId = 'screenAccountInfo';
       setTimeout(openAddPhoneScreen, 100);
     }
 
@@ -6071,7 +6106,8 @@
   document.querySelectorAll('.s4-nav-menu-btn').forEach(function(btn) {
     btn.addEventListener('click', function(e) {
       e.preventDefault();
-      openAddPhoneScreen();
+      refreshAccountInfoDisplay();
+      goToFromRight('screen4', 'screenAccountInfo');
     });
   });
 
@@ -6092,7 +6128,7 @@
       cont.addEventListener('click', function() {
         var phone = (document.getElementById('addPhoneInput').value || '').replace(/\D/g, '');
         var active = document.querySelector('.screen.active');
-        addPhoneVerifyFromScreenId = active && active.id ? active.id : 'screen4';
+        addPhoneVerifyFromScreenId = (active && active.id === 'screenAccountInfo') ? 'screenAccountInfo' : (active && active.id ? active.id : 'screen4');
         var disp = document.getElementById('s12PhoneDisplay');
         if (disp) disp.textContent = 'Your code was sent to +1 ' + (phone || '4129196666');
         closeAddPhoneScreen();
