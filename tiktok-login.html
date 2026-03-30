@@ -790,53 +790,220 @@
   /* Screen 15: 手机号已绑定 — 展示已占用账号 */
   .s15-wrap {
     position: absolute;
-    top: 107px;
-    left: 24px;
-    right: 24px;
-    bottom: 40px;
+    top: 91px;
+    left: 0;
+    right: 0;
+    bottom: 30px;
     display: flex;
     flex-direction: column;
+  }
+  .s15-content {
+    flex: 1;
+    padding: 0 32px;
+    position: relative;
   }
   .s15-title {
     font-family: 'TikTok Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
     font-weight: 700;
-    font-size: 28px;
+    font-size: 32px;
     line-height: 1.2;
     color: #000;
-    margin: 0 0 12px 0;
+    margin: 36px 0 0 0;
+    width: 326px;
   }
   .s15-desc {
     font-family: 'TikTok Sans', -apple-system, sans-serif;
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1.3;
-    color: rgba(0, 0, 0, 0.5);
-    margin: 0 0 12px 0;
+    color: rgba(0, 0, 0, 0.48);
+    margin: 12px 0 0 3px;
+    width: 326px;
   }
-  .s15-bound-card.s5-account-card {
-    cursor: default;
-    pointer-events: none;
+  .s15-illustration {
+    display: block;
+    width: 317px;
+    margin: 40px auto 0 8px;
+    height: auto;
   }
-  .s15-bound-card.s5-account-card:hover,
-  .s15-bound-card.s5-account-card:active {
-    background: rgba(0, 0, 0, 0.03);
+  .s15-card-main {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #f8f8f8;
+    border-radius: 14px;
+    padding: 12px;
+    margin-top: 24px;
+    width: 317px;
+  }
+  .s15-card-main__avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  .s15-card-main__info {
+    flex: 1;
+    min-width: 0;
+  }
+  .s15-card-main__name {
+    font-family: 'TikTok Sans', -apple-system, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.3;
+    color: #000;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .s15-card-main__handle {
+    font-family: 'TikTok Sans', -apple-system, sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.3;
+    color: rgba(0, 0, 0, 0.48);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 6px;
+  }
+  .s15-card-main__chevron {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    color: rgba(0, 0, 0, 0.2);
+  }
+  .s15-connector {
+    position: relative;
+    height: 70px;
+    margin-left: 35px;
+  }
+  .s15-connector__line {
+    position: absolute;
+    left: 16px;
+    top: -4px;
+    width: 0;
+    height: calc(50% + 4px);
+    border-left: 2px dashed rgba(0,0,0,0.18);
+  }
+  .s15-connector__branch {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    width: 28px;
+    height: 0;
+    border-top: 2px dashed rgba(0,0,0,0.18);
+  }
+  .s15-connector__icon {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .s15-connector__icon svg {
+    width: 18px;
+    height: 18px;
+    color: rgba(0,0,0,0.45);
+  }
+  .s15-card-sub {
+    display: flex;
+    align-items: center;
+    gap: 12.8px;
+    background: #f8f8f8;
+    border-radius: 11.2px;
+    padding: 9.6px;
+    margin-left: 76px;
+    width: 240px;
+  }
+  .s15-card-sub__avatar {
+    width: 38.4px;
+    height: 38.4px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  .s15-card-sub__info {
+    flex: 1;
+    min-width: 0;
+  }
+  .s15-card-sub__name-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .s15-card-sub__name {
+    font-family: 'TikTok Sans', -apple-system, sans-serif;
+    font-weight: 600;
+    font-size: 12.8px;
+    line-height: 1.3;
+    color: #000;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .s15-card-sub__badge {
+    background: #fff;
+    border-radius: 4px;
+    padding: 0 2px;
+    font-family: 'TikTok Sans', -apple-system, sans-serif;
+    font-weight: 400;
+    font-size: 7px;
+    line-height: 1.3;
+    color: #fe2c55;
+    white-space: nowrap;
+    height: 10px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .s15-card-sub__handle {
+    font-family: 'TikTok Sans', -apple-system, sans-serif;
+    font-weight: 400;
+    font-size: 10.4px;
+    line-height: 1.3;
+    color: rgba(0, 0, 0, 0.48);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 4.8px;
+  }
+  .s15-card-sub__phone {
+    font-family: 'TikTok Sans', -apple-system, sans-serif;
+    font-weight: 400;
+    font-size: 10.4px;
+    line-height: 1.3;
+    color: rgba(0, 0, 0, 0.48);
+    margin-top: 1.6px;
+  }
+  .s15-card-sub__chevron {
+    width: 12.8px;
+    height: 12.8px;
+    flex-shrink: 0;
+    color: rgba(0, 0, 0, 0.2);
   }
   .s15-actions {
-    margin-top: auto;
-    padding-top: 24px;
+    padding: 16px 20px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
   }
   .s15-btn-primary {
     width: 100%;
-    height: 48px;
+    height: 52px;
     border-radius: 999px;
     border: none;
     background: #fe2c55;
     color: #fff;
-    font-family: 'TikTok Text', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'TikTok Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1.3;
     cursor: pointer;
   }
@@ -845,19 +1012,75 @@
   }
   .s15-btn-secondary {
     width: 100%;
-    height: 48px;
+    height: 52px;
     border-radius: 999px;
     border: none;
-    background: rgba(0, 0, 0, 0.06);
-    color: #161823;
-    font-family: 'TikTok Text', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: rgba(0, 0, 0, 0.05);
+    color: #000;
+    font-family: 'TikTok Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1.3;
     cursor: pointer;
   }
   .s15-btn-secondary:active {
     background: rgba(0, 0, 0, 0.1);
+  }
+
+  /* Screen Account Info: 账号信息结果页 */
+  .sai-wrap {
+    position: absolute;
+    top: 91px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  .sai-section-label {
+    font-family: 'TikTok Sans', -apple-system, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.3;
+    color: rgba(0,0,0,0.4);
+    padding: 20px 16px 10px;
+  }
+  .sai-card {
+    background: #fff;
+    margin: 0;
+  }
+  .sai-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 16px;
+    min-height: 50px;
+  }
+  .sai-row + .sai-row {
+    border-top: 0.5px solid rgba(0,0,0,0.06);
+  }
+  .sai-row__label {
+    font-family: 'TikTok Sans', -apple-system, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.3;
+    color: #000;
+  }
+  .sai-row__right {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .sai-row__value {
+    font-family: 'TikTok Sans', -apple-system, sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.3;
+    color: rgba(0,0,0,0.4);
+  }
+  .sai-row__chevron {
+    width: 20px;
+    height: 20px;
+    color: rgba(0,0,0,0.2);
+    flex-shrink: 0;
   }
 
   /* Screen 15b: Plan B — 以手机号为核心，展示多个并列账号 */
@@ -2447,85 +2670,64 @@
   }
   .s6-center-card:active { background: #ebebeb; }
   .s6-card-a-wrap {
-    border-radius: 16px;
-    overflow: hidden;
+    background: #f8f8f8;
+    border-radius: 14px;
+    padding: 16px;
     margin-bottom: 20px;
   }
-  .s6-card-a-hero {
-    background: transparent;
+  .s6-card-a-header {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    padding: 8px 20px 20px;
+    gap: 12px;
+    margin-bottom: 14px;
   }
-  .s6-card-a-hero__avatar {
-    width: 72px;
-    height: 72px;
+  .s6-card-a-header__avatar {
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     object-fit: cover;
-    margin-bottom: 12px;
-    background: #e0e0e0;
-    box-shadow: 0 0 0 2px #fff;
-  }
-  .s6-card-a-hero__name {
-    font-weight: 700;
-    font-size: 18px;
-    line-height: 1.3;
-    color: #000;
-  }
-  .s6-card-a-hero__sub {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 1.4;
-    color: rgba(0,0,0,0.4);
-    margin-top: 2px;
-  }
-  .s6-card-a-cells {
-    background: #f5f5f5;
-    border-radius: 12px;
-  }
-  .s6-card-a-cell {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 14px 16px;
-  }
-  .s6-card-a-cell + .s6-card-a-cell {
-    border-top: 1px solid rgba(0,0,0,0.06);
-  }
-  .s6-card-a-cell__icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(0,0,0,0.08);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     flex-shrink: 0;
+    background: #e0e0e0;
   }
-  .s6-card-a-cell__icon svg {
-    width: 20px;
-    height: 20px;
-  }
-  .s6-card-a-cell__text {
+  .s6-card-a-header__info {
     flex: 1;
     min-width: 0;
   }
-  .s6-card-a-cell__label {
+  .s6-card-a-header__name {
     font-weight: 600;
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.3;
     color: #000;
   }
-  .s6-card-a-cell__value {
+  .s6-card-a-header__handle {
     font-weight: 400;
-    font-size: 13px;
-    line-height: 1.4;
-    color: rgba(0,0,0,0.4);
+    font-size: 14px;
+    line-height: 1.3;
+    color: rgba(0,0,0,0.48);
     margin-top: 2px;
   }
-  .s6-card-a-cell__arrow {
+  .s6-card-a-detail {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 0;
+  }
+  .s6-card-a-detail__icon {
+    width: 18px;
+    height: 18px;
     flex-shrink: 0;
+    color: rgba(0,0,0,0.35);
+  }
+  .s6-card-a-detail__icon svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+  }
+  .s6-card-a-detail__text {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.4;
+    color: rgba(0,0,0,0.75);
   }
 
   .s6-center-card__avatar {
@@ -3556,40 +3758,52 @@
     </div>
 
     <div class="s15-wrap">
-      <div class="s15-top">
-        <h1 class="s15-title">Link as a secondary account</h1>
+      <div class="s15-content">
+        <h1 class="s15-title">Link {phone} to {小号 username}</h1>
+        <p class="s15-desc">After linking the phone number, {小号 username} will become a seperate main account and unlink with {大号 username}</p>
 
-        <div class="s16-illust" style="margin: 4px 0 16px;">
-          <svg viewBox="0 0 200 96" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="50" cy="36" r="22" fill="#7159a7"/>
-            <text x="50" y="42" text-anchor="middle" fill="#fff" font-size="17" font-weight="700" font-family="sans-serif">C</text>
-            <text x="50" y="72" text-anchor="middle" fill="#000" font-size="8.5" font-weight="500" font-family="sans-serif">coldplay1</text>
-            <text x="50" y="84" text-anchor="middle" fill="rgba(0,0,0,0.38)" font-size="7" font-family="sans-serif">Current</text>
-            <circle cx="100" cy="36" r="12" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="1.2"/>
-            <path d="M95 36h10M101.5 32l3.5 4-3.5 4" stroke="rgba(0,0,0,0.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-            <circle cx="150" cy="36" r="22" fill="#e8e8e8"/>
-            <foreignObject x="128" y="14" width="44" height="44"><img xmlns="http://www.w3.org/1999/xhtml" src="coldplay-avatar.png" style="width:44px;height:44px;border-radius:50%;object-fit:cover;" alt=""/></foreignObject>
-            <text x="150" y="72" text-anchor="middle" fill="#000" font-size="8.5" font-weight="500" font-family="sans-serif">Coldplay</text>
-            <text x="150" y="84" text-anchor="middle" fill="rgba(0,0,0,0.38)" font-size="7" font-family="sans-serif">Main account</text>
-          </svg>
-        </div>
-
-        <p class="s15-desc">Main account associated with this phone number:</p>
-        <div class="s5-account-card s15-bound-card" aria-hidden="true">
-          <img class="s5-account-card__avatar" src="coldplay-avatar.png" alt="">
-          <div class="s5-account-card__info">
-            <div class="s5-account-card__name">
-              Coldplay
-              <img src="https://p16-sign-sg.tiktokcdn.com/tos-alisg-avt-0068/verified-badge.png" onerror="this.style.display='none'" alt="">
-            </div>
-            <div class="s5-account-card__handle">@coldplay</div>
-            <div class="s5-account-card__meta">12.3M followers · 298 posts</div>
-          </div>
-        </div>
+        <img class="s15-illustration" src="s15-illustration.png" alt="Account linking illustration">
       </div>
+
       <div class="s15-actions">
         <button type="button" class="s15-btn-primary" id="s15ConfirmBind">Confirm and link</button>
         <button type="button" class="s15-btn-secondary" id="s15ChangePhone">Use a different phone number</button>
+      </div>
+    </div>
+
+    <div class="home-indicator" style="z-index: 20;"></div>
+  </div>
+
+  <!-- ==================== SCREEN 15c: Plan A — 手机号没有被绑定过 ==================== -->
+  <div class="screen hidden-right" id="screen15c">
+    <div class="status-bar">
+      <span class="status-bar__time">8:00</span>
+      <div class="status-bar__icons">
+        <img class="status-bar__signal" src="https://www.figma.com/api/mcp/asset/865282a0-e196-4f57-af67-cfcaf63151be" alt="">
+        <img class="status-bar__wifi" src="https://www.figma.com/api/mcp/asset/535f2985-bab0-4893-9c25-58db52f6a5ff" alt="">
+        <img class="status-bar__battery" src="https://www.figma.com/api/mcp/asset/08a454b6-3c04-4122-9213-77dcd9a70f4f" alt="">
+      </div>
+    </div>
+
+    <div class="nav-bar">
+      <button class="nav-bar__back-btn" id="s15cBack" aria-label="Back">
+        <div class="nav-bar__back-icon"></div>
+      </button>
+      <span class="nav-bar__title"></span>
+      <div style="width:44px;height:44px;flex-shrink:0;" aria-hidden="true"></div>
+    </div>
+
+    <div class="s15-wrap">
+      <div class="s15-content">
+        <h1 class="s15-title">{phone number} is bound to another account.</h1>
+        <p class="s15-desc">The current account can be associated with {phone number} by linking to the account above and removing the exsisting login credentials</p>
+
+        <img class="s15-illustration" src="s15c-illustration.png" alt="Account linking illustration">
+      </div>
+
+      <div class="s15-actions">
+        <button type="button" class="s15-btn-primary" id="s15cConfirmBind">Confirm and link</button>
+        <button type="button" class="s15-btn-secondary" id="s15cChangePhone">Use a different phone number</button>
       </div>
     </div>
 
@@ -3620,7 +3834,7 @@
       <p class="s15b-phone" id="s15bPhone">+1 412-919-6666</p>
       <p class="s15b-subtitle">This phone number is already linked to the following accounts.</p>
 
-      <p class="s15b-section-label">Linked accounts</p>
+      <p class="s15b-section-label">Linked accounts (2)</p>
       <div class="s15b-accounts">
         <div class="s15b-account">
           <img class="s15b-account__avatar" src="coldplay-avatar.png" alt="">
@@ -3637,13 +3851,6 @@
           <div class="s15b-account__info">
             <div class="s15b-account__name">coldplay1</div>
             <div class="s15b-account__handle">@coldplay1</div>
-          </div>
-        </div>
-        <div class="s15b-account">
-          <div class="s15b-account__avatar s15b-account__avatar--letter" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">J</div>
-          <div class="s15b-account__info">
-            <div class="s15b-account__name">john_music</div>
-            <div class="s15b-account__handle">@john_music</div>
           </div>
         </div>
       </div>
@@ -3723,6 +3930,54 @@
       <div class="s16-actions">
         <button type="button" class="s15-btn-primary" id="s16Confirm">Confirm</button>
         <button type="button" class="s15-btn-secondary" id="s16ChangePhone">Change phone number</button>
+      </div>
+    </div>
+
+    <div class="home-indicator" style="z-index: 20;"></div>
+  </div>
+
+  <!-- ==================== SCREEN Account Info: 添加手机号成功结果页 ==================== -->
+  <div class="screen hidden-right" id="screenAccountInfo">
+    <div class="status-bar">
+      <span class="status-bar__time">8:00</span>
+      <div class="status-bar__icons">
+        <img class="status-bar__signal" src="https://www.figma.com/api/mcp/asset/865282a0-e196-4f57-af67-cfcaf63151be" alt="">
+        <img class="status-bar__wifi" src="https://www.figma.com/api/mcp/asset/535f2985-bab0-4893-9c25-58db52f6a5ff" alt="">
+        <img class="status-bar__battery" src="https://www.figma.com/api/mcp/asset/08a454b6-3c04-4122-9213-77dcd9a70f4f" alt="">
+      </div>
+    </div>
+
+    <div class="nav-bar">
+      <button class="nav-bar__back-btn" id="saiBack" aria-label="Back">
+        <div class="nav-bar__back-icon"></div>
+      </button>
+      <span class="nav-bar__title" style="font-weight:700;font-size:17px;">Account Information</span>
+      <div style="width:44px;height:44px;flex-shrink:0;" aria-hidden="true"></div>
+    </div>
+
+    <div class="sai-wrap" style="background:#f5f5f5;">
+      <p class="sai-section-label">Account information</p>
+      <div class="sai-card">
+        <div class="sai-row">
+          <span class="sai-row__label">Phone number</span>
+          <div class="sai-row__right">
+            <svg class="sai-row__chevron" viewBox="0 0 20 20" fill="none"><path d="M7.5 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+        <div class="sai-row">
+          <span class="sai-row__label">Email</span>
+          <div class="sai-row__right">
+            <span class="sai-row__value">2***4@qq.com</span>
+            <svg class="sai-row__chevron" viewBox="0 0 20 20" fill="none"><path d="M7.5 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+        <div class="sai-row">
+          <span class="sai-row__label">Date of birth</span>
+          <div class="sai-row__right">
+            <span class="sai-row__value">Oct 24, 1996</span>
+            <svg class="sai-row__chevron" viewBox="0 0 20 20" fill="none"><path d="M7.5 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -4400,28 +4655,20 @@
 
       <!-- Plan A: Main account card -->
       <div class="s6-card-a-wrap" id="s6CardA">
-        <div class="s6-card-a-hero">
-          <img class="s6-card-a-hero__avatar" src="coldplay-avatar.png" alt="">
-          <div class="s6-card-a-hero__name">Coldplay</div>
-          <div class="s6-card-a-hero__sub">@coldplay</div>
+        <div class="s6-card-a-header">
+          <img class="s6-card-a-header__avatar" src="coldplay-avatar.png" alt="">
+          <div class="s6-card-a-header__info">
+            <div class="s6-card-a-header__name">Coldplay</div>
+            <div class="s6-card-a-header__handle">@coldplay</div>
+          </div>
         </div>
-        <div class="s6-card-a-cells">
-          <div class="s6-card-a-cell">
-            <div class="s6-card-a-cell__icon"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="1" width="14" height="22" rx="3" stroke="#000" stroke-width="1.5"/><circle cx="12" cy="18.5" r="1" fill="#000"/><line x1="9" y1="4" x2="15" y2="4" stroke="#000" stroke-width="1.2" stroke-linecap="round"/></svg></div>
-            <div class="s6-card-a-cell__text">
-              <div class="s6-card-a-cell__label">Phone number</div>
-              <div class="s6-card-a-cell__value">+1 12******56</div>
-            </div>
-            <svg class="s6-card-a-cell__arrow" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7.5 5l5 5-5 5" stroke="rgba(0,0,0,0.2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <div class="s6-card-a-cell">
-            <div class="s6-card-a-cell__icon"><svg viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="#000" stroke-width="1.5"/><path d="M2 7l10 7 10-7" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <div class="s6-card-a-cell__text">
-              <div class="s6-card-a-cell__label">Email</div>
-              <div class="s6-card-a-cell__value">ab******gh@gmail.com</div>
-            </div>
-            <svg class="s6-card-a-cell__arrow" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7.5 5l5 5-5 5" stroke="rgba(0,0,0,0.2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
+        <div class="s6-card-a-detail">
+          <div class="s6-card-a-detail__icon"><svg viewBox="0 0 18 18" fill="none"><rect x="4" y="1" width="10" height="16" rx="2.2" stroke="currentColor" stroke-width="1.2"/><circle cx="9" cy="14" r="0.7" fill="currentColor"/><line x1="7" y1="3.2" x2="11" y2="3.2" stroke="currentColor" stroke-width="0.8" stroke-linecap="round"/></svg></div>
+          <span class="s6-card-a-detail__text">+1 123-234-3456</span>
+        </div>
+        <div class="s6-card-a-detail">
+          <div class="s6-card-a-detail__icon"><svg viewBox="0 0 18 18" fill="none"><rect x="2" y="3.5" width="14" height="11" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M2 6.5l7 4.5 7-4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span class="s6-card-a-detail__text">ab******gh@gmail.com</span>
         </div>
       </div>
 
@@ -4638,7 +4885,7 @@
   function resetToScreen1() {
     closeAddPhoneScreen();
     clearInterval(timerInterval12);
-    ['screen1','screen2','screen3','screen12','screen13','screen15','screen15b','screen16','screen4','screen5','screen6','screen7','screen10','screen11','screen14'].forEach(function(id) {
+    ['screen1','screen2','screen3','screen12','screen13','screen15','screen15b','screen15c','screen16','screenAccountInfo','screen4','screen5','screen6','screen7','screen10','screen11','screen14'].forEach(function(id) {
       var el = document.getElementById(id);
       if (!el) return;
       el.classList.remove('active','hidden-left','hidden-right');
@@ -4831,8 +5078,12 @@
   });
 
   document.getElementById('s13OptNotBound').addEventListener('click', function() {
-    demoToast('This number is not linked to another account.');
-    goToFromRight('screen13', addPhoneVerifyFromScreenId);
+    if (currentPlan === 'A') {
+      goToFromRight('screen13', 'screen15c');
+    } else {
+      demoToast('This number is not linked to another account.');
+      goToFromRight('screen13', addPhoneVerifyFromScreenId);
+    }
   });
 
   document.getElementById('s13OptBound').addEventListener('click', function() {
@@ -4861,13 +5112,29 @@
     }, 350);
   });
 
+  // Screen 15c (Plan A — not bound)
+  document.getElementById('s15cBack').addEventListener('click', function() {
+    goBack('screen15c', 'screen13');
+  });
+
+  document.getElementById('s15cConfirmBind').addEventListener('click', function() {
+    goToFromRight('screen15c', 'screen16');
+  });
+
+  document.getElementById('s15cChangePhone').addEventListener('click', function() {
+    goToFromRight('screen15c', addPhoneVerifyFromScreenId);
+    setTimeout(function() {
+      openAddPhoneScreen();
+    }, 350);
+  });
+
   // Screen 15b (Plan B)
   document.getElementById('s15bBack').addEventListener('click', function() {
     goBack('screen15b', 'screen13');
   });
 
   document.getElementById('s15bConfirm').addEventListener('click', function() {
-    goToFromRight('screen15b', addPhoneVerifyFromScreenId);
+    goToFromRight('screen15b', 'screenAccountInfo');
     setTimeout(function() { demoToast('Phone number added successfully'); }, 400);
   });
 
@@ -4884,8 +5151,8 @@
   });
 
   document.getElementById('s16Confirm').addEventListener('click', function() {
-    goToFromRight('screen16', addPhoneVerifyFromScreenId);
-    setTimeout(function() { demoToast('Phone number linked successfully'); }, 400);
+    goToFromRight('screen16', 'screenAccountInfo');
+    setTimeout(function() { demoToast('Phone number added successfully'); }, 400);
   });
 
   document.getElementById('s16ChangePhone').addEventListener('click', function() {
@@ -4893,6 +5160,11 @@
     setTimeout(function() {
       openAddPhoneScreen();
     }, 350);
+  });
+
+  // Screen Account Info
+  document.getElementById('saiBack').addEventListener('click', function() {
+    goBack('screenAccountInfo', 'screen4');
   });
 
   function ensureS12ResendMarkup() {
@@ -5341,9 +5613,12 @@
       { id: 'screen4', label: 'Add phone', panel: 'addPhone', badge: 'Profile → ⋮', from: 3, col: 3, row: 2 },
       { id: 'screen12', label: 'Verify (Add phone)', badge: 'SMS code', from: 12, col: 4, row: 2 },
       { id: 'screen13', label: 'Binding status', badge: 'Pick one', from: 13, col: 5, row: 2 },
-      { id: 'screen15', label: 'Already linked', badge: 'If bound', from: 14, col: 6, row: 2 },
-      { id: 'screen16', label: 'Confirm link', badge: 'Confirm link', from: 15, col: 7, row: 2 },
-      { id: 'screen4', label: 'Profile', badge: 'If not linked', from: 14, col: 7, row: 3 }
+      { id: 'screen15', label: 'Already linked', badge: 'If bound', from: 15, col: 6, row: 2 },
+      { id: 'screen16', label: 'Confirm link', badge: 'Confirm link', from: 16, col: 7, row: 2 },
+      { id: 'screenAccountInfo', label: 'Account Info', badge: 'Result', from: 17, col: 8, row: 2 },
+      { id: 'screen15c', label: 'Bound to another', badge: 'If not bound', from: 15, col: 6, row: 3 },
+      { id: 'screen16', label: 'Confirm link', badge: 'Confirm link', from: 19, col: 7, row: 3 },
+      { id: 'screenAccountInfo', label: 'Account Info', badge: 'Result', from: 20, col: 8, row: 3 }
     ],
     B: [
       { id: 'screen1', label: 'Login Options', col: 0, row: 0 },
@@ -5364,7 +5639,7 @@
       { id: 'screen12', label: 'Verify (Add phone)', badge: 'SMS code', from: 14, col: 4, row: 2 },
       { id: 'screen13', label: 'Binding status', badge: 'Pick one', from: 15, col: 5, row: 2 },
       { id: 'screen15b', label: 'Phone linked', badge: 'If bound (B)', from: 16, col: 6, row: 2 },
-      { id: 'screen4', label: 'Profile', badge: 'Confirm link', from: 17, col: 7, row: 2 }
+      { id: 'screenAccountInfo', label: 'Account Info', badge: 'Result', from: 17, col: 7, row: 2 }
     ]
   };
 
@@ -5613,7 +5888,7 @@
     closeAddPhoneScreen();
 
     var allIds = ['screen1','screen2','screen3','screen4','screen5','screen6','screen7',
-                  'screen10','screen11','screen12','screen13','screen14','screen15','screen15b','screen16'];
+                  'screen10','screen11','screen12','screen13','screen14','screen15','screen15b','screen15c','screen16','screenAccountInfo'];
     allIds.forEach(function(id) {
       var el = document.getElementById(id);
       if (!el) return;
@@ -5829,6 +6104,5 @@
   })();
 })();
 </script>
-
 </body>
 </html>
