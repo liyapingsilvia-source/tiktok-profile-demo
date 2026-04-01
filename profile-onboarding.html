@@ -53,6 +53,7 @@
     background: #f0f0f0;
     display: flex;
     justify-content: center;
+    align-items: center;
     min-height: 100vh;
   }
 
@@ -62,6 +63,7 @@
     background: #fff;
     position: relative;
     overflow: hidden;
+    border-radius: 44px;
   }
 
   /* ===== Status Bar ===== */
@@ -314,10 +316,11 @@
     border-radius: 25px 25px 0 0;
     z-index: 3;
     opacity: 0;
-    transition: opacity 0.4s ease-out;
+    transition: transform 0.45s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 1s ease-out;
   }
   .bio-card-bg.visible {
     opacity: 1;
+    transition: transform 0.45s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.3s ease-out;
   }
 
   /* ===== Bio & Links ===== */
@@ -1027,7 +1030,6 @@
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.35s ease, transform 0.35s ease;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   }
   .reveal-btn.visible {
     opacity: 1;
@@ -1100,6 +1102,143 @@
     75%  { background-position: 0% 100%; }
     100% { background-position: 0% 50%; }
   }
+
+  /* ===== Scheme 2: Gray-White Gradient with Blobs ===== */
+  .bg-hint-gradient.gray-white {
+    background: linear-gradient(180deg, transparent 0%, transparent 40%, #fff 100%);
+    background-size: 100% 100%;
+    height: 320px;
+    overflow: hidden;
+  }
+  .bg-hint-gradient.gray-white .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+  .bg-hint-gradient.gray-white.show .blob {
+    opacity: 1;
+  }
+  .blob-1 {
+    width: 120px; height: 120px;
+    background: rgba(0,0,0,0.035);
+    top: 30px; left: 40px;
+    animation: drift1 5s ease-in-out infinite;
+  }
+  .blob-2 {
+    width: 100px; height: 100px;
+    background: rgba(0,0,0,0.028);
+    top: 80px; left: 200px;
+    animation: drift2 6s ease-in-out infinite;
+  }
+  .blob-3 {
+    width: 140px; height: 90px;
+    background: rgba(0,0,0,0.032);
+    top: 20px; left: 110px;
+    animation: drift3 7s ease-in-out infinite;
+  }
+  @keyframes drift1 {
+    0%   { transform: translate(0, 0); }
+    25%  { transform: translate(60px, 30px); }
+    50%  { transform: translate(20px, 60px); }
+    75%  { transform: translate(-30px, 20px); }
+    100% { transform: translate(0, 0); }
+  }
+  @keyframes drift2 {
+    0%   { transform: translate(0, 0); }
+    25%  { transform: translate(-40px, 40px); }
+    50%  { transform: translate(30px, 20px); }
+    75%  { transform: translate(50px, -20px); }
+    100% { transform: translate(0, 0); }
+  }
+  @keyframes drift3 {
+    0%   { transform: translate(0, 0); }
+    25%  { transform: translate(30px, -20px); }
+    50%  { transform: translate(-20px, 40px); }
+    75%  { transform: translate(-50px, 10px); }
+    100% { transform: translate(0, 0); }
+  }
+
+  /* Avatar-based gradient (applied via JS) */
+  .bg-hint-gradient.avatar-color {
+    height: 320px;
+    overflow: hidden;
+  }
+  .bg-hint-gradient.avatar-color .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+  .bg-hint-gradient.avatar-color.show .blob {
+    opacity: 1;
+  }
+
+  /* ===== Nav Toast ===== */
+  .nav-toast {
+    position: absolute;
+    top: 64px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-4px);
+    z-index: 20;
+    background: rgba(0,0,0,0.72);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease-out, transform 0.35s ease;
+  }
+  .nav-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* ===== Gesture / Tooltip Hint ===== */
+  .gesture-hint {
+    position: absolute;
+    top: 95px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease-out;
+  }
+  .gesture-hint.show {
+    opacity: 1;
+  }
+  .tooltip-arrow {
+    width: 21px;
+    height: 8px;
+    margin-bottom: -1px;
+  }
+  .tooltip-body {
+    background: #3a3a3a;
+    border-radius: 12px;
+    padding: 12px;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.14);
+    white-space: nowrap;
+  }
+  .tooltip-body-text {
+    font-family: 'TikTok Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.3;
+  }
 </style>
 </head>
 <body>
@@ -1116,31 +1255,48 @@
 
   <!-- Background Hint Overlay -->
   <div class="bg-hint-gray" id="bgHintGray"></div>
-  <div class="bg-hint-gradient" id="bgHintGradient"></div>
+  <div class="bg-hint-gradient" id="bgHintGradient">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <!-- Scheme 2: Nav Toast -->
+  <div class="nav-toast" id="navToast">Tap to Upload Background</div>
+
+  <!-- Scheme 2: Tooltip / Gesture Hint -->
+  <div class="gesture-hint" id="gestureHint">
+    <svg class="tooltip-arrow" viewBox="0 0 21 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8.15883 1.30762C9.3396 0.123379 11.2652 0.123372 12.4459 1.30762L17.3024 6.16406C18.6735 7.53516 17.7039 9.83594 15.7588 9.83594H4.8457C2.90118 9.83594 1.93136 7.53516 3.30225 6.16406L8.15883 1.30762Z" fill="#3A3A3A"/>
+    </svg>
+    <div class="tooltip-body">
+      <span class="tooltip-body-text">Tap to upload background</span>
+    </div>
+  </div>
 
   <!-- Status Bar -->
   <div class="status-bar">
     <span class="time">8:00</span>
-    <img class="signal" src="https://www.figma.com/api/mcp/asset/9711f053-d9a7-4f0e-8541-eb0e6b93b50a" alt="">
-    <img class="connection" src="https://www.figma.com/api/mcp/asset/f31b0e50-9df0-45d3-880c-b9e77c34d3e8" alt="">
-    <img class="battery" src="https://www.figma.com/api/mcp/asset/286e884c-44da-4e2a-9b74-f91c0f2f6090" alt="">
+    <img class="signal" src="assets/signal.svg" alt="">
+    <img class="connection" src="assets/connection.svg" alt="">
+    <img class="battery" src="assets/battery.svg" alt="">
   </div>
 
   <!-- Navigation Bar -->
   <div class="nav-bar">
     <div class="nav-left">
       <div class="nav-btn clickable" onclick="showToast('Edit profile')">
-        <img src="https://www.figma.com/api/mcp/asset/41216319-e705-46a2-9f43-30fc59354fcf" alt="Edit">
+        <img src="assets/pencil.svg" alt="Edit">
       </div>
     </div>
     <div class="nav-right">
       <div class="nav-btn clickable" onclick="showToast('My visitors')">
-        <img src="https://www.figma.com/api/mcp/asset/423afb07-806e-4853-9224-1332d0387cf8" alt="Visitors">
+        <img src="assets/visitors.svg" alt="Visitors">
       </div>
       <div class="nav-btn clickable" onclick="showToast('Add friend')">
         <div style="position:relative;width:22px;height:22px;">
-          <img src="https://www.figma.com/api/mcp/asset/7b65f61c-eb1e-497d-9a48-e38f8f532be8" alt="" style="position:absolute;left:0.63px;top:0.42px;width:13.75px;height:19.95px;">
-          <img src="https://www.figma.com/api/mcp/asset/2f09a81e-e849-4720-8677-454d6f4755f7" alt="" style="position:absolute;right:0.92px;bottom:2.29px;width:8.5px;height:8.5px;">
+          <img src="assets/addfriend-person.svg" alt="" style="position:absolute;left:0.63px;top:0.42px;width:13.75px;height:19.95px;">
+          <img src="assets/addfriend-plus.svg" alt="" style="position:absolute;right:0.92px;bottom:2.29px;width:8.5px;height:8.5px;">
         </div>
       </div>
       <div class="nav-btn clickable" onclick="showToast('Settings & Privacy')">
@@ -1155,10 +1311,10 @@
   <div class="profile-header profile-slidable">
     <!-- Avatar -->
     <div class="avatar-section clickable" onclick="showToast('View avatar')">
-      <img class="avatar-photo" src="https://www.figma.com/api/mcp/asset/6b256880-2d94-427d-8998-194b932fbd16" alt="Coldplay">
-      <img class="avatar-ring" src="https://www.figma.com/api/mcp/asset/74463402-ef7b-4498-9bbd-1cdf0902e569" alt="">
+      <img class="avatar-photo" src="assets/avatar-photo.png" alt="Coldplay">
+      <img class="avatar-ring" src="assets/avatar-ring.svg" alt="">
       <div class="avatar-badge clickable" onclick="event.stopPropagation(); showToast('Add story')">
-        <img src="https://www.figma.com/api/mcp/asset/8fe03093-cfdd-48f4-810b-ed984daa98ae" alt="+">
+        <img src="assets/avatar-badge.svg" alt="+">
       </div>
     </div>
 
@@ -1171,7 +1327,7 @@
         <div class="username-row">
           <div class="username-group">
             <span class="username-text">@coldplay</span>
-            <img class="verified-badge" src="https://www.figma.com/api/mcp/asset/47eaddd0-3ddc-47c3-bf9c-803620b3b1c7" alt="Verified">
+            <img class="verified-badge" src="assets/verified.svg" alt="Verified">
           </div>
           <span class="dot-separator">·</span>
           <span class="role-text" style="max-width:119px;">Artist</span>
@@ -1214,7 +1370,7 @@
   <!-- Contact Row -->
   <div class="contact-row profile-slidable">
     <div class="info-item clickable" onclick="showToast('Calling...')">
-      <img class="info-icon" src="https://www.figma.com/api/mcp/asset/51f0ba93-e637-465d-bb83-ed068a02e51a" alt="">
+      <img class="info-icon" src="assets/phone-icon.svg" alt="">
       <span class="info-text">Phone</span>
     </div>
     <div class="contact-divider">
@@ -1241,15 +1397,15 @@
   <!-- Action Buttons -->
   <div class="action-buttons profile-slidable">
     <div class="action-pill clickable" onclick="showToast('Watch history')">
-      <img class="action-pill-icon" src="https://www.figma.com/api/mcp/asset/aedab576-119c-45f4-9fc1-f3b043a1d101" alt="">
+      <img class="action-pill-icon" src="assets/clock.svg" alt="">
       <span class="action-pill-text">Watch history</span>
     </div>
     <div class="action-pill clickable" onclick="showToast('Your orders')">
-      <img class="action-pill-icon" src="https://www.figma.com/api/mcp/asset/486892db-fcc3-470d-8af3-d262c75fe68c" alt="">
+      <img class="action-pill-icon" src="assets/cart.svg" alt="">
       <span class="action-pill-text">Your orders</span>
     </div>
     <div class="action-pill clickable" onclick="showToast('Showcase')">
-      <img class="action-pill-icon" src="https://www.figma.com/api/mcp/asset/908d68b0-3c1c-4681-a40a-499ccee30afa" alt="">
+      <img class="action-pill-icon" src="assets/showcase.svg" alt="">
       <span class="action-pill-text">Showcase</span>
     </div>
   </div>
@@ -1278,20 +1434,20 @@
 
     <!-- Playlist Row -->
     <div class="playlist-row">
-      <img class="playlist-gear clickable" src="https://www.figma.com/api/mcp/asset/fd0e704b-a7a6-4b38-95cd-591d5137e8fd" alt="" onclick="showToast('Manage playlists')">
+      <img class="playlist-gear clickable" src="assets/gear.svg" alt="" onclick="showToast('Manage playlists')">
       <div class="playlist-divider"><div class="playlist-divider-line"></div></div>
       <div class="playlist-item clickable" onclick="showToast('Product Reviews 2024')">
-        <img class="playlist-icon" src="https://www.figma.com/api/mcp/asset/b8665dd0-709b-43c7-b712-4821da032ff8" alt="">
+        <img class="playlist-icon" src="assets/playlist-icon.svg" alt="">
         <span class="playlist-text">Product Reviews 2024</span>
       </div>
       <div class="playlist-divider"><div class="playlist-divider-line"></div></div>
       <div class="playlist-item clickable" onclick="showToast('Makeup Tutorials')">
-        <img class="playlist-icon" src="https://www.figma.com/api/mcp/asset/b8665dd0-709b-43c7-b712-4821da032ff8" alt="">
+        <img class="playlist-icon" src="assets/playlist-icon.svg" alt="">
         <span class="playlist-text">Makeup Tutorials</span>
       </div>
       <div class="playlist-divider"><div class="playlist-divider-line"></div></div>
       <div class="playlist-item clickable" onclick="showToast('My room touring')">
-        <img class="playlist-icon" src="https://www.figma.com/api/mcp/asset/b8665dd0-709b-43c7-b712-4821da032ff8" alt="">
+        <img class="playlist-icon" src="assets/playlist-icon.svg" alt="">
         <span class="playlist-text">My room touring</span>
       </div>
     </div>
@@ -1302,32 +1458,32 @@
       <div class="video-row">
         <!-- Video 1 - Drafts -->
         <div class="video-thumb clickable" onclick="showToast('Opening drafts...')">
-          <img class="cover" src="https://www.figma.com/api/mcp/asset/027d5057-2699-4e47-a507-311d80e2e224" alt="">
+          <img class="cover" src="assets/cover1.png" alt="">
           <div class="video-overlay-top"></div>
           <div class="video-overlay-bottom"></div>
           <div class="video-drafts-label">Drafts · 2</div>
           <div class="video-draft-icon-wrap">
-            <img class="video-draft-icon" src="https://www.figma.com/api/mcp/asset/1b7a4755-3e9c-4eb6-9771-387a66459e27" alt="">
+            <img class="video-draft-icon" src="assets/draft-icon.svg" alt="">
             <span class="video-metrics-text">84.6MB</span>
           </div>
         </div>
         <!-- Video 2 - Pinned -->
         <div class="video-thumb clickable" onclick="showToast('Playing video · 16.5K views')">
-          <img class="cover" src="https://www.figma.com/api/mcp/asset/3f853eda-91b4-4231-a77a-f10f77d418f4" alt="">
+          <img class="cover" src="assets/cover2.png" alt="">
           <div class="video-overlay-bottom"></div>
           <div class="video-badge"><span class="video-badge-text">Pinned</span></div>
           <div class="video-metrics">
-            <img class="video-metrics-icon" src="https://www.figma.com/api/mcp/asset/84cae8fc-6e3c-4f76-9f15-9c1ed4f9fc22" alt="">
+            <img class="video-metrics-icon" src="assets/play-small.svg" alt="">
             <span class="video-metrics-text">16.5K</span>
           </div>
         </div>
         <!-- Video 3 - Pinned -->
         <div class="video-thumb clickable" onclick="showToast('Playing video · 9,126 views')">
-          <img class="cover" src="https://www.figma.com/api/mcp/asset/61132591-0efa-4551-835b-c69d0e576569" alt="">
+          <img class="cover" src="assets/cover3.png" alt="">
           <div class="video-overlay-bottom"></div>
           <div class="video-badge"><span class="video-badge-text">Pinned</span></div>
           <div class="video-metrics">
-            <img class="video-metrics-icon" src="https://www.figma.com/api/mcp/asset/2e423daa-27b7-4e98-b28e-b6909c96dcd9" alt="">
+            <img class="video-metrics-icon" src="assets/play-small2.svg" alt="">
             <span class="video-metrics-text">9,126</span>
           </div>
         </div>
@@ -1336,26 +1492,26 @@
       <!-- Row 2 -->
       <div class="video-row">
         <div class="video-thumb clickable" onclick="showToast('Playing video · 1,202 views')">
-          <img class="cover" src="https://www.figma.com/api/mcp/asset/0410da6c-ff26-4616-aa64-7dd6ab2f725a" alt="">
+          <img class="cover" src="assets/cover4.png" alt="">
           <div class="video-overlay-bottom"></div>
           <div class="video-metrics">
-            <img class="video-metrics-icon" src="https://www.figma.com/api/mcp/asset/20c62098-46db-4048-bf8b-578724b18e09" alt="" style="width:14px;height:14px;">
+            <img class="video-metrics-icon" src="assets/play-icon.svg" alt="" style="width:14px;height:14px;">
             <span class="video-metrics-text-sm">1,202</span>
           </div>
         </div>
         <div class="video-thumb clickable" onclick="showToast('Playing video · 712 views')">
-          <img class="cover" src="https://www.figma.com/api/mcp/asset/ce5755e3-92fb-451e-bc28-9192c40e0f74" alt="">
+          <img class="cover" src="assets/cover5.png" alt="">
           <div class="video-overlay-bottom"></div>
           <div class="video-metrics">
-            <img class="video-metrics-icon" src="https://www.figma.com/api/mcp/asset/20c62098-46db-4048-bf8b-578724b18e09" alt="">
+            <img class="video-metrics-icon" src="assets/play-icon.svg" alt="">
             <span class="video-metrics-text-sm">712</span>
           </div>
         </div>
         <div class="video-thumb clickable" onclick="showToast('Playing video · 10.1K views')">
-          <img class="cover" src="https://www.figma.com/api/mcp/asset/d9c361b1-cebf-416e-8aaf-f81b4877d0e8" alt="">
+          <img class="cover" src="assets/cover6.png" alt="">
           <div class="video-overlay-bottom"></div>
           <div class="video-metrics">
-            <img class="video-metrics-icon" src="https://www.figma.com/api/mcp/asset/20c62098-46db-4048-bf8b-578724b18e09" alt="">
+            <img class="video-metrics-icon" src="assets/play-icon.svg" alt="">
             <span class="video-metrics-text">10.1K</span>
           </div>
         </div>
@@ -1364,26 +1520,26 @@
       <!-- Row 3 -->
       <div class="video-row">
         <div class="video-thumb clickable" onclick="showToast('Playing video · 53.1K views')">
-          <img class="cover" src="https://www.figma.com/api/mcp/asset/a467f6b4-f1bd-4cfc-96f8-b49fd998c7fc" alt="">
+          <img class="cover" src="assets/cover7.png" alt="">
           <div class="video-overlay-bottom"></div>
           <div class="video-metrics">
-            <img class="video-metrics-icon" src="https://www.figma.com/api/mcp/asset/20c62098-46db-4048-bf8b-578724b18e09" alt="" style="width:14px;height:14px;">
+            <img class="video-metrics-icon" src="assets/play-icon.svg" alt="" style="width:14px;height:14px;">
             <span class="video-metrics-text-sm">53.1K</span>
           </div>
         </div>
         <div class="video-thumb clickable" onclick="showToast('Playing video · 5,952 views')">
-          <img class="cover" src="https://www.figma.com/api/mcp/asset/c1b44a94-a6a5-493f-bfce-ea12827b4158" alt="">
+          <img class="cover" src="assets/cover8.png" alt="">
           <div class="video-overlay-bottom"></div>
           <div class="video-metrics">
-            <img class="video-metrics-icon" src="https://www.figma.com/api/mcp/asset/20c62098-46db-4048-bf8b-578724b18e09" alt="">
+            <img class="video-metrics-icon" src="assets/play-icon.svg" alt="">
             <span class="video-metrics-text-sm">5,952</span>
           </div>
         </div>
         <div class="video-thumb clickable" onclick="showToast('Playing video · 5,504 views')">
-          <img class="cover" src="https://www.figma.com/api/mcp/asset/6dd31c42-cefb-4f40-aa85-8e556a8ee0b3" alt="">
+          <img class="cover" src="assets/cover9.png" alt="">
           <div class="video-overlay-bottom"></div>
           <div class="video-metrics">
-            <img class="video-metrics-icon" src="https://www.figma.com/api/mcp/asset/20c62098-46db-4048-bf8b-578724b18e09" alt="">
+            <img class="video-metrics-icon" src="assets/play-icon.svg" alt="">
             <span class="video-metrics-text">5,504</span>
           </div>
         </div>
@@ -1401,8 +1557,8 @@
       <div class="bar-cell clickable" data-nav="home" onclick="switchBottomNav(this, 'Home')">
         <div class="bar-cell-icon">
           <div class="icon-compose">
-            <img src="https://www.figma.com/api/mcp/asset/f6e274f8-41cd-4dda-a7e4-5c6fc292bb98" alt="" style="top:0.25px;left:1.75px;width:20.5px;height:21.62px;">
-            <img src="https://www.figma.com/api/mcp/asset/2fc3016f-6cb7-4a19-8379-d86b3ed16839" alt="" style="top:12.5px;left:12px;width:2px;height:6px;">
+            <img src="assets/home-house.svg" alt="" style="top:0.25px;left:1.75px;width:20.5px;height:21.62px;">
+            <img src="assets/home-chimney.svg" alt="" style="top:12.5px;left:12px;width:2px;height:6px;">
           </div>
         </div>
         <span class="bar-cell-label">Home</span>
@@ -1411,8 +1567,8 @@
       <div class="bar-cell clickable" data-nav="friends" onclick="switchBottomNav(this, 'Friends')">
         <div class="bar-cell-icon">
           <div class="icon-compose">
-            <img src="https://www.figma.com/api/mcp/asset/238371a0-5c51-41af-98d2-6e5f916438e2" alt="" style="top:1.1px;left:0.1px;width:17.07px;height:19.9px;">
-            <img src="https://www.figma.com/api/mcp/asset/54b7c627-e2f8-4d0b-8134-003ea151182f" alt="" style="top:2.29px;left:14.28px;width:9.6px;height:16.78px;">
+            <img src="assets/friends-left.svg" alt="" style="top:1.1px;left:0.1px;width:17.07px;height:19.9px;">
+            <img src="assets/friends-right.svg" alt="" style="top:2.29px;left:14.28px;width:9.6px;height:16.78px;">
           </div>
         </div>
         <span class="bar-cell-label">Friends</span>
@@ -1420,16 +1576,16 @@
       <!-- Create -->
       <div class="create-btn clickable" onclick="showToast('Create new video')">
         <div style="position:relative;width:48px;height:48px;overflow:hidden;flex-shrink:0;">
-          <img src="https://www.figma.com/api/mcp/asset/1fc8e413-11c0-49bd-a637-d9253c90d8a6" alt="" style="position:absolute;left:1px;top:50%;transform:translateY(-50%);width:46px;height:28.775px;">
-          <img src="https://www.figma.com/api/mcp/asset/97c7351a-a352-4415-b81d-284254832869" alt="" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:2px;height:13.5px;">
-          <img src="https://www.figma.com/api/mcp/asset/162a5845-d94c-4613-8626-1f8e3b9204f1" alt="" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-90deg);width:2px;height:13.5px;">
+          <img src="assets/create-bg.svg" alt="" style="position:absolute;left:1px;top:50%;transform:translateY(-50%);width:46px;height:28.775px;">
+          <img src="assets/create-vline.svg" alt="" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:2px;height:13.5px;">
+          <img src="assets/create-vline.svg" alt="" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-90deg);width:2px;height:13.5px;">
         </div>
       </div>
       <!-- Inbox -->
       <div class="bar-cell clickable" data-nav="inbox" onclick="switchBottomNav(this, 'Inbox')">
         <div class="bar-cell-icon">
           <div class="icon-compose">
-            <img src="https://www.figma.com/api/mcp/asset/81a54906-7889-452b-8a39-fb026bb3681f" alt="" style="top:1px;left:0.5px;width:22px;height:21.62px;">
+            <img src="assets/inbox-icon.svg" alt="" style="top:1px;left:0.5px;width:22px;height:21.62px;">
           </div>
         </div>
         <span class="bar-cell-label">Inbox</span>
@@ -1438,8 +1594,8 @@
       <div class="bar-cell bar-cell-active clickable" data-nav="profile" onclick="switchBottomNav(this, 'Profile')">
         <div class="bar-cell-icon">
           <div class="icon-compose">
-            <img src="https://www.figma.com/api/mcp/asset/37d577f4-eee0-4715-8d50-fd5cd45b9089" alt="" style="top:0.88px;left:3.25px;width:17.5px;height:20.02px;">
-            <img src="https://www.figma.com/api/mcp/asset/45c15c7e-3662-4ad4-875e-09906910e359" alt="" style="top:13px;left:2.75px;width:18.5px;height:9.27px;">
+            <img src="assets/profile-upper.svg" alt="" style="top:0.88px;left:3.25px;width:17.5px;height:20.02px;">
+            <img src="assets/profile-lower.svg" alt="" style="top:13px;left:2.75px;width:18.5px;height:9.27px;">
           </div>
         </div>
         <span class="bar-cell-label">Profile</span>
@@ -1486,27 +1642,91 @@ function switchBottomNav(el, label) {
   showToast(label);
 }
 
-// Onboarding: slide-reveal animation sequence
-(function() {
+var currentScheme = 1;
+
+function runCurrentScheme() {
+  if (currentScheme === 1) runScheme1();
+  else runScheme2();
+}
+
+function resetAll() {
   var slidables = document.querySelectorAll('.profile-slidable');
   var revealBtn = document.getElementById('revealBtn');
   var grayLayer = document.getElementById('bgHintGray');
   var gradientLayer = document.getElementById('bgHintGradient');
   var bioCardBg = document.querySelector('.bio-card-bg');
   var spacingEls = document.querySelectorAll('.bio-links, .contact-row, .action-buttons, .content-area');
+  var navToast = document.getElementById('navToast');
+  var gestureHint = document.getElementById('gestureHint');
 
-  // Step 1: after 600ms, slide content down + show gray bg + show card + add bio spacing
+  slidables.forEach(function(el) { el.classList.remove('shifted'); });
+  revealBtn.classList.remove('visible');
+  grayLayer.className = 'bg-hint-gray';
+  gradientLayer.className = 'bg-hint-gradient';
+  gradientLayer.style.background = '';
+  gradientLayer.style.backgroundSize = '';
+  bioCardBg.classList.remove('visible');
+  spacingEls.forEach(function(el) { el.classList.remove('card-spacing'); });
+  navToast.classList.remove('show');
+  gestureHint.classList.remove('show');
+}
+
+function extractAvatarColor(callback) {
+  var img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.src = document.querySelector('.avatar-photo').src;
+  img.onload = function() {
+    var c = document.createElement('canvas');
+    c.width = img.width; c.height = img.height;
+    var ctx = c.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+    var data = ctx.getImageData(0, 0, c.width, c.height).data;
+    var maxBlue = 0, bestR = 100, bestG = 140, bestB = 200;
+    for (var i = 0; i < data.length; i += 16) {
+      var r = data[i], g = data[i+1], b = data[i+2], a = data[i+3];
+      if (a < 128) continue;
+      if (b > maxBlue && b > r && b > g) {
+        maxBlue = b; bestR = r; bestG = g; bestB = b;
+      }
+    }
+    bestR = Math.max(0, bestR - 30);
+    bestG = Math.max(0, bestG - 20);
+    bestB = Math.min(255, bestB + 30);
+    callback({r: bestR, g: bestG, b: bestB});
+  };
+  img.onerror = function() {
+    callback({r: 60, g: 100, b: 220});
+  };
+}
+
+function buildAvatarGradient(c) {
+  return 'linear-gradient(180deg, transparent 0%, transparent 40%, #fff 100%),' +
+    'linear-gradient(135deg,' +
+    'rgba('+c.r+','+c.g+','+c.b+',0.15) 0%,' +
+    'rgba('+(c.r+20)+','+(c.g+30)+','+(c.b-10)+',0.10) 30%,' +
+    'rgba('+(c.r-10)+','+(c.g+10)+','+c.b+',0.13) 60%,' +
+    'rgba('+c.r+','+c.g+','+c.b+',0.12) 100%)';
+}
+
+function runScheme1() {
+  resetAll();
+  var slidables = document.querySelectorAll('.profile-slidable');
+  var revealBtn = document.getElementById('revealBtn');
+  var grayLayer = document.getElementById('bgHintGray');
+  var gradientLayer = document.getElementById('bgHintGradient');
+  var bioCardBg = document.querySelector('.bio-card-bg');
+  var spacingEls = document.querySelectorAll('.bio-links, .contact-row, .action-buttons, .content-area');
+  var withGradient = document.getElementById('toggleGradient').checked;
+
   setTimeout(function() {
     slidables.forEach(function(el) { el.classList.add('shifted'); });
     grayLayer.classList.add('show');
     bioCardBg.classList.add('visible');
     spacingEls.forEach(function(el) { el.classList.add('card-spacing'); });
 
-    // Step 2: after slide completes (~450ms), show the reveal button
     setTimeout(function() {
       revealBtn.classList.add('visible');
 
-      // Step 3: hold for 2s, then hide button, slide back up, gray shrinks
       setTimeout(function() {
         revealBtn.classList.remove('visible');
 
@@ -1516,23 +1736,85 @@ function switchBottomNav(el, label) {
           grayLayer.classList.add('shrink');
         }, 150);
 
-        // Step 4: after height shrinks (~600ms), cross-fade gray out + gradient in
         setTimeout(function() {
           grayLayer.classList.remove('shrink');
           grayLayer.classList.add('fade-out');
-          gradientLayer.classList.add('show');
 
-          // Hold gradient for 2s, then fade out + hide card + remove bio spacing
-          setTimeout(function() {
-            gradientLayer.classList.remove('show');
-            bioCardBg.classList.remove('visible');
+          if (withGradient) {
+            gradientLayer.classList.add('show');
+
+            setTimeout(function() {
+              gradientLayer.classList.remove('show');
+              spacingEls.forEach(function(el) { el.classList.remove('card-spacing'); });
+
+              setTimeout(function() {
+                bioCardBg.classList.remove('visible');
+              }, 650);
+            }, 4000);
+          } else {
             spacingEls.forEach(function(el) { el.classList.remove('card-spacing'); });
-          }, 2000);
+            setTimeout(function() {
+              bioCardBg.classList.remove('visible');
+            }, 650);
+          }
         }, 620);
-      }, 2000);
+      }, 4000);
     }, 460);
   }, 600);
-})();
+}
+
+function runScheme2() {
+  resetAll();
+  var gradientLayer = document.getElementById('bgHintGradient');
+  var navToast = document.getElementById('navToast');
+  var gestureHint = document.getElementById('gestureHint');
+  var useToast = document.getElementById('toggleToast').checked;
+  var useAvatarColor = document.getElementById('toggleAvatarColor').checked;
+
+  function startScheme2(gradientClass) {
+    if (gradientClass === 'avatar-color') {
+      gradientLayer.classList.add('avatar-color');
+    } else {
+      gradientLayer.classList.add('gray-white');
+    }
+
+    setTimeout(function() {
+      gradientLayer.classList.add('show');
+
+      setTimeout(function() {
+        if (useToast) {
+          navToast.classList.add('show');
+        } else {
+          gestureHint.classList.add('show');
+        }
+
+        setTimeout(function() {
+          if (useToast) {
+            navToast.classList.remove('show');
+          } else {
+            gestureHint.classList.remove('show');
+          }
+
+          setTimeout(function() {
+            gradientLayer.classList.remove('show');
+          }, 600);
+        }, 4000);
+      }, 300);
+    }, 100);
+  }
+
+  if (useAvatarColor) {
+    extractAvatarColor(function(color) {
+      gradientLayer.style.background = buildAvatarGradient(color);
+      gradientLayer.style.backgroundSize = '100% 100%, 400% 400%';
+      startScheme2('avatar-color');
+    });
+  } else {
+    startScheme2('gray-white');
+  }
+}
+
+runCurrentScheme();
 </script>
 
 <script>
@@ -1547,6 +1829,35 @@ function switchBottomNav(el, label) {
   }, 800);
 })();
 </script>
+
+<!-- Control Panel -->
+<div id="controlPanel" style="position:fixed; bottom:20px; left:20px; background:rgba(255,255,255,0.96); border-radius:14px; padding:14px 16px; font-family:'TikTok Sans',sans-serif; font-size:12px; color:#333; box-shadow:0 2px 16px rgba(0,0,0,0.12); z-index:9999; min-width:210px; line-height:1.7; backdrop-filter:blur(8px);">
+  <div style="font-weight:700; font-size:13px; color:#333; margin-bottom:6px;">方案选择</div>
+  <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+    <input type="radio" name="scheme" value="1" checked onchange="currentScheme=1; runCurrentScheme();">
+    <span>方案1：按钮引导</span>
+  </label>
+  <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+    <input type="radio" name="scheme" value="2" onchange="currentScheme=2; runCurrentScheme();">
+    <span>方案2：渐变背景引导</span>
+  </label>
+  <hr style="border:none; border-top:1px solid #eee; margin:6px 0;">
+  <div style="font-weight:600; font-size:11px; color:#999;">方案1 选项</div>
+  <label id="gradientOption" style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+    <input type="checkbox" id="toggleGradient" checked>
+    <span>带渐变背景</span>
+  </label>
+  <div style="font-weight:600; font-size:11px; color:#999; margin-top:4px;">方案2 选项</div>
+  <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+    <input type="checkbox" id="toggleToast" checked>
+    <span>Toast（取消则显示 Tooltip）</span>
+  </label>
+  <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+    <input type="checkbox" id="toggleAvatarColor">
+    <span>头像吸色渐变</span>
+  </label>
+  <button onclick="runCurrentScheme()" style="margin-top:8px; padding:6px 14px; border:none; background:#333; color:#fff; border-radius:8px; cursor:pointer; font-size:12px; font-weight:600;">▶ 重播动画</button>
+</div>
 
 </body>
 </html>
