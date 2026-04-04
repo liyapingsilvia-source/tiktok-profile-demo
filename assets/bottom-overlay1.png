@@ -1,0 +1,23 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 129 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path id="Bottom-Overlay" fill-rule="evenodd" clip-rule="evenodd" d="M0 0H129V52H0V0Z" fill="url(#paint0_linear_0_713)"/>
+<defs>
+<linearGradient id="paint0_linear_0_713" x1="64.5" y1="0" x2="64.5" y2="52" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0"/>
+<stop offset="0.0806874" stop-opacity="0.01"/>
+<stop offset="0.155366" stop-opacity="0.01"/>
+<stop offset="0.22496" stop-opacity="0.0115968"/>
+<stop offset="0.290394" stop-opacity="0.0203207"/>
+<stop offset="0.352593" stop-opacity="0.0312889"/>
+<stop offset="0.41248" stop-opacity="0.0443904"/>
+<stop offset="0.470981" stop-opacity="0.0595143"/>
+<stop offset="0.529019" stop-opacity="0.0765497"/>
+<stop offset="0.58752" stop-opacity="0.0953856"/>
+<stop offset="0.647407" stop-opacity="0.115911"/>
+<stop offset="0.709606" stop-opacity="0.138015"/>
+<stop offset="0.77504" stop-opacity="0.161587"/>
+<stop offset="0.844634" stop-opacity="0.186516"/>
+<stop offset="0.919313" stop-opacity="0.21269"/>
+<stop offset="1" stop-opacity="0.24"/>
+</linearGradient>
+</defs>
+</svg>

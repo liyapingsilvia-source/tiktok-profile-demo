@@ -1,0 +1,10 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path id="ring" d="M54 0C83.8234 0 108 24.1766 108 54C108 63.2815 105.657 72.0154 101.532 79.6445C100.841 78.8749 100.074 78.1743 99.2422 77.5557C102.919 70.5091 105 62.4981 105 54C105 25.8335 82.1665 3 54 3C25.8335 3 3 25.8335 3 54C3 82.1665 25.8335 105 54 105C62.4981 105 70.5091 102.919 77.5557 99.2422C78.1743 100.074 78.8749 100.841 79.6445 101.532C72.0154 105.657 63.2815 108 54 108C24.1766 108 0 83.8234 0 54C0 24.1766 24.1766 0 54 0Z" fill="url(#paint0_linear_0_495)"/>
+<defs>
+<linearGradient id="paint0_linear_0_495" x1="0" y1="0" x2="108.073" y2="107.927" gradientUnits="userSpaceOnUse">
+<stop stop-color="#15C0F9"/>
+<stop offset="0.478362" stop-color="#20D5EC"/>
+<stop offset="1" stop-color="#1AE3C6"/>
+</linearGradient>
+</defs>
+</svg>
