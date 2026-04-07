@@ -1,0 +1,34 @@
+---
+description: 在涉及 Demo 的对话中始终置顶显示本地预览链接
+alwaysApply: true
+---
+
+# Demo 预览链接置顶
+
+当对话涉及 HTML demo 页面时，**每条回复的最开头**（在 demo 名称标注之后）必须附上本地预览链接，格式：
+
+> 本地预览：http://localhost:8080/<文件路径>
+
+如果涉及多个 demo，列出全部链接。
+
+已知 Demo 链接映射表：
+
+| 文件 | 预览链接 |
+|------|----------|
+| tiktok-login.html | http://localhost:8080/tiktok-login.html |
+| index.html | http://localhost:8080/index.html |
+| profile-onboarding.html | http://localhost:8080/profile-onboarding.html |
+| friends.html | http://localhost:8080/friends.html |
+| profile-iphone17pro.html | http://localhost:8080/profile-iphone17pro.html |
+| tiktok-minis-flow.html | http://localhost:8080/tiktok-minis-flow.html |
+| tiktok-feed/index.html | http://localhost:8080/tiktok-feed/index.html |
+| story-design/index.html | http://localhost:8080/story-design/index.html |
+
+新建 demo 时也要立即在回复开头给出对应链接。
+
+示例回复格式：
+
+**[Profile Onboarding] — 修复底部 tab 图标**
+> 本地预览：http://localhost:8080/profile-onboarding.html
+
+（正文内容……）

@@ -1,0 +1,2263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TikTok Profile - Coldplay</title>
+<style>
+  @font-face {
+    font-family: 'TikTok Sans';
+    src: local('TikTok Sans'), local('TikTokSans');
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'TikTok Sans';
+    src: local('TikTok Sans Medium'), local('TikTokSans-Medium');
+    font-weight: 500;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'TikTok Sans';
+    src: local('TikTok Sans SemiBold'), local('TikTokSans-SemiBold');
+    font-weight: 600;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'TikTok Sans';
+    src: local('TikTok Sans Bold'), local('TikTokSans-Bold');
+    font-weight: 700;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'TikTok Text';
+    src: local('TikTok Text'), local('TikTokText');
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'TikTok Text';
+    src: local('TikTok Text Medium'), local('TikTokText-Medium');
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'TikTok Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .phone-frame {
+    width: 390px;
+    height: 844px;
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+    border-radius: 44px;
+  }
+
+  /* ===== Status Bar ===== */
+  .status-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    overflow: hidden;
+    z-index: 10;
+  }
+  .status-bar .time {
+    position: absolute;
+    left: 35px;
+    top: 50%;
+    transform: translateY(calc(-50% + 2px));
+    font-family: 'SF Pro Text', -apple-system, sans-serif;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 22px;
+    text-align: center;
+    letter-spacing: -0.408px;
+    color: #000;
+  }
+  .status-bar .signal {
+    position: absolute;
+    right: 84.7px;
+    top: 50%;
+    transform: translateY(calc(-50% + 2.1px));
+    width: 21.298px;
+    height: 12.798px;
+  }
+  .status-bar .connection {
+    position: absolute;
+    right: 60.32px;
+    top: 50%;
+    transform: translateY(calc(-50% + 2px));
+    width: 17.68px;
+    height: 13px;
+  }
+  .status-bar .battery {
+    position: absolute;
+    right: 25.57px;
+    top: 50%;
+    transform: translateY(calc(-50% + 2.5px));
+    width: 29.432px;
+    height: 14px;
+  }
+
+  /* ===== Navigation Bar ===== */
+  .nav-bar {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 390px;
+    height: 44px;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6px;
+    z-index: 10;
+  }
+  .nav-left, .nav-right {
+    display: flex;
+    align-items: center;
+    height: 44px;
+  }
+  .nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 44px;
+    padding: 10px 8px;
+  }
+  .nav-btn img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+  }
+
+  /* ===== Profile Header ===== */
+  .profile-header {
+    position: absolute;
+    top: 116px;
+    left: 0;
+    width: 390px;
+    height: 108px;
+    background: transparent;
+    z-index: 5;
+  }
+
+  /* Avatar Section */
+  .avatar-section {
+    position: absolute;
+    left: 16px;
+    top: 8px;
+    width: 96px;
+    height: 96px;
+  }
+  .avatar-photo {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    transition: opacity 0.4s ease;
+  }
+  .avatar-ring {
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    width: 108px;
+    height: 108px;
+    pointer-events: none;
+  }
+  .avatar-badge {
+    position: absolute;
+    bottom: -2px;
+    right: 2px;
+    width: 24px;
+    height: 24px;
+    background: #20d5ec;
+    border-radius: 99px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #fff;
+    box-sizing: content-box;
+  }
+  .avatar-badge img {
+    width: 52.08%;
+    height: 52.08%;
+  }
+
+
+  /* Name & Stats Section */
+  .name-stats {
+    position: absolute;
+    left: 132px;
+    top: 0;
+    width: 242px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .name-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 250px;
+  }
+  .name-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .name-text {
+    font-family: 'TikTok Sans', sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1.2;
+    color: #000;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .name-dropdown {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+  .username-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .username-group {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    max-width: 119px;
+  }
+  .username-text {
+    font-family: 'TikTok Sans', sans-serif;
+    font-weight: 900;
+    font-size: 11px;
+    line-height: 1.3;
+    color: rgba(0,0,0,0.56);
+    -webkit-text-stroke: 0.35px rgba(0,0,0,0.56);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .verified-badge {
+    width: 10px;
+    height: 10px;
+    flex-shrink: 0;
+    object-fit: cover;
+  }
+  .dot-separator, .role-text {
+    font-family: 'TikTok Sans', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 1.3;
+    color: rgba(0,0,0,0.48);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Stats Row */
+  .stats-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    width: 250px;
+    text-align: center;
+    white-space: nowrap;
+    line-height: 1.3;
+  }
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-bottom: 1px;
+  }
+  .stat-value {
+    font-family: 'TikTok Sans', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.3;
+    color: #000;
+  }
+  .stat-label {
+    font-family: 'TikTok Sans', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.3;
+    color: rgba(0,0,0,0.48);
+  }
+
+  /* ===== Bio Card Background ===== */
+  .bio-card-bg {
+    position: absolute;
+    top: 238px;
+    left: 0;
+    width: 390px;
+    bottom: 0;
+    background: #fff;
+    border-radius: 25px 25px 0 0;
+    z-index: 3;
+    opacity: 0;
+  }
+
+  /* ===== Bio & Links ===== */
+  .bio-links {
+    position: absolute;
+    top: 238px;
+    left: 0;
+    width: 390px;
+    padding: 0 16px;
+    background: transparent;
+    z-index: 5;
+    margin-top: 0;
+    transition: top 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .card-spacing {
+    margin-top: 14px;
+  }
+  .bio-line1 {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .bio-pronouns {
+    font-family: 'TikTok Sans', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.3;
+    color: rgba(0,0,0,0.48);
+    width: 358px;
+  }
+  .bio-text {
+    font-family: 'TikTok Sans', sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.3;
+    color: #000;
+    width: 358px;
+  }
+  .bio-link-row {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    font-family: 'TikTok Sans', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 1.3;
+    color: #000;
+    white-space: nowrap;
+  }
+  .bio-link-url {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ===== Education Row ===== */
+  .education-row {
+    position: absolute;
+    top: 311px;
+    left: 0;
+    width: 390px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 5;
+    z-index: 5;
+  }
+  .info-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .info-icon {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+  .info-text {
+    font-family: 'TikTok Sans', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 1.3;
+    color: #000;
+    white-space: nowrap;
+  }
+
+  /* ===== Contact Row ===== */
+  .contact-row {
+    position: absolute;
+    top: 311px;
+    left: 0;
+    width: 390px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 5;
+    transition: top 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .contact-divider {
+    width: 0.5px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .contact-divider-line {
+    width: 12px;
+    height: 0.5px;
+    background: rgba(0,0,0,0.12);
+    transform: rotate(-90deg);
+  }
+
+  /* ===== Action Buttons ===== */
+  .action-buttons {
+    position: absolute;
+    top: 340px;
+    left: 16px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    z-index: 5;
+    transition: top 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .action-pill {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 6px 9px;
+    border: 0.5px solid rgba(0,0,0,0.2);
+    border-radius: 79px;
+    background: transparent;
+  }
+  .action-pill-icon {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+  .action-pill-text {
+    font-family: 'TikTok Sans', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 1.3;
+    color: #000;
+    white-space: nowrap;
+  }
+
+  /* ===== Content Tabs ===== */
+  .content-area {
+    position: absolute;
+    left: 0;
+    top: 379px;
+    display: flex;
+    flex-direction: column;
+    z-index: 5;
+    transition: top 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .tab-bar {
+    width: 390px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+  }
+  .tab-bar-inner {
+    display: flex;
+    width: 374px;
+  }
+  .tab-item {
+    flex: 1 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    overflow: hidden;
+    position: relative;
+    min-height: 1px;
+    min-width: 1px;
+  }
+  .tab-item-active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(calc(-50% - 0.25px));
+    width: 45px;
+    height: 2px;
+    background: #000;
+  }
+  .tab-icon-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .tab-icon {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+  .tab-dropdown-icon {
+    width: 12px;
+    height: 12px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+  .tab-divider {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0.5px;
+    background: rgba(0,0,0,0.12);
+  }
+
+  /* ===== Playlist Row ===== */
+  .playlist-row {
+    width: 390px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    overflow: hidden;
+  }
+  .playlist-gear {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+  .playlist-divider {
+    width: 0;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .playlist-divider-line {
+    width: 12px;
+    height: 0.5px;
+    background: rgba(0,0,0,0.12);
+    transform: rotate(90deg);
+  }
+  .playlist-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .playlist-icon {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+  .playlist-text {
+    font-family: 'TikTok Sans', sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.3;
+    letter-spacing: 0.127px;
+    color: #000;
+    white-space: nowrap;
+  }
+
+  /* ===== Video Grid ===== */
+  .video-grid {
+    width: 390px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5px;
+  }
+  .video-row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .video-thumb {
+    width: 129px;
+    height: 173px;
+    position: relative;
+    overflow: hidden;
+  }
+  .video-thumb img.cover {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .video-overlay-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 52px;
+    background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 100%);
+  }
+  .video-overlay-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 52px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, transparent 100%);
+  }
+  .video-metrics {
+    position: absolute;
+    bottom: 4px;
+    left: 3px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    overflow: hidden;
+  }
+  .video-metrics-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+  .video-metrics-text {
+    font-family: 'TikTok Text', sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.3;
+    letter-spacing: 0.127px;
+    color: #f6f6f6;
+    white-space: nowrap;
+  }
+  .video-metrics-text-sm {
+    font-family: 'TikTok Text', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.3;
+    letter-spacing: 0.161px;
+    color: #fafafa;
+    white-space: nowrap;
+  }
+  .video-badge {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    background: #fe2c55;
+    border-radius: 4px;
+    padding: 1px 5px;
+    overflow: hidden;
+  }
+  .video-badge-text {
+    font-family: 'TikTok Text', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.3;
+    letter-spacing: 0.161px;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .video-drafts-label {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    font-family: 'TikTok Sans', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 1.3;
+    color: #fff;
+    white-space: nowrap;
+  }
+  .video-draft-icon-wrap {
+    position: absolute;
+    bottom: 4px;
+    left: 3px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+  .video-draft-icon {
+    width: 14px;
+    height: 14px;
+    object-fit: contain;
+  }
+
+  /* ===== Bottom Navigation ===== */
+  .bottom-nav {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 390px;
+    height: 83px;
+    background: #fff;
+    z-index: 10;
+  }
+  .bottom-nav-bar {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 390px;
+    display: flex;
+    gap: 2px;
+    overflow: hidden;
+    background: #fff;
+  }
+  .bar-cell {
+    flex: 1 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 49px;
+    padding: 2px 0 4px;
+    overflow: hidden;
+    min-height: 1px;
+    min-width: 1px;
+  }
+  .bar-cell-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: -1px;
+    flex-shrink: 0;
+  }
+  .bar-cell-icon img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
+  .icon-compose {
+    position: relative;
+    width: 24px;
+    height: 24px;
+  }
+  .icon-compose img {
+    position: absolute;
+    display: block;
+    max-width: none;
+  }
+  .bar-cell-label {
+    font-family: 'TikTok Sans', sans-serif;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 1.3;
+    letter-spacing: 0.229px;
+    color: #000;
+    text-align: center;
+    min-width: 100%;
+  }
+  .create-btn {
+    flex: 1 0 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    min-height: 1px;
+    min-width: 1px;
+    align-self: stretch;
+  }
+  .create-btn-icon {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  /* ===== Home Indicator ===== */
+  .home-indicator {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 34px;
+    overflow: hidden;
+  }
+  .home-indicator-grabber {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 140px;
+    height: 5px;
+    background: #000;
+    border-radius: 29px;
+  }
+
+  /* ===== Scrollable area ===== */
+  .scrollable-content {
+    position: absolute;
+    top: 104px;
+    bottom: 83px;
+    left: 0;
+    right: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .scrollable-content::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* ===== Interactive States ===== */
+  .clickable {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+  }
+  .clickable:hover {
+    opacity: 0.7;
+  }
+  .clickable:active {
+    transform: scale(0.95);
+    opacity: 0.5;
+  }
+
+  .nav-btn.clickable:active {
+    transform: scale(0.88);
+  }
+
+  .action-pill.clickable {
+    transition: all 0.15s ease;
+  }
+  .action-pill.clickable:hover {
+    background: rgba(0,0,0,0.04);
+    opacity: 1;
+  }
+  .action-pill.clickable:active {
+    background: rgba(0,0,0,0.08);
+    transform: scale(0.96);
+  }
+
+  .stat-item.clickable:hover {
+    opacity: 0.6;
+  }
+  .stat-item.clickable:active {
+    transform: scale(0.93);
+  }
+
+  .tab-item.clickable {
+    transition: opacity 0.15s ease;
+  }
+  .tab-item.clickable:hover {
+    opacity: 0.6;
+  }
+  .tab-item.clickable:active {
+    opacity: 0.4;
+    transform: none;
+  }
+  .tab-item .tab-icon,
+  .tab-item .tab-icon-wrap {
+    transition: opacity 0.2s ease;
+  }
+  .tab-item:not(.tab-item-active) .tab-icon,
+  .tab-item:not(.tab-item-active) .tab-icon-wrap {
+    opacity: 0.35;
+  }
+
+  .video-thumb.clickable {
+    transition: transform 0.15s ease;
+  }
+  .video-thumb.clickable:hover .cover {
+    filter: brightness(0.92);
+  }
+  .video-thumb.clickable:active {
+    transform: scale(0.97);
+  }
+
+  .bar-cell.clickable,
+  .create-btn.clickable {
+    transition: opacity 0.12s ease, transform 0.12s ease;
+  }
+  .bar-cell.clickable:active,
+  .create-btn.clickable:active {
+    transform: scale(0.88);
+    opacity: 0.6;
+  }
+  .bar-cell.clickable .bar-cell-label,
+  .bar-cell.clickable .icon-compose {
+    transition: opacity 0.15s ease;
+  }
+  .bar-cell:not(.bar-cell-active) .bar-cell-label {
+    opacity: 0.4;
+  }
+  .bar-cell:not(.bar-cell-active) .icon-compose {
+    opacity: 0.4;
+  }
+  .bar-cell.bar-cell-active .bar-cell-label {
+    font-weight: 700;
+  }
+
+  .playlist-item.clickable:hover {
+    opacity: 0.65;
+  }
+  .playlist-item.clickable:active {
+    transform: scale(0.96);
+  }
+  .playlist-gear.clickable:active {
+    transform: scale(0.85) rotate(30deg);
+  }
+
+  .avatar-section.clickable:active {
+    transform: scale(0.96);
+  }
+  .avatar-badge.clickable {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .avatar-badge.clickable:hover {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  .avatar-badge.clickable:active {
+    transform: scale(0.9);
+  }
+
+
+  .bio-link-row.clickable {
+    color: #000;
+  }
+  .bio-link-row.clickable:hover {
+    opacity: 0.65;
+  }
+
+  .info-item.clickable:hover {
+    opacity: 0.6;
+  }
+  .info-item.clickable:active {
+    transform: scale(0.96);
+  }
+
+  .name-row.clickable:active {
+    transform: scale(0.97);
+  }
+
+  .create-btn.clickable:active div {
+    transform: scale(0.9);
+  }
+
+  /* Toast */
+  .toast-container {
+    position: absolute;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .toast {
+    background: rgba(0,0,0,0.78);
+    color: #fff;
+    font-family: 'TikTok Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 20px;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+    animation: toastIn 0.25s ease forwards, toastOut 0.25s ease 1.4s forwards;
+    pointer-events: none;
+  }
+  @keyframes toastIn {
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes toastOut {
+    to { opacity: 0; transform: translateY(-6px) scale(0.95); }
+  }
+
+  /* ===== Avatar Color Extraction Theme ===== */
+  :root {
+    --theme-primary: 254, 44, 85;
+    --theme-secondary: 32, 213, 236;
+    --theme-accent: 22, 24, 35;
+    --theme-pill: 254, 44, 85;
+  }
+
+  .avatar-gradient-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 390px;
+    height: 380px;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(
+      170deg,
+      rgba(var(--theme-primary), 0.32) 0%,
+      rgba(var(--theme-secondary), 0.18) 30%,
+      rgba(var(--theme-accent), 0.06) 60%,
+      rgba(255,255,255,0) 100%
+    );
+  }
+  .avatar-gradient-bg.visible {
+    opacity: 1;
+  }
+  .avatar-gradient-bg.gray-animated {
+    background: transparent;
+    opacity: 1;
+    overflow: hidden;
+  }
+  .avatar-gradient-bg.gray-animated .gray-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(50px);
+    will-change: transform, opacity;
+  }
+  .avatar-gradient-bg.gray-animated .gray-blob-1 {
+    width: 280px; height: 220px;
+    background: rgba(150,152,160,0.50);
+    top: -60px; left: -40px;
+    animation: blobDrift1 6s ease-in-out infinite;
+  }
+  .avatar-gradient-bg.gray-animated .gray-blob-2 {
+    width: 220px; height: 200px;
+    background: rgba(180,182,188,0.40);
+    top: -30px; right: -30px;
+    animation: blobDrift2 7s ease-in-out infinite;
+  }
+  .avatar-gradient-bg.gray-animated .gray-blob-3 {
+    width: 300px; height: 180px;
+    background: rgba(200,200,206,0.35);
+    top: 60px; left: 40px;
+    animation: blobDrift3 8s ease-in-out infinite;
+  }
+  .avatar-gradient-bg.gray-animated .gray-blob-4 {
+    width: 200px; height: 160px;
+    background: rgba(170,172,180,0.30);
+    top: 20px; right: 20px;
+    animation: blobDrift4 5.5s ease-in-out infinite;
+  }
+  @keyframes blobDrift1 {
+    0%   { transform: translate(0, 0) scale(1); opacity: 0.5; }
+    33%  { transform: translate(80px, 40px) scale(1.15); opacity: 0.7; }
+    66%  { transform: translate(30px, 70px) scale(0.95); opacity: 0.45; }
+    100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+  }
+  @keyframes blobDrift2 {
+    0%   { transform: translate(0, 0) scale(1); opacity: 0.4; }
+    33%  { transform: translate(-70px, 50px) scale(1.1); opacity: 0.65; }
+    66%  { transform: translate(-30px, 20px) scale(1.2); opacity: 0.35; }
+    100% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+  }
+  @keyframes blobDrift3 {
+    0%   { transform: translate(0, 0) scale(1); opacity: 0.35; }
+    33%  { transform: translate(-50px, -30px) scale(1.2); opacity: 0.55; }
+    66%  { transform: translate(60px, -10px) scale(0.9); opacity: 0.4; }
+    100% { transform: translate(0, 0) scale(1); opacity: 0.35; }
+  }
+  @keyframes blobDrift4 {
+    0%   { transform: translate(0, 0) scale(1); opacity: 0.3; }
+    33%  { transform: translate(-40px, 30px) scale(1.25); opacity: 0.55; }
+    66%  { transform: translate(50px, 50px) scale(1.05); opacity: 0.3; }
+    100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+  }
+
+  /* Follow row (visitor only, between stats and bio) */
+  .follow-row {
+    position: absolute;
+    top: 238px;
+    left: 16px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 5;
+  }
+  .follow-row.hidden {
+    display: none;
+  }
+
+  /* Shift everything below follow-row when it's visible */
+  .bio-links.visitor-shift {
+    top: 288px !important;
+  }
+  .contact-row.visitor-shift {
+    top: 361px !important;
+  }
+  .action-buttons.visitor-shift {
+    top: 390px !important;
+  }
+  .content-area.visitor-shift {
+    top: 429px !important;
+  }
+
+  .follow-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 0;
+    background: rgb(var(--theme-primary));
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    flex: 2;
+    min-width: 0;
+  }
+  .follow-btn:active {
+    transform: scale(0.97);
+    opacity: 0.8;
+  }
+  .follow-btn-text {
+    font-family: 'TikTok Sans', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1.3;
+    color: #fff;
+    white-space: nowrap;
+  }
+  .follow-btn.followed {
+    background: rgba(var(--theme-primary), 0.1);
+    border: 1px solid rgba(var(--theme-primary), 0.3);
+  }
+  .follow-btn.followed .follow-btn-text {
+    color: rgb(var(--theme-primary));
+  }
+
+  .message-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: #f2f2f2;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+  }
+  .message-btn:active {
+    transform: scale(0.97);
+    opacity: 0.7;
+  }
+
+  .more-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: #f2f2f2;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+  }
+  .more-btn:active {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+
+  .action-pill.themed {
+    border: none !important;
+    background: rgba(var(--theme-pill), 0.06);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .action-pill.themed .action-pill-text {
+    color: rgb(var(--theme-pill));
+    transition: color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .action-pill.themed .action-pill-icon {
+    transition: filter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Keep a subtle "fill" on hover (instead of dark gray). */
+  .action-pill.themed.clickable:hover {
+    background: rgba(var(--theme-pill), 0.10) !important;
+  }
+
+  .tab-item-active.themed::after {
+    background: rgb(var(--theme-primary)) !important;
+    transition: background 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .avatar-badge.themed {
+    background: rgb(var(--theme-primary)) !important;
+    transition: background 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .name-text.themed {
+    background: linear-gradient(135deg, rgb(var(--theme-primary)), rgb(var(--theme-secondary)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Demo Panel */
+  .demo-panel {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1000;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-radius: 20px;
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.35), 0 0 0 0.5px rgba(255,255,255,0.08);
+    font-family: 'TikTok Sans', -apple-system, sans-serif;
+    width: 300px;
+  }
+  .demo-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .demo-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #4ade80;
+    animation: demoPulse 2s ease infinite;
+    flex-shrink: 0;
+  }
+  @keyframes demoPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+  }
+  .demo-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.95);
+  }
+  .demo-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .demo-avatars {
+    display: flex;
+    gap: 10px;
+  }
+  .demo-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2.5px solid transparent;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    object-fit: cover;
+    flex-shrink: 0;
+    overflow: hidden;
+    position: relative;
+  }
+  .demo-avatar.active {
+    border-color: rgba(255,255,255,0.85);
+    transform: scale(1.08);
+    box-shadow: 0 0 16px rgba(255,255,255,0.15);
+  }
+  .demo-avatar:not(.active):hover {
+    transform: scale(1.04);
+    border-color: rgba(255,255,255,0.25);
+  }
+  .demo-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  .demo-avatar-name {
+    font-size: 9px;
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    margin-top: 4px;
+    font-weight: 500;
+  }
+  .demo-avatar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+  .demo-palette {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .demo-swatch {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1.5px solid rgba(255,255,255,0.12);
+    transition: background 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .demo-arrow {
+    color: rgba(255,255,255,0.2);
+    font-size: 14px;
+  }
+  .demo-hex {
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.45);
+    font-family: 'SF Mono', 'Menlo', monospace;
+  }
+
+  .demo-mode-toggle {
+    display: flex;
+    background: rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 3px;
+    position: relative;
+    overflow: hidden;
+  }
+  .demo-mode-btn {
+    flex: 1;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.45);
+    padding: 6px 0;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    transition: color 0.3s ease;
+    user-select: none;
+  }
+  .demo-mode-btn.active {
+    color: #fff;
+  }
+  .demo-mode-indicator {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: calc(50% - 3px);
+    height: calc(100% - 6px);
+    background: rgba(255,255,255,0.15);
+    border-radius: 8px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+  }
+  .demo-mode-indicator.visitor {
+    transform: translateX(100%);
+  }
+
+  .demo-tri-toggle {
+    display: flex;
+    background: rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 3px;
+    gap: 2px;
+  }
+  .demo-tri-btn {
+    flex: 1;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.4);
+    padding: 6px 0;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    user-select: none;
+  }
+  .demo-tri-btn.active {
+    color: #fff;
+    background: rgba(255,255,255,0.15);
+  }
+</style>
+</head>
+<body>
+
+<div class="phone-frame">
+
+
+  <!-- Avatar Color Gradient Background -->
+  <div class="avatar-gradient-bg" id="avatarGradientBg"></div>
+
+  <!-- Status Bar -->
+  <div class="status-bar">
+    <span class="time">8:00</span>
+    <img class="signal" src="https://www.figma.com/api/mcp/asset/9711f053-d9a7-4f0e-8541-eb0e6b93b50a" alt="">
+    <img class="connection" src="https://www.figma.com/api/mcp/asset/f31b0e50-9df0-45d3-880c-b9e77c34d3e8" alt="">
+    <img class="battery" src="https://www.figma.com/api/mcp/asset/286e884c-44da-4e2a-9b74-f91c0f2f6090" alt="">
+  </div>
+
+  <!-- Navigation Bar -->
+  <div class="nav-bar">
+    <div class="nav-left">
+      <div class="nav-btn clickable" onclick="showToast('Edit profile')">
+        <img src="https://www.figma.com/api/mcp/asset/41216319-e705-46a2-9f43-30fc59354fcf" alt="Edit">
+      </div>
+    </div>
+    <div class="nav-right">
+      <div class="nav-btn clickable" onclick="showToast('My visitors')">
+        <img src="https://www.figma.com/api/mcp/asset/423afb07-806e-4853-9224-1332d0387cf8" alt="Visitors">
+      </div>
+      <div class="nav-btn clickable" onclick="showToast('Add friend')">
+        <div style="position:relative;width:22px;height:22px;">
+          <img src="https://www.figma.com/api/mcp/asset/7b65f61c-eb1e-497d-9a48-e38f8f532be8" alt="" style="position:absolute;left:0.63px;top:0.42px;width:13.75px;height:19.95px;">
+          <img src="https://www.figma.com/api/mcp/asset/2f09a81e-e849-4720-8677-454d6f4755f7" alt="" style="position:absolute;right:0.92px;bottom:2.29px;width:8.5px;height:8.5px;">
+        </div>
+      </div>
+      <div class="nav-btn clickable" onclick="showToast('Settings & Privacy')">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18.791 16.7295C19.2972 16.7295 19.7078 17.1394 19.708 17.6455C19.708 18.1518 19.2973 18.5625 18.791 18.5625H3.20801C2.70175 18.5625 2.29102 18.1518 2.29102 17.6455C2.29119 17.1394 2.70186 16.7295 3.20801 16.7295H18.791ZM18.791 10.083C19.2973 10.083 19.708 10.4937 19.708 11C19.708 11.5063 19.2973 11.917 18.791 11.917H3.20801C2.70175 11.917 2.29102 11.5063 2.29102 11C2.29102 10.4937 2.70175 10.083 3.20801 10.083H18.791ZM18.791 3.4375C19.2973 3.4375 19.708 3.84823 19.708 4.35449C19.7078 4.8606 19.2972 5.27051 18.791 5.27051H3.20801C2.70186 5.27051 2.29119 4.8606 2.29102 4.35449C2.29102 3.84823 2.70175 3.4375 3.20801 3.4375H18.791Z" fill="black"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Header -->
+  <div class="profile-header profile-slidable">
+    <!-- Avatar -->
+    <div class="avatar-section clickable" onclick="showToast('View avatar')">
+      <img class="avatar-photo" crossorigin="anonymous" src="https://www.figma.com/api/mcp/asset/6b256880-2d94-427d-8998-194b932fbd16" alt="Coldplay">
+
+      <div class="avatar-badge themed clickable" id="avatarBadge" onclick="event.stopPropagation(); showToast('Add story')">
+        <img src="https://www.figma.com/api/mcp/asset/8fe03093-cfdd-48f4-810b-ed984daa98ae" alt="+">
+      </div>
+    </div>
+
+    <!-- Name & Stats -->
+    <div class="name-stats">
+      <div class="name-section">
+        <div class="name-row clickable" onclick="showToast('Switch account')">
+          <span class="name-text">Coldplay</span>
+        </div>
+        <div class="username-row">
+          <div class="username-group">
+            <span class="username-text">@coldplay</span>
+            <img class="verified-badge" src="https://www.figma.com/api/mcp/asset/47eaddd0-3ddc-47c3-bf9c-803620b3b1c7" alt="Verified">
+          </div>
+          <span class="dot-separator">·</span>
+          <span class="role-text" style="max-width:119px;">Artist</span>
+        </div>
+      </div>
+      <div class="stats-row">
+        <div class="stat-item clickable" onclick="showToast('36 Following')">
+          <span class="stat-value">36</span>
+          <span class="stat-label">Following</span>
+        </div>
+        <div class="stat-item clickable" onclick="showToast('8.1M Followers')">
+          <span class="stat-value">8.1M</span>
+          <span class="stat-label">Followers</span>
+        </div>
+        <div class="stat-item clickable" onclick="showToast('88.3M Likes')">
+          <span class="stat-value">88.3M</span>
+          <span class="stat-label">Likes</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Follow Row (visitor only, between stats and bio) -->
+  <div class="follow-row hidden" id="followRow">
+    <div class="follow-btn clickable" id="followBtn" onclick="toggleFollow(this)">
+      <span class="follow-btn-text">Follow</span>
+    </div>
+    <div class="message-btn clickable" onclick="showToast('Send message')">
+      <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M16.9 3.1L3.7 8.7C3 9 3 9.9 3.7 10.2L8.3 12L10.1 16.6C10.4 17.3 11.3 17.3 11.6 16.6L17.1 3.4C17.4 2.7 17.1 3.1 16.9 3.1Z" fill="#000" fill-opacity="0.9"/>
+        <path d="M8.3 12L16.9 3.1" stroke="#000" stroke-opacity="0.35" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="more-btn clickable" onclick="showToast('More options')">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 6.5L8 10.5L12 6.5" stroke="black" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Bio Card Background (rounded top corners) -->
+  <div class="bio-card-bg profile-slidable"></div>
+
+  <!-- Bio & Links -->
+  <div class="bio-links profile-slidable">
+    <div class="bio-line1">
+      <p class="bio-pronouns">He/him/his</p>
+      <p class="bio-text">Tik Official Coldplay Tok. The new album, Moon Music, out now. Your Japanese bestie🇯🇵🫶#comedy</p>
+    </div>
+    <div class="bio-link-row clickable" onclick="showToast('Opening link...')">
+      <span class="bio-link-url">lemon8-app.com/bimbingan</span>
+      <span>and</span>
+      <span>1 more</span>
+    </div>
+  </div>
+
+
+  <!-- Contact Row -->
+  <div class="contact-row profile-slidable">
+    <div class="info-item clickable" onclick="showToast('Calling...')">
+      <img class="info-icon" src="https://www.figma.com/api/mcp/asset/51f0ba93-e637-465d-bb83-ed068a02e51a" alt="">
+      <span class="info-text">Phone</span>
+    </div>
+    <div class="contact-divider">
+      <div class="contact-divider-line"></div>
+    </div>
+    <div class="info-item clickable" onclick="showToast('Sending email...')">
+      <svg class="info-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M0.583336 3.90841C0.583336 3.25502 0.583336 2.92832 0.710495 2.67876C0.822347 2.45924 1.00082 2.28076 1.22035 2.16891C1.46991 2.04175 1.79661 2.04175 2.45 2.04175H11.55C12.2034 2.04175 12.5301 2.04175 12.7797 2.16891C12.9992 2.28076 13.1777 2.45924 13.2895 2.67876C13.4167 2.92832 13.4167 3.25502 13.4167 3.90841V10.0917C13.4167 10.7451 13.4167 11.0718 13.2895 11.3214C13.1777 11.5409 12.9992 11.7194 12.7797 11.8313C12.5301 11.9584 12.2034 11.9584 11.55 11.9584H2.45C1.79661 11.9584 1.46991 11.9584 1.22035 11.8313C1.00082 11.7194 0.822347 11.5409 0.710495 11.3214C0.583336 11.0718 0.583336 10.7451 0.583336 10.0917V3.90841ZM2.45 3.20841H11.55C11.8959 3.20841 12.0852 3.20932 12.2213 3.22044L12.2366 3.22177L12.238 3.23715C12.2491 3.37317 12.25 3.56247 12.25 3.90841V5.14153L7 8.08153L1.75 5.14153V3.90841C1.75 3.56247 1.75091 3.37317 1.76202 3.23715L1.76336 3.22177L1.77874 3.22044C1.91476 3.20932 2.10405 3.20841 2.45 3.20841ZM1.75 6.47867V10.0917C1.75 10.4377 1.75091 10.627 1.76202 10.763L1.76336 10.7784L1.77874 10.7797C1.91476 10.7908 2.10405 10.7917 2.45 10.7917H11.55C11.896 10.7917 12.0852 10.7908 12.2213 10.7797L12.2366 10.7784L12.238 10.763C12.2491 10.627 12.25 10.4377 12.25 10.0917V6.47867L7.57004 9.09945C7.21589 9.29778 6.78411 9.29778 6.42997 9.09945L1.75 6.47867Z" fill="black"/>
+      </svg>
+      <span class="info-text">Email</span>
+    </div>
+    <div class="contact-divider">
+      <div class="contact-divider-line"></div>
+    </div>
+    <div class="info-item clickable" onclick="showToast('View on map')">
+      <svg class="info-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6.99999 8.16667C8.28866 8.16667 9.33333 7.122 9.33333 5.83333C9.33333 4.54467 8.28866 3.5 6.99999 3.5C5.71133 3.5 4.66666 4.54467 4.66666 5.83333C4.66666 7.122 5.71133 8.16667 6.99999 8.16667ZM8.16666 5.83333C8.16666 6.47767 7.64433 7 6.99999 7C6.35566 7 5.83333 6.47767 5.83333 5.83333C5.83333 5.189 6.35566 4.66667 6.99999 4.66667C7.64433 4.66667 8.16666 5.189 8.16666 5.83333Z" fill="black"/>
+        <path d="M12.5417 6.07923C12.5417 3.03897 10.0554 0.583618 6.99999 0.583618C3.94456 0.583618 1.45833 3.03897 1.45833 6.07923C1.45833 8.86202 4.39927 11.9878 6.59586 13.2894C6.86402 13.4483 7.136 13.4483 7.40413 13.2894C9.73396 11.9088 12.5417 8.92127 12.5417 6.07923ZM6.99999 1.75028C9.42171 1.75028 11.375 3.69387 11.375 6.07923C11.375 7.1335 10.8411 8.34112 9.92627 9.51533C9.07902 10.6028 7.99241 11.547 7.00049 12.1692C6.07329 11.5821 4.98835 10.629 4.12258 9.5213C3.1793 8.31444 2.62499 7.09059 2.62499 6.07923C2.62499 3.69387 4.57827 1.75028 6.99999 1.75028Z" fill="black"/>
+      </svg>
+      <span class="info-text">Address</span>
+    </div>
+  </div>
+
+  <!-- Action Buttons (always visible) -->
+  <div class="action-buttons profile-slidable" id="actionArea">
+    <div class="action-pill themed clickable" onclick="showToast('Watch history')">
+      <img class="action-pill-icon" src="https://www.figma.com/api/mcp/asset/aedab576-119c-45f4-9fc1-f3b043a1d101" alt="">
+      <span class="action-pill-text">Watch history</span>
+    </div>
+    <div class="action-pill themed clickable" onclick="showToast('Your orders')">
+      <img class="action-pill-icon" src="https://www.figma.com/api/mcp/asset/486892db-fcc3-470d-8af3-d262c75fe68c" alt="">
+      <span class="action-pill-text">Your orders</span>
+    </div>
+    <div class="action-pill themed clickable" onclick="showToast('Showcase')">
+      <img class="action-pill-icon" src="https://www.figma.com/api/mcp/asset/908d68b0-3c1c-4681-a40a-499ccee30afa" alt="">
+      <span class="action-pill-text">Showcase</span>
+    </div>
+  </div>
+
+  <!-- Content Area (tabs + grid) -->
+  <div class="content-area profile-slidable">
+    <!-- Tab Bar -->
+    <div class="tab-bar">
+      <div class="tab-bar-inner">
+        <div class="tab-item tab-item-active themed clickable" data-tab="posts" onclick="switchTab(this)">
+          <svg class="tab-icon" width="22" height="22" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.1084 10.9795C8.16434 10.9797 9.02049 11.8356 9.02051 12.8916V16.5859C9.02025 17.6417 8.1642 18.4979 7.1084 18.498H4.47656C2.83384 18.498 1.50214 17.1661 1.50195 15.5234V12.8916C1.50197 11.8356 2.35803 10.9796 3.41406 10.9795H7.1084ZM16.583 10.9795C17.6389 10.9797 18.495 11.8357 18.4951 12.8916V15.5234C18.495 17.1661 17.1632 18.4979 15.5205 18.498H12.8887C11.8327 18.498 10.9768 17.6418 10.9766 16.5859V12.8916C10.9766 11.8356 11.8327 10.9796 12.8887 10.9795H16.583ZM7.10645 1.50195C8.16256 1.50195 9.01855 2.35892 9.01855 3.41504V7.10742C9.01832 8.16334 8.16242 9.01953 7.10645 9.01953H3.41406C2.35816 9.01945 1.50219 8.16329 1.50195 7.10742V4.47656C1.50217 2.83391 2.83387 1.50197 4.47656 1.50195H7.10645ZM15.5264 1.50195C17.1691 1.50195 18.5008 2.8339 18.501 4.47656V7.10742C18.5007 8.16334 17.6448 9.01953 16.5889 9.01953H12.8965C11.8406 9.01941 10.9846 8.16327 10.9844 7.10742V3.41504C10.9844 2.359 11.8405 1.50207 12.8965 1.50195H15.5264Z" fill="black"/>
+          </svg>
+        </div>
+        <div class="tab-item themed clickable" data-tab="reposts" onclick="switchTab(this)">
+          <svg class="tab-icon" width="22" height="22" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip0_repost)">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M3.74416 2.0957C3.99402 1.78903 4.4626 1.78845 4.71291 2.09473L8.24514 6.41895C8.57814 6.82711 8.28766 7.43848 7.76076 7.43848H5.7344V12.6895C5.73453 14.2771 7.0218 15.5643 8.6094 15.5645H10.0156C10.8441 15.5645 11.5156 16.236 11.5156 17.0645C11.5155 17.8928 10.844 18.5645 10.0156 18.5645H8.6094C5.36494 18.5643 2.73453 15.9339 2.7344 12.6895V7.43848H0.706076C0.179574 7.43828 -0.110903 6.82718 0.221701 6.41895L3.74416 2.0957ZM11.3906 1.43359C14.6352 1.43359 17.2655 4.06501 17.2656 7.30957V12.5605H19.294C19.8206 12.5605 20.1119 13.1718 19.7793 13.5801L16.2559 17.9033C16.006 18.21 15.5374 18.2107 15.2871 17.9043L11.7559 13.5801C11.4227 13.172 11.7126 12.5609 12.2393 12.5605H14.2656V7.30957C14.2655 5.72186 12.9784 4.43457 11.3906 4.43457H9.9844C9.15627 4.43441 8.48466 3.76267 8.4844 2.93457C8.48453 2.10636 9.15619 1.43376 9.9844 1.43359H11.3906Z" fill="black" fill-opacity="0.48"/>
+            </g>
+            <defs><clipPath id="clip0_repost"><rect width="20" height="20" fill="white"/></clipPath></defs>
+          </svg>
+        </div>
+      </div>
+      <div class="tab-divider"></div>
+    </div>
+
+    <!-- Playlist Row -->
+    <div class="playlist-row">
+      <img class="playlist-gear clickable" src="https://www.figma.com/api/mcp/asset/fd0e704b-a7a6-4b38-95cd-591d5137e8fd" alt="" onclick="showToast('Manage playlists')">
+      <div class="playlist-divider"><div class="playlist-divider-line"></div></div>
+      <div class="playlist-item clickable" onclick="showToast('Product Reviews 2024')">
+        <img class="playlist-icon" src="https://www.figma.com/api/mcp/asset/b8665dd0-709b-43c7-b712-4821da032ff8" alt="">
+        <span class="playlist-text">Product Reviews 2024</span>
+      </div>
+      <div class="playlist-divider"><div class="playlist-divider-line"></div></div>
+      <div class="playlist-item clickable" onclick="showToast('Makeup Tutorials')">
+        <img class="playlist-icon" src="https://www.figma.com/api/mcp/asset/b8665dd0-709b-43c7-b712-4821da032ff8" alt="">
+        <span class="playlist-text">Makeup Tutorials</span>
+      </div>
+      <div class="playlist-divider"><div class="playlist-divider-line"></div></div>
+      <div class="playlist-item clickable" onclick="showToast('My room touring')">
+        <img class="playlist-icon" src="https://www.figma.com/api/mcp/asset/b8665dd0-709b-43c7-b712-4821da032ff8" alt="">
+        <span class="playlist-text">My room touring</span>
+      </div>
+    </div>
+
+    <!-- Video Grid -->
+    <div class="video-grid">
+      <!-- Row 1 -->
+      <div class="video-row">
+        <!-- Video 1 - Drafts -->
+        <div class="video-thumb clickable" onclick="showToast('Opening drafts...')">
+          <img class="cover" src="https://www.figma.com/api/mcp/asset/027d5057-2699-4e47-a507-311d80e2e224" alt="">
+          <div class="video-overlay-top"></div>
+          <div class="video-overlay-bottom"></div>
+          <div class="video-drafts-label">Drafts · 2</div>
+          <div class="video-draft-icon-wrap">
+            <img class="video-draft-icon" src="https://www.figma.com/api/mcp/asset/1b7a4755-3e9c-4eb6-9771-387a66459e27" alt="">
+            <span class="video-metrics-text">84.6MB</span>
+          </div>
+        </div>
+        <!-- Video 2 - Pinned -->
+        <div class="video-thumb clickable" onclick="showToast('Playing video · 16.5K views')">
+          <img class="cover" src="https://www.figma.com/api/mcp/asset/3f853eda-91b4-4231-a77a-f10f77d418f4" alt="">
+          <div class="video-overlay-bottom"></div>
+          <div class="video-badge"><span class="video-badge-text">Pinned</span></div>
+          <div class="video-metrics">
+            <img class="video-metrics-icon" src="https://www.figma.com/api/mcp/asset/84cae8fc-6e3c-4f76-9f15-9c1ed4f9fc22" alt="">
+            <span class="video-metrics-text">16.5K</span>
+          </div>
+        </div>
+        <!-- Video 3 - Pinned -->
+        <div class="video-thumb clickable" onclick="showToast('Playing video · 9,126 views')">
+          <img class="cover" src="https://www.figma.com/api/mcp/asset/61132591-0efa-4551-835b-c69d0e576569" alt="">
+          <div class="video-overlay-bottom"></div>
+          <div class="video-badge"><span class="video-badge-text">Pinned</span></div>
+          <div class="video-metrics">
+            <img class="video-metrics-icon" src="https://www.figma.com/api/mcp/asset/2e423daa-27b7-4e98-b28e-b6909c96dcd9" alt="">
+            <span class="video-metrics-text">9,126</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="video-row">
+        <div class="video-thumb clickable" onclick="showToast('Playing video · 1,202 views')">
+          <img class="cover" src="https://www.figma.com/api/mcp/asset/0410da6c-ff26-4616-aa64-7dd6ab2f725a" alt="">
+          <div class="video-overlay-bottom"></div>
+          <div class="video-metrics">
+            <img class="video-metrics-icon" src="https://www.figma.com/api/mcp/asset/20c62098-46db-4048-bf8b-578724b18e09" alt="" style="width:14px;height:14px;">
+            <span class="video-metrics-text-sm">1,202</span>
+          </div>
+        </div>
+        <div class="video-thumb clickable" onclick="showToast('Playing video · 712 views')">
+          <img class="cover" src="https://www.figma.com/api/mcp/asset/ce5755e3-92fb-451e-bc28-9192c40e0f74" alt="">
+          <div class="video-overlay-bottom"></div>
+          <div class="video-metrics">
+            <img class="video-metrics-icon" src="https://www.figma.com/api/mcp/asset/20c62098-46db-4048-bf8b-578724b18e09" alt="">
+            <span class="video-metrics-text-sm">712</span>
+          </div>
+        </div>
+        <div class="video-thumb clickable" onclick="showToast('Playing video · 10.1K views')">
+          <img class="cover" src="https://www.figma.com/api/mcp/asset/d9c361b1-cebf-416e-8aaf-f81b4877d0e8" alt="">
+          <div class="video-overlay-bottom"></div>
+          <div class="video-metrics">
+            <img class="video-metrics-icon" src="https://www.figma.com/api/mcp/asset/20c62098-46db-4048-bf8b-578724b18e09" alt="">
+            <span class="video-metrics-text">10.1K</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="video-row">
+        <div class="video-thumb clickable" onclick="showToast('Playing video · 53.1K views')">
+          <img class="cover" src="https://www.figma.com/api/mcp/asset/a467f6b4-f1bd-4cfc-96f8-b49fd998c7fc" alt="">
+          <div class="video-overlay-bottom"></div>
+          <div class="video-metrics">
+            <img class="video-metrics-icon" src="https://www.figma.com/api/mcp/asset/20c62098-46db-4048-bf8b-578724b18e09" alt="" style="width:14px;height:14px;">
+            <span class="video-metrics-text-sm">53.1K</span>
+          </div>
+        </div>
+        <div class="video-thumb clickable" onclick="showToast('Playing video · 5,952 views')">
+          <img class="cover" src="https://www.figma.com/api/mcp/asset/c1b44a94-a6a5-493f-bfce-ea12827b4158" alt="">
+          <div class="video-overlay-bottom"></div>
+          <div class="video-metrics">
+            <img class="video-metrics-icon" src="https://www.figma.com/api/mcp/asset/20c62098-46db-4048-bf8b-578724b18e09" alt="">
+            <span class="video-metrics-text-sm">5,952</span>
+          </div>
+        </div>
+        <div class="video-thumb clickable" onclick="showToast('Playing video · 5,504 views')">
+          <img class="cover" src="https://www.figma.com/api/mcp/asset/6dd31c42-cefb-4f40-aa85-8e556a8ee0b3" alt="">
+          <div class="video-overlay-bottom"></div>
+          <div class="video-metrics">
+            <img class="video-metrics-icon" src="https://www.figma.com/api/mcp/asset/20c62098-46db-4048-bf8b-578724b18e09" alt="">
+            <span class="video-metrics-text">5,504</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Bottom Navigation -->
+  <div class="bottom-nav" id="bottomNav">
+    <div class="bottom-nav-bar">
+      <!-- Home -->
+      <div class="bar-cell clickable" data-nav="home" onclick="switchBottomNav(this, 'Home')">
+        <div class="bar-cell-icon">
+          <div class="icon-compose">
+            <img src="https://www.figma.com/api/mcp/asset/f6e274f8-41cd-4dda-a7e4-5c6fc292bb98" alt="" style="top:0.25px;left:1.75px;width:20.5px;height:21.62px;">
+            <img src="https://www.figma.com/api/mcp/asset/2fc3016f-6cb7-4a19-8379-d86b3ed16839" alt="" style="top:12.5px;left:12px;width:2px;height:6px;">
+          </div>
+        </div>
+        <span class="bar-cell-label">Home</span>
+      </div>
+      <!-- Friends -->
+      <div class="bar-cell clickable" data-nav="friends" onclick="switchBottomNav(this, 'Friends')">
+        <div class="bar-cell-icon">
+          <div class="icon-compose">
+            <img src="https://www.figma.com/api/mcp/asset/238371a0-5c51-41af-98d2-6e5f916438e2" alt="" style="top:1.1px;left:0.1px;width:17.07px;height:19.9px;">
+            <img src="https://www.figma.com/api/mcp/asset/54b7c627-e2f8-4d0b-8134-003ea151182f" alt="" style="top:2.29px;left:14.28px;width:9.6px;height:16.78px;">
+          </div>
+        </div>
+        <span class="bar-cell-label">Friends</span>
+      </div>
+      <!-- Create -->
+      <div class="create-btn clickable" onclick="showToast('Create new video')">
+        <div style="position:relative;width:48px;height:48px;overflow:hidden;flex-shrink:0;">
+          <img src="https://www.figma.com/api/mcp/asset/1fc8e413-11c0-49bd-a637-d9253c90d8a6" alt="" style="position:absolute;left:1px;top:50%;transform:translateY(-50%);width:46px;height:28.775px;">
+          <img src="https://www.figma.com/api/mcp/asset/97c7351a-a352-4415-b81d-284254832869" alt="" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:2px;height:13.5px;">
+          <img src="https://www.figma.com/api/mcp/asset/162a5845-d94c-4613-8626-1f8e3b9204f1" alt="" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-90deg);width:2px;height:13.5px;">
+        </div>
+      </div>
+      <!-- Inbox -->
+      <div class="bar-cell clickable" data-nav="inbox" onclick="switchBottomNav(this, 'Inbox')">
+        <div class="bar-cell-icon">
+          <div class="icon-compose">
+            <img src="https://www.figma.com/api/mcp/asset/81a54906-7889-452b-8a39-fb026bb3681f" alt="" style="top:1px;left:0.5px;width:22px;height:21.62px;">
+          </div>
+        </div>
+        <span class="bar-cell-label">Inbox</span>
+      </div>
+      <!-- Profile -->
+      <div class="bar-cell bar-cell-active clickable" data-nav="profile" onclick="switchBottomNav(this, 'Profile')">
+        <div class="bar-cell-icon">
+          <div class="icon-compose">
+            <img src="https://www.figma.com/api/mcp/asset/37d577f4-eee0-4715-8d50-fd5cd45b9089" alt="" style="top:0.88px;left:3.25px;width:17.5px;height:20.02px;">
+            <img src="https://www.figma.com/api/mcp/asset/45c15c7e-3662-4ad4-875e-09906910e359" alt="" style="top:13px;left:2.75px;width:18.5px;height:9.27px;">
+          </div>
+        </div>
+        <span class="bar-cell-label">Profile</span>
+      </div>
+    </div>
+    <!-- Home Indicator -->
+    <div class="home-indicator">
+      <div class="home-indicator-grabber"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Demo Panel: Avatar Color Extraction -->
+<div class="demo-panel" id="demoPanel">
+  <div class="demo-header">
+    <div class="demo-dot"></div>
+    <span class="demo-title">Avatar Color Extraction</span>
+  </div>
+  <div>
+    <div class="demo-label">Switch Avatar</div>
+    <div style="height:8px"></div>
+    <div class="demo-avatars" id="demoAvatars"></div>
+  </div>
+  <div>
+    <div class="demo-label">Profile Mode</div>
+    <div style="height:8px"></div>
+    <div class="demo-mode-toggle" id="modeToggle">
+      <div class="demo-mode-btn active" data-mode="owner" onclick="switchProfileMode('owner')">主态 Owner</div>
+      <div class="demo-mode-btn" data-mode="visitor" onclick="switchProfileMode('visitor')">客态 Visitor</div>
+      <div class="demo-mode-indicator" id="modeIndicator"></div>
+    </div>
+  </div>
+  <div>
+    <div class="demo-label">Gradient Background</div>
+    <div style="height:8px"></div>
+    <div class="demo-tri-toggle" id="gradientToggle">
+      <div class="demo-tri-btn active" data-grad="color" onclick="switchGradientMode('color')">取色渐变</div>
+      <div class="demo-tri-btn" data-grad="gray" onclick="switchGradientMode('gray')">灰色动效</div>
+      <div class="demo-tri-btn" data-grad="off" onclick="switchGradientMode('off')">无渐变</div>
+    </div>
+  </div>
+  <div>
+    <div class="demo-label">Extracted Palette</div>
+    <div style="height:8px"></div>
+    <div class="demo-palette" id="demoPalette">
+      <div class="demo-swatch" id="swatch0"></div>
+      <div class="demo-arrow">&rarr;</div>
+      <div class="demo-swatch" id="swatch1"></div>
+      <div class="demo-arrow">&rarr;</div>
+      <div class="demo-swatch" id="swatch2"></div>
+      <div style="margin-left:auto">
+        <span class="demo-hex" id="hexLabel">#000000</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function showToast(message) {
+  var container = document.getElementById('toastContainer');
+  var toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = message;
+  container.appendChild(toast);
+  setTimeout(function() {
+    if (toast.parentNode) toast.parentNode.removeChild(toast);
+  }, 1800);
+}
+
+function switchTab(el) {
+  var tabs = el.parentElement.querySelectorAll('.tab-item');
+  tabs.forEach(function(tab) {
+    tab.classList.remove('tab-item-active');
+    var svg = tab.querySelector('svg path');
+    if (svg) svg.setAttribute('fill', svg.getAttribute('fill').replace(/rgb\([^)]+\)/, 'black'));
+  });
+  el.classList.add('tab-item-active');
+
+  var cs = getComputedStyle(document.documentElement);
+  var primary = cs.getPropertyValue('--theme-primary').trim();
+  if (primary && el.classList.contains('themed')) {
+    var svg = el.querySelector('svg path');
+    if (svg) svg.setAttribute('fill', 'rgb(' + primary + ')');
+  }
+
+  var tabNames = { posts: 'Posts', reposts: 'Reposts', favorites: 'Favorites', likes: 'Liked' };
+  var tabName = tabNames[el.dataset.tab] || el.dataset.tab;
+  showToast(tabName);
+}
+
+function switchBottomNav(el, label) {
+  var cells = el.parentElement.querySelectorAll('.bar-cell');
+  cells.forEach(function(cell) {
+    cell.classList.remove('bar-cell-active');
+  });
+  el.classList.add('bar-cell-active');
+  showToast(label);
+}
+
+function toggleFollow(el) {
+  if (el.classList.contains('followed')) {
+    el.classList.remove('followed');
+    el.querySelector('.follow-btn-text').textContent = 'Follow';
+    el.style.background = '';
+    el.style.borderColor = '';
+    el.querySelector('.follow-btn-text').style.color = '';
+    showToast('Unfollowed');
+  } else {
+    el.classList.add('followed');
+    el.querySelector('.follow-btn-text').textContent = 'Following';
+    showToast('Followed!');
+  }
+}
+
+function switchProfileMode(mode) {
+  var followRow = document.getElementById('followRow');
+  var indicator = document.getElementById('modeIndicator');
+  var btns = document.querySelectorAll('.demo-mode-btn');
+  var shiftEls = document.querySelectorAll('.bio-links, .contact-row, .action-buttons, .content-area');
+  var avatarBadge = document.getElementById('avatarBadge');
+  var bottomNav = document.getElementById('bottomNav');
+
+  btns.forEach(function(btn) {
+    btn.classList.toggle('active', btn.dataset.mode === mode);
+  });
+
+  if (mode === 'visitor') {
+    indicator.classList.add('visitor');
+    followRow.classList.remove('hidden');
+    shiftEls.forEach(function(el) { el.classList.add('visitor-shift'); });
+    if (avatarBadge) avatarBadge.style.display = 'none';
+    if (bottomNav) bottomNav.style.display = 'none';
+  } else {
+    indicator.classList.remove('visitor');
+    followRow.classList.add('hidden');
+    shiftEls.forEach(function(el) { el.classList.remove('visitor-shift'); });
+    if (avatarBadge) avatarBadge.style.display = '';
+    if (bottomNav) bottomNav.style.display = '';
+  }
+
+  showToast(mode === 'owner' ? '已切换到主态' : '已切换到客态');
+}
+
+// ===== Avatar Color Extraction Engine =====
+var avatarOptions = [
+  {
+    name: 'Coldplay',
+    url: 'https://www.figma.com/api/mcp/asset/6b256880-2d94-427d-8998-194b932fbd16',
+    fallback: [{r:30,g:60,b:140},{r:200,g:170,b:50},{r:50,g:130,b:175}],
+    displayName: 'Coldplay'
+  },
+  {
+    name: 'Warm',
+    url: 'https://picsum.photos/id/1027/200/200',
+    fallback: [{r:180,g:90,b:60},{r:220,g:160,b:100},{r:140,g:60,b:50}],
+    displayName: 'Portrait'
+  },
+  {
+    name: 'Cool',
+    url: 'https://picsum.photos/id/1069/200/200',
+    fallback: [{r:80,g:50,b:140},{r:140,g:100,b:200},{r:60,g:100,b:160}],
+    displayName: 'Nature'
+  },
+  {
+    name: 'Vibrant',
+    url: 'https://picsum.photos/id/1032/200/200',
+    fallback: [{r:210,g:60,b:90},{r:240,g:130,b:80},{r:180,g:40,b:70}],
+    displayName: 'Sunset'
+  }
+];
+
+var gradientEnabled = true;
+
+var currentGradientMode = 'color';
+
+function ensureGrayBlobs(container) {
+  if (container.querySelector('.gray-blob')) return;
+  for (var i = 1; i <= 4; i++) {
+    var blob = document.createElement('div');
+    blob.className = 'gray-blob gray-blob-' + i;
+    container.appendChild(blob);
+  }
+}
+
+function removeGrayBlobs(container) {
+  var blobs = container.querySelectorAll('.gray-blob');
+  blobs.forEach(function(b) { b.remove(); });
+}
+
+function switchGradientMode(mode) {
+  currentGradientMode = mode;
+  gradientEnabled = (mode !== 'off');
+
+  var gradientToggle = document.getElementById('gradientToggle');
+  var btns = gradientToggle ? gradientToggle.querySelectorAll('.demo-tri-btn') : [];
+  btns.forEach(function(btn) {
+    btn.classList.toggle('active', btn.dataset.grad === mode);
+  });
+
+  var gradBg = document.getElementById('avatarGradientBg');
+  if (!gradBg) return;
+
+  gradBg.classList.remove('visible', 'gray-animated');
+  removeGrayBlobs(gradBg);
+
+  if (mode === 'color') {
+    gradBg.classList.add('visible');
+  } else if (mode === 'gray') {
+    ensureGrayBlobs(gradBg);
+    gradBg.classList.add('gray-animated');
+  }
+}
+
+function extractColors(img) {
+  var canvas = document.createElement('canvas');
+  var ctx = canvas.getContext('2d', {willReadFrequently: true});
+  var w = 50, h = 50;
+  canvas.width = w;
+  canvas.height = h;
+  ctx.drawImage(img, 0, 0, w, h);
+
+  var data;
+  try {
+    data = ctx.getImageData(0, 0, w, h).data;
+  } catch (e) {
+    return null;
+  }
+
+  var buckets = {};
+  for (var i = 0; i < data.length; i += 4) {
+    var r = data[i], g = data[i+1], b = data[i+2], a = data[i+3];
+    if (a < 128) continue;
+    var brightness = (r * 299 + g * 587 + b * 114) / 1000;
+    if (brightness > 242 || brightness < 12) continue;
+
+    var qr = (r >> 4) << 4;
+    var qg = (g >> 4) << 4;
+    var qb = (b >> 4) << 4;
+    var key = qr + ',' + qg + ',' + qb;
+
+    if (!buckets[key]) buckets[key] = {r:0, g:0, b:0, count:0, satSum:0};
+    var bk = buckets[key];
+    bk.r += r; bk.g += g; bk.b += b; bk.count++;
+
+    var mx = Math.max(r, g, b), mn = Math.min(r, g, b);
+    bk.satSum += (mx === 0 ? 0 : (mx - mn) / mx);
+  }
+
+  var arr = [];
+  for (var k in buckets) {
+    var bk = buckets[k];
+    if (bk.count < 3) continue;
+    var avgSat = bk.satSum / bk.count;
+    // Skip muddy low-saturation buckets to keep gradients clean.
+    if (avgSat < 0.16) continue;
+    arr.push({
+      r: Math.round(bk.r / bk.count),
+      g: Math.round(bk.g / bk.count),
+      b: Math.round(bk.b / bk.count),
+      score: bk.count * (avgSat + 0.15)
+    });
+  }
+  arr.sort(function(a, b) { return b.score - a.score; });
+
+  if (arr.length === 0) return null;
+
+  var colors = [arr[0]];
+  for (var i = 1; i < arr.length && colors.length < 3; i++) {
+    var c = arr[i], distinct = true;
+    for (var j = 0; j < colors.length; j++) {
+      var dr = c.r - colors[j].r, dg = c.g - colors[j].g, db = c.b - colors[j].b;
+      if (Math.sqrt(dr*dr + dg*dg + db*db) < 70) { distinct = false; break; }
+    }
+    if (distinct) colors.push(c);
+  }
+
+  while (colors.length < 3) {
+    var last = colors[colors.length - 1];
+    colors.push({r: Math.min(255, last.r + 40), g: Math.min(255, last.g + 30), b: Math.min(255, last.b + 20)});
+  }
+
+  return colors;
+}
+
+function rgbToHex(r, g, b) {
+  return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+}
+
+function clampColor(v) {
+  return Math.max(0, Math.min(255, Math.round(v)));
+}
+
+function cleanAccentColor(primary, secondary) {
+  // Keep accent on blue side to avoid muddy gray.
+  var base = {
+    r: primary.r * 0.38 + secondary.r * 0.62,
+    g: primary.g * 0.42 + secondary.g * 0.58,
+    b: primary.b * 0.22 + secondary.b * 0.78
+  };
+  var avg = (base.r + base.g + base.b) / 3;
+  return {
+    r: clampColor(avg + (base.r - avg) * 1.28 - 6),
+    g: clampColor(avg + (base.g - avg) * 1.28 - 2),
+    b: clampColor(avg + (base.b - avg) * 1.28 + 12)
+  };
+}
+
+function buildBlueMonoScale(primary) {
+  return {
+    secondary: {
+      r: clampColor(primary.r * 0.72 - 4),
+      g: clampColor(primary.g * 0.82 - 2),
+      b: clampColor(primary.b + 24)
+    },
+    accent: {
+      r: clampColor(primary.r * 0.48 - 8),
+      g: clampColor(primary.g * 0.58 - 4),
+      b: clampColor(primary.b + 40)
+    }
+  };
+}
+
+function buildMutedPillColor(primary, isBlueDominant) {
+  if (!isBlueDominant) {
+    return {
+      r: clampColor(primary.r * 0.88),
+      g: clampColor(primary.g * 0.88),
+      b: clampColor(primary.b * 0.88)
+    };
+  }
+  return {
+    r: clampColor(primary.r * 0.66 + 8),
+    g: clampColor(primary.g * 0.72 + 10),
+    b: clampColor(primary.b * 0.78 + 6)
+  };
+}
+
+function applyTheme(colors) {
+  var primary = colors[0];
+  var secondary = colors[1];
+  var accent = cleanAccentColor(primary, secondary);
+  var isBlueDominant = primary.b > primary.r + 8 && primary.b > primary.g + 8;
+
+  // For blue-dominant themes, keep gradient in a pure blue family.
+  if (isBlueDominant) {
+    var monoBlue = buildBlueMonoScale(primary);
+    secondary = monoBlue.secondary;
+    accent = monoBlue.accent;
+  }
+  var pill = buildMutedPillColor(primary, isBlueDominant);
+
+  var root = document.documentElement;
+  root.style.setProperty('--theme-primary', primary.r + ',' + primary.g + ',' + primary.b);
+  root.style.setProperty('--theme-secondary', secondary.r + ',' + secondary.g + ',' + secondary.b);
+  root.style.setProperty('--theme-accent', accent.r + ',' + accent.g + ',' + accent.b);
+  root.style.setProperty('--theme-pill', pill.r + ',' + pill.g + ',' + pill.b);
+
+  var gradBg = document.getElementById('avatarGradientBg');
+  if (gradBg) {
+    gradBg.classList.remove('visible', 'gray-animated');
+    removeGrayBlobs(gradBg);
+    if (currentGradientMode === 'color') {
+      gradBg.classList.add('visible');
+    } else if (currentGradientMode === 'gray') {
+      ensureGrayBlobs(gradBg);
+      gradBg.classList.add('gray-animated');
+    }
+  }
+
+  var followBtn = document.getElementById('followBtn');
+  if (followBtn && !followBtn.classList.contains('followed')) {
+    followBtn.style.background = '';
+  }
+
+  var activeTab = document.querySelector('.tab-item-active.themed');
+  if (activeTab) {
+    var tabSvg = activeTab.querySelector('svg path');
+    if (tabSvg) tabSvg.setAttribute('fill', 'rgb(' + primary.r + ',' + primary.g + ',' + primary.b + ')');
+  }
+
+  var icons = document.querySelectorAll('.action-pill.themed .action-pill-icon');
+  var hue = rgbToHue(primary.r, primary.g, primary.b);
+  icons.forEach(function(icon) {
+    var sat = isBlueDominant ? 1.9 : 2.4;
+    var bright = isBlueDominant ? 0.72 : 0.8;
+    icon.style.filter = 'sepia(1) saturate(' + sat + ') hue-rotate(' + (hue - 50) + 'deg) brightness(' + bright + ')';
+  });
+
+  updateSwatches([primary, secondary, accent]);
+}
+
+function rgbToHue(r, g, b) {
+  r /= 255; g /= 255; b /= 255;
+  var mx = Math.max(r, g, b), mn = Math.min(r, g, b);
+  var h = 0, d = mx - mn;
+  if (d !== 0) {
+    if (mx === r) h = ((g - b) / d) % 6;
+    else if (mx === g) h = (b - r) / d + 2;
+    else h = (r - g) / d + 4;
+    h = Math.round(h * 60);
+    if (h < 0) h += 360;
+  }
+  return h;
+}
+
+function updateSwatches(colors) {
+  for (var i = 0; i < 3; i++) {
+    var swatch = document.getElementById('swatch' + i);
+    if (swatch) swatch.style.background = 'rgb(' + colors[i].r + ',' + colors[i].g + ',' + colors[i].b + ')';
+  }
+  var hexLabel = document.getElementById('hexLabel');
+  if (hexLabel) hexLabel.textContent = rgbToHex(colors[0].r, colors[0].g, colors[0].b);
+}
+
+function switchAvatar(index) {
+  var opt = avatarOptions[index];
+  var avatarPhoto = document.querySelector('.avatar-photo');
+  var nameText = document.querySelector('.name-text');
+
+  var demoAvatarEls = document.querySelectorAll('.demo-avatar');
+  demoAvatarEls.forEach(function(el, i) {
+    el.classList.toggle('active', i === index);
+  });
+
+  var gradBg = document.getElementById('avatarGradientBg');
+  gradBg.classList.remove('visible', 'gray-animated');
+  removeGrayBlobs(gradBg);
+  avatarPhoto.style.opacity = '0.3';
+
+  var img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.onload = function() {
+    avatarPhoto.src = img.src;
+    avatarPhoto.style.opacity = '1';
+    if (nameText) nameText.textContent = opt.displayName;
+
+    var colors = extractColors(img);
+    if (!colors) colors = opt.fallback;
+
+    setTimeout(function() {
+      applyTheme(colors);
+    }, 150);
+  };
+  img.onerror = function() {
+    avatarPhoto.style.opacity = '1';
+    applyTheme(opt.fallback);
+  };
+  img.src = opt.url;
+}
+
+function initDemoPanel() {
+  var container = document.getElementById('demoAvatars');
+  avatarOptions.forEach(function(opt, i) {
+    var wrapper = document.createElement('div');
+    wrapper.className = 'demo-avatar-wrapper';
+
+    var avatarEl = document.createElement('div');
+    avatarEl.className = 'demo-avatar' + (i === 0 ? ' active' : '');
+    avatarEl.onclick = function() { switchAvatar(i); };
+
+    var img = document.createElement('img');
+    img.src = opt.url;
+    img.alt = opt.name;
+    img.crossOrigin = 'anonymous';
+    avatarEl.appendChild(img);
+
+    var label = document.createElement('div');
+    label.className = 'demo-avatar-name';
+    label.textContent = opt.name;
+
+    wrapper.appendChild(avatarEl);
+    wrapper.appendChild(label);
+    container.appendChild(wrapper);
+  });
+}
+
+// Initialize on page load
+(function() {
+  initDemoPanel();
+
+  var avatarPhoto = document.querySelector('.avatar-photo');
+  if (!avatarPhoto) return;
+
+  var img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.onload = function() {
+    var colors = extractColors(img);
+    if (!colors) colors = avatarOptions[0].fallback;
+    setTimeout(function() { applyTheme(colors); }, 600);
+  };
+  img.onerror = function() {
+    setTimeout(function() { applyTheme(avatarOptions[0].fallback); }, 600);
+  };
+  img.src = avatarPhoto.src;
+})();
+</script>
+
+<script>
+(function(){
+  var lastMod = '';
+  setInterval(function(){
+    fetch(location.href, {method:'HEAD'}).then(function(r){
+      var m = r.headers.get('Last-Modified') || '';
+      if (lastMod && m !== lastMod) location.reload();
+      lastMod = m;
+    }).catch(function(){});
+  }, 800);
+})();
+</script>
+
+</body>
+</html>

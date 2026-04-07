@@ -1,0 +1,35 @@
+---
+description: Demo 任务命名规范，确保每个 Agent 对话标题清晰可辨
+alwaysApply: true
+---
+
+# Demo 任务命名规范
+
+当用户的任务涉及 HTML demo 页面时，在回复的**第一行**用加粗标注 demo 归属，格式：
+
+**[Demo 名称] — 简要描述本次操作**
+
+Demo 名称映射表：
+
+| 文件 | Demo 名称 |
+|------|-----------|
+| tiktok-login.html | Login Flow |
+| index.html | Profile Coldplay |
+| profile-onboarding.html | Profile Onboarding |
+| friends.html | Friends |
+| profile-iphone17pro.html | Profile iPhone17 Pro |
+| tiktok-minis-flow.html | TikTok Minis |
+| tiktok-feed/index.html | Feed |
+| story-design/index.html | Story Design |
+
+示例：
+- **[Login Flow] — 新增方案 B 账号选择页**
+- **[Profile Coldplay] — 替换底部 tab 图标**
+
+如果任务涉及多个 demo，用逗号分隔：
+- **[Login Flow, Profile Coldplay] — 统一头像资源**
+
+如果是新建 demo 页面，使用：
+- **[New Demo: 文件名] — 简要描述**
+
+新建 demo 时同步更新 `local-demos.html` 中的 `ITEMS` 数组。

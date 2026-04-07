@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>本地预览</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 420px;
+      margin: 0 auto;
+      padding: 32px 20px 48px;
+      background: #f0f2f5;
+      color: #161823;
+    }
+    h1 { font-size: 20px; margin: 0 0 6px; font-weight: 700; }
+    .sub {
+      font-size: 14px;
+      color: rgba(22, 24, 35, 0.55);
+      margin-bottom: 20px;
+      line-height: 1.45;
+    }
+    .port-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+    .port-row input {
+      width: 80px;
+      padding: 8px 10px;
+      border: 1px solid rgba(0,0,0,.1);
+      border-radius: 10px;
+      font-size: 15px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    }
+    .card h2 {
+      font-size: 15px;
+      font-weight: 600;
+      margin: 0 0 10px;
+    }
+    .card .note {
+      font-size: 13px;
+      color: rgba(22,24,35,.5);
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+    .open-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 12px 16px;
+      border-radius: 12px;
+      background: #fe2c55;
+      color: #fff !important;
+      font-weight: 600;
+      font-size: 15px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+    }
+    .open-btn:hover { filter: brightness(1.05); }
+    .open-btn:active { transform: scale(0.98); }
+  </style>
+</head>
+<body>
+  <h1>本地预览</h1>
+  <p class="sub">下面只有预览入口，点按钮会在新标签打开页面。</p>
+
+  <div class="port-row">
+    <span>端口</span>
+    <input type="number" id="port" value="9000" min="1024" max="65535" aria-label="本地服务端口">
+  </div>
+
+  <div id="demoList"></div>
+
+  <script>
+    var ITEMS = [
+      { title: '登录流程（方案 A / B）', path: '/tiktok-login.html', note: '手机号登录、验证码、个人页' },
+      { title: '个人页 Coldplay', path: '/index.html' },
+      { title: 'Profile onboarding', path: '/profile-onboarding.html' },
+      { title: 'Friends', path: '/friends.html' },
+      { title: 'Profile iPhone 17 Pro', path: '/profile-iphone17pro.html' },
+      { title: 'TikTok Minis 流程', path: '/tiktok-minis-flow.html' },
+      { title: 'Feed', path: '/tiktok-feed/index.html' },
+      { title: 'Story design', path: '/story-design/index.html' },
+      { title: 'TT 个人页 (TUX)', path: '/color-picker-demo/tiktok-profile-tux.html', note: '在 color-picker-demo 执行 npm run dev 或 npm run dev:vite，打开 http://localhost:8080/tiktok-profile-tux.html' },
+      { title: '暮光 · 老年交友App', path: '/twilight-app.html', note: '注册认证、推荐匹配、圈子、活动、聊天、会员' },
+    ];
+
+    function base() {
+      var p = document.getElementById('port').value || '9000';
+      return 'http://127.0.0.1:' + p;
+    }
+    var cacheBust = '?_t=' + Date.now();
+
+    function render() {
+      var root = document.getElementById('demoList');
+      root.innerHTML = '';
+      ITEMS.forEach(function (item) {
+        var url = base() + item.path + cacheBust;
+        var card = document.createElement('div');
+        card.className = 'card';
+        var h2 = document.createElement('h2');
+        h2.textContent = item.title;
+        card.appendChild(h2);
+        if (item.note) {
+          var n = document.createElement('div');
+          n.className = 'note';
+          n.textContent = item.note;
+          card.appendChild(n);
+        }
+        var a = document.createElement('a');
+        a.className = 'open-btn';
+        a.href = url;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.textContent = '打开预览';
+        card.appendChild(a);
+        root.appendChild(card);
+      });
+    }
+
+    document.getElementById('port').addEventListener('input', render);
+    document.getElementById('port').addEventListener('change', render);
+    render();
+  </script>
+</body>
+</html>

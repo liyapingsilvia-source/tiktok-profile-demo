@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TikTok Friends 3.0</title>
+<style>
+  @font-face {
+    font-family: 'TikTok Sans';
+    src: local('TikTok Sans'), local('TikTokSans');
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'TikTok Sans';
+    src: local('TikTok Sans Medium'), local('TikTokSans-Medium');
+    font-weight: 500;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'TikTok Sans';
+    src: local('TikTok Sans SemiBold'), local('TikTokSans-SemiBold');
+    font-weight: 600;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'TikTok Sans';
+    src: local('TikTok Sans Bold'), local('TikTokSans-Bold');
+    font-weight: 700;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'TikTok Text';
+    src: local('TikTok Text'), local('TikTokText');
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'TikTok Text';
+    src: local('TikTok Text Medium'), local('TikTokText-Medium');
+    font-weight: 500;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'SF Pro Text';
+    src: local('SF Pro Text Semibold'), local('SFProText-Semibold');
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    font-family: 'TikTok Sans', -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .phone-frame {
+    width: 390px;
+    background: white;
+    position: relative;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ===== Status Bar ===== */
+  .status-bar {
+    height: 47px;
+    position: relative;
+    overflow: hidden;
+  }
+  .status-bar__time {
+    position: absolute;
+    left: 35px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'SF Pro Text', -apple-system, sans-serif;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 22px;
+    letter-spacing: -0.408px;
+    text-align: center;
+    color: black;
+  }
+  .status-bar__icons {
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .status-bar__signal { width: 21.3px; height: 12.8px; }
+  .status-bar__connection { width: 17.68px; height: 13px; }
+  .status-bar__battery { width: 29.43px; height: 14px; }
+
+  /* ===== Top Nav ===== */
+  .top-nav {
+    height: 44px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .top-nav__title {
+    font-family: 'TikTok Text', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 1.3;
+    color: black;
+    text-align: center;
+  }
+  .top-nav__left {
+    position: absolute;
+    left: 8px;
+    top: 2px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .top-nav__left img { width: 24px; height: 22.5px; }
+  .top-nav__right {
+    position: absolute;
+    right: 8px;
+    top: 2px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .top-nav__right img { width: 24px; height: 24px; }
+
+  /* ===== Share Section ===== */
+  .share-section {
+    padding: 16px 12px 16px 16px;
+    border-bottom: 0.5px solid rgba(0,0,0,0.12);
+  }
+  .share-section__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .share-section__left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+  }
+  .share-section__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  .share-section__text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .share-section__name {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.3;
+    color: black;
+  }
+  .share-section__placeholder {
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.3;
+    color: rgba(0,0,0,0.34);
+  }
+  .share-section__actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-left: 12px;
+  }
+  .share-section__action-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    background: rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .share-section__action-btn img { width: 20px; height: 20px; }
+
+  /* ===== Post Common Styles ===== */
+  .post {
+    display: flex;
+    gap: 12px;
+    padding: 16px;
+    border-bottom: 0.5px solid rgba(0,0,0,0.12);
+  }
+  .post--no-border { border-bottom: none; }
+  .post__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  .post__content {
+    flex: 1;
+    min-width: 0;
+    width: 306px;
+    max-width: 306px;
+  }
+
+  /* Author Row */
+  .author-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 24px;
+    margin-bottom: 6px;
+  }
+  .author-row__left {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .author-row__name {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.3;
+    color: black;
+    white-space: nowrap;
+  }
+  .author-row__streak {
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+  .author-row__streak-icon {
+    width: 16px;
+    height: 16px;
+  }
+  .author-row__streak-num {
+    font-family: 'TikTok Text', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 1.3;
+    color: #ff6613;
+    letter-spacing: 0.06px;
+  }
+  .author-row__right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .message-btn {
+    background: rgba(0,0,0,0.05);
+    border-radius: 999px;
+    padding: 4px 14px 4px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+  }
+  .message-btn__text {
+    font-family: 'TikTok Sans', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 1.3;
+    color: black;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .more-icon {
+    width: 16px;
+    height: 16px;
+    transform: rotate(-90deg);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  /* Post Description */
+  .post__description {
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.4;
+    color: black;
+    margin-bottom: 10px;
+    word-break: break-word;
+  }
+
+  /* Photos */
+  .post__photos {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+  .post__photo {
+    border-radius: 8px;
+    object-fit: cover;
+    border: 0.5px solid rgba(0,0,0,0.12);
+  }
+  .post__photo--left { width: 150px; height: 200px; }
+  .post__photo--right { width: 150px; height: 200px; }
+
+  /* Tag */
+  .post__tag {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(0,0,0,0.05);
+    border-radius: 6px;
+    padding: 4px;
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+  .post__tag-icon { width: 18px; height: 18px; }
+  .post__tag-text {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 1.3;
+    color: black;
+    white-space: nowrap;
+  }
+
+  /* Interaction Row */
+  .interaction-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 28px;
+    margin-bottom: 10px;
+  }
+  .interaction-row--bottom {
+    margin-bottom: 0;
+    margin-top: 10px;
+  }
+  .interaction-row__time {
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.3;
+    color: rgba(0,0,0,0.48);
+    white-space: nowrap;
+  }
+  .interaction-row__actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  .interaction-item {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+  .interaction-item__icon { width: 24px; height: 24px; }
+  .interaction-item__count {
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 1.3;
+    color: black;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  /* Comments */
+  .comments-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .comment {
+    display: flex;
+    flex-direction: column;
+  }
+  .comment__line {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-height: 21px;
+  }
+  .comment__avatar {
+    width: 20px;
+    height: 20px;
+    border-radius: 999px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  .comment__username {
+    font-family: 'TikTok Text', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 1.4;
+    color: rgba(0,0,0,0.48);
+    letter-spacing: 0.06px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .comment__reply-icon {
+    width: 10px;
+    height: 10px;
+    flex-shrink: 0;
+  }
+  .comment__text {
+    font-family: 'TikTok Sans', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.4;
+    color: black;
+    letter-spacing: 0.06px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+    min-width: 0;
+  }
+  .comment__text--wrap {
+    white-space: normal;
+    width: 306px;
+  }
+  .comment__continuation {
+    font-family: 'TikTok Sans', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.4;
+    color: black;
+    letter-spacing: 0.06px;
+    width: 306px;
+  }
+
+  /* View More */
+  .view-more {
+    display: flex;
+    align-items: center;
+    height: 20px;
+    cursor: pointer;
+  }
+  .view-more__text {
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.3;
+    color: #2b5db9;
+    white-space: nowrap;
+  }
+  .view-more__icon { width: 20px; height: 20px; }
+
+  /* Comment Input */
+  .comment-input {
+    background: rgba(0,0,0,0.05);
+    border-radius: 36px;
+    padding: 2px 8px 2px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 12px;
+    margin-left: -4px;
+    width: 310px;
+  }
+  .comment-input--wide {
+    margin-left: -12px;
+    width: 318px;
+  }
+  .comment-input__placeholder {
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.3;
+    color: rgba(0,0,0,0.34);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 36px;
+    display: flex;
+    align-items: center;
+  }
+  .comment-input__emojis {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .comment-input__emoji {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .comment-input__emoji img {
+    width: 25.2px;
+    height: 25.2px;
+    object-fit: cover;
+  }
+
+  /* ===== Video Post ===== */
+  .video-area {
+    width: 245px;
+    height: 327px;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    border: 0.5px solid rgba(0,0,0,0.12);
+    margin-bottom: 10px;
+  }
+  .video-area img.video-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .video-area__gradient-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 54px;
+    background: linear-gradient(to top, rgba(0,0,0,0.3), transparent);
+  }
+  .video-area__gradient-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 56px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), transparent);
+  }
+  .video-area__music {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .video-area__music-info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding-top: 5px;
+    min-width: 0;
+  }
+  .video-area__music-icon { width: 14px; height: 14px; flex-shrink: 0; }
+  .video-area__music-text {
+    font-family: 'TikTok Text', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.3;
+    color: white;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .video-area__sound-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    background: rgba(51,51,51,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .video-area__sound-btn img { width: 16px; height: 16px; }
+  .video-area__user {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .video-area__user-avatar {
+    width: 21px;
+    height: 21px;
+    border-radius: 999px;
+    object-fit: cover;
+  }
+  .video-area__user-name {
+    font-family: 'TikTok Sans', sans-serif;
+    font-weight: 500;
+    font-size: 12.5px;
+    line-height: 1.3;
+    color: white;
+    letter-spacing: 0.17px;
+    white-space: nowrap;
+  }
+  .video-area__badge { width: 10.4px; height: 10.4px; flex-shrink: 0; }
+
+  /* ===== Repost ===== */
+  .repost-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .repost-content__line {
+    width: 2px;
+    height: 313px;
+    background: rgba(0,0,0,0.12);
+    border-radius: 1px;
+    flex-shrink: 0;
+    align-self: center;
+  }
+  .repost-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 10px;
+  }
+  .repost-info__item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .repost-info__icon { width: 16px; height: 16px; }
+  .repost-info__text {
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.3;
+    color: rgba(0,0,0,0.48);
+    white-space: nowrap;
+  }
+  .repost-info__text--bold {
+    font-weight: 600;
+  }
+
+  /* ===== Bottom Nav ===== */
+  .bottom-nav {
+    position: sticky;
+    bottom: 0;
+    background: white;
+    z-index: 100;
+  }
+  .bottom-nav__bar {
+    display: flex;
+    align-items: flex-start;
+    gap: 2px;
+    height: 49px;
+    overflow: hidden;
+  }
+  .bottom-nav__item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2px;
+    padding-bottom: 4px;
+    height: 49px;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .bottom-nav__icon-frame {
+    width: 32px;
+    height: 32px;
+    position: relative;
+    margin-bottom: -1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .bottom-nav__icon-frame img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+  }
+  .bottom-nav__label {
+    font-family: 'TikTok Sans', sans-serif;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 1.3;
+    letter-spacing: 0.23px;
+    text-align: center;
+    color: rgba(0,0,0,0.48);
+  }
+  .bottom-nav__label--active {
+    color: black;
+  }
+  .bottom-nav__center {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    align-self: stretch;
+    cursor: pointer;
+  }
+  .bottom-nav__create { width: 48px; height: 48px; }
+  .bottom-nav__home-indicator {
+    height: 34px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 8px;
+  }
+  .bottom-nav__grabber {
+    width: 140px;
+    height: 5px;
+    border-radius: 29px;
+    background: black;
+  }
+
+  /* ===== Scrollable Content ===== */
+  .scrollable {
+    padding-bottom: 0;
+  }
+
+  /* Utility: hidden overflow for smooth look */
+  img { display: block; }
+</style>
+</head>
+<body>
+
+<div class="phone-frame">
+  <!-- ===== Status Bar ===== -->
+  <div class="status-bar">
+    <span class="status-bar__time">8:00</span>
+    <div class="status-bar__icons">
+      <img class="status-bar__signal" src="https://www.figma.com/api/mcp/asset/7f8175fa-fb1c-4658-8cf9-af3bebf6a5e1" alt="">
+      <img class="status-bar__connection" src="https://www.figma.com/api/mcp/asset/a3bc5b6f-82a6-48d3-8cce-d1bfda3bf9de" alt="">
+      <img class="status-bar__battery" src="https://www.figma.com/api/mcp/asset/0c92b491-135f-48ff-90d1-e53410b6264a" alt="">
+    </div>
+  </div>
+
+  <!-- ===== Top Nav ===== -->
+  <div class="top-nav">
+    <div class="top-nav__left">
+      <img src="https://www.figma.com/api/mcp/asset/a9889c7c-124e-4f90-ae0a-ade0bd394028" alt="Add Friend">
+    </div>
+    <span class="top-nav__title">Friends</span>
+    <div class="top-nav__right">
+      <img src="https://www.figma.com/api/mcp/asset/4d5c4570-444b-46dd-a821-4564fe96203e" alt="Search">
+    </div>
+  </div>
+
+  <div class="scrollable">
+    <!-- ===== Share Section ===== -->
+    <div class="share-section">
+      <div class="share-section__inner">
+        <div class="share-section__left">
+          <img class="share-section__avatar" src="https://www.figma.com/api/mcp/asset/45ccbf12-f6fe-4e3b-8d29-4ecbcca1dfa0" alt="Chujie">
+          <div class="share-section__text">
+            <span class="share-section__name">Chujie</span>
+            <span class="share-section__placeholder">Share something today</span>
+          </div>
+        </div>
+        <div class="share-section__actions">
+          <div class="share-section__action-btn">
+            <img src="https://www.figma.com/api/mcp/asset/5cb8457a-00f9-413f-a73f-4d3954861c3e" alt="Gallery">
+          </div>
+          <div class="share-section__action-btn">
+            <img src="https://www.figma.com/api/mcp/asset/292b2170-327d-4121-8037-2359d8cffde0" alt="Text">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Post 1: Multi-image (Siyyuan) ===== -->
+    <div class="post">
+      <img class="post__avatar" src="https://www.figma.com/api/mcp/asset/77ec842a-26da-428d-9991-7ba4276a3bf6" alt="Siyyuan">
+      <div class="post__content">
+        <!-- Author -->
+        <div class="author-row">
+          <div class="author-row__left">
+            <span class="author-row__name">Siyyuan</span>
+          </div>
+          <div class="author-row__right">
+            <button class="message-btn">
+              <span class="message-btn__text">Message</span>
+            </button>
+            <img class="more-icon" src="https://www.figma.com/api/mcp/asset/e5a2f159-fea5-429f-9c24-601987909041" alt="More">
+          </div>
+        </div>
+        <!-- Description -->
+        <p class="post__description">Went to the Museum today, saw a lot of ancient paintings.</p>
+        <!-- Photos -->
+        <div class="post__photos">
+          <img class="post__photo post__photo--left" src="https://www.figma.com/api/mcp/asset/4756895c-5fdc-4d6f-a265-3d4a900e1d5f" alt="Photo 1">
+          <img class="post__photo post__photo--right" src="https://www.figma.com/api/mcp/asset/9127f6bf-c662-427e-88fd-1beb52da2466" alt="Photo 2">
+        </div>
+        <!-- Tag -->
+        <div class="post__tag">
+          <img class="post__tag-icon" src="https://www.figma.com/api/mcp/asset/a6f45918-4389-4f13-82bd-80de21eb7106" alt="">
+          <span class="post__tag-text">Bad lemon</span>
+        </div>
+        <!-- Interaction Row -->
+        <div class="interaction-row">
+          <span class="interaction-row__time">3m ago</span>
+          <div class="interaction-row__actions">
+            <div class="interaction-item">
+              <img class="interaction-item__icon" src="https://www.figma.com/api/mcp/asset/f0521535-8513-4478-803b-a6e0a675cbe2" alt="Like">
+              <span class="interaction-item__count">0</span>
+            </div>
+            <div class="interaction-item">
+              <img class="interaction-item__icon" src="https://www.figma.com/api/mcp/asset/f0bbea84-1507-497b-874c-c0ab9718eba1" alt="Comment">
+              <span class="interaction-item__count">6</span>
+            </div>
+          </div>
+        </div>
+        <!-- Comments -->
+        <div class="comments-section">
+          <!-- Comment 1 (Siyuan - multiline) -->
+          <div class="comment">
+            <div class="comment__line">
+              <img class="comment__avatar" src="https://www.figma.com/api/mcp/asset/9905bc69-323d-4861-a6c9-ac445eb0c415" alt="">
+              <span class="comment__username">Siyuan:</span>
+              <span class="comment__text">Work-Life Balance in the</span>
+            </div>
+            <p class="comment__continuation">modern world In today's fast-paced and highly connected world.</p>
+          </div>
+          <!-- Comment 2 (Hao233 - multiline) -->
+          <div class="comment">
+            <div class="comment__line">
+              <img class="comment__avatar" src="https://www.figma.com/api/mcp/asset/39ed2396-5cc8-4ddf-a5ad-8e10f88cf52c" alt="">
+              <span class="comment__username">Hao233:</span>
+              <span class="comment__text">beautiful scene wanna see</span>
+            </div>
+            <p class="comment__continuation">it by my eyes.</p>
+          </div>
+          <!-- Comment 3 (Jiaqi -> Siyuan reply) -->
+          <div class="comment">
+            <div class="comment__line">
+              <img class="comment__avatar" src="https://www.figma.com/api/mcp/asset/cf8bd481-09b2-4ca3-8ded-f06d0e58bd01" alt="">
+              <span class="comment__username">Jiaqi</span>
+              <img class="comment__reply-icon" src="https://www.figma.com/api/mcp/asset/98486efc-1382-4c84-b54e-987833b66500" alt="">
+              <span class="comment__username">Siyuan:</span>
+              <span class="comment__text">I totally agree</span>
+            </div>
+          </div>
+          <!-- Comment 4 (Clyde) -->
+          <div class="comment">
+            <div class="comment__line">
+              <img class="comment__avatar" src="https://www.figma.com/api/mcp/asset/3afbfbfe-7919-4dcb-b303-50518a37ac29" alt="">
+              <span class="comment__username">Clyde:</span>
+              <span class="comment__text">haha</span>
+            </div>
+          </div>
+          <!-- Comment 5 (Chujie) -->
+          <div class="comment">
+            <div class="comment__line">
+              <img class="comment__avatar" src="https://www.figma.com/api/mcp/asset/51c38cd6-5672-499d-83da-4a84722c7223" alt="">
+              <span class="comment__username">Chujie:</span>
+              <span class="comment__text">wow,wow</span>
+            </div>
+          </div>
+          <!-- View More -->
+          <div class="view-more">
+            <span class="view-more__text">View more</span>
+            <img class="view-more__icon" src="https://www.figma.com/api/mcp/asset/d93efa92-ac70-46bd-a6cd-1999cd8793e2" alt="">
+          </div>
+        </div>
+        <!-- Comment Input -->
+        <div class="comment-input">
+          <span class="comment-input__placeholder">Add comment...</span>
+          <div class="comment-input__emojis">
+            <div class="comment-input__emoji">
+              <img src="https://www.figma.com/api/mcp/asset/926fe1be-be64-47ec-85cc-81204d5219a6" alt="">
+            </div>
+            <div class="comment-input__emoji">
+              <img src="https://www.figma.com/api/mcp/asset/694dd54f-5575-4816-adb1-4f8c46ac2804" alt="">
+            </div>
+            <div class="comment-input__emoji">
+              <img src="https://www.figma.com/api/mcp/asset/c551b5c8-593e-4140-b5eb-03c384a8ecff" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Post 2: Single Image/Video (Gill) ===== -->
+    <div class="post">
+      <img class="post__avatar" src="https://www.figma.com/api/mcp/asset/71aff597-d930-42c8-bef0-513104047bb7" alt="Gill" style="border-radius:50%;">
+      <div class="post__content">
+        <!-- Author -->
+        <div class="author-row">
+          <div class="author-row__left">
+            <span class="author-row__name">Gill</span>
+            <div class="author-row__streak">
+              <img class="author-row__streak-icon" src="https://www.figma.com/api/mcp/asset/15b91a6e-bedd-41de-8f8f-b6f0b01c8672" alt="">
+              <span class="author-row__streak-num">83</span>
+            </div>
+          </div>
+          <div class="author-row__right">
+            <button class="message-btn">
+              <span class="message-btn__text">Message</span>
+            </button>
+            <img class="more-icon" src="https://www.figma.com/api/mcp/asset/29d34fb4-b828-4c7f-ac5f-a1c7d147b716" alt="More">
+          </div>
+        </div>
+        <!-- Description -->
+        <p class="post__description">Went to the Museum today, saw a lot of ancient paintings.</p>
+        <!-- Video -->
+        <div class="video-area">
+          <img class="video-cover" src="https://www.figma.com/api/mcp/asset/9a0ebc7a-983b-41b5-8c08-ed41ff5e6ada" alt="">
+          <div class="video-area__gradient-bottom"></div>
+          <div class="video-area__music">
+            <div class="video-area__music-info">
+              <img class="video-area__music-icon" src="https://www.figma.com/api/mcp/asset/48112446-335a-4b16-bba9-0dd56ee2a797" alt="">
+              <span class="video-area__music-text">Ultra Instinct - adamdevito</span>
+            </div>
+            <div class="video-area__sound-btn">
+              <img src="https://www.figma.com/api/mcp/asset/4756e36c-c646-4f74-b528-51eb3e046107" alt="">
+            </div>
+          </div>
+        </div>
+        <!-- Interaction Row -->
+        <div class="interaction-row">
+          <span class="interaction-row__time">3m ago</span>
+          <div class="interaction-row__actions">
+            <div class="interaction-item">
+              <img class="interaction-item__icon" src="https://www.figma.com/api/mcp/asset/43543f1e-f2ad-4be6-a6dc-00069b8f2b98" alt="Like">
+              <span class="interaction-item__count">0</span>
+            </div>
+            <div class="interaction-item">
+              <img class="interaction-item__icon" src="https://www.figma.com/api/mcp/asset/e7e9ac60-98dd-413e-9553-3bd86facd6ba" alt="Comment">
+              <span class="interaction-item__count">6</span>
+            </div>
+          </div>
+        </div>
+        <!-- Comments -->
+        <div class="comments-section">
+          <!-- Comment 1 (Siyuan - multiline) -->
+          <div class="comment">
+            <div class="comment__line">
+              <img class="comment__avatar" src="https://www.figma.com/api/mcp/asset/46b721a1-bea8-472a-a81c-2f656547895f" alt="">
+              <span class="comment__username">Siyuan:</span>
+              <span class="comment__text">Work-Life Balance in the</span>
+            </div>
+            <p class="comment__continuation">modern world In today's fast-paced and highly connected world.</p>
+          </div>
+          <!-- Comment 2 (Clyde) -->
+          <div class="comment">
+            <div class="comment__line">
+              <img class="comment__avatar" src="https://www.figma.com/api/mcp/asset/9dbd8810-7e3e-4aa5-acc3-e6610450a17a" alt="">
+              <span class="comment__username">Clyde:</span>
+              <span class="comment__text">So happy</span>
+            </div>
+          </div>
+          <!-- Comment 3 (Chujie) -->
+          <div class="comment">
+            <div class="comment__line">
+              <img class="comment__avatar" src="https://www.figma.com/api/mcp/asset/2f614c71-2d6a-47aa-ae0d-ef439343e60f" alt="">
+              <span class="comment__username">Chujie:</span>
+              <span class="comment__text">❤️❤️❤️</span>
+            </div>
+          </div>
+        </div>
+        <!-- Comment Input -->
+        <div class="comment-input comment-input--wide">
+          <span class="comment-input__placeholder">Add comment...</span>
+          <div class="comment-input__emojis">
+            <div class="comment-input__emoji">
+              <img src="https://www.figma.com/api/mcp/asset/5da9522f-ee09-4224-8ffc-a650f2719498" alt="">
+            </div>
+            <div class="comment-input__emoji">
+              <img src="https://www.figma.com/api/mcp/asset/3d1e4b88-a566-45bc-80ca-cbf544f078cf" alt="">
+            </div>
+            <div class="comment-input__emoji">
+              <img src="https://www.figma.com/api/mcp/asset/bb894288-4d93-4fc3-9889-5febda9f1656" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Post 3: Text-only (Hao) ===== -->
+    <div class="post">
+      <img class="post__avatar" src="https://www.figma.com/api/mcp/asset/2a30edfb-40e1-4106-b682-8ed1a2d183db" alt="Hao">
+      <div class="post__content">
+        <!-- Author -->
+        <div class="author-row">
+          <div class="author-row__left">
+            <span class="author-row__name">Hao</span>
+          </div>
+          <div class="author-row__right">
+            <button class="message-btn">
+              <span class="message-btn__text">Message</span>
+            </button>
+            <img class="more-icon" src="https://www.figma.com/api/mcp/asset/25f9e69f-f0fd-4c7b-8dda-8cc10a37e0b7" alt="More">
+          </div>
+        </div>
+        <!-- Description -->
+        <p class="post__description">Hot cocoa in hand, carols in the air, and gratitude in my heart—December, you're beautiful ☕✨</p>
+        <!-- Comment Input -->
+        <div class="comment-input" style="margin-top:0;">
+          <span class="comment-input__placeholder">Add comment...</span>
+          <div class="comment-input__emojis">
+            <div class="comment-input__emoji">
+              <img src="https://www.figma.com/api/mcp/asset/ae24fdae-5a0e-4e88-b356-267c01c21281" alt="">
+            </div>
+            <div class="comment-input__emoji">
+              <img src="https://www.figma.com/api/mcp/asset/a53d0cf8-94a3-4995-914e-b9b6476a7a67" alt="">
+            </div>
+            <div class="comment-input__emoji">
+              <img src="https://www.figma.com/api/mcp/asset/bcc8943c-69d8-4da1-bab5-0f2d02b0a3a6" alt="">
+            </div>
+          </div>
+        </div>
+        <!-- Interaction Row -->
+        <div class="interaction-row interaction-row--bottom">
+          <span class="interaction-row__time">32m ago</span>
+          <div class="interaction-row__actions">
+            <div class="interaction-item">
+              <img class="interaction-item__icon" src="https://www.figma.com/api/mcp/asset/1ec227f1-3684-46c4-ac25-e95f201aedb8" alt="Liked">
+              <span class="interaction-item__count">3</span>
+            </div>
+            <div class="interaction-item">
+              <img class="interaction-item__icon" src="https://www.figma.com/api/mcp/asset/7a1d920b-c691-48fe-b385-3fc6bf45e67b" alt="Comment">
+              <span class="interaction-item__count">0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Post 4: Repost (Ye) ===== -->
+    <div class="post">
+      <img class="post__avatar" src="https://www.figma.com/api/mcp/asset/3be384e4-0fd9-4a51-80db-6b41f7d4ad52" alt="Ye">
+      <div class="post__content">
+        <!-- Author -->
+        <div class="author-row">
+          <div class="author-row__left">
+            <span class="author-row__name">Ye</span>
+          </div>
+          <div class="author-row__right">
+            <button class="message-btn">
+              <span class="message-btn__text">Message</span>
+            </button>
+            <img class="more-icon" src="https://www.figma.com/api/mcp/asset/feeab1d8-b369-4826-95a2-7e172203cc27" alt="More">
+          </div>
+        </div>
+        <!-- Description -->
+        <p class="post__description" style="margin-bottom:2px;">Lady Gaga!</p>
+        <!-- Repost Video Content -->
+        <div class="repost-content">
+          <div class="repost-content__line"></div>
+          <div class="video-area" style="margin-bottom:0; border-radius:8.34px;">
+            <img class="video-cover" src="https://www.figma.com/api/mcp/asset/cf8238f8-94a6-45f6-9912-3517fb4f4233" alt="">
+            <div class="video-area__gradient-top"></div>
+            <div class="video-area__gradient-bottom" style="height:56px;"></div>
+            <!-- User overlay on video -->
+            <div class="video-area__user">
+              <img class="video-area__user-avatar" src="https://www.figma.com/api/mcp/asset/56b03f1d-df0b-4b82-b2ef-36281fc058bb" alt="">
+              <span class="video-area__user-name">Lady Gaga</span>
+              <img class="video-area__badge" src="https://www.figma.com/api/mcp/asset/7b754aee-7b1e-481f-9b7c-e22b32e7e710" alt="">
+            </div>
+            <!-- Music overlay -->
+            <div class="video-area__music">
+              <div class="video-area__music-info">
+                <img class="video-area__music-icon" src="https://www.figma.com/api/mcp/asset/97ebfaf9-ecb7-4a5e-b160-affd7fe47fd8" alt="" style="width:14.6px;height:14.6px;">
+                <span class="video-area__music-text" style="font-size:14.6px;">Abracadabra - Lady Gaga</span>
+              </div>
+              <div class="video-area__sound-btn" style="padding:6.3px;">
+                <img src="https://www.figma.com/api/mcp/asset/259d1ccf-cc68-4d41-b345-4b137c8a951a" alt="" style="width:16.7px;height:16.7px;">
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Repost Info -->
+        <div class="repost-info">
+          <div class="repost-info__item">
+            <img class="repost-info__icon" src="https://www.figma.com/api/mcp/asset/90681542-4d0f-4575-bac1-a5c6372c69af" alt="">
+            <span class="repost-info__text">In 2 days</span>
+          </div>
+          <div class="repost-info__item">
+            <span class="repost-info__text repost-info__text--bold">Reply</span>
+            <img class="repost-info__icon" src="https://www.figma.com/api/mcp/asset/b67f2e67-daab-4674-8562-8ab02dcdcd41" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Bottom Nav ===== -->
+  <div class="bottom-nav">
+    <div class="bottom-nav__bar">
+      <!-- Home -->
+      <div class="bottom-nav__item">
+        <div class="bottom-nav__icon-frame">
+          <img src="https://www.figma.com/api/mcp/asset/a7db6687-8664-4e89-9bd7-dc69af5cf990" alt="">
+        </div>
+        <span class="bottom-nav__label">Home</span>
+      </div>
+      <!-- Friends (active) -->
+      <div class="bottom-nav__item">
+        <div class="bottom-nav__icon-frame">
+          <img src="https://www.figma.com/api/mcp/asset/8ed676df-92ae-4229-84ef-776e69db2bbc" alt="">
+        </div>
+        <span class="bottom-nav__label bottom-nav__label--active">Friends</span>
+      </div>
+      <!-- Create -->
+      <div class="bottom-nav__center">
+        <img class="bottom-nav__create" src="https://www.figma.com/api/mcp/asset/e807283c-53fa-4df1-a059-b2876d33dba3" alt="">
+      </div>
+      <!-- Inbox -->
+      <div class="bottom-nav__item">
+        <div class="bottom-nav__icon-frame">
+          <img src="https://www.figma.com/api/mcp/asset/b8f5cc98-837a-4401-97f4-d45197aec434" alt="">
+        </div>
+        <span class="bottom-nav__label">Inbox</span>
+      </div>
+      <!-- Profile -->
+      <div class="bottom-nav__item">
+        <div class="bottom-nav__icon-frame">
+          <img src="https://www.figma.com/api/mcp/asset/992d8ddf-74ae-4e34-8291-51686f7a75ab" alt="">
+        </div>
+        <span class="bottom-nav__label">Profile</span>
+      </div>
+    </div>
+    <div class="bottom-nav__home-indicator">
+      <div class="bottom-nav__grabber"></div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

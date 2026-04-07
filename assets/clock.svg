@@ -1,0 +1,14 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Clock-line" clip-path="url(#clip0_0_698)">
+<path id="Subtract" d="M5.99805 0.500244C9.03553 0.500244 11.4979 2.96279 11.498 6.00024C11.498 9.03781 9.03561 11.5002 5.99805 11.5002C2.96048 11.5002 0.498047 9.03781 0.498047 6.00024C0.498179 2.96279 2.96056 0.500244 5.99805 0.500244ZM5.87305 2.62524C5.52787 2.62524 5.24805 2.90507 5.24805 3.25024V5.82642C5.24826 6.29839 5.49036 6.73781 5.88965 6.9895L7.54004 8.02856C7.83198 8.21245 8.2173 8.12506 8.40137 7.83325C8.58536 7.54128 8.49795 7.15599 8.20605 6.97192L6.55664 5.93188C6.5205 5.90911 6.49826 5.86911 6.49805 5.82642V3.25024C6.49805 2.90507 6.21822 2.62524 5.87305 2.62524Z" fill="url(#paint0_linear_0_698)"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_0_698" x1="9.52796" y1="11.5578" x2="9.52796" y2="0.441624" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F5A0FF"/>
+<stop offset="0.716346" stop-color="#FE2C55"/>
+</linearGradient>
+<clipPath id="clip0_0_698">
+<rect width="12" height="12" fill="white"/>
+</clipPath>
+</defs>
+</svg>

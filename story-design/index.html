@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Story Immersive Feed</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #1a1a1a;
+      font-family: 'TikTok Text', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    .story-container {
+      position: relative;
+      width: 390px;
+      height: 844px;
+      background: #000;
+      overflow: hidden;
+    }
+
+    /* ===== Status Bar ===== */
+    .status-bar {
+      position: absolute;
+      top: 0;
+      left: 0.31px;
+      width: 390px;
+      height: 47px;
+      overflow: hidden;
+      z-index: 10;
+    }
+
+    .status-bar__time {
+      position: absolute;
+      left: 64px;
+      top: 50%;
+      transform: translateY(calc(-50% + 2.1px));
+      width: 58px;
+      font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 600;
+      font-size: 17px;
+      line-height: 22px;
+      letter-spacing: -0.408px;
+      color: white;
+      text-align: center;
+    }
+
+    .status-bar__signal {
+      position: absolute;
+      right: 84.7px;
+      top: 50%;
+      transform: translateY(calc(-50% + 2.1px));
+      width: 21.298px;
+      height: 12.798px;
+    }
+
+    .status-bar__connection {
+      position: absolute;
+      right: 60.32px;
+      top: 50%;
+      transform: translateY(calc(-50% + 2px));
+      width: 17.68px;
+      height: 13px;
+    }
+
+    .status-bar__battery {
+      position: absolute;
+      right: 25.57px;
+      top: 50%;
+      transform: translateY(calc(-50% + 2.5px));
+      width: 29.432px;
+      height: 14px;
+    }
+
+    .status-bar img {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ===== Background Image ===== */
+    .bg-image {
+      position: absolute;
+      left: 0;
+      top: 52px;
+      width: 390px;
+      height: 694px;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .bg-image img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+      border-radius: 14px;
+    }
+
+    /* ===== Top Overlay ===== */
+    .top-overlay {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 52px;
+      height: 136px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+    }
+
+    .top-overlay__img {
+      width: 390px;
+      height: 136px;
+      transform: scaleY(-1);
+    }
+
+    .top-overlay__img img {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ===== Top Content (Progress + User Info) ===== */
+    .top-content {
+      position: absolute;
+      left: 0;
+      top: 64px;
+      width: 390px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      z-index: 3;
+    }
+
+    /* Progress Bars */
+    .progress-bar {
+      display: flex;
+      gap: 4px;
+      padding: 0 12px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .progress-bar__segment {
+      width: 88px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.34);
+      border-radius: 999px;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .progress-bar__segment--active {
+      height: 4px;
+    }
+
+    .progress-bar__fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 67px;
+      height: 4px;
+      border-radius: 999px;
+      background: white;
+    }
+
+    /* Top Info Row */
+    .top-info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .top-info__left {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      padding-left: 12px;
+    }
+
+    .top-info__user {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* User Avatar */
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .user-avatar__img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 32px;
+      height: 32px;
+    }
+
+    .user-avatar__img img {
+      position: absolute;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Username */
+    .username-tag {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      height: 22px;
+      white-space: nowrap;
+      font-style: normal;
+      line-height: 1.3;
+    }
+
+    .username-tag__name {
+      font-size: 17px;
+      font-weight: 500;
+      color: white;
+    }
+
+    .username-tag__time {
+      font-size: 15px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.6);
+      letter-spacing: 0.0607px;
+    }
+
+    /* Top Right Icons */
+    .top-info__right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      justify-content: flex-end;
+      padding: 10px 16px 10px 12px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    /* Music Icon */
+    .music-icon {
+      width: 24px;
+      height: 24px;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .music-icon__cover {
+      position: absolute;
+      inset: 8.33%;
+    }
+
+    .music-icon__cover img {
+      position: absolute;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .music-icon__note {
+      position: absolute;
+      left: 13px;
+      top: 12px;
+      width: 12px;
+      height: 12px;
+    }
+
+    .music-icon__note-inner {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .music-icon__note-svg {
+      position: absolute;
+      inset: 6.17% 14.58% 8.33% 7.29%;
+    }
+
+    .music-icon__note-svg img {
+      position: absolute;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Close Icon */
+    .close-icon {
+      width: 24px;
+      height: 24px;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .close-icon img {
+      position: absolute;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ===== Bottom Interaction ===== */
+    .interaction {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 746px;
+      width: 390px;
+      padding: 0 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      z-index: 5;
+    }
+
+    .dm-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .dm-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 64px;
+      gap: 16px;
+      padding-right: 6px;
+      padding-top: 8px;
+    }
+
+    /* DM Input */
+    .dm-input {
+      width: 272px;
+      height: 48px;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .dm-input__blur-bg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 272px;
+      height: 48px;
+      border-radius: 1000px;
+      background: rgba(191, 191, 191, 0.44);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      opacity: 0.7;
+      overflow: hidden;
+    }
+
+    .dm-input__blur-inner {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .dm-input__blur-overlay {
+      position: absolute;
+      inset: 0;
+      background: #0d0d0d;
+      mix-blend-mode: color-dodge;
+    }
+
+    .dm-input__content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 272px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-left: 16px;
+      padding-right: 12px;
+      border-radius: 189px;
+    }
+
+    .dm-input__text-area {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .dm-input__placeholder {
+      font-family: 'TikTok Text', 'Noto Sans SC', sans-serif;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 1.3;
+      color: rgba(255, 255, 255, 0.6);
+      letter-spacing: 0.0607px;
+    }
+
+    .dm-input__emojis {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 14px;
+      font-size: 28px;
+      line-height: normal;
+      flex-shrink: 0;
+    }
+
+    .dm-input__emoji {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Interaction Icons (Like + Share) */
+    .interaction-icons {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+
+    .icon-like {
+      width: 28px;
+      height: 28px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .icon-like__inner {
+      position: absolute;
+      inset: 9.38% 6.25% 10.42% 6.25%;
+    }
+
+    .icon-like__img {
+      position: absolute;
+      inset: -8.91% -12.24% -17.81% -12.24%;
+    }
+
+    .icon-like__img img {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .icon-share {
+      width: 28px;
+      height: 28px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .icon-share__inner {
+      position: absolute;
+      inset: 7.38% 9.09% 7.41% 5.21%;
+    }
+
+    .icon-share__img {
+      position: absolute;
+      inset: -16.76% -25% -33.53% -25%;
+    }
+
+    .icon-share__img img {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ===== Community Card ===== */
+    .community-card {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 280px;
+      width: 310px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 16px;
+      overflow: hidden;
+      z-index: 4;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .community-card__header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 16px 12px;
+    }
+
+    .community-card__avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .community-card__info {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .community-card__name-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .community-card__name {
+      font-family: 'TikTok Text', 'Noto Sans SC', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: #161823;
+      line-height: 1.3;
+    }
+
+    .community-card__badge {
+      width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .community-card__members {
+      font-family: 'TikTok Text', 'Noto Sans SC', sans-serif;
+      font-weight: 400;
+      font-size: 13px;
+      color: rgba(22, 24, 35, 0.5);
+      line-height: 1.3;
+    }
+
+    .community-card__body {
+      padding: 0 16px 14px;
+    }
+
+    .community-card__sender {
+      font-family: 'TikTok Text', 'Noto Sans SC', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      color: rgba(22, 24, 35, 0.5);
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+
+    .community-card__bubble {
+      background: rgba(22, 24, 35, 0.05);
+      border-radius: 4px 12px 12px 12px;
+      padding: 12px 14px;
+    }
+
+    .community-card__text {
+      font-family: 'TikTok Text', 'Noto Sans SC', sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      color: #161823;
+      line-height: 1.45;
+    }
+
+    .community-card__footer {
+      padding: 12px 16px 16px;
+    }
+
+    .community-card__link {
+      font-family: 'TikTok Text', 'Noto Sans SC', sans-serif;
+      font-weight: 500;
+      font-size: 15px;
+      color: #3b82f6;
+      text-align: center;
+      display: block;
+      cursor: pointer;
+    }
+
+    /* ===== Home Indicator ===== */
+    .home-indicator {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 390px;
+      height: 34px;
+      overflow: hidden;
+      z-index: 10;
+    }
+
+    .home-indicator__bar {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 140px;
+      height: 5px;
+      background: white;
+      border-radius: 999px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="story-container">
+  <!-- Status Bar -->
+  <div class="status-bar">
+    <span class="status-bar__time">8:00</span>
+    <div class="status-bar__signal">
+      <img src="assets/signal.png" alt="">
+    </div>
+    <div class="status-bar__connection">
+      <img src="assets/connection.png" alt="">
+    </div>
+    <div class="status-bar__battery">
+      <img src="assets/battery.png" alt="">
+    </div>
+  </div>
+
+  <!-- Background Image -->
+  <div class="bg-image">
+    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 390 694'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232a4f8f'/%3E%3Cstop offset='0.55' stop-color='%23617db4'/%3E%3Cstop offset='1' stop-color='%2394a3c9'/%3E%3C/linearGradient%3E%3CradialGradient id='r1' cx='0.2' cy='0.25' r='0.45'%3E%3Cstop offset='0' stop-color='rgba(255,255,255,0.35)'/%3E%3Cstop offset='1' stop-color='rgba(255,255,255,0)'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='390' height='694' fill='url(%23g)'/%3E%3Ccircle cx='85' cy='140' r='130' fill='url(%23r1)'/%3E%3Ccircle cx='320' cy='610' r='170' fill='rgba(255,255,255,0.12)'/%3E%3C/svg%3E" alt="">
+  </div>
+
+  <!-- Top Overlay Gradient -->
+  <div class="top-overlay">
+    <div class="top-overlay__img">
+      <img src="assets/top-overlay.png" alt="">
+    </div>
+  </div>
+
+  <!-- Top Content -->
+  <div class="top-content">
+    <!-- Progress Bars -->
+    <div class="progress-bar">
+      <div class="progress-bar__segment progress-bar__segment--active">
+        <div class="progress-bar__fill"></div>
+      </div>
+      <div class="progress-bar__segment"></div>
+      <div class="progress-bar__segment"></div>
+      <div class="progress-bar__segment"></div>
+    </div>
+
+    <!-- Top Info -->
+    <div class="top-info">
+      <div class="top-info__left">
+        <div class="top-info__user">
+          <!-- Avatar -->
+          <div class="user-avatar">
+            <div class="user-avatar__img">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='a' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2387aef5'/%3E%3Cstop offset='1' stop-color='%233e5fa8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='32' fill='url(%23a)'/%3E%3Ccircle cx='32' cy='24' r='11' fill='%23f6d4b5'/%3E%3Cpath d='M14 54c2-10 10-16 18-16s16 6 18 16' fill='%23161823' fill-opacity='.4'/%3E%3C/svg%3E" alt="">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='b' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ffb199'/%3E%3Cstop offset='1' stop-color='%23ff6b8a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='32' fill='url(%23b)'/%3E%3Ccircle cx='32' cy='23' r='10' fill='%23ffd7bd'/%3E%3Cpath d='M15 54c2-9 9-15 17-15s15 6 17 15' fill='%23161823' fill-opacity='.35'/%3E%3C/svg%3E" alt="">
+            </div>
+          </div>
+          <!-- Username -->
+          <div class="username-tag">
+            <span class="username-tag__name">Alvin</span>
+            <span class="username-tag__time">· 1s ago</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Icons -->
+      <div class="top-info__right">
+        <!-- Music Icon -->
+        <div class="music-icon">
+          <div class="music-icon__cover">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='12' fill='rgba(255,255,255,.15)'/%3E%3Cpath d='M7 16l8.5-8.5M10.2 7.5h5.3v5.3' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" alt="">
+          </div>
+          <div class="music-icon__note">
+            <div class="music-icon__note-inner">
+              <div class="music-icon__note-svg">
+                <img src="assets/music-note.png" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Close Icon -->
+        <div class="close-icon">
+          <img src="assets/icon-close.png" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Community Card -->
+  <div class="community-card">
+    <div class="community-card__header">
+      <img class="community-card__avatar" src="https://p16-sign-sg.tiktokcdn.com/aweme/100x100/tos-alisg-avt-0068/7213315649794048001.jpeg" alt="Ed's Updates">
+      <div class="community-card__info">
+        <div class="community-card__name-row">
+          <span class="community-card__name">Ed's Updates</span>
+          <span class="community-card__badge">🤪</span>
+        </div>
+        <span class="community-card__members">1.3M members</span>
+      </div>
+    </div>
+    <div class="community-card__body">
+      <div class="community-card__sender">Ed Sheeran</div>
+      <div class="community-card__bubble">
+        <span class="community-card__text">🎵And darling I will be loving you 'til we're 70. And baby my heart❤️ could still fall as hard at 23.</span>
+      </div>
+    </div>
+    <div class="community-card__footer">
+      <span class="community-card__link">See bulletin board</span>
+    </div>
+  </div>
+
+  <!-- Bottom Interaction -->
+  <div class="interaction">
+    <div class="dm-wrapper">
+      <div class="dm-row">
+        <!-- DM Input -->
+        <div class="dm-input">
+          <div class="dm-input__blur-bg">
+            <div class="dm-input__blur-inner">
+              <div class="dm-input__blur-overlay"></div>
+            </div>
+          </div>
+          <div class="dm-input__content">
+            <div class="dm-input__text-area">
+              <span class="dm-input__placeholder">Message....</span>
+            </div>
+            <div class="dm-input__emojis">
+              <span class="dm-input__emoji">😍</span>
+              <span class="dm-input__emoji">😂</span>
+              <span class="dm-input__emoji">😳</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Like & Share -->
+        <div class="interaction-icons">
+          <div class="icon-like">
+            <div class="icon-like__inner">
+              <div class="icon-like__img">
+                <img src="assets/like.png" alt="">
+              </div>
+            </div>
+          </div>
+          <div class="icon-share">
+            <div class="icon-share__inner">
+              <div class="icon-share__img">
+                <img src="assets/share.png" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Home Indicator -->
+  <div class="home-indicator">
+    <div class="home-indicator__bar"></div>
+  </div>
+</div>
+
+</body>
+</html>

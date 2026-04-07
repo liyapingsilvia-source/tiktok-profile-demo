@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Erika Gelinda Profile Mock - iPhone 17 Pro</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+      color: #111827;
+    }
+
+    .device {
+      width: 393px;
+      height: 852px;
+      border-radius: 46px;
+      padding: 10px;
+      background: #0b1120;
+      box-shadow:
+        0 40px 80px rgba(15, 23, 42, 0.9),
+        0 0 0 1px rgba(148, 163, 184, 0.4);
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+    }
+
+    .screen {
+      flex: 1;
+      border-radius: 36px;
+      background: #ffffff;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .status-bar {
+      height: 44px;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      color: #111827;
+    }
+
+    .status-left {
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.04em;
+    }
+
+    .status-center {
+      font-weight: 600;
+    }
+
+    .status-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #111827;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    .battery {
+      width: 22px;
+      height: 10px;
+      border-radius: 4px;
+      border: 1px solid #111827;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .battery::after {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      border-radius: 3px;
+      background: linear-gradient(to right, #22c55e, #16a34a);
+    }
+
+    .battery-tip {
+      width: 2px;
+      height: 6px;
+      border-radius: 2px;
+      background: #111827;
+      margin-left: 2px;
+    }
+
+    .notch {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 30px;
+      border-radius: 999px;
+      background: #000;
+    }
+
+    .content {
+      flex: 1;
+      padding: 8px 12px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+    }
+
+    .top-bar {
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 4px 0;
+    }
+
+    .top-bar-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .icon-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(248, 250, 252, 0.9);
+      color: #111827;
+      font-size: 18px;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.15);
+    }
+
+    .profile-header {
+      position: relative;
+      padding: 12px 8px 8px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) auto;
+      column-gap: 8px;
+      align-items: flex-start;
+    }
+
+    .profile-main {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .avatar-wrap {
+      width: 96px;
+      height: 96px;
+      border-radius: 999px;
+      padding: 3px;
+      background: linear-gradient(135deg, #22c55e, #06b6d4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.25);
+      flex-shrink: 0;
+    }
+
+    .avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      background: url("https://via.placeholder.com/192x192.png?text=Avatar") center/cover no-repeat,
+        #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .avatar-plus {
+      position: absolute;
+      right: -4px;
+      bottom: -2px;
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #22c55e, #06b6d4);
+      border: 2px solid #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 20px;
+      box-shadow: 0 2px 4px rgba(15, 23, 42, 0.3);
+    }
+
+    .profile-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .name-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .name {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .tag-pill {
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #111827;
+      border: none;
+      font-size: 10px;
+      color: #ffffff;
+      letter-spacing: 0.08em;
+    }
+
+    .subtitle {
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .handle {
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    .location-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: #6b7280;
+      margin-top: 4px;
+    }
+
+    .stats-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      max-width: 240px;
+    }
+
+    .stat {
+      flex: 1;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .stat-label {
+      margin-top: 2px;
+      font-size: 10px;
+      color: #9ca3af;
+    }
+
+    .bio {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #374151;
+      line-height: 1.4;
+    }
+
+    .tabs-row {
+      margin-top: 12px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .tab-pill {
+      flex: 0 0 auto;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid #111827;
+      font-size: 12px;
+      font-weight: 600;
+      background: #111827;
+      color: #ffffff;
+    }
+
+    .tab-pill span {
+      font-size: 11px;
+      font-weight: 400;
+      margin-left: 4px;
+      color: #e5e7eb;
+    }
+
+    .tab-pill--ghost {
+      background: #ffffff;
+      color: #111827;
+      border-color: #d1d5db;
+    }
+
+    .tab-pill--ghost span {
+      color: #6b7280;
+    }
+
+    .section-drafts {
+      margin: 4px 0 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    .section-drafts span {
+      font-weight: 400;
+      color: #6b7280;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .grid-card {
+      position: relative;
+      padding-top: 145%;
+      overflow: hidden;
+      background-size: cover;
+      background-position: center;
+      border-radius: 4px;
+    }
+
+    .grid-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.45), transparent);
+    }
+
+    .grid-card-label {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      color: #f9fafb;
+      font-size: 9px;
+      font-weight: 600;
+      z-index: 1;
+    }
+
+    .grid-card-label--pink {
+      background: #ec4899;
+    }
+
+    .grid-card-meta {
+      position: absolute;
+      bottom: 4px;
+      left: 4px;
+      right: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      z-index: 1;
+      color: #f9fafb;
+      font-size: 10px;
+    }
+
+    .grid-card-meta small {
+      font-size: 9px;
+      opacity: 0.85;
+    }
+
+    .play-icon {
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.75);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+    }
+
+    .tab-bar {
+      height: 64px;
+      padding: 4px 20px 8px;
+      border-top: 1px solid #e5e7eb;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .tab-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      color: #6b7280;
+      border: none;
+      background: transparent;
+    }
+
+    .tab-item--active {
+      color: #020617;
+      font-weight: 600;
+    }
+
+    .tab-plus {
+      width: 48px;
+      height: 30px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #00f0ff, #ff00ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 20px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+    }
+
+    @media (max-width: 420px) {
+      body {
+        align-items: flex-start;
+      }
+
+      .device {
+        margin-top: 12px;
+        box-shadow: none;
+        border-radius: 0;
+        padding: 0;
+      }
+
+      .screen {
+        border-radius: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="device">
+    <div class="screen">
+      <div class="notch"></div>
+
+      <header class="status-bar">
+        <div class="status-left">8:00</div>
+        <div class="status-center"></div>
+        <div class="status-right">
+          <div class="status-dot"></div>
+          <div class="battery"></div>
+          <div class="battery-tip"></div>
+        </div>
+      </header>
+
+      <main class="content">
+        <div class="top-bar">
+          <div class="icon-btn">👤</div>
+          <div class="top-bar-title"></div>
+          <div style="display:flex;gap:8px;">
+            <div class="icon-btn">✏️</div>
+            <div class="icon-btn">☰</div>
+          </div>
+        </div>
+
+        <section class="profile-header" aria-label="个人信息">
+          <div class="profile-main">
+            <div class="profile-text">
+              <div class="name-row">
+                <div class="name">Erika Gelinda</div>
+                <div class="tag-pill">@erika0526</div>
+              </div>
+              <div class="stats-row" aria-label="账号数据">
+                <div class="stat">
+                  <div class="stat-value">618</div>
+                  <div class="stat-label">following</div>
+                </div>
+                <div class="stat">
+                  <div class="stat-value">1,834</div>
+                  <div class="stat-label">followers</div>
+                </div>
+                <div class="stat">
+                  <div class="stat-value">3,073</div>
+                  <div class="stat-label">likes</div>
+                </div>
+              </div>
+              <p class="bio">
+                Love adventures in life<br />
+                Contact me: erikagelinda@gmail.com<br />
+                lemon8-app.com/erikagelinda
+              </p>
+              <div class="tabs-row">
+                <button class="tab-pill" type="button">
+                  Showcase <span>32 products</span>
+                </button>
+                <button class="tab-pill tab-pill--ghost" type="button">
+                  Board <span>12.4K members</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="avatar-wrap">
+            <div class="avatar-inner">
+              <div class="avatar-plus">+</div>
+            </div>
+          </div>
+        </section>
+
+        <div class="section-drafts">
+          Drafts · <span>10</span>
+        </div>
+
+        <section class="grid" aria-label="作品网格">
+          <article class="grid-card" style="background-image:url('https://via.placeholder.com/300x450/000000/ffffff?text=Video+1');">
+            <div class="grid-card-label">Drafts · 10</div>
+            <div class="grid-card-meta">
+              <div class="play-icon">▶</div>
+              <small>1,202</small>
+            </div>
+          </article>
+          <article class="grid-card" style="background-image:url('https://via.placeholder.com/300x450/f97316/ffffff?text=Video+2');">
+            <div class="grid-card-label grid-card-label--pink">Pinned</div>
+            <div class="grid-card-meta">
+              <div class="play-icon">▶</div>
+              <small>16.5K</small>
+            </div>
+          </article>
+          <article class="grid-card" style="background-image:url('https://via.placeholder.com/300x450/facc15/000000?text=Video+3');">
+            <div class="grid-card-meta">
+              <div class="play-icon">▶</div>
+              <small>9,126</small>
+            </div>
+          </article>
+          <article class="grid-card" style="background-image:url('https://via.placeholder.com/300x450/22c55e/000000?text=Video+4');">
+            <div class="grid-card-meta">
+              <div class="play-icon">▶</div>
+              <small>1,202</small>
+            </div>
+          </article>
+          <article class="grid-card" style="background-image:url('https://via.placeholder.com/300x450/0ea5e9/ffffff?text=Video+5');">
+            <div class="grid-card-meta">
+              <div class="play-icon">▶</div>
+              <small>712</small>
+            </div>
+          </article>
+          <article class="grid-card" style="background-image:url('https://via.placeholder.com/300x450/ef4444/ffffff?text=Video+6');">
+            <div class="grid-card-meta">
+              <div class="play-icon">▶</div>
+              <small>10.1K</small>
+            </div>
+          </article>
+        </section>
+      </main>
+
+      <nav class="tab-bar" aria-label="底部导航">
+        <button class="tab-item" type="button">🏠 Home</button>
+        <button class="tab-item" type="button">👥 Friends</button>
+        <div class="tab-plus">＋</div>
+        <button class="tab-item" type="button">✉️ Inbox</button>
+        <button class="tab-item tab-item--active" type="button">👤 Profile</button>
+      </nav>
+    </div>
+  </div>
+</body>
+</html>
+

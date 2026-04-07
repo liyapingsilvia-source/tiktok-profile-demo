@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "preview": "python3 -m http.server 9000"
+  },
+  "dependencies": {
+    "playwright": "^1.58.2"
+  }
+}

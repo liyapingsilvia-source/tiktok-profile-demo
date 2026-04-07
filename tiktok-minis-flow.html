@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TikTok Minis Flow</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #1a1a1a;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  /* Device container */
+  .device {
+    width: 390px;
+    height: 844px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 44px;
+    box-shadow: 0 0 0 4px #333, 0 20px 60px rgba(0,0,0,0.5);
+    background: #000;
+  }
+
+  /* Page layer base */
+  .page {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+  }
+  .page.active {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+  }
+  .page > img.bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+  /* Invisible clickable hotspots */
+  .hotspot {
+    position: absolute;
+    cursor: pointer;
+    z-index: 10;
+    /* border: 2px dashed rgba(255,0,0,0.3); uncomment to debug */
+  }
+
+  /* ── Page 1 hotspot: blue ShortsWave icon (bottom-left) ── */
+  #hs-play {
+    left: 10px;
+    top: 622px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+
+  /* ── Page 2 hotspot: close (X) button ── */
+  #hs-close {
+    right: 6px;
+    top: 48px;
+    width: 44px;
+    height: 44px;
+  }
+
+  /* ════════════════════════════════════════
+     Page 3  –  Modal sheet over Dramabox
+     ════════════════════════════════════════ */
+
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 20;
+  }
+
+  /* White bottom panel – 458 px tall, 12 px top-radius */
+  .panel {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 458px;
+    background: #fff;
+    border-radius: 12px 12px 0 0;
+    z-index: 30;
+    padding-top: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Nav bar – absolute so it doesn't push content */
+  .panel-nav {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 4px 6px;
+    z-index: 5;
+  }
+  .panel-x {
+    width: 44px; height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: none; border: none;
+    padding: 10px;
+  }
+  .panel-x svg { width: 12.3px; height: 12.3px; }
+
+  /* Content flows from padding-top: 24 px */
+  .panel-body {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 0;
+  }
+
+  /* Hero image spacer (phone mockup occupies this area) */
+  .hero-img {
+    width: 100%;
+    height: 248px;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  /* Caption */
+  .hero-caption {
+    width: 100%;
+    padding: 0 32px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .hero-caption h1 {
+    font-family: 'TikTok Sans', -apple-system, sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1.25;
+    letter-spacing: 0.24px;
+    color: #000;
+  }
+
+  /* CTA area */
+  .cta {
+    width: 100%;
+    padding: 16px 16px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .btn-got-it {
+    width: 100%;
+    height: 48px;
+    background: #fe2c55;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-family: 'TikTok Text', -apple-system, sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.3;
+    letter-spacing: 0.03px;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .btn-got-it:active { opacity: 0.85; }
+
+  .cta-spacer { height: 12px; }
+
+  .home-ind {
+    width: 100%;
+    height: 34px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 8px;
+  }
+  .home-ind span {
+    display: block;
+    width: 140px;
+    height: 5px;
+    background: #000;
+    border-radius: 999px;
+  }
+
+  /* ─── Phone mockup (floating over panel) ─── */
+  .phone-float {
+    position: absolute;
+    z-index: 35;
+    left: 92px;
+    top: 412px;
+    width: 210px;
+    height: 202px;
+    pointer-events: none;
+  }
+
+  .phone-shadow {
+    position: absolute;
+    left: 0; top: 18px;
+    width: 210px;
+    height: 195px;
+    background: rgba(0,0,0,0.15);
+    border-radius: 24px;
+    filter: blur(15px);
+  }
+
+  /* Fade gradient at top */
+  .phone-fade-top {
+    position: absolute;
+    top: -15px;
+    left: -0.5px;
+    width: 211px;
+    height: 73px;
+    background: linear-gradient(to top, transparent, #fff);
+    z-index: 4;
+  }
+
+  /* List cells */
+  .phone-cells {
+    position: absolute;
+    top: 24px; left: 1px;
+    width: 210px;
+    z-index: 2;
+  }
+  .cell {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 8px;
+    height: 32px;
+  }
+  .cell-dot {
+    width: 12px; height: 12px;
+    border-radius: 9px;
+    background: rgba(0,0,0,0.12);
+    flex-shrink: 0;
+  }
+  .cell-bar {
+    width: 89px; height: 10px;
+    border-radius: 3px;
+    background: rgba(0,0,0,0.05);
+  }
+  .cell:nth-child(3) .cell-bar { background: rgba(0,0,0,0.12); }
+
+  /* White box covering profile area behind cells */
+  .phone-bg-box {
+    position: absolute;
+    top: 58px; left: 0;
+    width: 211px; height: 73px;
+    background: linear-gradient(to bottom, #fff, rgba(255,255,255,0));
+    z-index: 1;
+  }
+
+  /* TikTok Minis floating card */
+  .minis-card {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(calc(-50% - 1px), calc(-50% + 20px));
+    width: 278px;
+    height: 54px;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.05);
+    border-radius: 12px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.12);
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+    gap: 8px;
+  }
+  .minis-card svg {
+    width: 20px; height: 20px;
+    flex-shrink: 0;
+  }
+  .minis-card span {
+    font-family: 'TikTok Text', -apple-system, sans-serif;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 1.3;
+    color: #000;
+    white-space: nowrap;
+  }
+
+  /* ════════ Animations ════════ */
+  .overlay.in  { animation: fadein .3s ease forwards; }
+  .overlay.out { animation: fadeout .25s ease forwards; }
+  .panel.in    { animation: slideup .35s cubic-bezier(.32,.72,0,1) forwards; }
+  .panel.out   { animation: slidedown .25s ease forwards; }
+  .phone-float.in  { animation: fadein .35s ease forwards; }
+  .phone-float.out { animation: fadeout .2s ease forwards; }
+
+  @keyframes fadein   { from{opacity:0} to{opacity:1} }
+  @keyframes fadeout  { from{opacity:1} to{opacity:0} }
+  @keyframes slideup  { from{transform:translateY(100%)} to{transform:translateY(0)} }
+  @keyframes slidedown{ from{transform:translateY(0)} to{transform:translateY(100%)} }
+</style>
+</head>
+<body>
+
+<div class="device">
+
+  <!-- ====== PAGE 1 : TikTok Feed ====== -->
+  <div class="page active" id="p1">
+    <img class="bg" src="assets/flow/page1-feed.png" alt="">
+    <div class="hotspot" id="hs-play"></div>
+  </div>
+
+  <!-- ====== PAGE 2 : Dramabox ====== -->
+  <div class="page" id="p2">
+    <img class="bg" src="assets/flow/page2-dramabox.png" alt="">
+    <div class="hotspot" id="hs-close"></div>
+  </div>
+
+  <!-- ====== PAGE 3 : Modal over Dramabox ====== -->
+  <div class="page" id="p3">
+    <img class="bg" src="assets/flow/page2-dramabox.png" alt="">
+
+    <div class="overlay" id="ov"></div>
+
+    <div class="panel" id="pn">
+      <!-- Close X – absolutely positioned nav bar -->
+      <div class="panel-nav">
+        <button class="panel-x" aria-label="Close" id="panel-x-btn">
+          <svg viewBox="0 0 12.3133 12.3133" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10.7528 .1463C10.9479-.0488 11.2645-.0487 11.4598.1463L12.1668.8534C12.3621 1.0486 12.3621 1.3651 12.1668 1.5604L7.5711 6.1571 12.1668 10.7528C12.3621 10.948 12.3621 11.2645 12.1668 11.4598L11.4598 12.1668C11.2645 12.3621 10.948 12.3621 10.7528 12.1668L6.1571 7.5711 1.5604 12.1668C1.3651 12.3621 1.0486 12.3621.8534 12.1668L.1463 11.4598C-.0487 11.2645-.0488 10.9479.1463 10.7528L4.743 6.1571.1463 1.5604C-.0487 1.3651-.0489 1.0485.1463.8534L.8534.1463C1.0485-.0489 1.3651-.0487 1.5604.1463L6.1571 4.743 10.7528.1463Z" fill="black"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="panel-body">
+        <div class="hero-img"></div>
+        <div class="hero-caption">
+          <h1>Find TikTok Minis<br>in your profile</h1>
+        </div>
+        <div style="flex:1"></div>
+        <div class="cta">
+          <button class="btn-got-it" id="btn-gotit">Got it</button>
+          <div class="cta-spacer"></div>
+          <div class="home-ind"><span></span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone mockup – floating above the panel -->
+    <div class="phone-float" id="pf">
+      <div class="phone-shadow"></div>
+      <div class="phone-fade-top"></div>
+      <div class="phone-cells">
+        <div class="cell"><div class="cell-dot"></div><div class="cell-bar"></div></div>
+        <div class="cell"><div class="cell-dot"></div><div class="cell-bar"></div></div>
+        <div class="cell"><div class="cell-dot"></div><div class="cell-bar"></div></div>
+        <div class="cell"><div class="cell-dot"></div><div class="cell-bar"></div></div>
+        <div class="cell"><div class="cell-dot"></div><div class="cell-bar"></div></div>
+      </div>
+      <div class="phone-bg-box"></div>
+      <div class="minis-card">
+        <svg viewBox="0 0 18.594 18.594" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8.701 1.343a1.4 1.4 0 0 1 1.192.001l3.016 1.71 2.978 1.751a1.4 1.4 0 0 1 .595 1.031l.028 3.468-.028 3.454a1.4 1.4 0 0 1-.595 1.031l-2.978 1.751-3.016 1.711a1.4 1.4 0 0 1-1.192 0l-3.016-1.711-2.978-1.751a1.4 1.4 0 0 1-.596-1.031l-.027-3.454.027-3.468a1.4 1.4 0 0 1 .596-1.031L5.685 3.053l3.016-1.71Z" stroke="#000" stroke-width="1.75"/>
+          <rect width="5.765" height="5.895" rx=".298" transform="matrix(-.866 .5 0 1 14.289 6.18)" fill="#000"/>
+        </svg>
+        <span>TikTok Minis</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  var p1 = document.getElementById('p1');
+  var p2 = document.getElementById('p2');
+  var p3 = document.getElementById('p3');
+  var ov = document.getElementById('ov');
+  var pn = document.getElementById('pn');
+  var pf = document.getElementById('pf');
+
+  function activate(page) { page.classList.add('active'); }
+  function deactivate(page) { page.classList.remove('active'); }
+  function clearAnim() {
+    ov.className = 'overlay';
+    pn.className = 'panel';
+    pf.className = 'phone-float';
+  }
+
+  // Page 1 → Page 2 : click play icon
+  document.getElementById('hs-play').addEventListener('click', function () {
+    deactivate(p1);
+    activate(p2);
+    p2.style.transform = 'translateX(100%)';
+    requestAnimationFrame(function () {
+      p2.style.transition = 'transform .35s cubic-bezier(.32,.72,0,1)';
+      p2.style.transform = 'translateX(0)';
+    });
+    setTimeout(function () {
+      p2.style.transition = '';
+      p2.style.transform = '';
+    }, 400);
+  });
+
+  // Page 2 → Page 3 : click X on Dramabox nav
+  document.getElementById('hs-close').addEventListener('click', function () {
+    activate(p3);
+    ov.classList.add('in');
+    pn.classList.add('in');
+    pf.classList.add('in');
+  });
+
+  // Page 3 → Page 1 : click "Got it"
+  document.getElementById('btn-gotit').addEventListener('click', dismissModal);
+  document.getElementById('panel-x-btn').addEventListener('click', dismissModal);
+
+  function dismissModal() {
+    pn.classList.remove('in');
+    pn.classList.add('out');
+    ov.classList.remove('in');
+    ov.classList.add('out');
+    pf.classList.remove('in');
+    pf.classList.add('out');
+
+    setTimeout(function () {
+      deactivate(p3);
+      deactivate(p2);
+      clearAnim();
+      activate(p1);
+    }, 300);
+  }
+})();
+</script>
+
+</body>
+</html>
