@@ -3732,37 +3732,6 @@
     <div class="home-indicator" style="z-index: 20;"></div>
   </div>
 
-  <!-- ==================== SCREEN 13: 验证后 — 手机号是否已绑定（仅 Demo 模式；Flow 模式不展示此步） ==================== -->
-  <div class="screen hidden-right" id="screen13">
-    <div class="status-bar">
-      <span class="status-bar__time">8:00</span>
-      <div class="status-bar__icons">
-        <svg class="status-bar__signal" width="18" height="12" viewBox="0 0 18 12" fill="none"><rect x="0" y="3" width="3" height="9" rx="1" fill="#000"/><rect x="5" y="2" width="3" height="10" rx="1" fill="#000"/><rect x="10" y="0" width="3" height="12" rx="1" fill="#000"/><rect x="15" y="0" width="3" height="12" rx="1" fill="#000" opacity=".25"/></svg>
-        <svg class="status-bar__wifi" width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 2.4C10.6 2.4 12.9 3.5 14.5 5.2L16 3.7C14 1.4 11.2 0 8 0S2 1.4 0 3.7L1.5 5.2C3.1 3.5 5.4 2.4 8 2.4z" fill="#000"/><path d="M8 6.8c1.5 0 2.9.6 3.9 1.6L13.5 6.8C12 5.3 10.1 4.4 8 4.4S4 5.3 2.5 6.8L4.1 8.4C5.1 7.4 6.5 6.8 8 6.8z" fill="#000"/><circle cx="8" cy="11" r="1.5" fill="#000"/></svg>
-        <svg class="status-bar__battery" width="27" height="13" viewBox="0 0 27 13" fill="none"><rect x=".5" y=".5" width="22" height="12" rx="2" stroke="#000" stroke-opacity=".35"/><rect x="2" y="2" width="18" height="9" rx="1" fill="#000"/><path d="M24 4.5v4a2.5 2.5 0 000-4z" fill="#000" opacity=".4"/></svg>
-      </div>
-    </div>
-
-    <div class="nav-bar">
-      <button class="nav-bar__back-btn" id="s13Back" aria-label="Back">
-        <div class="nav-bar__back-icon"></div>
-      </button>
-      <span class="nav-bar__title"></span>
-      <div style="width:44px;height:44px;flex-shrink:0;" aria-hidden="true"></div>
-    </div>
-
-    <div class="s13-wrap">
-      <h1 class="s13-title">手机号状态</h1>
-      <p class="s13-desc">请选择与当前验证号码相符的情况（演示用）</p>
-      <div class="s13-options">
-        <button type="button" class="s13-option" id="s13OptNotBound">手机号没有被绑定过</button>
-        <button type="button" class="s13-option" id="s13OptBound">手机号已经被绑定</button>
-      </div>
-    </div>
-
-    <div class="home-indicator" style="z-index: 20;"></div>
-  </div>
-
   <!-- ==================== SCREEN 15: Already linked — show account using this number ==================== -->
   <div class="screen hidden-right" id="screen15">
     <div class="status-bar">
@@ -4843,7 +4812,7 @@
     refreshAccountInfoDisplay();
     closeAddPhoneScreen();
     clearInterval(timerInterval12);
-    ['screen1','screen2','screen3','screen12','screen13','screen15','screen15b','screen15c','screen16','screenAccountInfo','screen4','screen5','screen6','screen7','screen10','screen11','screen14'].forEach(function(id) {
+    ['screen1','screen2','screen3','screen12','screen15','screen15b','screen15c','screen16','screenAccountInfo','screen4','screen5','screen6','screen7','screen10','screen11','screen14'].forEach(function(id) {
       var el = document.getElementById(id);
       if (!el) return;
       el.classList.remove('active','hidden-left','hidden-right');
@@ -5008,7 +4977,14 @@
     var filled = codeDigits12.filter(function(d) { return d !== ''; }).length;
     if (filled === 6) {
       setTimeout(function() {
-        goToFromRight('screen12', 'screen13');
+        if (currentPlan === 'A') {
+          goToFromRight('screen12', 'screen15');
+        } else {
+          var phone = (document.getElementById('addPhoneInput').value || '').replace(/\D/g, '');
+          var disp = document.getElementById('s15bPhone');
+          if (disp) disp.textContent = '+1 ' + (phone || '412-919-6666');
+          goToFromRight('screen12', 'screen15b');
+        }
       }, 600);
     }
   }
@@ -5046,32 +5022,8 @@
     openAddPhoneScreen();
   });
 
-  document.getElementById('s13Back').addEventListener('click', function() {
-    goBack('screen13', 'screen12');
-  });
-
-  document.getElementById('s13OptNotBound').addEventListener('click', function() {
-    if (currentPlan === 'A') {
-      goToFromRight('screen13', 'screen15c');
-    } else {
-      demoToast('This number is not linked to another account.');
-      goToFromRight('screen13', addPhoneVerifyFromScreenId);
-    }
-  });
-
-  document.getElementById('s13OptBound').addEventListener('click', function() {
-    if (currentPlan === 'B') {
-      var phone = (document.getElementById('addPhoneInput').value || '').replace(/\D/g, '');
-      var disp = document.getElementById('s15bPhone');
-      if (disp) disp.textContent = '+1 ' + (phone || '412-919-6666');
-      goToFromRight('screen13', 'screen15b');
-    } else {
-      goToFromRight('screen13', 'screen15');
-    }
-  });
-
   document.getElementById('s15Back').addEventListener('click', function() {
-    goBack('screen15', 'screen13');
+    goBack('screen15', 'screen12');
   });
 
   document.getElementById('s15ConfirmBind').addEventListener('click', function() {
@@ -5087,7 +5039,7 @@
 
   // Screen 15c (Plan A — not bound)
   document.getElementById('s15cBack').addEventListener('click', function() {
-    goBack('screen15c', 'screen13');
+    goBack('screen15c', 'screen12');
   });
 
   document.getElementById('s15cConfirmBind').addEventListener('click', function() {
@@ -5107,7 +5059,7 @@
 
   // Screen 15b (Plan B)
   document.getElementById('s15bBack').addEventListener('click', function() {
-    goBack('screen15b', 'screen13');
+    goBack('screen15b', 'screen12');
   });
 
   document.getElementById('s15bConfirm').addEventListener('click', function() {
@@ -5872,7 +5824,7 @@
     closeAddPhoneScreen();
 
     var allIds = ['screen1','screen2','screen3','screen4','screen5','screen6','screen7',
-                  'screen10','screen11','screen12','screen13','screen14','screen15','screen15b','screen15c','screen16','screenAccountInfo'];
+                  'screen10','screen11','screen12','screen14','screen15','screen15b','screen15c','screen16','screenAccountInfo'];
     allIds.forEach(function(id) {
       var el = document.getElementById(id);
       if (!el) return;
